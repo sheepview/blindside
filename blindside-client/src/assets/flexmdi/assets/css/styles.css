@@ -1,0 +1,68 @@
+Application {
+   backgroundColor: #cccccc;
+   backgroundGradientColors: #bdcbd2, #5a8398;
+}
+Button {
+   highlightAlphas: 1, 0.33;
+   fillAlphas: 1, 0.16, 0.18, 1;
+   fillColors: #5f89b9, #697182, #ffffff, #eeeeee;
+}
+.mdiWindowFocus {
+	headerHeight: 26;
+	roundedBottomCorners: true;
+	border-color: #666666;
+	borderThicknessTop: 0;
+	borderThicknessBottom: 3;
+	borderThicknessLeft: 3;
+	borderThicknessRight: 3;
+	borderAlpha: 1.0;
+	titleStyleName: "mypanelTitle";
+}
+.mdiWindowNoFocus {
+	headerHeight: 26;
+	roundedBottomCorners: true;
+	border-color: #AAAAAA;
+	borderThicknessTop: 0;
+	borderThicknessBottom: 3;
+	borderThicknessLeft: 3;
+	borderThicknessRight: 3;
+	borderAlpha: .5;
+	titleStyleName: "mypanelTitle";
+	background-alpha: .5;
+}
+
+.mypanelTitle {
+	fontFamily: Arial;
+	fontSize: 10;
+	fontWeight: bold;
+}
+.closeBtn {
+	upSkin:        Embed('/assets/css/img/closeButton.png');
+	overSkin:      Embed('/assets/css/img/closeButton.png');
+	downSkin:      Embed('/assets/css/img/closeButton.png');
+	disabledSkin:  Embed('/assets/css/img/closeButton.png');
+}
+.increaseBtn {
+	upSkin:        Embed('/assets/css/img/increaseButton.png');
+	overSkin:      Embed('/assets/css/img/increaseButton.png');
+	downSkin:      Embed('/assets/css/img/increaseButton.png');
+	disabledSkin:  Embed('/assets/css/img/increaseButton.png');
+}
+.decreaseBtn {
+	upSkin:        Embed('/assets/css/img/decreaseButton.png');
+	overSkin:      Embed('/assets/css/img/decreaseButton.png');
+	downSkin:      Embed('/assets/css/img/decreaseButton.png');
+	disabledSkin:  Embed('/assets/css/img/decreaseButton.png');
+}
+.minimizeBtn {
+	upSkin:        Embed('/assets/css/img/minimizeButton.png');
+	overSkin:      Embed('/assets/css/img/minimizeButton.png');
+	downSkin:      Embed('/assets/css/img/minimizeButton.png');
+	disabledSkin:  Embed('/assets/css/img/minimizeButton.png');
+}
+.resizeHndlr {
+	upSkin:        Embed('/assets/css/img/resizeHandler.png');
+	overSkin:      Embed('/assets/css/img/resizeHandler.png');
+	downSkin:      Embed('/assets/css/img/resizeHandler.png');
+	disabledSkin:  Embed('/assets/css/img/resizeHandler.png');
+}

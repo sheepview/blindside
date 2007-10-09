@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+		xmlns:conf="org.blindsideproject.views.conference.*" 
+		xmlns:logger="org.blindsideproject.views.log.*" 
+		xmlns:control="org.blindsideproject.core.apps.conference.controller.*"
+		xmlns:main="*"
+		backgroundGradientColors="[ #bdcbd2, #5a8398 ]"  
+		pageTitle="Talent First Network" backgroundColor="#cccccc"
+		creationComplete="conferenceMainClassInit()" layout="absolute">  
+	
+    <mx:Script source="BlindsideMainClass.as"/>
+
+	<mx:Panel id="mainPanel" title="Talent First Network" width="100%" height="100%" 
+		paddingTop="0" paddingBottom="0" paddingLeft="0" paddingRight="0"
+		cornerRadius="4">	
+	        <mx:Canvas id="loginView" width="100%" height="100%">
+                <logger:LogPod title="Log" scroll="false" verticalScrollPolicy="off" horizontalScrollPolicy="off" 
+		           layout="absolute" showControls="true" enableResize="true" width="600" height="280"
+		           x="300" y="532"/>   
+
+                <main:MainToolbar id="toolbar" dock="true" width="100%" height="30" visible="false"/>
+	            <conf:ConferenceMain id="confScreen" bottom="10" x="0" visible="false"/>
+            </mx:Canvas>           
+	 	<mx:ControlBar width="100%" height="30">		
+		  <mx:Label text="(c) 2007, Blindside Project" id="copyrightLabel2"/>
+		</mx:ControlBar>		
+	</mx:Panel>	        	
+</mx:Application>

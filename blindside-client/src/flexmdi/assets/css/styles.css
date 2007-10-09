@@ -1,0 +1,68 @@
+Application {
+   backgroundColor: #cccccc;
+   backgroundGradientColors: #bdcbd2, #5a8398;
+}
+Button {
+   highlightAlphas: 1, 0.33;
+   fillAlphas: 1, 0.16, 0.18, 1;
+   fillColors: #5f89b9, #697182, #ffffff, #eeeeee;
+}
+.mdiWindowFocus {
+	headerHeight: 26;
+	roundedBottomCorners: true;
+	border-color: #EEEEEE;
+	borderThicknessTop: 0;
+	borderThicknessBottom: 3;
+	borderThicknessLeft: 3;
+	borderThicknessRight: 3;
+	borderAlpha: 1.0;
+	titleStyleName: "mypanelTitle";
+}
+.mdiWindowNoFocus {
+	headerHeight: 26;
+	roundedBottomCorners: true;
+	border-color: #AAAAAA;
+	borderThicknessTop: 0;
+	borderThicknessBottom: 3;
+	borderThicknessLeft: 3;
+	borderThicknessRight: 3;
+	borderAlpha: .5;
+	titleStyleName: "mypanelTitle";
+	background-alpha: .5;
+}
+
+.mypanelTitle {
+	fontFamily: Arial;
+	fontSize: 10;
+	fontWeight: bold;
+}
+.closeBtn {
+	upSkin:        Embed('/flexmdi/assets/img/closeButton.png');
+	overSkin:      Embed('/flexmdi/assets/img/closeButton.png');
+	downSkin:      Embed('/flexmdi/assets/img/closeButton.png');
+	disabledSkin:  Embed('/flexmdi/assets/img/closeButton.png');
+}
+.increaseBtn {
+	upSkin:        Embed('/flexmdi/assets/img/increaseButton.png');
+	overSkin:      Embed('/flexmdi/assets/img/increaseButton.png');
+	downSkin:      Embed('/flexmdi/assets/img/increaseButton.png');
+	disabledSkin:  Embed('/flexmdi/assets/img/increaseButton.png');
+}
+.decreaseBtn {
+	upSkin:        Embed('/flexmdi/assets/img/decreaseButton.png');
+	overSkin:      Embed('/flexmdi/assets/img/decreaseButton.png');
+	downSkin:      Embed('/flexmdi/assets/img/decreaseButton.png');
+	disabledSkin:  Embed('/flexmdi/assets/img/decreaseButton.png');
+}
+.minimizeBtn {
+	upSkin:        Embed('/flexmdi/assets/img/minimizeButton.png');
+	overSkin:      Embed('/flexmdi/assets/img/minimizeButton.png');
+	downSkin:      Embed('/flexmdi/assets/img/minimizeButton.png');
+	disabledSkin:  Embed('/flexmdi/assets/img/minimizeButton.png');
+}
+.resizeHndlr {
+	upSkin:        Embed('/flexmdi/assets/img/resizeHandler.png');
+	overSkin:      Embed('/flexmdi/assets/img/resizeHandler.png');
+	downSkin:      Embed('/flexmdi/assets/img/resizeHandler.png');
+	disabledSkin:  Embed('/flexmdi/assets/img/resizeHandler.png');
+}

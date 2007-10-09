@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+				xmlns:video="org.red5.samples.publisher.view.*"
+				xmlns:logger="org.blindsideproject.views.log.*"
+				xmlns:view="org.blindsideproject.views.conference.*"
+				xmlns:presview="org.blindsideproject.views.presentation.*"
+				xmlns:chat="org.blindsideproject.views.chat.*"
+				xmlns:phone="org.blindsideproject.views.phone.*"
+				xmlns:meetme="org.blindsideproject.meetme.view.*"
+				scroll="false" verticalScrollPolicy="off" horizontalScrollPolicy="off"
+				width="100%" height="100%">
+		
+	<mx:Script>
+		<![CDATA[
+			import org.blindsideproject.core.apps.conference.vo.Role;
+			import org.blindsideproject.core.apps.conference.model.*;
+			
+			private var model : ConferenceModelLocator = ConferenceModelLocator.getInstance();
+			
+		]]>
+	</mx:Script>	
+			 
+	<presview:PresentationViewer id="presViewer"  visible="true" enabled="true" 
+    	               scroll="false" verticalScrollPolicy="off" horizontalScrollPolicy="off" 
+    	               title="Presentation"	showControls="true" enableResize="true" layout="absolute"
+    	               width="464" height="378" x="250" y="50"/>
+    	               			                       
+	<view:UsersTileList title="Viewers" scroll="false" 
+	                    	   verticalScrollPolicy="off" horizontalScrollPolicy="off" layout="absolute"
+	                    	   showControls="true" enableResize="true" width="207" height="194" x="19" y="50"/>			 	            
+
+   <meetme:MeetMeUserTileList title="Listeners" scroll="false" 
+    						   verticalScrollPolicy="off" horizontalScrollPolicy="off" layout="absolute"
+    						   showControls="true" enableResize="true" width="207" height="176" x="19" y="252"/>
+
+    <chat:Chat title="Chat" scroll="false" verticalScrollPolicy="off" horizontalScrollPolicy="off"
+    							layout="absolute" showControls="true" enableResize="true" 
+    							width="313" height="368" x="722" y="60"/>
+
+    <phone:WebPhone title="Phone" scroll="false" verticalScrollPolicy="off" horizontalScrollPolicy="off"
+    							layout="absolute" showControls="true" enableResize="true" 
+    							width="125" height="175" x="722" y="60"/>		 	                	 	             
+</mx:Canvas>

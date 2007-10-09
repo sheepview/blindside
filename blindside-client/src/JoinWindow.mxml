@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml"
+	width="328" height="265" layout="absolute" title="Join Conference">
+	
+	<mx:Script>
+		<![CDATA[
+			import org.blindsideproject.main.*;
+			import mx.managers.PopUpManager;
+			
+			public var host : String = "localhost";
+			
+			private function doLogin():void
+			{
+				var name : String = nameField.text; 
+			    var room : String = confField.text;
+			    var password : String = passwdField.text
+			    
+			    if ((name.length < 1) || (room.length < 1) || (password.length < 1)) {
+			    	return;
+			    } 
+			  
+				BlindsideAppLocator.getInstance().conferenceApp.join(name, password, room);
+				
+//				PopUpManager.removePopUp(this);		  
+			}			
+		]]>
+	</mx:Script>
+		<mx:TextInput x="98" y="89" id="confField"/>
+		<mx:TextInput x="98" y="130" id="passwdField" displayAsPassword="true"/>
+		<mx:Label x="41" y="52" text="Name" id="nameLabel"/>
+		<mx:TextInput id="nameField" x="98" y="50"/>
+		<mx:Label x="10" y="91" text="Conference" id="confLabel"/>
+		<mx:Label x="22" y="132" text="Password" id="passwdLabel"/>
+		<mx:Button label="Join" x="243" y="169" click="doLogin()"/>
+		<mx:Label x="21" y="10" text="Complete form to join conference." width="256" id="messageLbl"/>
+
+</mx:TitleWindow>
