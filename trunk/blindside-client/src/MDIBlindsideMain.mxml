@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+		xmlns:conf="org.blindsideproject.views.conference.*" 
+		xmlns:logger="org.blindsideproject.views.log.*" 
+		xmlns:flexmdi="flexmdi.containers.*"
+		xmlns:main="*"
+		pageTitle="Talent First Network"
+		creationComplete="conferenceMainClassInit()" layout="absolute">  
+	
+	<mx:Style source="flexmdi/assets/css/styles.css"/>
+	
+    <mx:Script source="MDIBlindsideMainClass.as"/>
+	        	
+	<mx:VBox id="vbox" width="100%" height="100%">	
+		<main:MainToolbar id="toolbar" dock="true" width="100%" height="30" visible="false" verticalAlign="middle"/>		
+		
+		<flexmdi:MDICanvas id="mdiCanvas" horizontalScrollPolicy="off" verticalScrollPolicy="off"
+			effectsLib="{flexmdi.effects.effectsLib.MDIVistaEffects}"
+			width="100%" height="100%">
+		
+		</flexmdi:MDICanvas>	
+	 	<mx:ControlBar width="100%" height="20" paddingTop="0">		
+		  <mx:Label text="(c) 2007, Blindside Project" id="copyrightLabel2"/>
+		  <mx:Spacer width="100%"/>
+		  <mx:Button label="Log" click="popupLogWindow()"/>  
+		</mx:ControlBar>	
+	</mx:VBox>
+</mx:Application>
