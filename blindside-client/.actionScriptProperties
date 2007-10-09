@@ -10,7 +10,7 @@
       <libraryPathEntry kind="3" path="${FRAMEWORKS}/libs/rpc.swc" linkType="1"/>
       <libraryPathEntry kind="3" path="${FRAMEWORKS}/libs/charts.swc" linkType="1" sourcepath="${FRAMEWORKS}/source"/>
       <libraryPathEntry kind="1" path="${FRAMEWORKS}/locale/{locale}" linkType="1"/>
-      <libraryPathEntry kind="1" path="C:\source\client\video-dev\lib" linkType="1"/>
+      <libraryPathEntry kind="1" path="C:\source\client\blindside-client\lib" linkType="1"/>
     </libraryPath>
     <sourceAttachmentPath>
       <sourceAttachmentPathEntry kind="3" path="${FRAMEWORKS}/libs/flex.swc" linkType="1" sourcepath="${FRAMEWORKS}/source"/>
@@ -19,12 +19,10 @@
     </sourceAttachmentPath>
   </compiler>
   <applications>
-    <application path="MDIExampleExplorer.mxml"/>
-    <application path="MDIBlindsideMain.mxml"/>
-    <application path="BlindsideMain.mxml"/>
     <application path="meetme.mxml"/>
     <application path="blindside.mxml"/>
     <application path="TestRunner.mxml"/>
+    <application path="MDIBlindsideMain.mxml"/>
   </applications>
   <buildCSSFiles/>
 </actionScriptProperties>
