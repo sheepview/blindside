@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<actionScriptProperties version="1" mainApplicationPath="MDIBlindsideMain.mxml">
+<actionScriptProperties version="1" mainApplicationPath="main.mxml">
   <compiler additionalCompilerArguments="-locale en_US" copyDependentFiles="true" generateAccessible="false" strict="true" warn="true" htmlGenerate="true" htmlPlayerVersionCheck="true" htmlPlayerVersion="9.0.0" htmlExpressInstall="true" htmlHistoryManagement="true" outputFolderPath="bin" sourceFolderPath="src">
     <compilerSourcePath/>
     <libraryPath>
@@ -19,10 +19,11 @@
     </sourceAttachmentPath>
   </compiler>
   <applications>
+    <application path="main.mxml"/>
+    <application path="src\main.mxml"/>
     <application path="meetme.mxml"/>
     <application path="blindside.mxml"/>
     <application path="TestRunner.mxml"/>
-    <application path="MDIBlindsideMain.mxml"/>
   </applications>
   <buildCSSFiles/>
 </actionScriptProperties>
