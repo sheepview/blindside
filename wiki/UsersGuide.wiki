@@ -6,8 +6,8 @@
 This page shows you how to use the Blindside Webcasting and Conferencing system.
 
 
-= Details =
+= Screencasts=
 
-Add your content here.  Format your content with:
+Here are a couple of screencasts that gives a tour of Blindside:
   * [http://blindside.googlecode.com/svn/trunk/docs/blindside-tour.htm Quick tour] of Blindside.
   * [http://blindside.googlecode.com/svn/trunk/docs/blindside-demo.htm Detailed] tour of Blindside.
