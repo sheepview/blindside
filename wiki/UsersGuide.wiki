@@ -1,14 +1,13 @@
-#summary One-sentence summary of this page.
+#summary Blindside Users Guide.
 #labels Featured
 
 = Introduction =
 
-Add your content here.
+This page shows you how to use the Blindside Webcasting and Conferencing system.
 
 
 = Details =
 
 Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+  * [http://blindside.googlecode.com/svn/trunk/docs/blindside-tour.htm Quick tour] of Blindside.
+  * [http://blindside.googlecode.com/svn/trunk/docs/blindside-demo.htm Detailed] tour of Blindside.
