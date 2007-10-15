@@ -2,6 +2,6 @@
 
 = Introduction =
 
-The Blindside Project received supports from a number of organizations and individuals.
+The Blindside Project received support from a number of organizations and individuals.
 
 The project receives funding and support from [http://www.talentfirstnetwork.org Talent First Network] and the [http://www.carleton.ca/tim Technology Innovation Management] program at [http://www.carleton.ca Carleton University].
