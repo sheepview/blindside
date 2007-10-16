@@ -66,21 +66,19 @@ private var effectsList:Array;
 		
 	private var presentationApp : PresentationApplication;
 		
-//	private var host : String = "134.117.58.98";		
-	private var host : String = "localhost";
-//	private var host : String = "present.sce.carleton.ca";
+	private var red5Host : String = "localhost";		
+	private var presentationHost : String = "localhost";
 	
 	public function conferenceMainClassInit() : void {
-//		host = mx.core.Application.application.parameters.host;
-			
-//		host = mx.core.Application.application.parameters.host;
-		log.debug("Passed in var = [" + mx.core.Application.application.parameters.host + "]");
-		log.debug("Host URL = [" + mx.core.Application.application.url + "]");
-		log.debug("App URL = [" + mx.core.Application.application.url.substr(0,4) + "]");
+		red5Host = mx.core.Application.application.parameters.red5Host;			
+		presentationHost = mx.core.Application.application.parameters.presentationHost;
+		
+		log.debug("red5Host = [" + red5Host + "]");
+		log.debug("presentationHost = [" + presentationHost + "]");
 		
 		mdiCanvas.effectsLib = flexmdi.effects.effectsLib.MDIVistaEffects;
 		
-		BlindsideAppLocator.getInstance().conferenceApp = new ConferenceApplication(host);
+		BlindsideAppLocator.getInstance().conferenceApp = new ConferenceApplication(red5Host);
 		
 		openJoinWindow();
 		
@@ -129,23 +127,23 @@ private var effectsList:Array;
 		log.debug("Logged in. Initializing conference.");
 	
 	   	meetMeModel.setupMeetMeRoom(model.conference.me.role);	   		
-		meetMeModel.meetMeRoom.setUri("rtmp://" + host + "/astmeetme/" + model.conference.room);	
+		meetMeModel.meetMeRoom.setUri("rtmp://" + red5Host + "/astmeetme/" + model.conference.room);	
 		meetMeModel.connectToMeetMe();
 		
 		mainApp.presentationApp 
 			= new PresentationApplication(model.conference.me.userid, model.conference.room,
-					"rtmp://" + host, "http://" + host);
+					"rtmp://" + red5Host, "http://" + presentationHost);
 		mainApp.presentationApp.join();
 		
 		mainApp.chatApp 
-				= new ChatApplication(model.conference.me.userid, model.conference.room, "rtmp://" + host);
+				= new ChatApplication(model.conference.me.userid, model.conference.room, "rtmp://" + red5Host);
 		mainApp.chatApp.join();		
 				
 		mainApp.publisherApp = new PublisherApplication(); 
 		mainApp.publisherApp.setupDevices();
 		mainApp.publisherApp.setupConnection();
 		
-		mainApp.publisherApp.connect("rtmp://" + host + "/oflaDemo/" + model.conference.room);
+		mainApp.publisherApp.connect("rtmp://" + red5Host + "/oflaDemo/" + model.conference.room);
 		
 		chatWindow = new ChatWindow();
 		chatWindow.width = 300;
