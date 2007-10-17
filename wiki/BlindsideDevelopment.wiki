@@ -3,11 +3,9 @@
 = Development Environment =
 
 == Create Directories ==
-Please follow this directory structure, otherwise, you may have to edit the *Blindside Servlet* {{{build.xml}}}
-
- 1. Create *{{{c:\tools}}}* - will be referred to as *{{{TOOLS_DIR}}}* for the rest of this document
- 1. Create *{{{c:\source\client}}}* - will be referred to as *{{{CLIENT_DIR}}}* for the rest of this document
- 1. Create *{{{c:\source\server}}}* - will be referred to as *{{{SERVER_DIR}}}* for the rest of this document
+ 1. Create {{{c:\tools}}} - will be referred to as {{{TOOLS_DIR}}} for the rest of this document
+ 1. Create {{{c:\source\client}}} - will be referred to as {{{CLIENT_DIR}}} for the rest of this document
+ 1. Create {{{c:\source\server}}} - will be referred to as {{{SERVER_DIR}}} for the rest of this document
 
 == Ant ==
  1. Download [http://ant.apache.org Ant]
