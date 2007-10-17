@@ -43,7 +43,7 @@
  1. Install the [http://subclipse.tigris.org/ Subclipse plugin]. Make sure you get the correct version. Flex Builder is built on top of Eclipse 3.0/3.1
 
 == !OpenOffice ==
- 1. Follow the instructions on [wiki:InstallOpenOffice Installing OpenOffice]
+ 1. Follow the instructions on [InstallOpenOffice Installing OpenOffice]
  1. Create a batch file, {{{TOOLS_DIR\ooo-2.2\start-oo.bat}}} 
  1. Copy this command inside batch file -- {{{C:\tools\ooo-2.2\program\soffice.exe -headless -accept="socket,port=8100;urp;" }}}
  1. On a command window, run {{{start-oo.bat}}}
