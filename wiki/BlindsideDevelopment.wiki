@@ -1,5 +1,5 @@
 #summary How to setup your development environment
-#labels Phase-Implementation
+#labels Phase-Implementation,Featured
 
 = Development Environment =
 
