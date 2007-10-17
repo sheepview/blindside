@@ -45,6 +45,7 @@ import org.blindsideproject.views.control.events.OpenWindowEvent;
 import org.blindsideproject.views.log.LogWindow;
 import org.red5.samples.publisher.MediaType;
 import org.red5.samples.publisher.vo.IMedia;
+import org.blindsideproject.views.presentation.PresentationPanel;
 			
 private var eventMonitor:TextArea;
 private var queuedEvent:MDIManagerEvent;
@@ -54,6 +55,7 @@ private var effectsList:Array;
 	private var chatWindow : ChatWindow;
 	private var listenersWindow : ListenersWindow;
 	private var presentationWindow : PresentationWindow;
+	private var presentationPanel : PresentationPanel;
 	private var viewersWindow : ViewersWindow;
 	private var logWindow : LogWindow;
 
@@ -101,7 +103,10 @@ private var effectsList:Array;
 
 			openJoinWindow();
 			toolbar.visible = false;
-
+			if (presentationPanel != null) {
+				presentationPanel.visible = false;
+				presentationPanel = null;
+			}
 			mdiCanvas.windowManager.removeAll();
 		}
 	}
@@ -160,7 +165,7 @@ private var effectsList:Array;
 		listenersWindow.showCloseButton = false;
 		mdiCanvas.windowManager.add(listenersWindow);
 		mdiCanvas.windowManager.absPos(listenersWindow, 20, 250);
-		
+/*		
 		presentationWindow = new PresentationWindow();
 		presentationWindow.width = 464;
 		presentationWindow.height = 378;
@@ -168,6 +173,14 @@ private var effectsList:Array;
 		presentationWindow.showCloseButton = false;
 		mdiCanvas.windowManager.add(presentationWindow);
 		mdiCanvas.windowManager.absPos(presentationWindow, 240, 20);
+*/
+		presentationPanel = new PresentationPanel();
+		presentationPanel.width = 700;
+		presentationPanel.height = 500;
+		presentationPanel.title = "Presentation";
+		presentationPanel.x = 240;
+		presentationPanel.y = 20;
+		mdiCanvas.addChild(presentationPanel);
 		
 		viewersWindow = new ViewersWindow();
 		viewersWindow.width = 210;
