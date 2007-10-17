@@ -1,0 +1,58 @@
+#summary How to setup your development environment
+
+= Development Environment =
+
+== Create Directories ==
+Please follow this directory structure, otherwise, you may have to edit the '''Blindside Servlet''' {{{build.xml}}}
+
+ 1. Create '''{{{c:\tools}}}''' - will be referred to as '''{{{TOOLS_DIR}}}''' for the rest of this document
+ 1. Create '''{{{c:\source\client}}}''' - will be referred to as '''{{{CLIENT_DIR}}}''' for the rest of this document
+ 1. Create '''{{{c:\source\server}}}''' - will be referred to as '''{{{SERVER_DIR}}}''' for the rest of this document
+
+== Ant ==
+ 1. Download [http://ant.apache.org Ant]
+ 1. Install ant in {{{TOOLS_DIR}}} - e.g. {{{TOOLS_DIR\ant-1.7.0}}}
+ 1. Click {{{Start -> Control Panel -> System -> Advanced tab -> Environment Variables}}} on your computer
+ 1. Add {{{ANT_HOME}}} in your system variables - e.g {{{ANT_HOME = TOOLS_DIR\ant-1.7.0}}}
+ 1. Add {{{ANT_HOME\bin}}} to your PATH
+ 1. Open a command prompt and run {{{ant -version}}}. You should see the ant version displayed.
+
+== Tomcat ==
+ 1. Download [http://tomcat.apache.org Tomcat]
+ 1. Install tomcat in {{{TOOLS_DIR}}} - e.g. {{{TOOLS_DIR\tomcat-5.5.23}}}
+ 1. Open a command prompt and cd to {{{TOOLS_DIR\tomcat-5.5.23}}}
+ 1. Run {{{bin\catalina.bat start}}}
+ 1. Open your browser and go to {{{http://localhost:8080}}}
+ 1. You should see the Tomcat page displayed
+
+== ActiveMQ ==
+ 1. Download [http://activemq.apache.org ActiveMQ]
+ 1. Install activeMQ in {{{TOOLS_DIR}}} - e.g. {{{TOOLS_DIR\activemq-4.1.1}}}
+ 1. Open a command prompt and cd to {{{TOOLS_DIR\activemq-4.1.1}}}
+ 1. Run {{{bin\activemq}}}
+ 1. Make sure it starts without any problems 
+
+== Eclipse ==
+ 1. Download [http://www.eclipse.org Eclipse IDE]
+ 1. Install eclipse in {{{TOOLS_DIR}}} - e.g. {{{TOOLS_DIR\eclipse-3.3}}}
+ 1. Start eclipse and set your workspace to the {{{SERVER_DIR}}}
+ 1. Install the [http://subclipse.tigris.org/ Subclipse plugin]. Make sure you get the correct version
+
+== Flex Builder 2 ==
+ 1. Download [http://www.adobe.com/products/flex/ Flex Builder 2]
+ 1. Install flexbuilder in {{{TOOLS_DIR}}} - e.g. {{{TOOLS_DIR\flex-2}}}
+ 1. Start flexbuilder
+ 1. Install the [http://subclipse.tigris.org/ Subclipse plugin]. Make sure you get the correct version. Flex Builder is built on top of Eclipse 3.0/3.1
+
+== !OpenOffice ==
+ 1. Follow the instructions on [wiki:InstallOpenOffice Installing OpenOffice]
+ 1. Create a batch file, {{{TOOLS_DIR\ooo-2.2\start-oo.bat}}} 
+ 1. Copy this command inside batch file -- {{{C:\tools\ooo-2.2\program\soffice.exe -headless -accept="socket,port=8100;urp;" }}}
+ 1. On a command window, run {{{start-oo.bat}}}
+ 1. Open another command window and run {{{netstat -a}}} and verify if your computer is LISTENING on port 8100
+
+== SWF Tools ==
+ 1. Download [http://www.swftools.org SWF Tools]
+ 1. Install in {{{TOOLS_DIR\swftools}}}
+ 1. Add {{{SWFTOOLS_HOME = TOOLS_DIR\swftools}}} in you environment variables
+ 1. Add {{{SWFTOOLS_HOME}}} to your PATH
