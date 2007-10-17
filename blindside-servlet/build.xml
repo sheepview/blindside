@@ -8,10 +8,8 @@
 	<property name="src.dir" value="src"/>
 	<property name="build.dir" value=".classes"/>
 	<property name="weblib.dir" value="${war.dir}/WEB-INF/lib"/>
-	<property name="client.dir" value="${war.dir}/client"/>
 	<property name="dist.dir" value="dist"/>
 
-	<property name="flexclient.dir" value="C:\source\client\blindside-client\bin"/>
 	<property name="spring.root" value="./spring/"/>
 	<property name="tomcat.dir" value="C:/tomcat-5.5.23"/>
 
@@ -69,7 +67,6 @@
 
 
 	<target name="clean" description="Clean output dirs (build, weblib, dist)">
-		<delete dir="${client.dir}"/>
 		<delete dir="${build.dir}"/>
 		<delete dir="${weblib.dir}"/>
 		<delete dir="${dist.dir}"/>
@@ -186,30 +183,8 @@
 		</antcall>
 
 	</target>	
-
-	<target name="copyclient" description="Copy flex client into war dir">
-
-		<mkdir dir="${client.dir}"/>
 	
-		<copy todir="${client.dir}" preservelastmodified="true">
-			<fileset dir="${flexclient.dir}">
-				<exclude name="**/.*"/>
-				<include name="AC_OETags.js"/>
-				<include name="main.html"/>
-				<include name="main.swf"/>
-				<include name="history.htm"/>
-				<include name="history.js"/>
-				<include name="history.swf"/>
-				<include name="playerProductInstall.swf"/>
-				<include name="org/**"/>
-				<include name="swfobject/*"/>
-				<include name="flexmdi/**"/>
-				<include name="*.jar"/>
-			</fileset>
-		</copy>
-	</target>
-	
-	<target name="create.warfile" depends="build,copyclient">
+	<target name="create.warfile" depends="build">
 
 		<mkdir dir="${dist.dir}"/>
 
@@ -223,7 +198,6 @@
 			<include name="WEB-INF/views/**"/>
 			<exclude name="**/.*"/>
 			<exclude name="${warfile.excludes}"/>
-			<include name="client/**"/>
 		</war>
 
 	</target>
