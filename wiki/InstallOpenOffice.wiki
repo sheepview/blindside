@@ -1,9 +1,8 @@
 #summary Instructions on how to install OpenOffice.
 
 == Installing !OpenOffice ==
-
  1. Install !OpenOffice at {{{c:\tools\ooo-2.2\}}}.
- 2. Open the following file in your favourite text editor (e.g. vi or notepad):
+ 1. Open the following file in your favourite text editor (e.g. vi or notepad):
    {{{c:\tools\ooo-2.2\share\registry\data\org\openoffice\Office\Common.xcu}}}
 
 You should see:
@@ -36,7 +35,7 @@ Remove the URL value to disable the registration process, e.g.:
         </node>
 }}}
 
-'''Links:'''
+*Links:*
 http://wiki.alfresco.com/wiki/Running_OpenOffice_From_Terminal
 
 == Running !OpenOffice as headless ==
@@ -61,9 +60,9 @@ Exit the putty.
 I believe you saved the session to the box in putty.
 
  1. Then select category:  Connection / SSH / Tunnels
- 2.  At the “Source port” enter 5901
- 3.  At the “Destination”   e.g. where.you.openoffice.server.is:5901
- 4. Click “Add” button and save your session.
+ 1.  At the “Source port” enter 5901
+ 1.  At the “Destination”   e.g. where.you.openoffice.server.is:5901
+ 1. Click “Add” button and save your session.
 
 ssh to the box with putty as usual.
 
