@@ -70,13 +70,16 @@ private var effectsList:Array;
 		
 	private var red5Host : String = "localhost";		
 	private var presentationHost : String = "localhost";
+	private var asteriskHost : String;
 	
 	public function conferenceMainClassInit() : void {
 		red5Host = mx.core.Application.application.parameters.red5Host;			
 		presentationHost = mx.core.Application.application.parameters.presentationHost;
+		asteriskHost = mx.core.Application.application.parameters.asteriskHost;
 		
 		log.debug("red5Host = [" + red5Host + "]");
 		log.debug("presentationHost = [" + presentationHost + "]");
+		log.debug("asteriskHost = [" + asteriskHost + "]");
 		
 		mdiCanvas.effectsLib = flexmdi.effects.effectsLib.MDIVistaEffects;
 		
@@ -158,13 +161,23 @@ private var effectsList:Array;
 		mdiCanvas.windowManager.add(chatWindow);
 		mdiCanvas.windowManager.absPos(chatWindow, 800, 10);
 		
-		listenersWindow = new ListenersWindow();
-		listenersWindow.width = 210;
-		listenersWindow.height = 200;
-		listenersWindow.title = "Listeners";
-		listenersWindow.showCloseButton = false;
-		mdiCanvas.windowManager.add(listenersWindow);
-		mdiCanvas.windowManager.absPos(listenersWindow, 20, 250);
+		// Determine if we show the phone button on the toolbar or not
+		if (asteriskHost == null) {
+			toolbar.phoneBtn.visible = false;
+		} else {
+			toolbar.phoneBtn.visible = true;
+			toolbar.asteriskHost = asteriskHost;
+		
+			// Show only listeners window is there is an asteriskHost for voice conferencing
+			listenersWindow = new ListenersWindow();
+			listenersWindow.width = 210;
+			listenersWindow.height = 200;
+			listenersWindow.title = "Listeners";
+			listenersWindow.showCloseButton = false;
+			mdiCanvas.windowManager.add(listenersWindow);
+			mdiCanvas.windowManager.absPos(listenersWindow, 20, 250);
+		}
+
 /*		
 		presentationWindow = new PresentationWindow();
 		presentationWindow.width = 464;

@@ -30,7 +30,7 @@ function status()
 	return "" + document.getElementById("jiaxc").getStatus();
 }
 
-function startPhone(callerid)
+function startPhone(callerid, host)
 { var phoneText = " <applet id=\"jiaxc\" NAME=\"jiaxc\" MAYSCRIPT height=\"0\" width=\"0\"> "
 		+ " <param name=\"CODE\" value=\"net.sourceforge.jiaxclient.IAXTest.class\"></param> "
 		+ " <param name=\"ARCHIVE\" value=\"jiaxclient-0.0.6.jar\"></param> "
@@ -39,7 +39,7 @@ function startPhone(callerid)
 		+ " <param name=\"USER\" value=\"guest\"></param> "
 		+ " <param name=\"PASS\" value=\"\"></param> "
 		+ " <param name=\"CALLERID\" value=\"" + callerid + "\"></param> "
-		+ " <param name=\"HOST\" value=\"134.117.62.208\"></param></applet> ";
+		+ " <param name=\"HOST\" value=\"" + host + "\"></param></applet> ";
 
 		var n = document.getElementById("phone");
 			n.innerHTML = phoneText;
@@ -56,6 +56,7 @@ function startPhone(callerid)
    var so = new SWFObject("main.swf", "main", "100%", "100%", "9.0.28", "#336699");
    so.addVariable("red5Host", "localhost");
    so.addVariable("presentationHost", "localhost");
+   so.addVariable("asteriskHost", "134.117.62.208");
    so.write("flashcontent");
 </script>
 <div id="phone">

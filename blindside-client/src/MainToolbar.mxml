@@ -15,7 +15,8 @@
 		import org.blindsideproject.main.*;
 				
 		private var images : Images = new Images();
-
+		public var asteriskHost : String = "localhost";
+		
 		[Bindable] private var webcamIcon : Class = images.webcam;
 		[Bindable] private var phoneIcon : Class = images.phone;
 		
@@ -51,7 +52,7 @@
 		{
 			var callerid : String = mainApp.conferenceApp.conference.me.name;
 			
-			ExternalInterface.call("startPhone", callerid);
+			ExternalInterface.call("startPhone", callerid, asteriskHost);
 			
 			var phoneWindow : PhoneWindow = new PhoneWindow();
 			phoneWindow.width = 125;
@@ -65,10 +66,10 @@
 		]]>
 	</mx:Script>
 	
-	<mx:Button id="uploadPres" icon="{webcamIcon}" visible="true"
+	<mx:Button id="webcamBtn" icon="{webcamIcon}" visible="true"
     	   					width="20" height="20" click="popVideoMonitorWindow()"
     	   					toolTip="Click to open monitor"/>    
-	<mx:Button id="sharePres" icon="{phoneIcon}" visible="true"
+	<mx:Button id="phoneBtn" icon="{phoneIcon}" visible="true"
     	   					width="20" height="20" click="startPhone()"
     	   					toolTip="Click to start phone"/> 						
 	<mx:Spacer width="100%"/>
