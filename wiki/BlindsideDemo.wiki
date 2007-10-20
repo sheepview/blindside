@@ -8,3 +8,5 @@ To try out the [http://present.sce.carleton.ca/blindside/client/main.html demo],
  (Conference, Moderator Password, Viewer Password)
  * 85002, modpass, viewpass
  * 85003, modpass, viewpass
+
+Please provide us with suggestions, comments, and bug reports to improve Blindside.
