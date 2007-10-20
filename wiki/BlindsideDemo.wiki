@@ -1,0 +1,9 @@
+#summary Blindside Demo
+
+= Webconferencing Demo =
+
+If you haven't viewed the Blindside tour screencast yet, please [http://code.google.com/p/blindside/ do so] now to have an idea on what you can do with Blindside.
+
+To try out the [http://present.sce.carleton.ca/blindside/client/main.html demo], we have create a couple of conference rooms (Conference, Moderator Password, Viewer Password).
+ * 85002, modpass, viewpass
+ * 85003, modpass, viewpass
