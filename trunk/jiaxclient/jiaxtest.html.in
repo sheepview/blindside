@@ -1,0 +1,24 @@
+<html>
+<head><title>JIAXClient demo applet</title></head>
+<body>
+<h3>JIAXClient demo applet</h3>
+
+<APPLET WIDTH=270 HEIGHT=240>
+<PARAM NAME="CODE" VALUE="net.sourceforge.jiaxclient.IAXTest.class">
+<!-- <PARAM NAME = CODEBASE VALUE="/jiaxclient/" > -->
+<PARAM NAME = ARCHIVE VALUE="jiaxtest.jar" >
+<PARAM NAME = INPUT VALUE ="0">
+<PARAM NAME = OUTPUT VALUE ="0">
+<!-- <PARAM NAME = USER VALUE ="guest"> -->
+<!-- <PARAM NAME = PASS VALUE =""> -->
+<!-- <PARAM NAME = HOST VALUE ="www.hem.za.org"> -->
+<!-- <PARAM NAME = PREFERRED VALUE ="8"> -->
+<!-- <PARAM NAME = ALLOWED VALUE ="526"> -->
+</APPLET>
+<hr />
+<p>
+Based on <a href="http://www.hem.za.org/jiaxclient/">JIAXClient</a> - Java IAXClient Library <br/ >
+Copyright &copy; 2005 Mikael Magnusson
+</p>
+</body>
+</html>
