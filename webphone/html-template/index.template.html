@@ -1,0 +1,68 @@
+<!-- saved from url=(0014)about:internet -->
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>${title}</title>
+<script src="AC_OETags.js" language="javascript"></script>
+<script type="text/javascript" src="swfobject/swfobject.js"></script>
+<style>
+body { margin: 0px; overflow:hidden }
+</style>
+<script language="JavaScript" type="text/javascript">
+function call(number)
+{
+	document.getElementById("jiaxc").callNumber(number);
+}
+
+function callChar(chr)
+{
+	document.getElementById("jiaxc").sendCommand(chr);
+}
+
+function hangUp()
+{
+	document.getElementById("jiaxc").hangUpCall();
+}
+
+function status()
+{
+	return "" + document.getElementById("jiaxc").getStatus();
+}
+
+
+</script>
+</head>
+
+<body scroll="no" background="#336699">
+<h1>Add click-2-call to your webpage</h1>
+<p>This page demonstrates how you can add a click-2-call functionality on your webpages.</p>
+<p>This is done by wrapping the open source <a href="http://www.hem.za.org/jiaxclient/">JIAXClient</a> with
+javascript and flex/actionscript. </p> 
+
+<form>
+<input type="button" onclick="call(510)" value="Echo Test">
+<input type="button" onclick="hangUp()" value="Hangup">
+</form>
+
+<p>
+<div id="flashcontent">
+  You need to have the Flash Player installed to use WebPhone.
+</div>
+
+<script type="text/javascript">
+   var so = new SWFObject("webphone.swf", "webphone", "120", "135", "9.0.28");
+   so.write("flashcontent");
+</script>
+</p>
+
+<div>
+<applet id="jiaxc" NAME=jiax MAYSCRIPT height="0" width="0">
+<param name="CODE" value="net.sourceforge.jiaxclient.IAXTest.class"></param>
+<param name="ARCHIVE" value="jiaxclient-0.0.6.jar"></param>
+<param name="INPUT" value="0"></param>
+<param name="OUTPUT" value="0"></param>
+<param name="USER" value="guest"></param>
+<param name="HOST" value="134.117.62.208"></param></applet>
+</div>
+</body>
+</html>
