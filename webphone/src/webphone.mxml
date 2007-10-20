@@ -48,7 +48,7 @@
 	<mx:Button x="10" y="85" label="*" id="cmdStar" click="jsCallChar('*');" width="30" height="15"/>
 	<mx:Button x="40" y="85" label="0" id="cmdZero" click="jsCallChar('0');" width="30" height="15"/>
 	<mx:Button x="70" y="85" label="#" id="cmdPound" click="jsCallChar('#');" width="30" height="15"/>
-	<mx:TextInput x="10" y="12" width="90" text="510" id="txtInput" fontSize="10" height="22"/>
+	<mx:TextInput x="10" y="12" width="90" text="" id="txtInput" fontSize="10" height="22"/>
 	<mx:Button x="10" y="106" label="Call" id="cmdCall" click="jsCall();" width="30" fontSize="8" height="15"/>
 	<mx:Button x="40" y="106" label="Hang Up" width="60" click="jsHangUp();" id="cmdHangUp" height="15" fontSize="8"/>
 	

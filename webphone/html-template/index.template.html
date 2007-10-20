@@ -33,36 +33,25 @@ function status()
 </script>
 </head>
 
-<body scroll="no" background="#336699">
+<body background="#336699" border="20">
 <h1>Add click-2-call to your webpage</h1>
-<p>This page demonstrates how you can add a click-2-call functionality on your webpages.</p>
+<p>We demonstrate how you can add a click-2-call functionality on your webpages.</p>
 <p>This is done by wrapping the open source <a href="http://www.hem.za.org/jiaxclient/">JIAXClient</a> with
-javascript and flex/actionscript. </p> 
+javascript and flex/actionscript. The jiaxclient applet is hidden by setting its width and height to zero.
+Javascript functions are implemented to access Java methods in the Applet.</p> 
 
-<form>
-<input type="button" onclick="call(510)" value="Echo Test">
-<input type="button" onclick="hangUp()" value="Hangup">
-</form>
+<p>To see see examples, go to the <a href="demo.html">demo page</a>. Please make sure that you accept the
+certificate so the applet will run properly</p>
 
-<p>
-<div id="flashcontent">
-  You need to have the Flash Player installed to use WebPhone.
-</div>
+<h3>Issues</h3>
+<ul>
+  <li>Works only on one page at a time. If you have the applet running on one page and you open another page
+      (on another tab/window or browser), it won't work.</li>
+  <li>When the using the flex client, it takes a little longer to start.</a>
+  <li>Need to install jiaxc library on users drive. If user does not have admin privilege on the PC, it won't
+      work.</li>
+</ul>
 
-<script type="text/javascript">
-   var so = new SWFObject("webphone.swf", "webphone", "120", "135", "9.0.28");
-   so.write("flashcontent");
-</script>
-</p>
+    
 
-<div>
-<applet id="jiaxc" NAME=jiax MAYSCRIPT height="0" width="0">
-<param name="CODE" value="net.sourceforge.jiaxclient.IAXTest.class"></param>
-<param name="ARCHIVE" value="jiaxclient-0.0.6.jar"></param>
-<param name="INPUT" value="0"></param>
-<param name="OUTPUT" value="0"></param>
-<param name="USER" value="guest"></param>
-<param name="HOST" value="134.117.62.208"></param></applet>
-</div>
-</body>
 </html>
