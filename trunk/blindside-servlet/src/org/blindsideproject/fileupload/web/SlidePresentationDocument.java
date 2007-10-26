@@ -3,6 +3,7 @@ package org.blindsideproject.fileupload.web;
 import org.blindsideproject.fileupload.document.UnsupportedPresentationDocumentException;
 import org.blindsideproject.fileupload.document.ZipDocumentHandler;
 import org.blindsideproject.fileupload.document.impl.FileSystemSlideManager;
+import org.blindsideproject.fileupload.document.impl.PdfToSwfDocumentHandler;
 import org.blindsideproject.fileupload.document.impl.PptDocumentHandler;
 import org.blindsideproject.fileupload.document.impl.PptToSwfDocumentHandler;
 import org.blindsideproject.fileupload.document.impl.ReturnCode;
@@ -37,6 +38,7 @@ public class SlidePresentationDocument {
     private PptDocumentHandler pptDocumentHandler = null;
     private ZipDocumentHandler zipDocumentHandler = null;
     private PptToSwfDocumentHandler pptToSwfHandler = null;
+    private PdfToSwfDocumentHandler pdfToSwfHandler = null;
     
     private File uploadedFile = null;
     private File destDir = null;
@@ -47,7 +49,7 @@ public class SlidePresentationDocument {
     public void load(File uploaded, Integer room) 
 		throws UnsupportedPresentationDocumentException
 	{
-        if ((uploaded.getName().toLowerCase().endsWith(".zip")) ||
+        if ((uploaded.getName().toLowerCase().endsWith(".pdf")) ||
             (uploaded.getName().toLowerCase().endsWith(".ppt")))
         {            
             this.uploadedFile = uploaded;
@@ -107,8 +109,8 @@ public class SlidePresentationDocument {
 
             try {
             	
-                if (uploadedFile.getName().toLowerCase().endsWith(".zip")) {
-                    zipDocumentHandler.convert(uploadedFile, destDir);                    
+                if (uploadedFile.getName().toLowerCase().endsWith(".pdf")) {
+                	pdfToSwfHandler.convert(room, uploadedFile, destDir);                    
                 } else if (uploadedFile.getName().toLowerCase().endsWith(".ppt")) {
                 	updatesMsgSender.sendMessage(room, ReturnCode.UPDATE, "Converting Powerpoint document.");
 //                	if (pptDocumentHandler == null)
@@ -191,6 +193,10 @@ public class SlidePresentationDocument {
 		this.pptToSwfHandler = pptToSwfHandler;
 	}
 
+	public void setPdfToSwfHandler(PdfToSwfDocumentHandler pdfToSwfHandler) {
+		this.pdfToSwfHandler = pdfToSwfHandler;
+	}	
+	
 	public void setUpdatesMsgSender(UpdatesMessageSender updatesMsgSender) {
 		this.updatesMsgSender = updatesMsgSender;
 	}	

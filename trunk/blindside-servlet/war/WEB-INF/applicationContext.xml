@@ -16,6 +16,7 @@
 			<property name="pptDocumentHandler" ref="pptHandler"/>
 			<property name="zipDocumentHandler" ref="zipHandler"/>
 			<property name="pptToSwfHandler" ref="pptToSwfHandler"/>
+			<property name="pdfToSwfHandler" ref="pdfToSwfHandler"/>
 			<property name="updatesMsgSender" ref="updatesMsgSender"/>
 	</bean>
 	
@@ -31,6 +32,12 @@
 			<property name="openOfficePort" value="${openoffice.port}" />
 			<property name="updatesMsgSender" ref="updatesMsgSender"/>
 			<property name="swftoolConverter" value="${swftoolLocation}" />
+	</bean>
+
+	<bean id="pdfToSwfHandler" class="org.blindsideproject.fileupload.document.impl.PdfToSwfDocumentHandler">
+			<property name="updatesMsgSender" ref="updatesMsgSender"/>
+			<property name="swftoolConverter" value="${swftoolLocation}" />
+			<property name="pdfExtractor" value="${pdfExtractor}" />
 	</bean>
 	
 	<bean id="slideManager" class="org.blindsideproject.fileupload.document.impl.FileSystemSlideManager">
