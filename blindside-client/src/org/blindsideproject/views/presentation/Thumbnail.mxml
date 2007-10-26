@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" 
 	implements="mx.controls.listClasses.IDropInListItemRenderer"
-	width="100" height="110" 
+	width="100" height="80" 
     paddingTop="0" paddingBottom="5"
     verticalScrollPolicy="off" horizontalScrollPolicy="off"
 	verticalGap="0" horizontalAlign="center" 
@@ -67,9 +67,9 @@
 		]]>
 	</mx:Script>
 	
-    <mx:Label id="position" width="100" height="20"/>
     
-    <mx:Canvas id="imageBox" width="95%" height="100%" borderStyle="solid">  
+    <mx:Label id="position" width="95%" height="20"/>
+    <mx:Canvas id="imageBox" width="95%" height="100%" borderStyle="solid">     	
     	<mx:SWFLoader id="thumbLoader" width="100%" height="100%" scaleContent="true"
         	showBusyCursor="true" source="{data.source}"/>    
     </mx:Canvas>	

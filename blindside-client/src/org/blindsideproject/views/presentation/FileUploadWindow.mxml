@@ -34,7 +34,7 @@
 			private function selectFile() : void
 			{
 				fileToUpload.addEventListener(Event.SELECT, onSelectFile);	
-				fileToUpload.browse([new FileFilter("PowerPoint", "*.ppt")]);
+				fileToUpload.browse([new FileFilter("PDF", "*.pdf")]);
 			}
 			
 			private function onSelectFile(event : Event) : void
