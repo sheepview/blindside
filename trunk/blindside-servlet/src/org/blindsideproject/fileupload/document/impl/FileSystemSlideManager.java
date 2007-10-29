@@ -189,7 +189,7 @@ public class FileSystemSlideManager implements ISlideDatabase {
 	}
 
 	public File saveUploadedFile(MultipartFile multipartFile, Integer room) throws IOException {
-		String filename = multipartFile.getOriginalFilename();
+		String filename = multipartFile.getOriginalFilename().replace(' ', '_');
 		
 		File saveDir = new File(baseDirectory + File.separator + room);
 
