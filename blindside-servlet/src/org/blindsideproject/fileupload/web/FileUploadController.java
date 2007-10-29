@@ -164,14 +164,10 @@ public class FileUploadController extends MultiActionController {
 		MultipartFile multipartFile = multipartRequest.getFile("pres");
 		Integer conferenceRoom = new Integer(request.getParameterValues("room")[0]);
 
-		try {
- 
+		try { 
 			File file = this.slideDatabase.saveUploadedFile(multipartFile, conferenceRoom); 
-			
 			this.slideDatabase.createDefaultXml(conferenceRoom);
-			
-			slidePres.load(file, new Integer(conferenceRoom));
-			
+			slidePres.load(file, new Integer(conferenceRoom));			
 		} catch (IOException e) {
 			logger.error("Failed to save image into filesystem.\n" + e.getMessage());
 		} catch (UnsupportedPresentationDocumentException e) {
