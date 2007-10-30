@@ -1,0 +1,15 @@
+#summary How to install Pdftk in Fedora
+
+= Introduction =
+
+Add your content here.
+
+
+= Details =
+
+ * [http://www.accesspdf.com/pdftk/ Pdftk Homepage]
+ * [http://lists.centos.org/pipermail/centos-devel/2007-April/003420.html RPM]
+
+ * sudo rpmbuild --rebuild jasper-1.701.0-7.fc4.src.rpm
+ * sudo rpm -i /usr/src/redhat/RPMS/i386/pdftk-1.12-1.i386.rpm
+
