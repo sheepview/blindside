@@ -133,6 +133,11 @@ package org.blindsideproject.meetme.business
 			return netConnection;
 		}
 		
+		public function muteAllUsers(muteUSers : Boolean) : void 
+		{
+			responder.muteAllUsers(muteUSers);
+			
+		}
 		public function muteUnmuteUser(userId : Number, muteUser : Boolean) : void
 		{
 			log.debug("NetConnectionDelegate::muteUnmuteUser : [" + userId + "," + muteUser + "]");

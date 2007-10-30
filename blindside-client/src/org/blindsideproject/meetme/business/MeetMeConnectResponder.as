@@ -252,6 +252,14 @@ package org.blindsideproject.meetme.business
 			meetMeRoom.getConnection().getConnection().call("meetmeService.muteUnmuteUser", null, userId, muteUser);			
 		}
 
+		public function muteAllUsers(mute : Boolean) : void
+		{
+
+			log.debug("MeetMe::muteAllUsers : [" + mute + "]");
+					
+			meetMeRoom.getConnection().getConnection().call("meetmeService.muteAllUsers", null, mute);			
+		}
+
 		public function ejectUser(userId : Number) : void
 		{
 
