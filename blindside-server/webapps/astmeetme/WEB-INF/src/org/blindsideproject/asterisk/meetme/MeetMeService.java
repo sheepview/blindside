@@ -49,6 +49,43 @@ public class MeetMeService extends ApplicationAdapter {
 	   	return usersMap;
 	}
 	
+	public void muteAllUsers(Boolean mute) {
+		// get the current scope that the current connection is associated with...
+    	IScope scope = Red5.getConnectionLocal().getScope();	
+    	
+	   	if (hasSharedObject(scope, "meetMeUsersSO")) {
+    		log.info("MeetMe::service - Getting current users for room " + scope.getName());
+    		
+    		// Get the users in the room
+    		Collection<MeetMeUser> currentUsers = roomListener.getCurrentUsers(scope.getName());
+    		
+    		log.info("MeetMe::service - There are " + currentUsers.size() + " current users...");
+    		
+    		for (Iterator it = currentUsers.iterator(); it.hasNext();) {
+    			MeetMeUser oneUser = (MeetMeUser) it.next();
+    			if (mute) {
+    				if (! oneUser.isMuted()) {
+    					try {
+    						oneUser.mute();
+    					} catch (ManagerCommunicationException e) {
+    						// TODO Auto-generated catch block
+    						e.printStackTrace();
+    					}
+    				}
+    			} else {
+    				if (oneUser.isMuted()) {
+    					try {
+    						oneUser.unmute();
+    					} catch (ManagerCommunicationException e) {
+    						// TODO Auto-generated catch block
+    						e.printStackTrace();
+    					}  
+    				}
+    			}
+    		}  
+    	} 
+	}	
+	
 	public void muteUnmuteUser(Integer userId, Boolean muteUser) {
 		// get the current scope that the current connection is associated with...
     	IScope scope = Red5.getConnectionLocal().getScope();
