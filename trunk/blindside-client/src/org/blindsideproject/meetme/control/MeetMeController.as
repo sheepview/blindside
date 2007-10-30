@@ -11,9 +11,11 @@ package org.blindsideproject.meetme.control
 		{
 			addCommand(MeetMeController.MUTE_UNMUTE_USER_COMMAND, MuteUnmuteUserCommand);
 			addCommand(MeetMeController.EJECT_USER_COMMAND, EjectUserCommand);
+			addCommand(MeetMeController.MUTE_ALL_USERS_COMMAND, MuteAllUsersCommand);
 		}
 		
 		public static const MUTE_UNMUTE_USER_COMMAND : String = "MEETME_MUTE_UNMUTE_USER";
 		public static const EJECT_USER_COMMAND : String = "MEETME_EJECT_USER";
+		public static const MUTE_ALL_USERS_COMMAND : String = "MEETME_MUTE_ALL_USER";
 	}
 }

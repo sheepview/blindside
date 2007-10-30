@@ -5,6 +5,8 @@
 
 	<mx:Script>
 		<![CDATA[
+			import org.blindsideproject.core.apps.conference.vo.Role;
+			import org.blindsideproject.main.BlindsideAppLocator;
 			import mx.events.DragEvent;
 			import flash.events.MouseEvent;
 			import mx.core.DragSource;
@@ -17,9 +19,13 @@
 			import org.blindsideproject.meetme.events.*;	
 				
 			private var images : Images = new Images();
+			private var mainApp : BlindsideAppLocator = BlindsideAppLocator.getInstance();
 			
-			[Bindable]
-			public var dropTargetIcon : Object = images.door_in;
+			[Bindable] public var dropTargetIcon : Object = images.door_in;
+			
+			[Bindable] private var muteAllIcon : Class = images.sound_mute;
+			[Bindable] private var unmuteAllIcon : Class = images.sound_none;
+			[Bindable] private var role : String = mainApp.conferenceApp.conference.me.role;
 			
 			public function dragEnterHandler(event:DragEvent):void
 	   		{
@@ -37,6 +43,18 @@
    				ejectEvent.dispatch();
 	   		
 	   		}
+
+	   		private function unmuteAllUsers() : void
+	   		{
+	   			var unmuteAllEvent : MuteAllUsersEvent = new MuteAllUsersEvent(false);
+	   			unmuteAllEvent.dispatch();
+	   		}
+	   			   		
+	   		private function muteAllUsers() : void
+	   		{
+	   			var muteAllEvent : MuteAllUsersEvent = new MuteAllUsersEvent(true);
+	   			muteAllEvent.dispatch();
+	   		}
 		]]>
 	</mx:Script>
 
@@ -50,6 +68,12 @@
 
     	</mx:TileList>				
     	<mx:ControlBar width="100%">
+    	   <mx:Button id="muteAllIconImg" icon="{muteAllIcon}" 
+    	   			toolTip="Mute All" click="muteAllUsers()"
+    	   			visible="{role == Role.MODERATOR}"/> 
+    	   <mx:Button id="unmuteAllIconImg" icon="{unmuteAllIcon}" 
+    	   			toolTip="Unmute All" click="unmuteAllUsers()"
+    	   			visible="{role == Role.MODERATOR}"/> 
      	   <mx:Spacer width="100%"/>
     	   <mx:Image id="ejectUserDropTarget" source="{dropTargetIcon}" 
     	   			toolTip="Drop user here to eject."
