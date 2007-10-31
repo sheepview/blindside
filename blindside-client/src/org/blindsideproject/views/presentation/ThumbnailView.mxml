@@ -2,7 +2,7 @@
 <mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" 
     width="100%" height="100%" 
     horizontalAlign="center" paddingBottom="5" creationComplete="init()">
-
+<mx:Style source="presentation.css"/>
 	<mx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;

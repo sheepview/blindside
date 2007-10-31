@@ -7,7 +7,7 @@
 	verticalGap="0" horizontalAlign="center" 
 	rollOver="updatePosition(event)"
 	rollOut="updatePosition(event)">
-	
+	<mx:Style source="presentation.css"/>
 	<mx:Script>
 		<![CDATA[
 		    import mx.events.FlexEvent;
@@ -70,7 +70,8 @@
     
     <mx:Label id="position" width="95%" height="20"/>
     <mx:Canvas id="imageBox" width="95%" height="100%" borderStyle="solid">     	
-    	<mx:SWFLoader id="thumbLoader" width="100%" height="100%" scaleContent="true"
+    	<mx:SWFLoader id="thumbLoader" width="95%" height="95%" scaleContent="true"
+        	horizontalCenter="0" verticalCenter="0"
         	showBusyCursor="true" source="{data.source}"/>    
     </mx:Canvas>	
     
