@@ -167,16 +167,16 @@ private var effectsList:Array;
 		} else {
 			toolbar.phoneBtn.visible = true;
 			toolbar.asteriskHost = asteriskHost;
-		
-			// Show only listeners window is there is an asteriskHost for voice conferencing
-			listenersWindow = new ListenersWindow();
-			listenersWindow.width = 210;
-			listenersWindow.height = 200;
-			listenersWindow.title = "Listeners";
-			listenersWindow.showCloseButton = false;
-			mdiCanvas.windowManager.add(listenersWindow);
-			mdiCanvas.windowManager.absPos(listenersWindow, 20, 250);
 		}
+		
+		listenersWindow = new ListenersWindow();
+		listenersWindow.width = 210;
+		listenersWindow.height = 200;
+		listenersWindow.title = "Listeners";
+		listenersWindow.showCloseButton = false;
+		mdiCanvas.windowManager.add(listenersWindow);
+		mdiCanvas.windowManager.absPos(listenersWindow, 20, 250);
+		
 
 /*		
 		presentationWindow = new PresentationWindow();
