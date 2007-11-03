@@ -25,13 +25,13 @@
 			}			
 		]]>
 	</mx:Script>
-		<mx:TextInput x="98" y="89" id="confField"/>
-		<mx:TextInput x="98" y="130" id="passwdField" displayAsPassword="true"/>
+		<mx:TextInput x="98" y="89" id="confField" tabIndex="2"/>
+		<mx:TextInput x="98" y="130" id="passwdField" displayAsPassword="true" tabIndex="3"/>
 		<mx:Label x="41" y="52" text="Name" id="nameLabel"/>
-		<mx:TextInput id="nameField" x="98" y="50"/>
+		<mx:TextInput id="nameField" x="98" y="50" tabIndex="1"/>
 		<mx:Label x="10" y="91" text="Conference" id="confLabel"/>
 		<mx:Label x="22" y="132" text="Password" id="passwdLabel"/>
-		<mx:Button label="Join" x="243" y="169" click="doLogin()"/>
+		<mx:Button label="Join" x="243" y="169" click="doLogin()" tabIndex="4"/>
 		<mx:Label x="21" y="10" text="Complete form to join conference." width="256" id="messageLbl"/>
 
 </mx:TitleWindow>
