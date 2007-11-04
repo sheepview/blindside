@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
+	verticalScrollPolicy="off" horizontalScrollPolicy="off">
+	
+	<mx:Script>
+		<![CDATA[
+   		import org.red5.samples.publisher.MediaType;
+   		import org.red5.samples.publisher.vo.PlayMedia;
+   		import org.blindsideproject.main.BlindsideAppLocator;
+   		import org.red5.samples.publisher.view.ViewCameraWindow;
+		import org.blindsideproject.views.control.events.OpenWindowEvent;
+		import org.blindsideproject.views.general.Images;
+		
+		private var images : Images = new Images();
+		private var mainApp : BlindsideAppLocator = BlindsideAppLocator.getInstance();
+		
+   		[Bindable] private var webcamIcon : Object = images.webcam;
+   		[Bindable] private var handIcon : Object = images.raisehand;
+
+   		private function viewCamera() : void
+   		{
+   			var viewCam : ViewCameraWindow = new ViewCameraWindow();
+   			viewCam.title = "Viewing " + data.name; 
+			viewCam.showCloseButton = true;
+						
+			mainApp.publisherApp.createPlayMedia(data.streamName);
+			
+			var media : PlayMedia = mainApp.publisherApp.getPlayMedia(data.streamName) as PlayMedia;
+			viewCam.media = media;
+			
+			mainApp.publisherApp.setupStream(data.streamName);
+			
+			var evt : OpenWindowEvent = new OpenWindowEvent(viewCam);			
+			evt.dispatch();   			
+   		}			
+		]]>
+	</mx:Script>
+
+	<mx:Image id="handImage" source="{handIcon}"  visible="{data.status == 'raisehand'}"/>
+	<!--mx:Image id="chatImage" source=""/-->
+	<mx:Image id="streamImage" source="{webcamIcon}"  visible="{data.hasStream}"
+		toolTip="Double-click to view" doubleClick="viewCamera()"/>	
+</mx:HBox>
