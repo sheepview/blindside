@@ -176,9 +176,7 @@ private var effectsList:Array;
 		listenersWindow.showCloseButton = false;
 		mdiCanvas.windowManager.add(listenersWindow);
 		mdiCanvas.windowManager.absPos(listenersWindow, 20, 250);
-		
-
-/*		
+			
 		presentationWindow = new PresentationWindow();
 		presentationWindow.width = 464;
 		presentationWindow.height = 378;
@@ -186,7 +184,8 @@ private var effectsList:Array;
 		presentationWindow.showCloseButton = false;
 		mdiCanvas.windowManager.add(presentationWindow);
 		mdiCanvas.windowManager.absPos(presentationWindow, 240, 20);
-*/
+
+/*
 		presentationPanel = new PresentationPanel();
 		presentationPanel.width = 700;
 		presentationPanel.height = 500;
@@ -194,7 +193,7 @@ private var effectsList:Array;
 		presentationPanel.x = 240;
 		presentationPanel.y = 20;
 		mdiCanvas.addChild(presentationPanel);
-		
+*/		
 		viewersWindow = new ViewersWindow();
 		viewersWindow.width = 210;
 		viewersWindow.height = 220;
