@@ -1,0 +1,17 @@
+#summary Temporary notes
+
+= Introduction =
+
+Add your content here.
+
+
+= Details =
+
+Start activemq:
+  * nohup bin/activemq >/tmp/smlog 2>&1&
+
+Compile jpegsrc:
+  * make install
+  * make install-lib
+  * make install-headers
+
