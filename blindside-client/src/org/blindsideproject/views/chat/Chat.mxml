@@ -72,10 +72,10 @@
 	
 	<mx:VBox label="ChatBox" width="100%" height="100%">		   
 		
-			<mx:TextArea id="txtChatBox" editable="false" width="100%" height="90%"  
+			<mx:TextArea id="txtChatBox" editable="false" width="100%" height="100%"  
 					updateComplete="updateScroll()" htmlText="{messageVO.message}"/>
 
-			<mx:HBox width="100%" height="20%">
+			<mx:HBox width="100%" height="30">
 				<mx:Spacer width="5"/>
 				<mx:TextInput width="100%" id="txtMsg" enter="sendChatMessage(txtMsg.text)"/>
 				<mx:ColorPicker id="cmpColorPicker" showTextField="false" selectedColor="0x000000"/>
@@ -85,7 +85,7 @@
 				<mx:Spacer width="5"/>
 			</mx:HBox>
 	</mx:VBox>		
-    <mx:ControlBar width="100%">
+    <mx:ControlBar width="100%" height="30">
     	   <mx:Spacer width="100%"/>						
     	  <mx:Button id="connect" icon="{connectIcon}" 
     	   			width="20" height="20" enabled="false"

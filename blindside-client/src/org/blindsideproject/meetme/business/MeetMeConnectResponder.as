@@ -138,18 +138,12 @@ package org.blindsideproject.meetme.business
 			participantsSO.addEventListener(SyncEvent.SYNC, sharedObjectSyncHandler);
 			
 			participantsSO.client = this;
-			
-			log.debug("MeetMe::Connecting to meetme shared object...");
-			
 			participantsSO.connect(meetMeRoom.getConnection().getConnection());			
 		}
 
 		public function userJoin(userId : Number, cidName : String, cidNum : String, 
 									muted : Boolean, talking : Boolean) : void
 		{
-			log.debug("MeetMe::Got userJoin message = [" + userId + "," + 
-					cidName + "," + cidNum + "," + muted + "," + talking + "]");
-			
 			if (participants == null) participants = new Array();
 			
 			// Only add new participants to our array
@@ -162,9 +156,7 @@ package org.blindsideproject.meetme.business
 			}
 				
 			if (isNew) {
-				if (cidName == null) cidName = "unknown";
-				
-				log.debug("MeetMe::New user : [" + cidName + "," + userId + "]"); 
+				if (cidName == null) cidName = "unknown"; 
 				participants.push({callerName : cidName, isMuted : muted, isTalking : talking, userid : userId});
 			}
 
@@ -181,11 +173,7 @@ package org.blindsideproject.meetme.business
 			for (var i:int = 0; i < participants.length; i++)
 			{
 				if (participants[i].userid == userId) {
-					
-					log.debug("MeetMe::Changing mute from [" + participants[i].isMuted + "]" +
-						" to [" + mute + "]");
-					participants[i].isMuted = mute;
-					
+					participants[i].isMuted = mute;					
 					sendNewMeetMeEvent();
 				}
 			}			
@@ -198,11 +186,7 @@ package org.blindsideproject.meetme.business
 			for (var i:int = 0; i < participants.length; i++)
 			{
 				if (participants[i].userid == userId) {
-					
-					log.debug("MeetMe::Changing talk from [" + participants[i].isTalking + "]" +
-						" to [" + talk + "]");
-					participants[i].isTalking = talk;
-					
+					participants[i].isTalking = talk;					
 					sendNewMeetMeEvent();
 				}
 			}			
@@ -218,8 +202,7 @@ package org.blindsideproject.meetme.business
 			
 			for (var i:int = 0; i < meetMeRoom.dpParticipants.length; i++)
 			{
-				if (meetMeRoom.dpParticipants[i].userid == userId) {
-					log.debug("MeetMe::User is leaving = " + userId);			
+				if (meetMeRoom.dpParticipants[i].userid == userId) {			
 					meetMeRoom.dpParticipants.removeItemAt(i);		
 				}
 			}	
@@ -228,13 +211,10 @@ package org.blindsideproject.meetme.business
 		}
 		
 		public function newStatus(user : MeetMeUser) : void {
-			log.debug("MeetMe::newStatus : [" + user.callerIdName + "," + user.userNumber + "]");
+//			log.debug("MeetMe::newStatus : [" + user.callerIdName + "," + user.userNumber + "]");
 		}
 
 		public function currentUsers(users : Object) : void {
-//			var usersArray : Array = users;
-			
-			log.debug("MeetMe::currentUsers : [" + users[0].callerIdName + "," + users[0].userNumber + "]");
 		}
 		
 		public function sendEjectUserFromMeetMe() : void {
@@ -245,43 +225,30 @@ package org.blindsideproject.meetme.business
 		{
 			var nc_responder : Responder;
 			nc_responder = new Responder(getMeetMeUsers, null);
-			
-			log.debug("MeetMe::muteUnmuteUser : [" + userId + "," + muteUser + "]");
 					
 			// call the server side method to get list of FLV's
 			meetMeRoom.getConnection().getConnection().call("meetmeService.muteUnmuteUser", null, userId, muteUser);			
 		}
 
 		public function muteAllUsers(mute : Boolean) : void
-		{
-
-			log.debug("MeetMe::muteAllUsers : [" + mute + "]");
-					
+		{	
 			meetMeRoom.getConnection().getConnection().call("meetmeService.muteAllUsers", null, mute);			
 		}
 
 		public function ejectUser(userId : Number) : void
 		{
-
-			log.debug("MeetMe::ejectUser : [" + userId + "]");
-					
 			// call the server side method to get list of FLV's
 			meetMeRoom.getConnection().getConnection().call("meetmeService.ejectUser", null, userId);			
 		}
 		
 		public function getMeetMeUsers(meetmeUser : Object) : void
 		{
-			log.debug("Got meetme current users. ");
-			
 			var i:Number = 0;
 			
 			if (participants == null) participants = new Array();
 							
 			for(var items:String in meetmeUser) 
 			{
-				log.debug("Item:" + i + ", Name:" + meetmeUser[items][0]
-					+ ", Length:" + meetmeUser[items][1] + "\n");
-					
 				var userId : String = meetmeUser[items][0];
 				var cidName : String = meetmeUser[items][1];	
 				var cidNum : String  = meetmeUser[items][2];

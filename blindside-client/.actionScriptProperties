@@ -19,11 +19,12 @@
     </sourceAttachmentPath>
   </compiler>
   <applications>
-    <application path="main.mxml"/>
+    <application path="TestRunners.mxml"/>
     <application path="src\main.mxml"/>
+    <application path="main.mxml"/>
+    <application path="src\TestRunners.mxml"/>
     <application path="meetme.mxml"/>
     <application path="blindside.mxml"/>
-    <application path="TestRunner.mxml"/>
   </applications>
   <buildCSSFiles/>
 </actionScriptProperties>

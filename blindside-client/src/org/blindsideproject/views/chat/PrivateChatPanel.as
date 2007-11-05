@@ -92,7 +92,7 @@ package org.blindsideproject.views.chat
 			BindingUtils.bindProperty(txtBox, "text", PrivateChatPanel , message); 
 		}
 		
-		public function onNewChatRequestEvent(event : Event)
+		public function onNewChatRequestEvent(event : Event):void
 		{
 			var chatRequest : NewChatRequestEvent = NewChatRequestEvent (event);
 			

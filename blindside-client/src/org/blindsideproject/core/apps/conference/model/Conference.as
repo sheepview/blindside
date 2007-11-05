@@ -14,14 +14,11 @@ package org.blindsideproject.core.apps.conference.model
 		
 		private var _myUserid : Number;
 		
-		[Bindable] public var me : User = null;
-		
-		[Bindable] public var users : ArrayCollection = null;		
-		
+		[Bindable] public var me : User = null;		
+		[Bindable] public var users : ArrayCollection = null;				
 		[Bindable] public var connected : Boolean = false;
 		
-		public var connectFailReason : String;
-		
+		public var connectFailReason : String;		
 		public var host : String;
 		public var room : String;
 		
