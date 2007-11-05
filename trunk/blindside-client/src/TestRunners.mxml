@@ -10,6 +10,7 @@
 			import tests.examples.TemperatureConverterTest;
 			import tests.org.blindsideproject.core.apps.conference.SharedObjectConferenceDelegateTest;
 			import tests.org.blindsideproject.core.apps.conference.ConferenceModelTest;
+			import tests.org.blindsideproject.core.apps.voiceconference.VoiceConferenceModelTest;
 			import tests.org.red5.samples.publisher.PublisherSharedObjectTest;
 			import flexunit.framework.TestSuite;
 			import org.blindsideproject.core.apps.presentation.business.*;
@@ -33,7 +34,7 @@
  				ts.addTest( PublisherSharedObjectTest.suite() );
  				ts.addTest( ConferenceModelTest.suite() );
  				ts.addTest( SharedObjectConferenceDelegateTest.suite() );
- 				ts.addTest( TemperatureConverterTest.suite() );
+ 				ts.addTest( VoiceConferenceModelTest.suite() );
  				return ts;
  			}
 			

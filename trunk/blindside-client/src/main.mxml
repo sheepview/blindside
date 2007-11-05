@@ -3,7 +3,6 @@
 		xmlns:conf="org.blindsideproject.views.conference.*" 
 		xmlns:logger="org.blindsideproject.views.log.*" 
 		xmlns:flexmdi="flexmdi.containers.*"
-		xmlns:pres="org.blindsideproject.views.presentation.*"
 		xmlns:main="*"
 		pageTitle="Talent First Network"
 		creationComplete="conferenceMainClassInit()" layout="absolute">  

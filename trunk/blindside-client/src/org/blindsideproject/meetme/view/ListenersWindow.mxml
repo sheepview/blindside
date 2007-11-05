@@ -57,16 +57,14 @@
 	   		}
 		]]>
 	</mx:Script>
-
 	
 	<controller:MeetMeController/>
-
     	<mx:TileList id="participantsList" height="100%" width="100%" 
         	itemRenderer="org.blindsideproject.meetme.view.MeetMeUserItem"
             maxColumns="1" rowHeight="25" columnWidth="200" 
             dataProvider="{meetMeRoom.dpParticipants}">
-
     	</mx:TileList>				
+    	
     	<mx:ControlBar width="100%">
     	   <mx:Button id="muteAllIconImg" icon="{muteAllIcon}" 
     	   			toolTip="Mute All" click="muteAllUsers()"
@@ -75,9 +73,9 @@
     	   			toolTip="Unmute All" click="unmuteAllUsers()"
     	   			visible="{role == Role.MODERATOR}"/> 
      	   <mx:Spacer width="100%"/>
-    	   <mx:Image id="ejectUserDropTarget" source="{dropTargetIcon}" 
+    		<mx:Image id="ejectUserDropTarget" source="{dropTargetIcon}" 
     	   			toolTip="Drop user here to eject."
-    	   			dragEnter="dragEnterHandler(event)" dragDrop="dragDropHandler(event)"/>   			
+    	   			dragEnter="dragEnterHandler(event)" dragDrop="dragDropHandler(event)"/>  			
     	</mx:ControlBar>
 
 </view:ListenersClass>
