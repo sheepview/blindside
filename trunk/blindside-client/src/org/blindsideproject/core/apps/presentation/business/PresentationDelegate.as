@@ -169,11 +169,11 @@ package org.blindsideproject.core.apps.presentation.business
 								
 		private function sharedObjectSyncHandler( event : SyncEvent) : void
 		{
-			log.debug( "Presentation::sharedObjectSyncHandler " + event.changeList.length);
+//			log.debug( "Presentation::sharedObjectSyncHandler " + event.changeList.length);
 						
 			for (var i : uint = 0; i < event.changeList.length; i++) 
 			{
-				log.debug( "Presentation::handlingChanges[" + event.changeList[i].name + "][" + i + "]");
+//				log.debug( "Presentation::handlingChanges[" + event.changeList[i].name + "][" + i + "]");
 				handleChangesToSharedObject(event.changeList[i].code, 
 						event.changeList[i].name, event.changeList[i].oldValue);
 			}
@@ -188,7 +188,7 @@ package org.blindsideproject.core.apps.presentation.business
 			{
 				case UPDATE_MESSAGE:
 					if (presentation.isPresenter) {
-						log.debug( UPDATE_MESSAGE + " =[" + presentationSO.data.updateMessage.returnCode + "]");
+//						log.debug( UPDATE_MESSAGE + " =[" + presentationSO.data.updateMessage.returnCode + "]");
 						processUpdateMessage(presentationSO.data.updateMessage.returnCode);
 					}
 					
@@ -198,7 +198,7 @@ package org.blindsideproject.core.apps.presentation.business
 					log.debug("Giving presenter control to [" + presentationSO.data.presenter.name + "]");
 					presentation.isSharing = false;
 					presentation.presentationLoaded = false;
-					presentation.decks = null;
+//					presentation.decks = null;
 												
 					if (presentation.userid == presentationSO.data.presenter.userid) {
 						// The user has been given presenter role
@@ -227,7 +227,7 @@ package org.blindsideproject.core.apps.presentation.business
 						// Should send a stop sharing event. This will allow UIs to do what they want 
 						// (e.g. clear the screen).
 						if (! presentation.isPresenter) {
-							presentation.decks = null;
+						//	presentation.decks = null;
 						}
 						var event : ClearEvent = new ClearEvent();
 						event.dispatch();
@@ -278,7 +278,7 @@ package org.blindsideproject.core.apps.presentation.business
 				case EXTRACT_RC:
 					totalSlides = presentationSO.data.updateMessage.totalSlides;
 					completedSlides = presentationSO.data.updateMessage.completedSlides;
-					log.debug( "EXTRACTING = [" + completedSlides + " of " + totalSlides + "]");
+//					log.debug( "EXTRACTING = [" + completedSlides + " of " + totalSlides + "]");
 					
 					var extractEvt : ExtractProgressEvent = new ExtractProgressEvent(totalSlides, completedSlides);
 					extractEvt.dispatch();
@@ -287,7 +287,7 @@ package org.blindsideproject.core.apps.presentation.business
 				case CONVERT_RC:
 					totalSlides = presentationSO.data.updateMessage.totalSlides;
 					completedSlides = presentationSO.data.updateMessage.completedSlides;
-					log.debug( "CONVERTING = [" + completedSlides + " of " + totalSlides + "]");
+//					log.debug( "CONVERTING = [" + completedSlides + " of " + totalSlides + "]");
 					
 					var convertEvt : ConvertProgressEvent = new ConvertProgressEvent(totalSlides, completedSlides);
 					convertEvt.dispatch();								

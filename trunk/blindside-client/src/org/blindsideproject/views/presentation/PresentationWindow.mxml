@@ -134,8 +134,9 @@
 			{
 				// Don't clear our screen if we are the presenter
 				if (model.presentation.isPresenter) return;
-				
-				thumbnailView.visible = false;
+//				thumbnailView.invalidateDisplayList();
+//				thumbnailView.validateNow();
+//				thumbnailView.visible = false;
 			}
 
 			private function handleViewEvent(event : CairngormEvent) : void
