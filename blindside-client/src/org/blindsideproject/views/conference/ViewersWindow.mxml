@@ -51,7 +51,7 @@
     </mx:TileList-->
     
     <mx:DataGrid id="viewersGrid" dataProvider="{conference.users}" editable="false" 
-    	dragEnabled="true" width="100%" height="100%">
+    	dragEnabled="false" width="100%" height="100%">
     	<mx:columns>
     		<mx:DataGridColumn dataField="role" headerText="" dataTipField="Role" editable="false" width="20"
     			itemRenderer="org.blindsideproject.views.conference.RoleItemRenderer"/>

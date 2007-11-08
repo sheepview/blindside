@@ -38,9 +38,9 @@
 		
 		private function handleChangedSlides(slides : ArrayCollection) : void
 		{
-//			largeView.invalidateDisplayList();
+			thumbsBox.invalidateDisplayList();
 			slideList.invalidateDisplayList();
-//			largeView.validateNow();
+			thumbsBox.validateNow();
 			slideList.validateNow();
 		}
 			
