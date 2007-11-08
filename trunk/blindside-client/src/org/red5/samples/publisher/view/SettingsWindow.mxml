@@ -20,7 +20,7 @@
 		private function closeSettingsWindow() : void
 		{
 			media.video.settings.cameraIndex = camera_cb.selectedIndex;
-			media.audio.settings.micIndex = microphone_cb.selectedIndex;
+//			media.audio.settings.micIndex = microphone_cb.selectedIndex;
 			
 			PopUpManager.removePopUp(this);
 		}
@@ -37,11 +37,11 @@
 						 prompt="Select video device" toolTip="Available video devices"
 						 dataProvider="{ model.cameraNames }"
 						 selectedIndex="{ media.video.settings.cameraIndex }"/>			 
-		<mx:ComboBox id="microphone_cb" width="175" focusEnabled="false" rowCount="7"
+		<!--mx:ComboBox id="microphone_cb" width="175" focusEnabled="false" rowCount="7"
 						 toolTip="Available audio devices" prompt="Select audio device"
 						 dataProvider="{ model.microphoneNames }"
-						 selectedIndex="{ media.audio.settings.micIndex }"/>	 
-		<mx:Label text="Choose your devices."/>
+						 selectedIndex="{ media.audio.settings.micIndex }"/-->	 
+		<mx:Label text="Choose your camera."/>
 	</mx:VBox>
 	<mx:ControlBar horizontalAlign="center" verticalAlign="middle" x="0" y="106">
 		<mx:Label id="progressLbl" text="" width="100%"/>

@@ -62,7 +62,7 @@
 				else if ( media.playState == PlaybackState.STOPPED )
 				{
 					// Start playback from beginning.
-					mainApp.publisherApp.playStream(media.streamName, enableVideoCb.selected, enableAudioCb.selected );
+					mainApp.publisherApp.playStream(media.streamName, true /*enableVideoCb.selected*/, false /*enableAudioCb.selected*/ );
 				} 
 				else if ( media.playState == PlaybackState.PAUSED )
 				{
@@ -82,7 +82,7 @@
         	public function toggleAudio() : void
         	{
         		// Enable and disable audio.
-				mainApp.publisherApp.enableAudio(media.streamName, enableAudioCb.selected);
+//				mainApp.publisherApp.enableAudio(media.streamName, enableAudioCb.selected);
         	}
         
         	/**
@@ -91,7 +91,7 @@
        		public function toggleVideo() : void
         	{
         		// Enable and disable audio.
-				mainApp.publisherApp.enableVideo(media.streamName, enableVideoCb.selected);
+//				mainApp.publisherApp.enableVideo(media.streamName, enableVideoCb.selected);
         	} 		 
 		]]>
 	</mx:Script>
@@ -103,12 +103,12 @@
 		</mx:Canvas>	
 
 		<mx:ControlBar width="100%">
-			<mx:Label text="Enable:"/>  
+			<!--mx:Label text="Enable:"/>  
  			<mx:Spacer width="2"/>  
 			<mx:CheckBox label="Audio" id="enableAudioCb"   
  					click="this.toggleAudio()" selected="true"/>  
 			<mx:CheckBox id="enableVideoCb" label="Video"   
-					click="this.toggleVideo()" width="60" selected="true"/>	
+					click="this.toggleVideo()" width="60" selected="true"/-->	
 			<mx:Spacer width="100%"/>
 			<mx:Button id="stopButton" icon="{stopIcon}" click="stopStream()" toolTip="Stop"/>
 			<mx:Button id="playButton" click="viewStream()" 
