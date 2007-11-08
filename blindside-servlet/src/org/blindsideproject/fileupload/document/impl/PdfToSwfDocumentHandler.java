@@ -93,6 +93,8 @@ public class PdfToSwfDocumentHandler {
             while ((s = stdError.readLine()) != null) {
             	logger.error(s);
             }
+            stdInput.close();
+            stdError.close();
         }
         catch (IOException e) {
             logger.error("exception happened - here's what I know: ");
@@ -127,6 +129,8 @@ public class PdfToSwfDocumentHandler {
             while ((s = stdError.readLine()) != null) {
             	logger.error(s);
             }
+            stdInput.close();
+            stdError.close();
         }
         catch (IOException e) {
             logger.error("exception happened - here's what I know: ");
