@@ -79,3 +79,5 @@
  1. Open {{{CLIENT_DIR\blindside-client\html-template\index.template.html}}} change value of {{{red5Host}}} to your blindside-server and {{{presentationHost}}} to your tomcat-server.
  1. Run the {{{blindside-client}}} from your Flex IDE.
  1. Login using information you provided in {{{conferences.xml}}}.
+ 1. Convert a Powerpoint slide to PDF using OpenOffice or another tool.
+ 1. Upload the converted PDF slides to share presentation.
