@@ -58,6 +58,11 @@
  1. Add {{{SWFTOOLS_HOME = TOOLS_DIR\swftools}}} in you environment variables
  1. Add {{{SWFTOOLS_HOME}}} to your PATH
 
+=== Asterisk ===
+ 1. Download and install Asterisk 1.2 from [http://www.asterisk.org/downloads Asterisk website].
+ 1. Apply [http://blindside.googlecode.com/svn/trunk/asterisk meetme.c.patch].
+ 1. Configure Asterisk using [http://blindside.googlecode.com/svn/trunk/asterisk sample conf].
+
 == Checkout Blindside Components ==
  1. Checkout blindside-server and blindside-servlet from [http://blindside.googlecode.com/svn/trunk/ code repository] on your Eclipse IDE and put into {{{SERVER_DIR}}}.
  1. Checkout blindside-client from [http://blindside.googlecode.com/svn/trunk/ code repository] on your Flex IDE and put into {{{CLIENT_DIR}}}.
@@ -66,3 +71,8 @@
  1. Edit {{{SERVER_DIR\blindside-servlet\war\WEB-INF\blindside.properties}}}.
  1. Edit {{{SERVER_DIR\blindside-server\webapps\astmeetme\WEB-INF\astmeetme.properties}}} with your Asterisk Management Interface (AMI) values.
  1. Edit {{{SERVER_DIR\blindside-server\webapps\conference\conferences\conferences.xml}}} to create conference rooms.
+ 1. Open a command window and start ActiveMQ.
+ 1. Open another command window and change directory to {{{SERVER_DIR\blindside-server}}} and start it by typing {{{ant server}}}.
+ 1. Open another command window and start Tomcat.
+ 1. Open another command window and change directory to {{{SERVER_DIR\blindside-servlet}}} and build it by typing {{{ant warfile}}}. This will generate {{{blindside.war}}}.
+ 1. Deploy {{{blindside.war}}} to your Tomcat installation.
