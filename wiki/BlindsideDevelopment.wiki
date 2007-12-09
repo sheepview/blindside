@@ -76,3 +76,5 @@
  1. Open another command window and start Tomcat.
  1. Open another command window and change directory to {{{SERVER_DIR\blindside-servlet}}} and build it by typing {{{ant warfile}}}. This will generate {{{blindside.war}}}.
  1. Deploy {{{blindside.war}}} to your Tomcat installation.
+ 1. Open {{{CLIENT_DIR\blindside-client\html-template\index.template.html}}} change value of {{{red5Host}}} to your blindside-server and {{{presentationHost}}} to your tomcat-server.
+ 1. Run the {{{blindside-client}}} from your Flex IDE.
