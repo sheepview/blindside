@@ -59,5 +59,10 @@
  1. Add {{{SWFTOOLS_HOME}}} to your PATH
 
 == Checkout Blindside Components ==
- 1. Checkout blindside-server and blindside-servlet from [http://blindside.googlecode.com/svn/trunk/ code repository] on your Eclipse IDE.
- 1. Checkout blindside-client from [http://blindside.googlecode.com/svn/trunk/ code repository] on your Flex IDE.
+ 1. Checkout blindside-server and blindside-servlet from [http://blindside.googlecode.com/svn/trunk/ code repository] on your Eclipse IDE and put into {{{SERVER_DIR}}}.
+ 1. Checkout blindside-client from [http://blindside.googlecode.com/svn/trunk/ code repository] on your Flex IDE and put into {{{CLIENT_DIR}}}.
+
+== Running Blindside ==
+ 1. Edit {{{SERVER_DIR\blindside-servlet\war\WEB-INF\blindside.properties}}}.
+ 1. Edit {{{SERVER_DIR\blindside-server\webapps\astmeetme\WEB-INF\astmeetme.properties}}} with your Asterisk Management Interface (AMI) values.
+ 1. Edit {{{SERVER_DIR\blindside-server\webapps\conference\conferences\conferences.xml}}} to create conference rooms.
