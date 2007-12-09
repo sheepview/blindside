@@ -53,9 +53,11 @@
 
 === SWF Tools and PDF Toolkit===
  1. Download [http://www.swftools.org SWF Tools]
- 1. Download [http://www.accesspdf.com/pdftk PDFTk]
+ 1. Download [http://www.accesspdf.com/pdftk PDF Toolkit]
  1. Install in {{{TOOLS_DIR\swftools}}}
  1. Add {{{SWFTOOLS_HOME = TOOLS_DIR\swftools}}} in you environment variables
  1. Add {{{SWFTOOLS_HOME}}} to your PATH
 
 == Checkout Blindside Components ==
+ 1. Checkout blindside-server and blindside-servlet from [http://blindside.googlecode.com/svn/trunk/ code repository] on your Eclipse IDE.
+ 1. Checkout blindside-client from [http://blindside.googlecode.com/svn/trunk/ code repository] on your Flex IDE.
