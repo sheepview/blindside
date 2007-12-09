@@ -1,0 +1,18 @@
+[general]
+bindport = 4569           ; Port to bind to (IAX is 4569)
+bindaddr = 0.0.0.0    ; Address to bind to (all addresses on machine)
+rtcachefriends=yes
+disallow=all
+allow=ulaw
+allow=alaw
+allow=gsm
+mailboxdetail=yes
+auth=cleartext
+type=friend
+host=dynamic
+context=echotest
+
+[guest]
+type=user
+host=dynamic
+context=default
