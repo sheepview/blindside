@@ -1,11 +1,11 @@
 class UserController < ApplicationController
   include ApplicationHelper
   
-  before_filter :protect, :only => :index
+  before_filter :protect, :only => [:index, :edit]
   
   def index
     @title = "RailsSpace User Hub"
-    # This will be a protected page for viewing user information.
+    @user = User.find(session[:user_id])
   end
 
   def register
@@ -46,6 +46,27 @@ class UserController < ApplicationController
     flash[:notice] = "Logged out"
     redirect_to :action => "index", :controller => "site"
   end
+
+  # Edit the user's basic info.
+  def edit
+    @title = "Edit basic info"
+    @user = User.find(session[:user_id])
+    if param_posted?(:user)
+      attribute = params[:attribute]
+      case attribute
+      when "email"
+        try_to_update @user, attribute
+      when "password"
+        if @user.correct_password?(params)
+          try_to_update @user, attribute
+        else
+          @user.password_errors(params)
+        end
+      end
+    end
+    # For security purposes, never fill in password fields.
+    @user.clear_password!
+  end
   
   private
   
@@ -77,5 +98,13 @@ class UserController < ApplicationController
   # Return a string with the status of the remember me checkbox.
   def remember_me_string
     cookies[:remember_me] || "0"
+  end
+  
+  # Try to update the user, redirecting if successful.
+  def try_to_update(user, attribute)
+    if @user.update_attributes(params[:user])
+      flash[:notice] = "User #{attribute} updated."
+      redirect_to :action => "index"
+    end
   end
 end
