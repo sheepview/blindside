@@ -24,21 +24,29 @@ class UserControllerTest < Test::Unit::TestCase
     assert_response :success
     assert_template "register"
     # Test the form and all its tags
-    assert_tag "form", :attributes => { :action => "/user/register",
-    					:method => "post" }
-    assert_tag "input",
-    		:attributes => { :name => "user[screen_name]",
-				:type => "text",
-				:size => User::SCREEN_NAME_SIZE,
-				:maxlength => User::SCREEN_NAME_MAX_LENGTH }
-    assert_tag "input",
-    		:attributes => { :name => "user[password]",
-				:type => "password",
-				:size => User::PASSWORD_SIZE,
-				:maxlength => User::PASSWORD_MAX_LENGTH }
-    assert_tag "input",
-    		:attributes => { :type => "submit",
-				:value => "Register!" }
+    assert_form_tag "/user/register"
+    assert_screen_name_field
+    assert_email_field
+    assert_password_field
+    assert_password_field "password_confirmation"
+    assert_submit_button "Register!"
+  end
+  
+  # Test edit page.
+  def test_edit_page
+    authorize @valid_user
+    get :edit
+    title = assigns(:title)
+    assert_equal "Edit basic info", title
+    assert_response :success
+    assert_template "edit"
+    # Test the form and all its tags.
+    assert_form_tag "/user/edit"
+    assert_email_field @valid_user.email
+    assert_password_field "current_password"
+    assert_password_field
+    assert_password_field "password_confirmation"
+    assert_submit_button "Update"
   end
   
   # Test a valid registration.
@@ -279,5 +287,28 @@ private
   # Return the cookie expiration given a symbol
   def cookie_expires(symbol)
     cookies[symbol.to_s].expires
+  end
+  
+  # Some utility assertions for testing HTML.
+  
+  # Assert that the email field has the correct HTML.
+  def assert_email_field(email = nil, options = {})
+    assert_input_field("user[email]", email, "text",
+                      User::EMAIL_SIZE, User::EMAIL_MAX_LENGTH,
+                      options)
+  end
+
+  # Assert that the password field has the correct HTML.
+  def assert_password_field(password_field_name = "password", options ={})
+    # We never want a password to appear pre-filled into a form.
+    blank = nil
+    assert_input_field("user[#{password_field_name}]", blank, "password",
+                      User::PASSWORD_SIZE, User::PASSWORD_MAX_LENGTH, options)
+  end
+
+  # Assert that the screen name field has the correct HTML.
+  def assert_screen_name_field(screen_name = nil, options = {})
+    assert_input_field("user[screen_name]", screen_name, "text",
+                      User::SCREEN_NAME_SIZE, User::SCREEN_NAME_MAX_LENGTH, options)
   end
 end
