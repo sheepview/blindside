@@ -11,7 +11,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # You can have the root of your site routed by hooking up '' 
   # -- just remember to delete public/index.html.
-  map.connect '', :controller => "site"
+  map.connect '', :controller => "site", :action => 'index', :id => nil
 
   map.profile 'profile/:screen_name', :controller => 'profile', :action => 'show'
   map.hub 'user', :controller => 'user', :action => 'index'
