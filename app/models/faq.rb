@@ -1,5 +1,6 @@
 class Faq < ActiveRecord::Base
   belongs_to :user
+  acts_as_ferret
   
   QUESTIONS = %w(bio skillz schools companies music movies
                   television books magazines)
