@@ -2,6 +2,7 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
   has_one :spec
   has_one :faq
+  acts_as_ferret :fields => ['screen_name', 'email'] # but NOT password
   
   attr_accessor :remember_me
   attr_accessor :current_password
@@ -94,5 +95,10 @@ class User < ActiveRecord::Base
     valid?
     # The current password is incorrect, so add an error message.
     errors.add(:current_password, "is incorrect")
+  end
+  
+  # Return a sensible name for the user.
+  def name
+    spec.full_name.or_else(screen_name)
   end
 end

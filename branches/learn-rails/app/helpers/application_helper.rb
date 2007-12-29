@@ -1,10 +1,11 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   require 'string'
+  require 'object'
   
   # Return a link for use in layout navigation
   def nav_link(text, controller, action = "index")
-    link_to_unless_current text, :controller => controller,
+    link_to_unless_current text, :id => nil, :controller => controller,
     				:action => action
   end
   
@@ -19,5 +20,10 @@ module ApplicationHelper
     label = content_tag("label", "#{field.humanize}:", :for => field)
     form_field = form.text_field field, :size => size, :maxlength => maxlength
     content_tag("div", "#{label} #{form_field}", :class => "form_row")    
+  end
+  
+  # Return true if results should be paginated.
+  def paginated?
+    @pages and @pages.length > 1
   end
 end
