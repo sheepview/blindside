@@ -10,3 +10,18 @@ invalid_user:
   email: anoyes@example,com
   password: sun
   
+# Create a user with a blank spec.
+specless:
+  id: 3
+  screen_name: linusp
+  email: lpauling@example.com
+  password: 2nobels
+  
+# Create 10 users so that searchees can invoke pagination.
+<% (1..10).each do |i| %>
+user_id<%= i %>:
+  id: <%= i + 3 %>
+  screen_name: user_<%= i %>
+  email: user_<%= i %>@example.com
+  password: foobar
+<% end %>
