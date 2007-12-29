@@ -2,7 +2,7 @@
 # migrations feature of ActiveRecord to incrementally modify your database, and
 # then regenerate this schema definition.
 
-ActiveRecord::Schema.define(:version => 6) do
+ActiveRecord::Schema.define(:version => 7) do
 
   create_table "faqs", :force => true do |t|
     t.column "user_id",    :integer, :null => false
@@ -16,6 +16,18 @@ ActiveRecord::Schema.define(:version => 6) do
     t.column "magazines",  :text
     t.column "books",      :text
   end
+
+  create_table "geo_data", :force => true do |t|
+    t.column "zip_code",  :string
+    t.column "latitude",  :float
+    t.column "longitude", :float
+    t.column "city",      :string
+    t.column "state",     :string
+    t.column "county",    :string
+    t.column "type",      :string
+  end
+
+  add_index "geo_data", ["zip_code"], :name => "zip_code_optimization"
 
   create_table "sessions", :force => true do |t|
     t.column "session_id", :string
