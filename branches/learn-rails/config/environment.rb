@@ -58,3 +58,7 @@ end
 # Mime::Type.register "application/x-mobile", :mobile
 
 # Include your application configuration below
+
+DB_STRING_MAX_LENGTH = 255
+DB_TEXT_MAX_LENGTH = 40000
+HTML_TEXT_FIELD_SIZE = 15

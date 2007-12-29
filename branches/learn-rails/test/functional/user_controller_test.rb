@@ -262,12 +262,7 @@ private
     user_hash.merge!(options)
     post :login, :user => user_hash
   end
-  
-  # Authorize a user.
-  def authorize(user)
-    @request.session[:user_id] = user.id
-  end
-  
+    
   def friendly_url_forwarding_aux(test_page, protected_page, user)
     get protected_page
     assert_response :redirect
