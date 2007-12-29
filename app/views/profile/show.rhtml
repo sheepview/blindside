@@ -1,2 +1,22 @@
-<h1>Profile#show</h1>
-<p>Find me in app/views/profile/show.rhtml</p>
+<div id="left_column">
+	<%= render :partial => 'faq/sidebar_box', :collection => Faq::FAVORITES %>
+</div>
+
+<div id="main_content">
+  <div id="full_name">
+  	<%= h @spec.full_name.or_else(@user.screen_name) %>
+  </div>
+  <div id="occupation">
+  	<%= h @spec.occupation %>
+  </div>
+  <div id="location">
+  	<%= h @spec.location %>
+  </div>  
+  
+  <hr noshade />
+  
+  Bio:
+  <div id="bio">
+  	<%= sanitize @faq.bio %>
+  </div>
+</div>
