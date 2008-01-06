@@ -1,5 +1,6 @@
 class ProfileController < ApplicationController
-
+  helper :avatar
+  
   def index
     @title = "RailsSpace Profiles"
   end

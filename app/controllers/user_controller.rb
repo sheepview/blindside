@@ -1,12 +1,12 @@
 class UserController < ApplicationController
   include ApplicationHelper
-  helper :profile
+  helper :profile, :avatar
   before_filter :protect, :only => [:index, :edit]
   
   def index
     @title = "RailsSpace User Hub"
     @user = User.find(session[:user_id])    
-    @spec = @user.spec ||= Spec.news    
+    @spec = @user.spec ||= Spec.new  
     @faq = @user.faq ||= Faq.new
   end
 

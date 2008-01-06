@@ -97,6 +97,10 @@ class User < ActiveRecord::Base
     errors.add(:current_password, "is incorrect")
   end
   
+  def avatar
+    Avatar.new(self)
+  end
+  
   # Return a sensible name for the user.
   def name
     spec.full_name.or_else(screen_name)
