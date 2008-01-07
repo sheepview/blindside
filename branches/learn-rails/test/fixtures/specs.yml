@@ -14,3 +14,16 @@ valid_spec:
 blank_spec:
   id: 2
   user_id: 2
+
+friend_spec:
+  id: 3
+  user_id: 4
+  first_name: Dude
+  last_name: Dude
+  gender: Male
+  birthdate: 2000-01-01
+  occupation: Dude
+  city: Dude
+  state: CA
+  zip_code: 91125
+  
