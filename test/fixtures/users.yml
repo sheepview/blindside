@@ -16,11 +16,17 @@ specless:
   screen_name: linusp
   email: lpauling@example.com
   password: 2nobels
-  
+
+friend:
+  id: 4
+  screen_name: amigo
+  email: ami@example.com
+  password: Freund
+    
 # Create 10 users so that searchees can invoke pagination.
 <% (1..10).each do |i| %>
 user_id<%= i %>:
-  id: <%= i + 3 %>
+  id: <%= i + 4 %>
   screen_name: user_<%= i %>
   email: user_<%= i %>@example.com
   password: foobar
