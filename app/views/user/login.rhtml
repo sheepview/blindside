@@ -21,6 +21,10 @@
 <% end %>
 
 <p>
+	Forgot your screen name or password?
+	<%= link_to "Remind Me!", :controller => "email", :action => "remind" %>
+</p>
+<p>
   Not a member? <%= link_to "Register now!", :action => "register" %>
 </p>
 

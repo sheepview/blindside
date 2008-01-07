@@ -1,0 +1,13 @@
+<% if logged_in? and @user != @logged_in_user %>
+<div class="sidebar_box">
+	<h2>
+		<span class="header">Actions</span>
+		<br clear="all">
+	</h2>
+	<ul>
+		<li><%= link_to "Email this user", 
+						:controller => "email", :action => "correspond",
+						:id => @user.screen_name %></li>
+	</ul>
+</div>
+<% end %>
