@@ -2,6 +2,24 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
   has_one :spec
   has_one :faq
+  has_many :friendships
+  has_many :friends,
+            :through => :friendships,
+            :conditions => "status = 'accepted'",
+            :order => :screen_name
+            
+  has_many :requested_friends,
+            :through => :friendships,
+            :source => :friend,
+            :conditions => "status = 'requested'",
+            :order => :created_at
+            
+  has_many :pending_friends,
+            :through => :friendships,
+            :source => :friend,
+            :conditions => "status = 'pending'",
+            :order => :created_at
+            
   acts_as_ferret :fields => ['screen_name', 'email'] # but NOT password
   
   attr_accessor :remember_me

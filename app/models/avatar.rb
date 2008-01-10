@@ -44,6 +44,11 @@ class Avatar < ActiveRecord::Base
     end
   end
   
+  def thumbnail_url
+    thumb = exists? ? thumbnail_name : "default_thumbnail.png"
+    "#{URL_STUB}/#{thumb}"
+  end
+  
   private
   
   # Return the filename of the main avatar.
