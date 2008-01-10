@@ -7,7 +7,7 @@ class CreateSpecs < ActiveRecord::Migration
       t.column :gender,     :string
       t.column :birthdate,  :date
       t.column :occupation, :string, :default => ""
-      t.column :city, :string, :default => ""
+      t.column :city,       :string, :default => ""
       t.column :state,      :string, :default => ""
       t.column :zip_code,   :string, :default => ""
     end
