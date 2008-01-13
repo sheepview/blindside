@@ -2,7 +2,11 @@
 # migrations feature of ActiveRecord to incrementally modify your database, and
 # then regenerate this schema definition.
 
-ActiveRecord::Schema.define(:version => 8) do
+ActiveRecord::Schema.define(:version => 10) do
+
+  create_table "blogs", :force => true do |t|
+    t.column "user_id", :integer
+  end
 
   create_table "faqs", :force => true do |t|
     t.column "user_id",    :integer, :null => false
@@ -36,6 +40,14 @@ ActiveRecord::Schema.define(:version => 8) do
   end
 
   add_index "geo_data", ["zip_code"], :name => "zip_code_optimization"
+
+  create_table "posts", :force => true do |t|
+    t.column "blog_id",    :integer
+    t.column "title",      :string
+    t.column "body",       :text
+    t.column "created_at", :datetime
+    t.column "updated_at", :datetime
+  end
 
   create_table "sessions", :force => true do |t|
     t.column "session_id", :string
