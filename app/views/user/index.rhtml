@@ -69,5 +69,12 @@
   </div>
   
   <hr noshade />
+  Friends:
   <%= render :partial => "friendship/friends" %>
+  <hr noshade />
+  Blog:
+  <span class="edit_link">
+  	<%= link_to "(manage)", posts_path(@blog) %>
+  </span>
+  <%= render :partial => "profile/blog" %>
 </div>
