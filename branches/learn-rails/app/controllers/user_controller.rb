@@ -6,8 +6,7 @@ class UserController < ApplicationController
   def index
     @title = "RailsSpace User Hub"
     @user = User.find(session[:user_id])    
-    @spec = @user.spec ||= Spec.new  
-    @faq = @user.faq ||= Faq.new
+    make_profile_vars
   end
 
   def register

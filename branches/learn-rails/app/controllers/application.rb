@@ -9,6 +9,13 @@ class ApplicationController < ActionController::Base
   # Pick a unique cookie name to distinguish our session data from others'
   session :session_key => '_rails_space_session_id'
   
+  def make_profile_vars
+    @spec = @user.spec ||= Spec.new
+    @faq = @user.faq ||= Faq.new
+    @blog = @user.blog || Blog.new
+    @pages, @posts = paginate(@blog.posts, :per_page => 3)
+  end
+  
   # Check for a valid authorization cookie, possibly logging the user in.
   def check_authorization
     authorization_token = cookies[:authorization_token]
