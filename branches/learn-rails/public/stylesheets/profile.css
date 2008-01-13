@@ -85,3 +85,22 @@ input {
 	width: 280px;
 	background: #ff9;
 }
+
+/* Blog Styles */
+
+.post {
+	display: block;
+	margin-bottom: 1.5em;
+}
+.post_title {
+	font-weight: bold;
+}
+.post_body {
+	padding: 1em;
+}
+.post_creation_date, .post_modification_date {
+	text-align: right;
+}
+.post_actions {
+	float: right;
+}
