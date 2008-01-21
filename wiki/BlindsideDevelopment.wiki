@@ -82,7 +82,12 @@ Note: The instructions assumes you are working on a Windows machine. There is no
   * ami.username=<username>
   * ami.password=<password>
 
- 1. Edit {{{SERVER_DIR\blindside-server\webapps\conference\conferences\conferences.xml}}} to create conference rooms.
+ 1. Edit {{{SERVER_DIR\blindside-server\webapps\conference\conferences\conferences.xml}}} to create conference rooms. Make sure <name> has an equivalent entry in your Asterisk's {{{meetme.conf}}} file.
+	<conference-room>
+	    <name>85101</name>
+	    <mod-password>modpass</mod-password>
+	    <view-password>viewpass</view-password>
+	</conference-room>
  1. Open a command window and start ActiveMQ.
  1. Open another command window and change directory to {{{SERVER_DIR\blindside-server}}} and start it by typing {{{ant server}}}.
  1. Open another command window and start Tomcat.
