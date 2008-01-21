@@ -70,7 +70,18 @@ Note: The instructions assumes you are working on a Windows machine. There is no
 
 == Running Blindside ==
  1. Edit {{{SERVER_DIR\blindside-servlet\war\WEB-INF\blindside.properties}}}.
+  * swftoolLocation=c:/tools/pdf2swf (Edit to point to your pdf2swf executable)
+  * pdfExtractor=c:/tools/pdftk (Edit to point to your pdftk executable)
+  * presBaseDirectory=c:/temp/upload (directory where uploaded slides are extracted)
+  * extractedFolder=extracted
+
  1. Edit {{{SERVER_DIR\blindside-server\webapps\astmeetme\WEB-INF\astmeetme.properties}}} with your Asterisk Management Interface (AMI) values.
+  * These properties are for Asterisk Management Interface (AMI)
+  * ami.host=192.168.0.101
+  * ami.port=5038
+  * ami.username=<username>
+  * ami.password=<password>
+
  1. Edit {{{SERVER_DIR\blindside-server\webapps\conference\conferences\conferences.xml}}} to create conference rooms.
  1. Open a command window and start ActiveMQ.
  1. Open another command window and change directory to {{{SERVER_DIR\blindside-server}}} and start it by typing {{{ant server}}}.
