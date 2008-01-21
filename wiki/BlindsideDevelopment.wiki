@@ -2,6 +2,7 @@
 #labels Phase-Implementation,Featured
 
 = Development Environment =
+Note: The instructions assumes you are working on a Windows machine. There is no specific requirement on what type of machine or OS is needed. If it has enough processor and memory (at least 512MB), has Java installed, you're good to go.
 
 == Create Directories ==
  1. Create {{{c:\tools}}} - will be referred to as {{{TOOLS_DIR}}} for the rest of this document
