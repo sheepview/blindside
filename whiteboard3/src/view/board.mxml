@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BoardClass xmlns="view.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="400" height="300" creationComplete="init()">
+	<mx:Script>
+		<![CDATA[
+			import com.adobe.cairngorm.control.CairngormEvent;
+			import control.DrawController;
+			import com.adobe.cairngorm.control.CairngormEventDispatcher;
+			import vo.DrawVO;
+			
+			public var dispatcher:CairngormEventDispatcher = CairngormEventDispatcher.getInstance();
+			
+			private var x1:int;
+			private var y1:int;
+			private var x2:int;
+			private var y2:int;
+			
+			private var isDrawing:Boolean; 
+			
+			private var feedback:Shape = new Shape();
+			private var segment:Array = new Array();
+			
+			private var newShape:Shape = new Shape();
+			private var shapeList:Array = new Array();
+			
+			public function init():void{
+				dispatcher.addEventListener(DrawController.UPDATE_EVENT, update);
+			}
+			
+			public function update(event:CairngormEvent):void{
+				drawSegment();
+			}
+			/**
+			*Method is invoked when the mouse is released
+			*<p>
+			*The method finalizes the shape that was being edited. The shape is then sent as 
+			*an event, which updates all client views.  
+			*<p>
+			*The method also deleted the temporary feedback shape from the screen.
+			*/
+			private function doMouseUp():void{
+				isDrawing = false;
+				sendShape(segment);
+				if (canvas.rawChildren.contains(feedback)){
+					canvas.rawChildren.removeChild(feedback);
+				}
+				feedback = new Shape;
+			}
+
+			/**
+			*Method is invoked when the mouse is pressed
+			*<p>
+			*The method captures the x and y coordinates of the mouse click and uses the point as
+			*the starting point in a shape
+			*/
+			private function doMouseDown():void{
+				isDrawing = true;
+				x1 = canvas.mouseX;
+				y1 = canvas.mouseY;
+				segment.push(x1);
+				segment.push(y1);
+				canvas.rawChildren.addChild(feedback);
+			}
+			/**
+			*Method is invoked when the mouse is moved over the canvas
+			*<p>
+			*The method captures the x and y coordinates of the mouse, adding the points to the current
+			*shape being drawn. 
+			*<p>
+			*Note: The method only works if the mouse is pressed, otherwise does nothing.
+			*/
+			private function doMouseMove():void{
+				if (isDrawing){
+					x2 = canvas.mouseX;
+					y2 = canvas.mouseY;
+					segment.push(x2);
+					segment.push(y2);
+					
+					feedback.graphics.lineStyle(2);
+					feedback.graphics.moveTo(x1,y1);
+					feedback.graphics.lineTo(x2,y2);
+					
+					x1 = x2;
+					y1 = y2;
+				}
+			}
+			
+			private function drawSegment():void{
+				newShape.graphics.lineStyle(2);
+            
+	            for (var c:Number = 2; c < drawVO.segment.length ; c += 2){
+	            	newShape.graphics.moveTo(drawVO.segment[c-2], drawVO.segment[c-1]);
+	            	newShape.graphics.lineTo(drawVO.segment[c],drawVO.segment[c+1]);
+	            }
+	            
+	            segment = new Array();
+	            shapeList.push(newShape);
+	            newShape = new Shape();
+	            canvas.rawChildren.addChild(shapeList[shapeList.length-1]);
+
+			}
+		]]>
+	</mx:Script>
+	<mx:Canvas id="canvas" mouseUp="doMouseUp()" height="100%" width="100%"
+		mouseDown="doMouseDown()" mouseMove="doMouseMove()">
+		
+	</mx:Canvas>
+</BoardClass>
