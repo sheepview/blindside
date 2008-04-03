@@ -9,6 +9,11 @@ package model
 	
 	import control.DrawController;
 	
+	/**
+	 * A signleton class that holds references to all components of the Whiteboard application 
+	 * @author Denis
+	 * 
+	 */	
 	public class DrawModelLocator implements IModelLocator
 	{
 		private var dispatcher:CairngormEventDispatcher = CairngormEventDispatcher.getInstance();
@@ -20,6 +25,12 @@ package model
 		[Bindable]
 		public var draw:DrawModel = new DrawModel();
 		
+		/**
+		 * The default constructor. Should not be called from the outside, however ActionScript does not support
+		 * constructors being declared private. If you wish to get a DrawModelLocator object, you should instead
+		 * call the getInstance() static method.
+		 * 
+		 */		
 		public function DrawModelLocator()
 		{
 			if ( modelLocator != null )
@@ -29,6 +40,11 @@ package model
 		    initialize();	
 		}
 		
+		/**
+		 * A signleton pattern method to get the object of this class 
+		 * @return the unique instance of DrawModelLocator
+		 * 
+		 */		
 		public static function getInstance() : DrawModelLocator
 		{
 			if ( modelLocator == null )
@@ -37,15 +53,31 @@ package model
 			return modelLocator;
 	   	}
 		
-		public function initialize():void{
+		/**
+		 * Instantiates the DrawController. Method is called from the constructor 
+		 * 
+		 */		
+		private function initialize():void{
 			this.controller = new DrawController();
 		}
 		
+		/**
+		 *  A convinience method to return the CairngormEventDispatcher
+		 * <p>
+		 * NOTE: Returns the same object as CairngormEventDispatcher.getInstance()
+		 * @return the event dispatcher of this application 
+		 * 
+		 */		
 		public function getDispatcher() : CairngormEventDispatcher
 	    {
 	   		return dispatcher;
 	   	}
 	   	
+	   	/**
+	   	 * A method to get the DrawDelegate
+	   	 * @return The Red5 Service Delegate of this application
+	   	 * 
+	   	 */	   	
 	   	public function getDrawDelegate():DrawDelegate
 	   	{
 	   		if (drawDelegate == null) {
