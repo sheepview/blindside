@@ -6,10 +6,20 @@ package control.handler
 	
 	import model.DrawModelLocator;
 	
+	/**
+	 * This class handles a Send Shape command, by calling an appropriate methos in the DrawDelegate 
+	 * @author Denis
+	 * 
+	 */	
 	public class SendShapeCommandHandler implements ICommand
 	{
 		private var boardModel:DrawModelLocator = DrawModelLocator.getInstance();
 		
+		/**
+		 * This method is executed automaticaly once the DrawController recognizes a Send Shape command 
+		 * @param cgCommand
+		 * 
+		 */		
 		public function execute(cgCommand:CairngormEvent):void
 		{
 			var command:SendShapeCommand = SendShapeCommand(cgCommand);
