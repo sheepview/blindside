@@ -1,0 +1,46 @@
+
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<style>
+body { margin: 0px; overflow:hidden }
+</style>
+<script language="JavaScript" type="text/javascript">
+function call(number)
+{
+	document.getElementById("sipphone").call(number);
+}
+
+
+function hangUp()
+{
+	document.getElementById("sipphone").hangUp();
+}
+
+</script>
+</head>
+
+<body background="#336699" border="20">
+<h1>Add click-2-call to your webpage</h1>
+<p>This page demonstrates how you can add a click-2-call functionality on your webpages.</p>
+
+<p>In this example, we have two buttons. One to connect to Asterisk's echo test application and the
+other to hangup.</p>
+<form>
+<input type="button" onclick="call(510)" value="Call">
+<input type="button" onclick="hangUp()" value="Hangup">
+</form>
+
+
+<div>
+<applet id="sipphone" NAME=sipphone MAYSCRIPT height="0" width="0">
+<param name="CODE" value="com.sipresponse.callapplet.SipPhoneApplet.class"></param>
+<param name="ARCHIVE" value="SipPhoneApplet.jar, jmf.jar"></param>
+<param name="PORT" value="5060"></param>
+<param name="PASS" value="ff3j"></param>
+<param name="USER" value="1002"></param>
+<param name="HOST" value="conference.carleton.ca"></param></applet>
+</div>
+</body>
+</html>
