@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path=""/>
+	<classpathentry kind="lib" path="M:/workspace/sip1.2/sip-sdp.jar"/>
+	<classpathentry kind="lib" path="M:/workspace/sip1.2/concurrent.jar"/>
+	<classpathentry kind="lib" path="M:/workspace/sip1.2/flibbleCallMgr_0_1_0122-bin.jar"/>
+	<classpathentry kind="lib" path="M:/workspace/sip1.2/flibbleMediaPlugin_JMF_0_1_0122-bin.jar"/>
+	<classpathentry kind="lib" path="M:/workspace/sip1.2/JainSipApi1.2.jar"/>
+	<classpathentry kind="lib" path="M:/workspace/sip1.2/JainSipRi1.2.jar"/>
+	<classpathentry kind="lib" path="M:/workspace/sip1.2/jakarta-regexp-1.3.jar"/>
+	<classpathentry kind="lib" path="M:/workspace/sip1.2/jmf.jar"/>
+	<classpathentry kind="lib" path="M:/workspace/sip1.2/jstun-0.6.1.jar"/>
+	<classpathentry kind="lib" path="M:/workspace/sip1.2/junit-4.1.jar"/>
+	<classpathentry kind="lib" path="M:/workspace/sip1.2/log4j-1.2.8.jar"/>
+	<classpathentry kind="lib" path="M:/workspace/sip1.2/nist-sdp-1.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.5.0_08"/>
+	<classpathentry kind="output" path=""/>
+</classpath>
