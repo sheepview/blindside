@@ -11,3 +11,5 @@ This page shows you how to use the Blindside Webcasting and Conferencing system.
 Here are a couple of screencasts that gives a tour of Blindside:
   * [http://blindside.googlecode.com/svn/trunk/docs/blindside-tour.htm Quick tour] of Blindside.
   * [http://blindside.googlecode.com/svn/trunk/docs/blindside-demo.htm Detailed] tour of Blindside.
+
+*Note:* Use IE to view the above Screencast links.  (Currently, if you use FireFox you only get back XML.)
