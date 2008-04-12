@@ -4,6 +4,8 @@ package view
 	
 	import model.DrawModelLocator;
 	import model.DrawObject;
+	import model.DrawObjectFactory;
+	import model.ShapeFactory;
 	
 	import mx.containers.Panel;
 	
@@ -21,6 +23,9 @@ package view
 		protected var boardModel:DrawModelLocator = DrawModelLocator.getInstance();
 		[Bindable]
 		public var drawVO:DrawVO = boardModel.draw.drawVO;
+		
+		protected var drawFactory:DrawObjectFactory = new DrawObjectFactory();
+		protected var shapeFactory:ShapeFactory = new ShapeFactory();
 		
 		/**
 		 * The default constructor. 
