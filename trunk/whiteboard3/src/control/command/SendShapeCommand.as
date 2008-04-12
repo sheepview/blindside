@@ -4,6 +4,8 @@ package control.command
 	
 	import control.DrawController;
 	
+	import model.DrawObject;
+	
 	/**
 	 * An event for sending a shape to the DrawDelegate service 
 	 * @author Denis
@@ -11,14 +13,14 @@ package control.command
 	 */	
 	public class SendShapeCommand extends CairngormEvent
 	{
-		public var segment:Array;
+		public var segment:DrawObject;
 		
 		/**
 		 * The default constructor. Registers this event with the DrawController
 		 * @param segment The segment to be passed to the DrawDelegate
 		 * 
 		 */		
-		public function SendShapeCommand(segment:Array)
+		public function SendShapeCommand(segment:DrawObject)
 		{
 			super(DrawController.SEND_SHAPE_EVENT);
 			this.segment = segment;
@@ -29,7 +31,7 @@ package control.command
 		 * @return the array representation of the shape
 		 * 
 		 */		
-		public function getSegment():Array{
+		public function getSegment():DrawObject{
 			return this.segment;
 		}
 

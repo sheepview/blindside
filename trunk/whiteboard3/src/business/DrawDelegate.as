@@ -10,6 +10,8 @@ package business
 	
 	import model.DrawModel;
 	import model.DrawModelLocator;
+	import model.DrawObject;
+	import model.DrawObjectFactory;
 	
 	import org.red5.as3.net.Connection;
 	import org.red5.as3.net.events.ConnectionEvent;
@@ -87,8 +89,8 @@ package business
 		 * @param shape The shape sent to the SharedObject
 		 * 
 		 */		
-		public function sendShape(shape:Array):void{
-			drawSO.send("addSegment", shape);
+		public function sendShape(shape:DrawObject):void{
+			drawSO.send("addSegment", shape.getShapeArray(), shape.getType());
 		}
 		
 		/**
@@ -96,8 +98,9 @@ package business
 		 * @param array The array representation of a shape
 		 * 
 		 */		
-		public function addSegment(array:Array):void{
-			draw.drawVO.segment = array;
+		public function addSegment(array:Array, type:String):void{
+			var d:DrawObject = DrawObjectFactory.makeDrawObject(type,array);
+			draw.drawVO.segment = d;
 			var cgEvent:UpdateEvent = new UpdateEvent();
 			dispatcher.dispatchEvent(cgEvent);
 		}
