@@ -6,28 +6,28 @@ package model
 		{
 		}
 		
-		public function makeDrawObject(type:String, shape:Array):DrawObject{
+		public function makeDrawObject(type:String, shape:Array, color:uint, thickness:uint):DrawObject{
 			var d:DrawObject = null;
 			if (type == DrawObject.PENCIL){
-				d = makePencil(shape);
+				d = makePencil(shape, color, thickness);
 			} else if (type == DrawObject.RECTANGLE){
-				d = new Rectangle(shape);
+				d = makeRectangle(shape, color, thickness);
 			} else if (type == DrawObject.ELLIPSE){
-				d = new Ellipse(shape);
+				d = makeEllipse(shape, color, thickness);
 			}
 			return d;
 		}
 		
-		public function makePencil(shape:Array):DrawObject{
-			return new Pencil(shape);
+		public function makePencil(shape:Array, color:uint, thickness:uint):DrawObject{
+			return new Pencil(shape, color, thickness);
 		}
 		
-		public function makeRectangle(shape:Array):DrawObject{
-			return new Rectangle(shape);
+		public function makeRectangle(shape:Array, color:uint, thickness:uint):DrawObject{
+			return new Rectangle(shape, color, thickness);
 		}
 		
-		public function makeEllipse(shape:Array):DrawObject{
-			return new Ellipse(shape);
+		public function makeEllipse(shape:Array, color:uint, thickness:uint):DrawObject{
+			return new Ellipse(shape, color, thickness);
 		}
 
 	}

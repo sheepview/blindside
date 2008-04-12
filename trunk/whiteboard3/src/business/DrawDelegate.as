@@ -91,7 +91,7 @@ package business
 		 * 
 		 */		
 		public function sendShape(shape:DrawObject):void{
-			drawSO.send("addSegment", shape.getShapeArray(), shape.getType());
+			drawSO.send("addSegment", shape.getShapeArray(), shape.getType(), shape.getColor(), shape.getThickness());
 		}
 		
 		/**
@@ -99,8 +99,8 @@ package business
 		 * @param array The array representation of a shape
 		 * 
 		 */		
-		public function addSegment(array:Array, type:String):void{
-			var d:DrawObject = drawFactory.makeDrawObject(type,array);
+		public function addSegment(array:Array, type:String, color:uint, thickness:uint):void{
+			var d:DrawObject = drawFactory.makeDrawObject(type,array,color,thickness);
 			draw.drawVO.segment = d;
 			var cgEvent:UpdateEvent = new UpdateEvent();
 			dispatcher.dispatchEvent(cgEvent);

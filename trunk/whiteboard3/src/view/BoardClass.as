@@ -24,8 +24,12 @@ package view
 		[Bindable]
 		public var drawVO:DrawVO = boardModel.draw.drawVO;
 		
-		protected var drawFactory:DrawObjectFactory = new DrawObjectFactory();
-		protected var shapeFactory:ShapeFactory = new ShapeFactory();
+		protected var drawFactory:DrawObjectFactory;
+		protected var shapeFactory:ShapeFactory;
+		
+		protected var shapeStyle:String = DrawObject.PENCIL;
+		protected var drawColor:uint;
+		protected var thickness:uint;
 		
 		/**
 		 * The default constructor. 
@@ -35,6 +39,8 @@ package view
 		{
 			super();
 			boardModel.getDrawDelegate();
+			drawFactory = new DrawObjectFactory();
+			shapeFactory = new ShapeFactory();
 		}
 		
 		/**
@@ -46,10 +52,37 @@ package view
 		 * @param shape The array representation of the shape that was drawn
 		 * 
 		 */		
-		public function sendShape(shape:DrawObject):void{
+		protected function sendShape(shape:DrawObject):void{
 			var cgCommand : SendShapeCommand = new SendShapeCommand(shape);
 			cgCommand.dispatch();
 		}
 		
+		/**
+		 * Sets the type of shape we're drawing (pencil, rectangle, etc...) 
+		 * @param s The type
+		 * 
+		 */		
+		protected function setShape(s:String):void{
+			this.shapeStyle = s;
+		}
+		
+		/**
+		 * Sets the color 
+		 * @param e event containing the color (e.target.selectedColor)
+		 * 
+		 */		
+		protected function changeColor(e:Event):void{
+			drawColor = e.target.selectedColor;
+		}
+		
+		/**
+		 * Sets the thickness 
+		 * @param e event containing the thickness (e.target.value)
+		 * 
+		 */		
+		protected function changeThickness(e:Event):void{
+			this.thickness = e.target.value;
+		}
+	
 	}
 }
