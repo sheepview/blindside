@@ -25,8 +25,6 @@
 			private var newShape:Shape = new Shape();
 			private var shapeList:Array = new Array();
 			
-			private var shapeStyle:String = DrawObject.PENCIL;
-			
 			public function init():void{
 				dispatcher.addEventListener(DrawController.UPDATE_EVENT, update);
 			}
@@ -44,7 +42,7 @@
 			*/
 			private function doMouseUp():void{
 				isDrawing = false;
-				var d:DrawObject = drawFactory.makeDrawObject(this.shapeStyle,segment);
+				var d:DrawObject = drawFactory.makeDrawObject(this.shapeStyle,segment, this.drawColor, this.thickness);
 				sendShape(d);
 				if (canvas.rawChildren.contains(feedback)){
 					canvas.rawChildren.removeChild(feedback);
@@ -82,11 +80,8 @@
 					segment.push(y2);
 					
 					canvas.rawChildren.removeChild(feedback);
-					feedback = shapeFactory.makeFeedback(segment,this.shapeStyle);
+					feedback = shapeFactory.makeFeedback(segment,this.shapeStyle, this.drawColor, this.thickness);
 					canvas.rawChildren.addChild(feedback);
-					//feedback.graphics.lineStyle(2);
-					//feedback.graphics.moveTo(x1,y1);
-					//feedback.graphics.lineTo(x2,y2);
 					
 					x1 = x2;
 					y1 = y2;
@@ -101,10 +96,6 @@
 	            newShape = new Shape();
 
 			}
-			
-			private function setShape(s:String):void{
-				this.shapeStyle = s;
-			}
 		]]>
 	</mx:Script>
 	<mx:Canvas id="canvas" mouseUp="doMouseUp()" height="90%" width="100%"
@@ -114,5 +105,7 @@
 		<mx:Button label="Pencil" id="btnPenc" click="setShape(DrawObject.PENCIL)"/>
 		<mx:Button label="Rectangle" id="btnRect" click="setShape(DrawObject.RECTANGLE)"/>
 		<mx:Button label="Ellipse" id="btnEllip" click="setShape(DrawObject.ELLIPSE)"/>
+		<mx:ColorPicker change="changeColor(event)" id="cpik"/>
+		<mx:HSlider width="50" id="sld" change="changeThickness(event)"/>
 	</mx:ApplicationControlBar>
 </BoardClass>

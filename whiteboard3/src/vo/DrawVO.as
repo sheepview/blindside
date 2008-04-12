@@ -13,6 +13,7 @@ package vo
 	public class DrawVO implements IValueObject
 	{
 		public var segment:DrawObject;
+		public var color:uint;
 		
 		public function DrawVO()
 		{

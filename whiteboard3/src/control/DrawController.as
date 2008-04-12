@@ -2,7 +2,7 @@ package control
 {
 	import com.adobe.cairngorm.control.FrontController;
 	
-	import control.handler.SendShapeCommandHandler;
+	import control.handler.*;
 	
 	/**
 	 * The DrawController captures events dispatched by the CairngormEventDispatcher and triggers an appropriate
