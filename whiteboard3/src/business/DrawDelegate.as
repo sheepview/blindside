@@ -24,7 +24,7 @@ package business
 	 */	
 	public class DrawDelegate
 	{
-		public static const DEFAULT_RED5:String = "rtmp://localhost/test";
+		public static const DEFAULT_RED5:String = "rtmp://134.117.58.92/test";
 		
 		private var conn:Connection;
         private var nc:NetConnection;
@@ -32,6 +32,7 @@ package business
 		private var boardModel:DrawModelLocator = DrawModelLocator.getInstance();
 		private var dispatcher:CairngormEventDispatcher = boardModel.getDispatcher();
 		private var draw:DrawModel = boardModel.draw;
+		private var drawFactory:DrawObjectFactory = new DrawObjectFactory();
 		private var drawSO:SharedObject;
 		private var uri:String;
 		
@@ -99,7 +100,7 @@ package business
 		 * 
 		 */		
 		public function addSegment(array:Array, type:String):void{
-			var d:DrawObject = DrawObjectFactory.makeDrawObject(type,array);
+			var d:DrawObject = drawFactory.makeDrawObject(type,array);
 			draw.drawVO.segment = d;
 			var cgEvent:UpdateEvent = new UpdateEvent();
 			dispatcher.dispatchEvent(cgEvent);
