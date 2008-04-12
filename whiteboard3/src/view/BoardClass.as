@@ -3,13 +3,16 @@ package view
 	import control.command.SendShapeCommand;
 	
 	import model.DrawModelLocator;
+	import model.DrawObject;
 	
 	import mx.containers.Panel;
 	
 	import vo.DrawVO;
 
 	/**
-	 * A superclass of the GUI component of the application 
+	 * A superclass of the GUI component of the application.
+	 * <p>
+	 * The application is implemented using the Cairngorm Framework
 	 * @author Denis
 	 * 
 	 */	
@@ -38,7 +41,7 @@ package view
 		 * @param shape The array representation of the shape that was drawn
 		 * 
 		 */		
-		public function sendShape(shape:Array):void{
+		public function sendShape(shape:DrawObject):void{
 			var cgCommand : SendShapeCommand = new SendShapeCommand(shape);
 			cgCommand.dispatch();
 		}

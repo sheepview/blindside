@@ -2,10 +2,12 @@
 <BoardClass xmlns="view.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="400" height="300" creationComplete="init()">
 	<mx:Script>
 		<![CDATA[
+			import model.DrawObject;
 			import com.adobe.cairngorm.control.CairngormEvent;
 			import control.DrawController;
 			import com.adobe.cairngorm.control.CairngormEventDispatcher;
 			import vo.DrawVO;
+			import model.*;
 			
 			public var dispatcher:CairngormEventDispatcher = CairngormEventDispatcher.getInstance();
 			
@@ -39,7 +41,8 @@
 			*/
 			private function doMouseUp():void{
 				isDrawing = false;
-				sendShape(segment);
+				var d:DrawObject = DrawObjectFactory.makePencil(segment);
+				sendShape(d);
 				if (canvas.rawChildren.contains(feedback)){
 					canvas.rawChildren.removeChild(feedback);
 				}
@@ -85,17 +88,11 @@
 			}
 			
 			private function drawSegment():void{
-				newShape.graphics.lineStyle(2);
-            
-	            for (var c:Number = 2; c < drawVO.segment.length ; c += 2){
-	            	newShape.graphics.moveTo(drawVO.segment[c-2], drawVO.segment[c-1]);
-	            	newShape.graphics.lineTo(drawVO.segment[c],drawVO.segment[c+1]);
-	            }
-	            
-	            segment = new Array();
+				newShape = ShapeFactory.makeShape(drawVO.segment);
 	            shapeList.push(newShape);
-	            newShape = new Shape();
 	            canvas.rawChildren.addChild(shapeList[shapeList.length-1]);
+	            segment = new Array();
+	            newShape = new Shape();
 
 			}
 		]]>
