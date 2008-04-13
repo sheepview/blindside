@@ -24,7 +24,7 @@ package business
 	 */	
 	public class DrawDelegate
 	{
-		public static const DEFAULT_RED5:String = "rtmp://134.117.58.92/test";
+		public static const DEFAULT_RED5:String = "rtmp://localhost/test";
 		
 		private var conn:Connection;
         private var nc:NetConnection;
