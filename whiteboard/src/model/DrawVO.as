@@ -7,7 +7,6 @@ package model
 	public class DrawVO
 	{
 		public var segment:DrawObject;
-		public var color:uint;
 		
 		public function DrawVO()
 		{
