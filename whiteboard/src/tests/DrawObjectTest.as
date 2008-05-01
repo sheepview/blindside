@@ -27,15 +27,15 @@ package tests
 		public function testDrawObject():void{
 			//fail("Testing DrawObject");
 			assertTrue(this.test == null);
-			this.test = new DrawObject(DrawObject.PENCIL, null, 0xFFFF, 5.32);
+			this.test = new DrawObject(DrawObject.PENCIL, null, 0xFFFF, 0x000A);
 			assertFalse(this.test == null);
 			assertTrue(this.test.getType() == DrawObject.PENCIL);
 			assertFalse(this.test.getType() == DrawObject.ELLIPSE);
 			assertTrue(this.test.getShapeArray() == null);
 			assertTrue(this.test.getColor() == 0xFFFF);
 			assertFalse(this.test.getColor() == 0x0000);
-			assertTrue(this.test.getThickness() == 5.32);
-			assertFalse(this.test.getThickness() == 4.00);
+			assertTrue(this.test.getThickness() == 0x000A);
+			assertFalse(this.test.getThickness() == 4);
 			
 		}	
 

@@ -41,6 +41,8 @@ package model.component
 		
 		/**
 		 * A helper method for the makeDrawObject method which creates a Pencil DrawObject 
+		 * <p>
+		 * Even though it is a helper method it is made public for testing purposes
 		 * @param shape The array holding the different points needed to create the DrawObject
 		 * @param color The color of the DrawObject to be created
 		 * @param thickness The thickness of the DrawObject to be created
@@ -53,6 +55,8 @@ package model.component
 		
 		/**
 		 * A helper method for the makeDrawObject method which creates a Rectangle DrawObject
+		 * <p>
+		 * Even though it is a helper method it is made public for testing purposes
 		 * @param shape The array holding the different points needed to create the DrawObject
 		 * @param color The color of the DrawObject to be created
 		 * @param thickness The thickness of the DrawObject to be created
@@ -65,6 +69,8 @@ package model.component
 		
 		/**
 		 * A helper method for the makeDrawObject method whitch creates an Ellipse DrawObject
+		 * <p>
+		 * Even though it is a helper method it is made public for testing purposes
 		 * @param shape The array holding the different points needed to create the DrawObject
 		 * @param color The color of the DrawObject to be created
 		 * @param thickness The thickness of the DrawObject to be created
