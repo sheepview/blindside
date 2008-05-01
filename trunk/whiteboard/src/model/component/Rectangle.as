@@ -16,12 +16,7 @@ package model.component
 		 */		
 		public function Rectangle(segment:Array, color:uint, thickness:uint)
 		{
-			super();
-			this.type = DrawObject.RECTANGLE;
-			this.shape = segment;
-			this.color = color;
-			this.thickness = thickness;
-			optimize();
+			super(DrawObject.RECTANGLE, segment, color, thickness);
 		}
 		
 		/**
@@ -29,7 +24,7 @@ package model.component
 		 * the server 
 		 * 
 		 */		
-		private function optimize():void{
+		override protected function optimize():void{
 			var x1:Number = this.shape[0];
 			var y1:Number = this.shape[1];
 			var x2:Number = this.shape[this.shape.length - 2];

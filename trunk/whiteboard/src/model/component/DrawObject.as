@@ -25,8 +25,13 @@ package model.component
 		 * The default constructor for the DrawObject 
 		 * 
 		 */		
-		public function DrawObject()
+		public function DrawObject(type:String, segment:Array, color:uint, thickness:uint)
 		{
+			this.type = type;
+			this.shape = segment;
+			this.color = color;
+			this.thickness = thickness;
+			this.optimize();
 		}
 		
 		/**
@@ -63,6 +68,10 @@ package model.component
 		 */		
 		public function getThickness():uint{
 			return this.thickness;
+		}
+		
+		protected function optimize():void{
+			
 		}
 
 	}
