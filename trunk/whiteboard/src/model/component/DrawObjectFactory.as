@@ -1,11 +1,32 @@
 package model.component
 {
+	/**
+	 * The DrawObjectFactory class receives a series of parameters and constructs an appropriate 
+	 * concrete DrawObject given those parameters.
+	 * <p>
+	 * DrawObjectFactory is a simple implementation of the Factory design pattern 
+	 * @author dzgonjan
+	 * 
+	 */	
 	public class DrawObjectFactory
 	{
+		/**
+		 * The default constructor 
+		 * 
+		 */		
 		public function DrawObjectFactory()
 		{
 		}
 		
+		/**
+		 * Creates a DrawObject by calling the appropriate helper method 
+		 * @param type The type of DrawObject to be created
+		 * @param shape The array holding the different points needed to create the DrawObject
+		 * @param color The color of the DrawObject to be created
+		 * @param thickness The thickness of the DrawObject to be created
+		 * @return the DrawObject created from the parameters
+		 * 
+		 */		
 		public function makeDrawObject(type:String, shape:Array, color:uint, thickness:uint):DrawObject{
 			var d:DrawObject = null;
 			if (type == DrawObject.PENCIL){
@@ -18,14 +39,38 @@ package model.component
 			return d;
 		}
 		
+		/**
+		 * A helper method for the makeDrawObject method which creates a Pencil DrawObject 
+		 * @param shape The array holding the different points needed to create the DrawObject
+		 * @param color The color of the DrawObject to be created
+		 * @param thickness The thickness of the DrawObject to be created
+		 * @return the Pencil DrawObject created from the parameters
+		 * 
+		 */		
 		public function makePencil(shape:Array, color:uint, thickness:uint):DrawObject{
 			return new Pencil(shape, color, thickness);
 		}
 		
+		/**
+		 * A helper method for the makeDrawObject method which creates a Rectangle DrawObject
+		 * @param shape The array holding the different points needed to create the DrawObject
+		 * @param color The color of the DrawObject to be created
+		 * @param thickness The thickness of the DrawObject to be created
+		 * @return the Rectangle DrawObject created from the parameters
+		 * 
+		 */		
 		public function makeRectangle(shape:Array, color:uint, thickness:uint):DrawObject{
 			return new Rectangle(shape, color, thickness);
 		}
 		
+		/**
+		 * A helper method for the makeDrawObject method whitch creates an Ellipse DrawObject
+		 * @param shape The array holding the different points needed to create the DrawObject
+		 * @param color The color of the DrawObject to be created
+		 * @param thickness The thickness of the DrawObject to be created
+		 * @return the Ellipse DrawObject created from the parameters
+		 * 
+		 */		
 		public function makeEllipse(shape:Array, color:uint, thickness:uint):DrawObject{
 			return new Ellipse(shape, color, thickness);
 		}

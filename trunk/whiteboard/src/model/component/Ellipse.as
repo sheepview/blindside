@@ -1,7 +1,22 @@
 package model.component
 {
+	/**
+	 * The Ellipse class. Extends the DrawObject 
+	 * @author dzgonjan
+	 * 
+	 */	
 	public class Ellipse extends DrawObject
 	{
+		/**
+		 * The default constructor. Creates an Ellipse object 
+		 * <p>
+		 * The constructor automaticaly optimizes this shape by calling the optimize method to get rid of the
+		 * unnecessary data
+		 * @param segment the array representing the points needed to create this Ellipse
+		 * @param color the Color of this Ellipse
+		 * @param thickness the thickness of this Ellipse
+		 * 
+		 */		
 		public function Ellipse(segment:Array, color:uint, thickness:uint)
 		{
 			super();

@@ -1,7 +1,19 @@
 package model.component
 {
+	/**
+	 * The Rectangle class. Extends a DrawObject 
+	 * @author dzgonjan
+	 * 
+	 */	
 	public class Rectangle extends DrawObject
 	{
+		/**
+		 * The dafault constructor. Creates a Rectangle DrawObject 
+		 * @param segment the array representing the points needed to create this Rectangle
+		 * @param color the Color of this Rectangle
+		 * @param thickness the thickness of this Rectangle
+		 * 
+		 */		
 		public function Rectangle(segment:Array, color:uint, thickness:uint)
 		{
 			super();
