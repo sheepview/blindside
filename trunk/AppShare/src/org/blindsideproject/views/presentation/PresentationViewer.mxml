@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<pres:SuperPanel xmlns:mx="http://www.adobe.com/2006/mxml"  
+	xmlns:thumb="org.blindsideproject.views.presentation.*"
+	xmlns:pres="superpanel.nl.wv.extenders.panel.*"
+	paddingBottom="0" paddingTop="0" 
+	paddingLeft="0" paddingRight="0" 
+    layout="vertical" 
+    pageTitle="Slide Presentation" preinitialize="registerForEvents()"
+	creationComplete="init()">
+
+	<mx:Script>
+		<![CDATA[
+			import org.blindsideproject.main.BlindsideAppLocator;
+			import org.blindsideproject.core.apps.presentation.controller.commands.AssignPresenterCommand;
+
+			import com.adobe.cairngorm.control.CairngormEvent;
+			import com.adobe.cairngorm.control.CairngormEventDispatcher;
+			import mx.binding.utils.BindingUtils;
+	
+			import org.blindsideproject.core.util.log.ILogger;
+			import org.blindsideproject.core.util.log.LoggerModelLocator;
+				
+			import org.blindsideproject.core.apps.presentation.controller.PresentationController;
+						
+			import org.blindsideproject.core.apps.presentation.vo.SlidesDeck;
+			import org.blindsideproject.core.apps.presentation.model.*;
+			import org.blindsideproject.views.general.Images;
+
+			import mx.collections.ArrayCollection;
+			import mx.rpc.events.*;
+			import mx.controls.Alert;
+			import mx.events.DragEvent;
+			import mx.managers.DragManager;
+            import mx.managers.PopUpManager;
+            import mx.containers.TitleWindow;
+            import flash.geom.Point;
+             			
+			private var images : Images = new Images();
+
+			[Bindable] private var uploadIcon : Class = images.powerpoint;
+			[Bindable] private var connectIcon : Class = images.disconnect;
+			[Bindable] private var connectTooltip : String = "Disconnected";
+			[Bindable] private var sharingIcon : Class = images.link_break;	
+			[Bindable] private var sharingTooltip : String = "Share presentation";		
+			[Bindable] public var presenterIcon : Class = images.user_gray;
+			
+			[Bindable] private var model : PresentationModelLocator = PresentationModelLocator.getInstance(); 
+			private var dispatcher : CairngormEventDispatcher = model.dispatcher;
+			private var log : ILogger = LoggerModelLocator.getInstance().log;
+						
+			[Bindable] private var deck : SlidesDeck = model.presentation.decks;
+			
+			private var uploadWindow : FileUploadWindow;
+
+			public function handleConnected(connected : Boolean) : void
+			{
+				if (connected) {
+					connectIcon = images.connect;
+					connectTooltip = "Connected";
+				} else {
+					connectIcon = images.disconnect;
+					connectTooltip = "Disconnected";
+				}
+			}
+
+			public function handleSharing(sharing : Boolean) : void
+			{	
+				if (sharing) {
+					sharingIcon = images.link;
+					sharingTooltip = "Unshare presentation";
+				} else {
+					sharingIcon = images.link_break;
+					sharingTooltip = "Share presentation";
+				}
+				
+				if (! model.presentation.isPresenter) sharePres.visible = false;
+			}
+						
+			private function init():void 
+			{					
+				BindingUtils.bindSetter(handleConnected, model.presentation, "isConnected");
+				BindingUtils.bindSetter(handleSharing, model.presentation, "isSharing");
+				BindingUtils.bindSetter(handlePresenterControl, model.presentation, "isPresenter");
+				BindingUtils.bindSetter(handlePresenterName, model.presentation, "presenterName");
+				BindingUtils.bindSetter(handlePresentationLoaded, model.presentation, "presentationLoaded");	
+			}
+			
+			private function registerForEvents() : void
+			{
+				dispatcher.addEventListener(PresentationController.CLEAR_EVENT, handleClearEvent);
+				dispatcher.addEventListener(PresentationController.VIEW_EVENT, handleViewEvent);
+				dispatcher.addEventListener(PresentationController.READY_EVENT, handlePresentationReadyEvent);					
+			}
+
+			public function handlePresenterName(name : String) : void
+			{
+				presenterName.label = name;
+			}
+
+			public function handlePresentationLoaded(loaded : Boolean) : void
+			{				
+				if (loaded) {
+					if (model.presentation.isPresenter) {
+						sharePres.visible = true;
+					}
+					thumbnailView.visible = true;
+				} else {
+					thumbnailView.visible = false;
+					if (model.presentation.isPresenter) {
+						sharePres.visible = false;
+						uploadPres.enabled = true;
+					}
+				}
+			}
+
+			public function handlePresenterControl(isPresenter : Boolean) : void
+			{
+				if (isPresenter) {
+					uploadPres.visible = true;
+				} else {
+					uploadPres.visible = false;
+				}
+			}
+
+			private function handlePresentationReadyEvent(event : CairngormEvent) : void
+			{
+				thumbnailView.visible = false;
+				
+				BlindsideAppLocator.getInstance().presentation.loadPresentation();			
+			}
+
+			private function handleClearEvent(event : CairngormEvent) : void
+			{
+				// Don't clear our screen if we are the presenter
+				if (model.presentation.isPresenter) return;
+				
+				thumbnailView.visible = false;
+			}
+
+			private function handleViewEvent(event : CairngormEvent) : void
+			{
+				log.debug("Received viewEvent....");
+				
+				thumbnailView.visible = true;
+			}
+ 
+			private function connectToPresentation() : void
+			{
+				if (model.presentation.isConnected) {
+					BlindsideAppLocator.getInstance().presentation.leave();
+				} else {
+					BlindsideAppLocator.getInstance().presentation.join();					
+				}
+			}
+			
+			private function sharePresentation() : void
+			{
+				if (model.presentation.isSharing) {
+					BlindsideAppLocator.getInstance().presentation.sharePresentation(false);
+					uploadPres.enabled = true;	
+				} else {
+					BlindsideAppLocator.getInstance().presentation.sharePresentation(true);
+					uploadPres.enabled = false;				
+				}
+			}	
+
+			public function dragEnterHandler(event:DragEvent):void
+	   		{
+	   			var dropTarget : Button = event.currentTarget as Button;
+	   			if (event.dragSource.hasFormat('presenterUserid'))
+	   		
+	   			DragManager.acceptDragDrop(dropTarget);
+	   		}
+	   	
+	   		public function dragDropHandler(event:DragEvent):void
+	   		{	
+	   			var presenterid : Number = Number(event.dragSource.dataForFormat('presenterUserid'));
+	   			var presentername : String = event.dragSource.dataForFormat('presenterUsername').toString();
+
+	   			BlindsideAppLocator.getInstance().presentation.assignPresenter(presenterid, presentername);		  		
+	   		}
+	
+			private function openFileUploadWindow() : void
+			{
+
+                uploadWindow = FileUploadWindow(PopUpManager.createPopUp( this, FileUploadWindow, true));
+				
+				var point1:Point = new Point();
+                // Calculate position of TitleWindow in Application's coordinates. 
+                point1.x = thumbnailView.x;
+                point1.y = thumbnailView.y;                
+                point1 = thumbnailView.localToGlobal(point1);
+                uploadWindow.x = point1.x + 25;
+                uploadWindow.y = point1.y + 25;
+            }				
+				
+		]]>
+	</mx:Script>
+	
+	<mx:Style source="presentation.css" />
+     			
+	<thumb:ThumbnailView id="thumbnailView" width="100%" height="100%" visible="false"/>
+
+    <mx:ControlBar width="100%">
+    	  <mx:Button id="uploadPres" icon="{uploadIcon}" visible="false"
+    	   			width="20" height="20"
+    	   			toolTip="Upload Powerpoint" click="openFileUploadWindow()"/>    
+    	  <mx:Button id="sharePres" icon="{sharingIcon}" visible="false"
+    	   			width="20" height="20"
+    	   			toolTip="{sharingTooltip}" click="sharePresentation()"/> 
+    	  <mx:Spacer width="100"/>
+    	  <mx:Label id="presenterLbl" text="Presenter:" />
+    	  <mx:Button id="presenterName" icon="{presenterIcon}" label="Presenter's Name"
+                 labelPlacement="right" color="#993300" 
+                 dragEnter="dragEnterHandler(event)" dragDrop="dragDropHandler(event)"/>
+    	   <mx:Spacer width="100%"/>						
+    	  <mx:Button id="connect" icon="{connectIcon}" 
+    	   			width="20" height="20" enabled="false"
+    	   			toolTip="{connectTooltip}" click="connectToPresentation()"/>
+    </mx:ControlBar>
+			
+</pres:SuperPanel>

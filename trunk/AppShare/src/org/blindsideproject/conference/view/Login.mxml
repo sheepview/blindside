@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view:LoginClass xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:view="org.blindsideproject.conference.view.*">
+	<mx:Script>
+		<![CDATA[
+			private function handleLoginClick() : void {
+				if (notJoined) {
+					doLogin(loginName.text);
+				} else {
+					doLogout();
+				}
+			}
+		]]>
+	</mx:Script>
+	<mx:HBox id="loginBox" width="100%" height="100%">
+		<mx:TextInput id="loginName" width="75%" editable="{notJoined}"/>
+		<mx:Button id="btnLogin" label="{btnLabel}" click="handleLoginClick()"/>
+	</mx:HBox>
+</view:LoginClass>

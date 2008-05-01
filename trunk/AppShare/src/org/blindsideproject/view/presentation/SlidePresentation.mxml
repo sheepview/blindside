@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:iframe="org.blindsideproject.util.*" creationComplete="iFrame.visible=true">
+	    <mx:Panel width="100%" height="100%" 
+	    		title="Presentation" paddingTop="1" paddingBottom="1" 
+	    		paddingLeft="1" paddingRight="1" >
+            <iframe:IFrame id="iFrame" source="http://localhost:8080/conference/bouncePage.jsp" width="100%" height="100%"  />
+            <mx:ControlBar>
+                <mx:CheckBox id="cbVisible" label="IFrame Visible" selected="true" click="iFrame.visible=cbVisible.selected"/>
+            </mx:ControlBar>
+        </mx:Panel>
+</mx:Canvas>

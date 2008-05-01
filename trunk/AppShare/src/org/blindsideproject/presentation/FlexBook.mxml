@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<viewer:SuperPanel xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:control="org.blindsideproject.presentation.control.*"
+	xmlns:business="org.blindsideproject.presentation.business.*"
+	xmlns:controls="qs.controls.*"
+	xmlns:viewer="superpanel.nl.wv.extenders.panel.*"
+	creationComplete="initApp()"
+	xmlns:containers="qs.containers.*" 
+	xmlns:effects="qs.effects.*">
+   <mx:Style source="/assets/superpanel/css/styles.css"/>
+	<mx:Style>
+		FlexBook {
+			color: #000000;
+			textRollOverColor: 	#000000;
+			
+			border-thickness: 0;
+			border-style: none;
+			page-slope: .6;
+			active-grab-area: page;
+			page-shadow-strength: 1;
+			curve-shadow-strength: 1;
+			auto-turn-duration: 1500;
+		}
+		
+		Application {
+			color: #F1F1CC;
+			textRollOverColor: 	#FFFFFF;
+			backgroundGradientColors: #000000, #282828;
+			backgroundColor: #282828;
+		}
+		
+		SuperImage {
+			border-thickness: 0;
+			border-style: none;			
+		}		
+	</mx:Style>
+	
+	<mx:Script>
+		<![CDATA[
+			import qs.caching.ContentCache;
+			import qs.controls.flexBookClasses.FlexBookEvent;
+			import org.blindsideproject.presentation.ImagePage;
+			import org.blindsideproject.conference.vo.Role;
+			
+			
+	        import org.blindsideproject.util.components.logger.model.*;
+	        import org.blindsideproject.presentation.model.*;
+			import org.blindsideproject.presentation.vo.PresentationVO;
+			import com.adobe.cairngorm.control.CairngormEventDispatcher;
+			import com.adobe.cairngorm.control.CairngormEvent;
+			import org.blindsideproject.presentation.events.PageNumberEvent;
+			import org.blindsideproject.presentation.command.*;
+			import org.blindsideproject.presentation.control.PresentationController;
+			import org.blindsideproject.presentation.business.*;
+			
+			
+			private var model : PresentationModelLocator = PresentationModelLocator.getInstance();
+		    private var dispatcher : CairngormEventDispatcher = model.getDispatcher();
+		    private var log : Logger = model.getLogger();
+		    
+		    [Bindable]		
+		    public var presentationVO:PresentationVO = model.presentationVO;
+		    
+		    [Bindable]
+		    public var userRole : uint;
+	
+		    private var currentPage : Number = 1;
+		    
+		    protected function connectToPresentationServer() : void
+		    {
+			     model.presentation.setupConnection();
+		    }	
+		
+		    public function sendPageNumber(pgn:Number) : void
+		    {	
+		    	if (userRole != Role.MODERATOR) return;
+		    					
+			     var cgEvent : PageNumberEvent = new PageNumberEvent(pgn);
+			     cgEvent.dispatch();			
+		    }
+						
+			private function jump():void
+			{
+				if (Number(lblPage.text) + 1 < book.pageCount && Number(lblPage.text) > 0)
+				{
+					sendPageNumber(Number(lblPage.text) -1 );
+					book.turnToPage(Number(lblPage.text) - 1);
+				}
+			}
+			
+			private function initApp():void
+			{
+				var thumbs:XMLList = dataSet..image.@thumb;
+				for(var i:int = 0; i < thumbs.length(); i++)
+				{
+					trace("thumbs[" + i + "] = " + thumbs[i]);
+					ContentCache.getCache().preloadContent(thumbs[i]);
+				}
+				model.presentation.setupConnection();
+				dispatcher.addEventListener(PresentationController.EVENT_GOTO_PAGE_NUMBER, onPageNumberEvent);				
+			}
+
+			private function loadContent(event:FlexBookEvent):void
+			{
+				var page:ImagePage = ImagePage(event.renderer);
+				page.load();
+				lblPage.text = String(book.currentPageIndex +1);
+
+				if(	currentPage != Number(lblPage.text))
+				{				  
+				   currentPage = Number(lblPage.text);
+				   sendPageNumber(currentPage - 1);
+				}				
+			}
+			
+			private function onPageNumberEvent (event : CairngormEvent):void
+			{
+				book.turnToPage(presentationVO.pageNumber, true);				
+			}
+
+		]]>
+	</mx:Script>
+	
+	<mx:XML id="dataSet" source="data/slides.xml" />
+	
+    <control:PresentationController id="controller" />	         
+	
+		<controls:FlexBook id="book" y="0" width="576" top="0" height="432" horizontalCenter="0"
+				animateCurrentPageIndex="true"
+				showCornerTease="true"
+				edgeAndCornerSize="150"
+				itemRenderer="org.blindsideproject.presentation.ImagePage"
+				content="{dataSet..image}"
+				turnStart="loadContent(event)"
+				animatePagesOnTurn="true"
+				turnEnd="loadContent(event)"/>	
+				
+			
+			<mx:Button id="btnJump" label="Go:" x="280" y="438" click="jump()"  height="15"/>
+			<mx:TextInput id="lblPage" text="1" x="335" y="435" width="25"/>
+</viewer:SuperPanel>

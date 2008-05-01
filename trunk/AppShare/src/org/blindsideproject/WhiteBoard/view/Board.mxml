@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<board:BoardClass xmlns:board="org.blindsideproject.WhiteBoard.view.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="428" 
+	height="300" enableResize="true" backgroundAlpha="0" layout="vertical"
+	xmlns:business="org.blindsideproject.draw.business.*"
+	xmlns:control="org.blindsideproject.draw.control.*"
+	creationComplete="init()" xmlns:control1="org.blindsideproject.WhiteBoard.control.*">
+	
+	<mx:Style source="/assets/superpanel/css/styles.css" />
+	
+	<mx:Script>
+		<![CDATA[
+			import org.blindsideproject.WhiteBoard.event.*;
+			import com.adobe.cairngorm.control.CairngormEvent;
+			import com.adobe.cairngorm.control.CairngormEventDispatcher;
+		
+			import org.blindsideproject.WhiteBoard.event.SendShapeEvent;
+        	import org.blindsideproject.WhiteBoard.vo.DrawVO;
+        	import org.blindsideproject.WhiteBoard.model.DrawModelLocator;
+        	import mx.rpc.events.ResultEvent;
+        	
+        	private var model:DrawModelLocator = DrawModelLocator.getInstance();
+		
+			private var dispatcher:CairngormEventDispatcher = model.getDispatcher();
+			
+			[Bindable]
+        	public var drawVO:DrawVO = model.drawVO;
+        	
+        	public var role:uint;
+        	
+        	public var feedback:Shape = new Shape();
+        	
+        	public var newShape:Shape = new Shape();
+        	
+        	private var segment:Array = new Array();
+        	
+        	private var shapeList:Array = new Array();
+        	
+        	private var x1:int;
+        	private var y1:int;
+        	private var x2:int;
+        	private var y2:int;               	
+        	
+        	private var isDrawing:Boolean = false;
+         
+        	private var drawColor:uint;
+        	
+        	protected function init():void{
+        		model.draw.setupConnection();
+        		dispatcher.addEventListener(DrawController.EVENT_UPDATE, onUpdate);
+        		dispatcher.addEventListener(DrawController.EVENT_CLEAR, clearCanvas);
+        		
+        		if (role == 2){
+        			btnClear.visible = false;
+        			cpik.visible = false;
+        		}
+	        }
+	        
+	        public function changeColor(event:Event):void{
+	        	drawColor = event.target.selectedColor;
+	        	var cgEvent:ChangeColorEvent = new ChangeColorEvent(drawColor);
+	        	cgEvent.dispatch();
+	        }
+	        
+	        private function onUpdate(event:CairngormEvent):void{
+	        	drawSegment();
+	        }
+	        	
+	        public function sendShape(shape:Array):void{
+	        	var cgEvent:SendShapeEvent = new SendShapeEvent(shape);
+	        	cgEvent.dispatch();
+	        }		
+        	
+        	private function sendBoardShape(array:Array):void{
+        		var cgEvent:SendShapeEvent = new SendShapeEvent(array);
+        		cgEvent.dispatch();
+        	}
+
+        	private function doErase():void
+	        {
+	        	if (role == 1){	        		
+	        		var cgEvent:SendClearEvent = new SendClearEvent(true);
+	        		cgEvent.dispatch();
+	        	}	            
+	        }
+	        
+	        private function clearCanvas(event:CairngormEvent):void{
+	        	canvas.graphics.clear();
+	        }
+	
+	        private function doMouseDown():void  
+	        {
+	        	if (role == 1){
+	        		x1 = canvas.mouseX;
+            		y1 = canvas.mouseY;
+            		segment.push(x1);
+            		segment.push(y1);
+            		isDrawing = true;
+            		canvas.rawChildren.addChild(feedback);
+	        	}
+	        }
+	
+	        private function doMouseMove():void
+	        {
+	            if (isDrawing && role == 1)
+            	{
+            		x2 = canvas.mouseX;
+            		y2 = canvas.mouseY;
+            		
+            		segment.push(canvas.mouseX);
+            		segment.push(canvas.mouseY);
+            		
+                	feedback.graphics.lineStyle(2, drawColor);
+                	feedback.graphics.moveTo(x1, y1);
+                	feedback.graphics.lineTo(x2, y2);
+                	
+                	x1 = x2;
+                	y1 = y2;
+            	}
+	        }
+	
+	        private function doMouseUp():void
+	        {
+	        	if (role == 1){
+	        		isDrawing = false;	       
+	        		sendBoardShape(segment);
+	        		if (canvas.rawChildren.contains(feedback)){
+	        			canvas.rawChildren.removeChild(feedback);
+	        		}	        	
+	        		feedback = new Shape();
+	        	}
+	        }
+	        
+	        private function drawSegment():void
+	        {
+	        	newShape.graphics.lineStyle(2, drawVO.color);
+            
+	            for (var c:Number = 2; c < drawVO.segment.length ; c += 2){
+	            	newShape.graphics.moveTo(drawVO.segment[c-2], drawVO.segment[c-1]);
+	            	newShape.graphics.lineTo(drawVO.segment[c],drawVO.segment[c+1]);
+	            }
+	            
+	            segment = new Array();
+	            shapeList.push(newShape);
+	            newShape = new Shape();
+	            canvas.rawChildren.addChild(shapeList[shapeList.length-1]);
+	        }
+		]]>
+	</mx:Script>
+	
+	<control1:DrawController id="controller" />
+	
+	<mx:Canvas id="canvas" width="100%" height="100%" horizontalScrollPolicy="off" 
+		verticalScrollPolicy="off" backgroundAlpha="0" 
+		mouseDown="doMouseDown()" mouseMove="doMouseMove()" mouseUp="doMouseUp()"  y="0">
+	</mx:Canvas>
+	<mx:ControlBar width="100%" horizontalAlign="right" height="36" verticalAlign="top">
+		<mx:ColorPicker change="changeColor(event)" id="cpik"/>
+		<mx:Button label="Clear" click="doErase()" id="btnClear"/>
+	</mx:ControlBar>
+	
+</board:BoardClass>
