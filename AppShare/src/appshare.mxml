@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    layout="absolute"
+    xmlns:display="flash.display.*"
+    creationComplete="connect();">
+  <!--xmlns:ns1="org.sepy.containers.*"-->
+    <mx:Script>
+        <![CDATA[
+        	import mx.controls.SWFLoader;
+        	import mx.utils.Base64Decoder;
+            import mx.core.UIComponent;
+            import mx.controls.Alert;
+            import mx.containers.Panel;
+            import mx.rpc.events.FaultEvent;
+            import mx.rpc.events.ResultEvent;
+            import flash.net.SharedObject;
+            import flash.net.*;
+            import org.red5.net.Connection;
+            import flash.events.NetStatusEvent; 
+            import flash.events.SyncEvent;
+            //import flash.external.*;
+            //import flash.net.Responder;
+            import flash.external.ExternalInterface;
+          
+            private var appSO : SharedObject;
+            private var connection : NetConnection;
+            private var  base64Decoder:Base64Decoder;
+           
+           
+           private function connect() : void
+		{
+			connection = new NetConnection();
+			connection.client = this;
+			connection.connect("rtmp://134.117.58.96/appshare/85115");
+			connection.addEventListener( NetStatusEvent.NET_STATUS, netStatus );
+			connection.addEventListener( AsyncErrorEvent.ASYNC_ERROR, netASyncError );
+			connection.addEventListener( SecurityErrorEvent.SECURITY_ERROR, netSecurityError );
+			connection.addEventListener( IOErrorEvent.IO_ERROR, netIOError );
+			
+			appSO = SharedObject.getRemote("appSO",connection.uri, false);
+			appSO.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);
+			//appSO.addEventListener(AsyncErrorEvent.ASYNC_ERROR, asyncErrorHandler);
+			appSO.addEventListener(SyncEvent.SYNC, sharedObjectSyncHandler);
+			appSO.client = this;
+			appSO.connect(connection);
+			
+			
+		}
+           
+          private function sharedObjectSyncHandler(event : SyncEvent):void
+          {
+
+         //	for (var i : uint = 0; i < event.changeList.length; i++) 
+		//	{
+				//textarea.text +=  "Presentation::handlingChanges[" + event.changeList[i].code + "][" + i + "]\n";
+				
+						//if(event.changeList[i].code == "change")
+						
+						//removeImages();
+						//reflectImage(event);
+						
+						
+						
+		//	}
+          	
+          	
+          }
+          private function netStatusHandler(event:NetStatusEvent ):void
+		{
+			trace( "netStatusHandler:code: " + event.info.code );
+		}
+           
+          
+          protected function netStatus( event : NetStatusEvent ) : void 
+		{
+			handleResult( event );
+		}
+		
+		public function handleResult(  event : Object  ) : void {
+			var info : Object = event.info;
+			var statusCode : String = info.code;
+			
+			switch ( statusCode ) 
+			{
+				case "NetConnection.Connect.Success" :
+					//_delegate.connectionSuccess();
+					
+					// find out if it's a secure (HTTPS/TLS) connection
+					if ( event.target.connectedProxyType == "HTTPS" || event.target.usingTLS ) {
+						trace( 	"Connected to secure server");
+					} else {
+						trace(	"Connected to server");
+					}
+					break;
+			
+				case "NetConnection.Connect.Failed" :
+					
+					//_delegate.connectionFailed(event.info.application);
+					
+					//_delegate.connectionFailed("Connection to server failed.");
+					
+					trace("Connection to server failed");
+					break;
+					
+				case "NetConnection.Connect.Closed" :					
+					//_delegate.connectionFailed("Connection to server closed.");					
+					trace("Connection to server closed");
+					break;
+					
+				case "NetConnection.Connect.InvalidApp" :				
+					//_delegate.connectionFailed("Application not found on server")
+					trace("Application not found on server");
+					break;
+					
+				case "NetConnection.Connect.AppShutDown" :
+				
+					//_delegate.connectionFailed("Application has been shutdown");
+					trace("Application has been shutdown");
+					break;
+					
+				case "NetConnection.Connect.Rejected" :
+					//_delegate.connectionFailed(event.info.application);
+					trace("No permissions to connect to the application" );
+					break;
+					
+				default :
+				   // statements
+				   break;
+			}
+		}
+		
+			
+		protected function netSecurityError( event : SecurityErrorEvent ) : void 
+		{
+		    handleFault( new SecurityErrorEvent ( SecurityErrorEvent.SECURITY_ERROR, false, true,
+		    										  "Security error - " + event.text ) );
+		}
+		
+		protected function netIOError( event : IOErrorEvent ) : void 
+		{
+			handleFault( new IOErrorEvent ( IOErrorEvent.IO_ERROR, false, true, 
+							 "Input/output error - " + event.text ) );
+		}
+			
+		protected function netASyncError( event : AsyncErrorEvent ) : void 
+		{
+			handleFault( new AsyncErrorEvent ( AsyncErrorEvent.ASYNC_ERROR, false, true,
+							 "Asynchronous code error - <i>" + event.error + "</i>" ) );
+		}
+        public function handleFault(  event : Object  ) : void{}  
+        private function faultHandler(event:FaultEvent):void
+        {
+                Alert.show(event.fault.faultString, "Error: " + event.fault.faultCode);
+                trace(event.fault.message);
+        }
+
+
+           
+
+            //To call a method on red5
+         //   private function callRed5Methods():void
+         //   {
+         //       var nc_responder:Responder;
+		//		nc_responder = new Responder(sendToApplet , null);
+		//		connection.call("application.sendToApplet", nc_responder);
+           
+         //   }
+            private function sendToApplet(message:String):void
+            {
+            	
+            }
+            private function reflectImage(s:String):void//event:SyncEvent):void
+            {
+              
+            ////////////APPLET - JS - AS//////////////////////////  
+               //var base64String: String = "";
+               //base64String =  ExternalInterface.call("callApplet");
+               //info.text = s;//base64String;
+              // base64Decoder = new Base64Decoder;
+               //base64Decoder.decode(base64String);
+              // var ba:ByteArray = base64Decoder.drain();
+              // var ui_loader:UIComponent = new UIComponent();
+             //  ui_loader.name = "preview_box";
+             //  preview_box.addChildAt(ui_loader, 0);
+             //  var ldr:Loader = new Loader();
+             //  ldr.loadBytes(ba);
+            //   ui_loader.addChild(ldr);
+           //////////////////////////////////////////////// 
+            
+          
+            	if(preview_box.getChildByName("preview"))
+                    preview_box.removeChild(preview_box.getChildByName("preview"));
+            	base64Decoder = new Base64Decoder;
+            	base64Decoder.decode(appSO.data.message);
+            	var ba:ByteArray = base64Decoder.drain();
+            	var ui_loader:UIComponent = new UIComponent();
+                ui_loader.name = "preview";
+                preview_box.addChildAt(ui_loader, 0);
+                //image_size.text = 'ByteArray size: ' + Math.round(((ba.length/4)/1024)*100)/100 + ' Kb'
+                
+                ////var rect:Shape = new Shape();
+                ////rect.graphics.beginFill(0xFFFFFF);
+                ////rect.graphics.drawRect(0, 0, 1000, 800);
+                ////rect.graphics.endFill();
+                //rect.horizontalScrollPolicy="on";
+                //rect.verticalScrollPolicy="on";
+                //rect.verticalScrollBar.enabled = true ;
+                //rect.scrollRect = new Rectangle(0,0,600,400);
+                ////ui_loader.addChild(rect);
+                var ldr:Loader = new Loader();
+                //ldr.addEventListener(MouseEvent.CLICK, clickHandler);
+               // ldr.mask = rect;
+                
+                //var ldr:Loader = new Loader();   
+                ldr.loadBytes(ba);
+                //ldr.y = 20;
+                //ldr.scaleX = 0.8;
+                //ldr.scaleY = 0.8;
+                ui_loader.addChild(ldr);
+                //info.text = "Mouse position:   " + ldr.mouseX + " : " + ldr.mouseY;
+            }           
+            
+           // function clickHandler(event:MouseEvent):void 
+           // {
+                ////info.text += "clickHandler: " + event + "\n";
+                //var loader:Loader = Loader(event.target);
+                //loader.unload();
+                // var nc_responder:Responder;
+				//nc_responder = new Responder(sendToApplet , null);
+				//connection.call("application.sendToApplet", null , event.localX , event.localY);
+				////ExternalInterface.call("jsFunc", event.localX , event.localY);
+				//ExternalInterface.addCallback("callAS", reflectImage);
+				
+           // }
+            private function removeImages():void
+            {
+                if(preview_box.getChildByName("preview"))
+                    preview_box.removeChild(preview_box.getChildByName("preview"));
+
+                
+            }
+            
+        ]]>
+    </mx:Script>
+    <mx:VBox id="vbox" paddingLeft="10">
+    	<mx:VBox id="preview_box" left="5" top="5" right="5" bottom="5" horizontalScrollPolicy="auto" 
+    	verticalScrollPolicy="auto" width="1000" height="300">
+        </mx:VBox>
+    <!--<mx:TextArea id="info" width="1000" height="100" borderThickness="5" borderColor="black"/>-->
+    <!--<mx:Button id="button" click="reflectImage(event)"/>-->
+    </mx:VBox>
+    
+    
+</mx:Application>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:controls="qs.controls.*"
+	backgroundColor="#FFFFFF" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+	
+	<mx:Script>
+		<![CDATA[
+			private var _loaded:Boolean = false;
+			
+			public function load():void{
+				if (_loaded)
+					return;
+				_loaded = true;
+				
+				full.source = data.@source.toString();
+				currentState = "loadingState";
+			}
+		]]>
+	</mx:Script>
+	
+	<controls:SuperImage left="0" right="0" top="0" bottom="0" id="thumb" source="{data.@thumb.toString()}" />
+	<controls:SuperImage left="0" right="0" top="0" bottom="0" id="full" complete="currentState = ''"/>
+	
+	<mx:states>
+		<mx:State name="loadingState">
+			<mx:AddChild position="lastChild">
+				<mx:Image id="loadingContent" horizontalCenter="0" verticalCenter="-6"   source="@Embed('assets/loading.png')" />
+			</mx:AddChild>
+		</mx:State>
+	</mx:states>
+	
+		<mx:Transition fromState="" toState="loadingState">
+			<mx:Fade alphaTo="1" target="{loadingContent}" duration="1000"/>
+		</mx:Transition>
+		
+		<mx:Transition toState="" fromState="loadingState">
+			<mx:Sequence>
+				<mx:Fade alphaTo="0" target="{loadingContent}" duration="1000"/>
+				<mx:RemoveChildAction target="{loadingContent}" />
+			</mx:Sequence>
+		</mx:Transition>
+	
+</mx:Canvas>

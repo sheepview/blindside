@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view:ParticipantClass xmlns:mx="http://www.adobe.com/2006/mxml"
+					  xmlns:view="org.red5.samples.publisher.view.*">
+
+<!--
+<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.controls.Text;
+			import com.renaun.samples.net.FMSConnection;
+			import mx.controls.Alert;
+			import flash.net.SharedObject;
+			
+			[Bindable]
+			private var nc:FMSConnection;
+			[Bindable]
+			private var btnText:String = "Login";
+			
+			[Bindable]
+			private var dpUsers:ArrayCollection
+			private var chatUsers:Array;
+			
+			private var clientID:Number;
+			
+			private var soChat:SharedObject;
+			
+			private function connectUser():void
+			{
+				NetConnection.defaultObjectEncoding = flash.net.ObjectEncoding.AMF0;
+				SharedObject.defaultObjectEncoding  = flash.net.ObjectEncoding.AMF0;				
+				
+				if( txtUser.text != "" && btnText == "Login" ) {
+					nc = new FMSConnection();
+					nc.addEventListener( "success", connectionSuccessHandler );
+					// works with nc.connect( "rtmp://localhost/SOSample" ); also
+					nc.connect( "rtmp://localhost/fitcDemo" );
+				} else {
+					if( btnText == "Logout" ) {
+						// Close Connections
+						soChat.close();
+						nc.close();
+						btnText = "Login";
+				 	} else {
+						Alert.show( "Invalid Name!" );
+					}
+				}
+			}
+			
+			private function connectionSuccessHandler( event:Event ):void
+			{
+				btnText = "Logout";
+
+				// Get Server Client ID
+				clientID = nc.clientID;
+				
+				// Make SO and other Connection calls
+				connectToChat();
+			}
+			
+			private function connectToChat():void
+			{
+				soChat = SharedObject.getRemote( "videoConferenceChat", nc.uri, true );
+				soChat.addEventListener( NetStatusEvent.NET_STATUS, netStatusHandler );
+				soChat.addEventListener( AsyncErrorEvent.ASYNC_ERROR, asyncErrorHandler );
+				soChat.addEventListener( SyncEvent.SYNC, sharedObjectSyncHandler );
+				soChat.client = this;
+				soChat.connect( nc );
+				
+				// Get the names for all the connected users
+				soChat.send( "getName" );
+			}
+
+			/*public function sendMessage( msg:String ):void
+			{
+				soChat.send( "newMessage",  
+						"<font color=\"#" + cmpColorPicker.selectedColor.toString(16) + "\"><b>" + txtUser.text + "</b></font> - " + msg );
+
+				txtMsg.htmlText = "";
+			}*/
+
+			/*public function newMessage( msg:String ):void
+			{
+//				Logger.info( "newMessage: " + msg );				
+				txtChatBox.htmlText += msg + "\n";
+			}*/
+			public function newName( name:String, chatID:Number ):void
+			{
+//				Logger.info( "newName: name: " + name + " chatID: " + chatID );
+				// initialize
+				if( chatUsers == null )
+					chatUsers = new Array();
+				
+				// Only add new users to array
+				var isNew:Boolean = true;
+				for( var i:int = 0; i < chatUsers.length;i++ ) {
+					if( chatUsers[ i ].data == chatID ) {
+						isNew = false;
+					}
+				}
+				if( isNew )
+					chatUsers.push( { label: name, data: chatID } );
+				
+				// Sort Users
+				chatUsers.sortOn( "label", Array.CASEINSENSITIVE );
+				
+				dpUsers = new ArrayCollection( chatUsers );	
+			}			
+			public function getName():void
+			{
+//				Logger.info( "getName: " + txtUser.text );
+				// Clear out User array
+				chatUsers = new Array();
+				// Getting Users name is basically forcing each connect user to re-send their name
+				soChat.send( "newName", txtUser.text, clientID );
+			}					
+
+			private function sharedObjectSyncHandler( event:SyncEvent ):void
+			{		
+//				Logger.debug( "sharedObjectSyncHandler:code: " + event.changeList );
+			}
+
+			private function netStatusHandler( event:NetStatusEvent ):void
+			{
+//				Logger.debug( "netStatusHandler:code: " + event.info.code );
+			}
+			
+			private function asyncErrorHandler( event:AsyncErrorEvent ):void
+			{
+//				Logger.debug( "asyncErrorHandler:code: " + event.error );
+			}			
+		]]>
+	</mx:Script> -->
+	
+	<mx:Script>
+		<![CDATA[
+			import org.red5.samples.publisher.view.Chat;
+			[Bindable]
+			public var chat:Chat=new Chat("Login",txtUser);
+		]]>
+	</mx:Script>
+		
+<mx:VBox width="100%">
+		    <mx:HBox>
+				<mx:Label text="Name:"/>
+				<mx:TextInput id="txtUser" enabled="{ ( chat.btnText == 'Login' ) }"/>
+				<mx:ColorPicker id="cmpColorPicker" showTextField="false" selectedColor="0x000000"/>			
+				<mx:Button 
+					id="btnLogin"
+					label="{ chat.btnText }"
+					click="chat.connectUser()"/>		    	
+		    </mx:HBox>
+
+		
+			<mx:VBox width="100%"	height="100%">
+				<mx:Label text="Chat Users:" />
+				<mx:List
+					id="lstUsers"
+					dataProvider="{ chat.dpUsers }" 
+					width="100%"
+					height="100%" />
+			</mx:VBox>
+
+</mx:VBox>
+
+</view:ParticipantClass>
+

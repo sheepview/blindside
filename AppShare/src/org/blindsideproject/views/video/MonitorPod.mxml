@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view:MonitorPodClass xmlns:mx="http://www.adobe.com/2006/mxml"
+					  xmlns:view="org.red5.samples.publisher.view.*"
+					  xmlns:monitor="org.red5.samples.publisher.view.monitor.*"
+					  xmlns:settings="org.red5.samples.publisher.view.settings.*" width="260">
+
+		<mx:VBox label="Video" id="videoPart" width="100%">
+			<monitor:MonitorAppBar dock="true" width="260" shadowDistance="0.5"
+						   paddingTop="5" paddingBottom="0"/>
+            <mx:HBox>
+            	<mx:Spacer width="2"/>
+                <monitor:MonitorDisplay id="monitorDisplay" width="{ main.media.videoWidth }" height="{ main.media.videoHeight }" 
+						 	selectedIndex="{ navigation.monitorDisplayViewing }"
+						 	main="{ main }" backgroundColor="0xFFFFFF" 
+							borderStyle="solid" borderColor="0xD0D0D0"
+						 	
+						 	paddingBottom="0" cornerRadius="2"/>
+            
+            </mx:HBox>
+			
+	
+			<monitor:MonitorControlBar mdc="{monitorDisplay}" horizontalScrollPolicy="off" verticalScrollPolicy="off"
+							   direction="horizontal" width="260" height="100%"
+							   paddingTop="0"
+							   main="{ main }" navigation="{ navigation }"/>
+							   	
+					   			
+		</mx:VBox>
+</view:MonitorPodClass>

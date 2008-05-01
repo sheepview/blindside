@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<conference:ParticipantsAppBarClass xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:conference="org.blindsideproject.conference.view.*" >
+	
+	<mx:Image source="{ appBarIcon }"/>
+	<mx:Label text="Participants" fontWeight="bold" fontSize="12"/>
+</conference:ParticipantsAppBarClass>

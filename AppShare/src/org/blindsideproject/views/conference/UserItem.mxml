@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" 
+		width="100%"
+		creationComplete="initParticipantItem()">
+   <mx:Script>
+   	<![CDATA[
+   		
+   		
+   		import mx.events.FlexEvent;
+   		import mx.controls.Image;
+		import mx.events.DragEvent;
+	    import flash.events.MouseEvent;
+	    import mx.core.DragSource;
+	    import mx.managers.DragManager;
+	    import com.adobe.cairngorm.control.CairngormEventDispatcher;
+   		import org.blindsideproject.conference.view.general.Images;
+   		import org.blindsideproject.core.apps.conference.controller.events.StatusChangeEvent;
+        import org.blindsideproject.core.apps.chat.controller.events.*;
+   		import org.blindsideproject.core.apps.conference.model.*;
+		import org.blindsideproject.core.util.log.ILogger;
+		import org.blindsideproject.core.apps.conference.controller.events.ConferenceEvents;
+		import org.blindsideproject.core.apps.conference.vo.Role;
+		import org.blindsideproject.core.apps.conference.vo.User;
+		import org.blindsideproject.views.chat.PrivateChatPanel;
+		import org.blindsideproject.core.apps.chat.model.*;
+		import org.blindsideproject.core.apps.chat.controller.events.*;
+		import mx.binding.utils.BindingUtils;
+		
+		private var model : ConferenceModelLocator = ConferenceModelLocator.getInstance();
+		private var modelC : ChatModelLocator = ChatModelLocator.getInstance();
+		private var chat : ChatModel = modelC.chat;
+		private var dispatcher : CairngormEventDispatcher = model.dispatcher;
+		private var log : ILogger = model.log;
+	   	private var images : Images = new Images();
+   		private var windowOpen : Boolean = false;
+        private var response : Boolean = false;
+        private var tempid : Number;
+        private var tempname : String;
+   		private var firstMessage : String ="";
+   		[Bindable]
+   		private var adminIcon : Object = images.admin;
+   		[Bindable] var roleIcon : Object = images.participant;
+   		[Bindable]
+   		private var viewerIcon : Object = images.participant;
+		private var chatIcon : Object = images.chat_request;
+		private var chatIcon2 : Object = images.chat_request_new;
+		[Bindable]
+   		private var statusTooltip : String = "";
+   		
+   		private function initParticipantItem() : void
+   		{
+   			dispatcher.addEventListener(ConferenceEvents.STATUS_CHANGE_EVENT, onStatusChangeEvent);
+   			dispatcher.addEventListener(ChatEvents.NEW_CHAT_REQUEST_EVENT , onNewChatRequestEvent);
+   			   			
+   			displayStatusIcon();
+   		}
+   		
+   		private function onStatusChangeEvent(event : Event) : void
+   		{
+   			var statusEvent : StatusChangeEvent = StatusChangeEvent(event);
+   			log.debug("Got newUserStateChangeEvent.");
+   			displayStatusIcon();	
+   		}
+   		
+   		private function displayStatusIcon() : void
+   		{
+   			log.debug("[" + data.userid + "," + data.username + "," + data.role + "," + data.status + "]"); 
+			if ( data.role == Role.MODERATOR ) {
+				log.debug("user[" + data.userid + "," + data.role + "," + Role.MODERATOR + "] is moderator");
+				roleImage.source = adminIcon;
+			} else {
+				log.debug("user[" + data.userid + "," + data.role + "," + Role.PARTICIPANT + "] is viewer");
+				roleImage.source = viewerIcon;
+			}
+			
+   			if (data.status == "raisehand") {
+   				roleImage.source = images.raisehand;;   				
+    		}
+   		}
+   		 
+    	public function dragPresenterUser(event:MouseEvent, userid:Number):void
+	   	{
+	   		if (model.conference.me.role == Role.MODERATOR) {
+	   			var dragInitiator:Label = event.currentTarget as Label;
+	   			var dragSource:DragSource = new DragSource();
+	   			dragSource.addData(data.userid , 'presenterUserid');
+				dragSource.addData(data.username , 'presenterUsername');
+			
+	   			var dragProxy:Image = new Image();
+
+	   			dragProxy.source = images.user_gray;
+	   			dragProxy.alpha = 1;
+	   			DragManager.doDrag(dragInitiator, dragSource , event, dragProxy, 0, 0, 1, true);
+	   		}
+
+	   	}
+	   	
+	   	public function onNewChatRequestEvent(event : Event):void
+	   	{
+	   		var chatRequest : NewChatRequestEvent = NewChatRequestEvent (event)
+	   		tempid = chatRequest.fromUserid;
+	   		tempname = chatRequest.fromUsername;
+	   		
+	   		if((data.userid == chatRequest.fromUserid)&&(! windowOpen ))
+	   		{
+	   			if(response)
+	   			 {
+	   			      chatImage.toolTip = "Chatting with " + chatRequest.fromUsername;
+	   			      chatImage.source = images.chat_request;
+	   			 }
+	   			else
+	   			 {
+	   			      chatImage.source = images.chat_request_new;
+	   			      chatImage.toolTip = "Private chat request from " + 
+	   			      chatRequest.fromUsername + ".\n" + 
+	   			      "To respond, double click on this icon.";
+	   			
+	   			     firstMessage += chatRequest.message + "\n";
+	   			 }
+	   		}
+	   	}
+	    
+	    private function onCloseChatWindowEvent(event : Event):void
+	    {
+	    	var closeChat : CloseChatWindowEvent = CloseChatWindowEvent(event);
+	    	if (data.userid == closeChat.toUserid)
+	    	chatImage.source = "";
+	    	dispatcher.removeEventListener(ChatEvents.CLOSE_CHAT_WINDOW_EVENT , onCloseChatWindowEvent);
+	    	response = false;
+	    	windowOpen = false;
+	    }
+	   
+   		private function privateChatPanel():void
+   		{
+   			if ( model.conference.me.userid != data.userid )
+   			 {
+   			     firstMessage = "";
+   			     var chatPanel : PrivateChatPanel = new PrivateChatPanel(model.conference.me.userid ,
+   			     data.userid , model.conference.me.username , data.username);
+   			     this.parentDocument.parentDocument.addChild(chatPanel);
+   			     dispatcher.addEventListener(ChatEvents.CLOSE_CHAT_WINDOW_EVENT , onCloseChatWindowEvent);
+   			     response = true;
+   			 }
+   		}
+   		
+   		private function responseChatPanel():void
+   		{   			
+   			var chatPanel : PrivateChatPanel = new PrivateChatPanel(model.conference.me.userid ,
+   			tempid , model.conference.me.username , tempname);
+   			this.parentDocument.parentDocument.addChild(chatPanel);
+   			chatPanel.message ="";
+   			chatPanel.message = firstMessage;
+   			chatPanel.txtBox.htmlText = chatPanel.message;
+   			firstMessage = "";
+   			windowOpen = true;
+   			chatImage.toolTip = "Chatting with " + tempname;
+   			chatImage.source = images.chat_request;
+   			dispatcher.addEventListener(ChatEvents.CLOSE_CHAT_WINDOW_EVENT , onCloseChatWindowEvent);
+   			response = false;
+   		}
+   	
+   	]]>
+   </mx:Script>
+   
+	<mx:Image id="roleImage" source="{roleIcon}" toolTip="Click to chat" doubleClick="privateChatPanel()"/>
+	<mx:Label id="nameLabel" text="{data.username} - {data.userid}" mouseDown="dragPresenterUser(event, data.userid)" />
+	<mx:Image id="chatImage" source=""  doubleClick="responseChatPanel()"/>
+</mx:HBox>

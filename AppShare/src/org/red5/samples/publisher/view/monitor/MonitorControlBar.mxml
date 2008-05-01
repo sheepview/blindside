@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view:MonitorControlBarClass xmlns:mx="http://www.adobe.com/2006/mxml"
+							 xmlns:view="org.red5.samples.publisher.view.monitor.*"
+							 xmlns:settings="org.red5.samples.publisher.view.settings.*" width="270" horizontalAlign="left">
+	
+	<mx:StringValidator source="{ playback_txt }" property="text" 
+	        tooShortError="{ tooShortError }" 
+	        minLength="1" trigger="{ playButton }" triggerEvent="click" 
+	        enabled="{ main.netConnected }"
+	        valid="viewStream()"/>
+	
+	<mx:StringValidator source="{ playback_txt }" property="text" 
+	        tooShortError="{ tooShortError }" 
+	        minLength="1" trigger="{ playback_txt }" triggerEvent="enter" 
+	        enabled="{ main.netConnected }"
+	        valid="viewStream()"/>
+	
+	<mx:StringValidator source="{ publish_txt }" property="text" 
+	        tooShortError="{ tooShortError }" 
+	        minLength="1" trigger="{ publishButton }" triggerEvent="click" 
+	        enabled="{ main.netConnected }"
+	        valid="recordStream()"/>
+	
+	<mx:StringValidator source="{ publish_txt }" property="text" 
+	        tooShortError="{ tooShortError }" 
+	        minLength="1" trigger="{ publish_txt }" triggerEvent="enter" 
+	        enabled="{ main.netConnected }"
+	        valid="recordStream()"/>
+	           
+	<mx:ApplicationControlBar horizontalAlign="left" verticalAlign="top" 
+							  paddingBottom="4" horizontalGap="0" dock="true"
+							  width="260" height="100%" shadowDistance="1">
+		
+		
+		<mx:ViewStack selectedIndex="{ navigation.monitorDisplayViewing }" width="249" height="100%">
+			
+			<!-- server -->
+			<mx:Canvas width="100%" height="100%"/>
+			<!-- view -->
+			<mx:Canvas width="100%" height="49" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+				<mx:VBox width="100%" height="100%" verticalAlign="left" verticalGap="3"
+						 horizontalScrollPolicy="off" verticalScrollPolicy="off">
+					<mx:HBox width="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+						<mx:Label text="Name:" paddingTop="0"/>
+						<mx:TextInput id="playback_txt" textIndent="2" focusThickness="0.5" width="180"
+								  	  fontWeight="bold" text="{ main.streamName }" 
+								  	  borderStyle="solid" cornerRadius="4"/>
+					</mx:HBox>
+					
+					<mx:HBox width="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off">	  
+						
+						<mx:Button id="stopButton" label="{ main.stopButtonLabel }"
+								   enabled="{ main.netConnected }" tabEnabled="false"
+								   click="stopStream()"/>
+						<mx:Button id="playButton" label="{ main.playButtonLabel }" width="60"
+							   	   enabled="{ main.netConnected }" tabEnabled="false"/>
+					</mx:HBox>
+					
+				
+				</mx:VBox>
+			</mx:Canvas>
+			
+			<!-- record -->
+			<mx:Canvas width="100%" height="49" horizontalScrollPolicy="off" verticalScrollPolicy="off">		
+				<mx:VBox width="100%" height="100%" verticalAlign="left" verticalGap="3"
+						 horizontalScrollPolicy="off" verticalScrollPolicy="off">
+					<mx:HBox width="100%">
+						<mx:Label text="Name:"/>
+						<mx:TextInput id="publish_txt" textIndent="2" focusThickness="0.5" width="180"
+									  fontWeight="bold" text="{ main.streamName }" borderStyle="solid" 
+									  cornerRadius="4"/>
+					</mx:HBox>
+					<mx:HBox width="100%">	
+						
+						<mx:Button id="publishButton" label="{ main.publishButtonLabel }"
+								   enabled="{ main.netConnected }" tabEnabled="false" width="70"/>
+					
+					    <mx:Button id="settingBtn" label="Settings" click="{mdc.showSettings()}"/>
+					</mx:HBox>
+					
+				</mx:VBox>
+				</mx:Canvas>
+				<!--<mx:Canvas width="100%" height="100%">
+					
+				
+				<settings:VideoSetting id="setting"/>
+				</mx:Canvas>-->
+			
+			
+		</mx:ViewStack>
+	</mx:ApplicationControlBar>
+</view:MonitorControlBarClass>
