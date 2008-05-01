@@ -13,6 +13,7 @@
 			private var y2:int;
 			
 			public static const SEND_SHAPE:String = "sendShape";
+			public var d:DrawObject;
 			
 			private var isDrawing:Boolean; 
 			
@@ -51,8 +52,8 @@
 			*/
 			private function doMouseUp():void{
 				isDrawing = false;
-				var d:DrawObject = drawFactory.makeDrawObject(this.shapeStyle,segment, this.drawColor, this.thickness);
-				//sendShape(d);
+				this.d = drawFactory.makeDrawObject(this.shapeStyle,segment, this.drawColor, this.thickness);
+				sendShape();
 				if (canvas.rawChildren.contains(feedback)){
 					canvas.rawChildren.removeChild(feedback);
 				}
@@ -98,7 +99,13 @@
 				}
 			}
 			
-			private function drawSegment():void{
+			/**
+			 * Draws the segment stored in the drawVO Value Object
+			 * <p>
+			 * This method is executed by the BoardMediator upon reception of an Update request. The method
+			 * is executed on all clients, even the one which sent the update request.
+			 */
+			public function drawSegment():void{
 				newShape = shapeFactory.makeShape(drawVO.segment);
 	            shapeList.push(newShape);
 	            canvas.rawChildren.addChild(shapeList[shapeList.length-1]);
@@ -108,32 +115,32 @@
 			}
 			
 			/**
-		 * Sets the type of shape we're drawing (pencil, rectangle, etc...) 
-		 * @param s The type
-		 * 
-		 */		
-		protected function setShape(s:String):void{
-			this.shapeStyle = s;
-		}
-		
-		/**
-		 * Sets the color 
-		 * @param e event containing the color (e.target.selectedColor)
-		 * 
-		 */		
-		protected function changeColor(e:Event):void{
-			drawColor = e.target.selectedColor;
-		}
-		
-		/**
-		 * Sets the thickness 
-		 * @param e event containing the thickness (e.target.value)
-		 * 
-		 */		
-		protected function changeThickness(e:Event):void{
-			this.thickness = e.target.value;
-		}
-		]]>
+			 * Sets the type of shape we're drawing (pencil, rectangle, etc...) 
+			 * @param s The type
+			 * 
+			 */		
+			protected function setShape(s:String):void{
+				this.shapeStyle = s;
+			}
+			
+			/**
+			 * Sets the color 
+			 * @param e event containing the color (e.target.selectedColor)
+			 * 
+			 */		
+			protected function changeColor(e:Event):void{
+				drawColor = e.target.selectedColor;
+			}
+			
+			/**
+			 * Sets the thickness 
+			 * @param e event containing the thickness (e.target.value)
+			 * 
+			 */		
+			protected function changeThickness(e:Event):void{
+				this.thickness = e.target.value;
+			}
+			]]>
 	</mx:Script>
 	
 	<mx:Canvas id="canvas" mouseUp="doMouseUp()" height="90%" width="100%"

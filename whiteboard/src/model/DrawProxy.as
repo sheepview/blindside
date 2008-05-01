@@ -25,6 +25,12 @@ package model
 		
 		private var drawFactory:DrawObjectFactory = new DrawObjectFactory();
 		
+		/**
+		 * The default constructor. Initializes the Connection and the red5 NetConnection class, which
+		 * interacts with the red5 server.
+		 * @param drawVO The drawVO Value Object which holds the objects being drawn by the user on the Whiteboard
+		 * 
+		 */		
 		public function DrawProxy(drawVO:DrawVO)
 		{
 			super(NAME, drawVO);
@@ -36,6 +42,11 @@ package model
 			conn.connect();
 		}
 		
+		/**
+		 * Returns the Draw Value Object contained in this Proxy class. 
+		 * @return drawVO
+		 * 
+		 */		
 		public function get drawVO():DrawVO{
 			return this.data as DrawVO;
 		}
@@ -88,8 +99,7 @@ package model
 		public function addSegment(array:Array, type:String, color:uint, thickness:uint):void{
 			var d:DrawObject = drawFactory.makeDrawObject(type,array,color,thickness);
 			this.drawVO.segment = d;
-			//var cgEvent:UpdateEvent = new UpdateEvent();
-			//dispatcher.dispatchEvent(cgEvent);
+			sendNotification(BoardFacade.UPDATE, this.drawVO);
 		}
 
 	}
