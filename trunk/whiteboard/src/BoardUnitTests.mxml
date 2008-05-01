@@ -11,7 +11,6 @@
 			import tests.EllipseTest;
 			import tests.DrawObjectTest;
 			import tests.DrawObjectFactoryTest;
-			import tests.ShapeFactoryTest;
 			import tests.DrawProxyTest;
 			import tests.DrawVOTest;
 			import tests.BoardFacadeTest;
@@ -41,7 +40,6 @@
  				ts.addTest(BoardFacadeTest.suite());
  				ts.addTest(DrawVOTest.suite());
  				ts.addTest(DrawProxyTest.suite());
- 				ts.addTest(ShapeFactoryTest.suite());
  				ts.addTest(DrawObjectFactoryTest.suite());
  				ts.addTest(DrawObjectTest.suite());
  				ts.addTest(EllipseTest.suite());
