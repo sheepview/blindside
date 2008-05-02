@@ -37,6 +37,7 @@ package model
 			conn = new Connection;
 			this.uri = DrawProxy.DEFAULT_RED5;
 			conn.addEventListener(Connection.SUCCESS, handleSucessfulConnection);
+			conn.addEventListener(Connection.FAILED, handleConnectionFailed);
 			conn.addEventListener(Connection.DISCONNECTED, handleDisconnection);
 			conn.setURI(this.uri);
 			conn.connect();
@@ -65,6 +66,15 @@ package model
 		}
 		
 		/**
+		 * If the Proxy is unable to connect to the Red5 server, this event will be called 
+		 * @param e The ConnectionEvent which was passed in upon unsucessful connection attempt
+		 * 
+		 */		
+		public function handleConnectionFailed(e:ConnectionEvent):void{
+			sendNotification(BoardFacade.FAILED_CONNECTION);
+		}
+		
+		/**
 		 * Once a shared object is created, it is synced accross all clients, and this method is invoked 
 		 * @param e The sync event passed to the method
 		 * 
@@ -79,7 +89,7 @@ package model
 		 * 
 		 */		
 		public function handleDisconnection(e:ConnectionEvent):void{
-			
+			sendNotification(BoardFacade.FAILED_CONNECTION);
 		}
 		
 		/**
@@ -88,7 +98,11 @@ package model
 		 * 
 		 */		
 		public function sendShape(shape:DrawObject):void{
-			drawSO.send("addSegment", shape.getShapeArray(), shape.getType(), shape.getColor(), shape.getThickness());
+			try{
+				drawSO.send("addSegment", shape.getShapeArray(), shape.getType(), shape.getColor(), shape.getThickness());	
+			} catch(e:Error){
+				sendNotification(BoardFacade.FAILED_CONNECTION);
+			}
 		}
 		
 		/**
