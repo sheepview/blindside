@@ -3,6 +3,7 @@ package view
 	import flash.events.Event;
 	
 	import model.DrawProxy;
+	import model.component.DrawObject;
 	
 	import org.puremvc.as3.interfaces.IMediator;
 	import org.puremvc.as3.interfaces.INotification;
@@ -81,7 +82,7 @@ package view
 			switch(notification.getName())
 			{
 				case BoardFacade.UPDATE:
-					this.board.drawSegment();	
+					this.board.drawSegment(notification.getBody() as DrawObject);	
 					break;
 				
 				case BoardFacade.FAILED_CONNECTION:

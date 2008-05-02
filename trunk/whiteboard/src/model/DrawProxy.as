@@ -13,10 +13,16 @@ package model
 	import red5.as3.net.Connection;
 	import red5.as3.net.events.ConnectionEvent;
 	
+	/**
+	 * The DrawProxy class is a Delegate class for the Red5 Server. It communicates directly with the Red5
+	 * server and abstracts that communication so that other classes don't have to worry about it 
+	 * @author dzgonjan
+	 * 
+	 */	
 	public class DrawProxy extends Proxy implements IProxy
 	{
 		public static const NAME:String = "Draw Proxy";
-		public static const DEFAULT_RED5:String = "rtmp://localhost/test";
+		public static const DEFAULT_RED5:String = "rtmp://134.117.58.92/test";
 		
 		private var conn:Connection;
 		private var nc:NetConnection;
@@ -113,7 +119,7 @@ package model
 		public function addSegment(array:Array, type:String, color:uint, thickness:uint):void{
 			var d:DrawObject = drawFactory.makeDrawObject(type,array,color,thickness);
 			this.drawVO.segment = d;
-			sendNotification(BoardFacade.UPDATE, this.drawVO);
+			sendNotification(BoardFacade.UPDATE, d);
 		}
 
 	}
