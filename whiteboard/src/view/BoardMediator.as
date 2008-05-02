@@ -58,17 +58,22 @@ package view
 		 * <p>
 		 * This class listens to:
 		 *		- BoardFacade.UPDATE 
+		 * 		- BoardFacade.FAILED_CONNECTION
 		 * @return An array of strings representing all the notifications being listened to
 		 * 
 		 */		
 		override public function listNotificationInterests():Array{
 			return [
-					BoardFacade.UPDATE
+					BoardFacade.UPDATE,
+					BoardFacade.FAILED_CONNECTION
 				   ];
 		}
 		
 		/**
 		 * An override method that handles the Notification sent by other parts of the application 
+		 * <p>
+		 * If the BoardMediator is notified that a connection to Red5 is interupted at any point it
+		 * will disable the whiteboard.
 		 * @param notification The notification that was sent by another part of the application
 		 * 
 		 */		
@@ -77,6 +82,11 @@ package view
 			{
 				case BoardFacade.UPDATE:
 					this.board.drawSegment();	
+					break;
+				
+				case BoardFacade.FAILED_CONNECTION:
+					this.board.enabled = false;
+					break;
 			}
 		}
 
