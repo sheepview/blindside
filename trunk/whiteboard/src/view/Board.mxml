@@ -12,14 +12,10 @@
 			private var x2:int;
 			private var y2:int;
 			
-			public static const SEND_SHAPE:String = "sendShape";
-			public var d:DrawObject;
-			
+			public var d:DrawObject;	
 			private var isDrawing:Boolean; 
-			
 			private var feedback:Shape = new Shape();
 			private var segment:Array = new Array();
-			
 			private var newShape:Shape = new Shape();
 			private var shapeList:Array = new Array();
 			
@@ -38,10 +34,6 @@
 				shapeFactory = new ShapeFactory();
 			}
 			
-			public function sendShape():void{
-				dispatchEvent(new Event(Board.SEND_SHAPE));
-			}
-			
 			/**
 			*Method is invoked when the mouse is released
 			*<p>
@@ -53,7 +45,7 @@
 			private function doMouseUp():void{
 				isDrawing = false;
 				this.d = drawFactory.makeDrawObject(this.shapeStyle,segment, this.drawColor, this.thickness);
-				sendShape();
+				dispatchEvent(new Event(BoardMediator.SEND_SHAPE));
 				if (canvas.rawChildren.contains(feedback)){
 					canvas.rawChildren.removeChild(feedback);
 				}
@@ -140,17 +132,41 @@
 			protected function changeThickness(e:Event):void{
 				this.thickness = e.target.value;
 			}
+			
+			/**
+			 * Clears the entire board
+			 */
+			public function clearBoard():void{
+				for (var i:Number = 0; i<this.shapeList.length; i++){
+					if (this.canvas.rawChildren.contains(this.shapeList[i])){
+						this.canvas.rawChildren.removeChild(this.shapeList[i]);	
+					}
+				}
+				this.shapeList = new Array();
+			}
+			
+			public function undoShape():void{
+				if (this.shapeList.length > 0){
+					this.canvas.rawChildren.removeChild(this.shapeList[this.shapeList.length-1]);
+					shapeList.pop();
+				}
+			}
+			
 			]]>
 	</mx:Script>
 	
 	<mx:Canvas id="canvas" mouseUp="doMouseUp()" height="90%" width="100%"
-		mouseDown="doMouseDown()" mouseMove="doMouseMove()">
+		mouseDown="doMouseDown()" mouseMove="doMouseMove()" backgroundAlpha="0">
 	</mx:Canvas>
 	
 	<mx:ApplicationControlBar width="100%" height="10%">
-		<mx:Button label="Pencil" id="btnPenc" click="setShape(DrawObject.PENCIL)"/>
-		<mx:Button label="Rectangle" id="btnRect" click="setShape(DrawObject.RECTANGLE)"/>
-		<mx:Button label="Ellipse" id="btnEllip" click="setShape(DrawObject.ELLIPSE)"/>
+		<mx:Image  id="btnPenc" click="setShape(DrawObject.PENCIL)">
+			<mx:source>../images/pencil_down.PNG</mx:source>
+		</mx:Image>
+		<mx:Image id="btnRect" click="setShape(DrawObject.RECTANGLE)" source="../images/rectangle_down.PNG"/>
+		<mx:Image id="btnEllip" click="setShape(DrawObject.ELLIPSE)" source="../images/ellipse_down.PNG"/>
+		<mx:Button label="Clear" id="btnClear" click="dispatchEvent(new Event(BoardMediator.CLEAR_BOARD))" />
+		<mx:Button label="Undo" id="btnUndo" click="dispatchEvent(new Event(BoardMediator.UNDO_SHAPE))" />
 		<mx:ColorPicker change="changeColor(event)" id="cpik"/>
 		<mx:HSlider width="50" id="sld" change="changeThickness(event)"/>
 	</mx:ApplicationControlBar>

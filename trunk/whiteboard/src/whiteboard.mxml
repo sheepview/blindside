@@ -7,5 +7,4 @@
 	</mx:Script>
 	
 	<view:Board id="board"/>
-	<mx:TextArea x="10" y="308" id="txtDebug" width="390" height="50"/>
 </mx:Application>

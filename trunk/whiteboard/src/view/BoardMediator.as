@@ -19,7 +19,11 @@ package view
 	public class BoardMediator extends Mediator implements IMediator
 	{
 		public static const NAME:String = "BoardMediator";
-		//private var board:Board;
+		
+		public static const SEND_SHAPE:String = "sendShape";
+		public static const CLEAR_BOARD:String = "clearBoard";
+		public static const UNDO_SHAPE:String = "undoShape"
+		
 		
 		/**
 		 * The constructor. Calls the super constructor and registers the event listener to listen for updates
@@ -30,7 +34,9 @@ package view
 		public function BoardMediator(view:Board):void
 		{
 			super(NAME, view);
-			board.addEventListener(Board.SEND_SHAPE, sendUpdate);
+			board.addEventListener(BoardMediator.SEND_SHAPE, sendUpdate);
+			board.addEventListener(BoardMediator.CLEAR_BOARD, sendClear);
+			board.addEventListener(BoardMediator.UNDO_SHAPE, undoShape);
 		}
 		
 		/**
@@ -49,9 +55,34 @@ package view
 		 * 
 		 */		
 		protected function sendUpdate(e:Event):void{
-			var drawProxy:DrawProxy;
-			drawProxy = facade.retrieveProxy(DrawProxy.NAME) as DrawProxy;
-			drawProxy.sendShape(this.board.d);
+			proxy.sendShape(this.board.d);
+		}
+		
+		/**
+		 * Calls the Proxy to send out a clear event over all clients 
+		 * @param e
+		 * 
+		 */		
+		protected function sendClear(e:Event):void{
+			proxy.clearBoard();
+		}
+		
+		/**
+		 * Calls the Proxy to send out an undo last shape event over all clients 
+		 * @param e
+		 * 
+		 */		
+		protected function undoShape(e:Event):void{
+			proxy.undoShape();
+		}
+		
+		/**
+		 * Returns the DrawProxy of this application 
+		 * @return 
+		 * 
+		 */		
+		public function get proxy():DrawProxy{
+			return facade.retrieveProxy(DrawProxy.NAME) as DrawProxy;
 		}
 		
 		/**
@@ -60,13 +91,16 @@ package view
 		 * This class listens to:
 		 *		- BoardFacade.UPDATE 
 		 * 		- BoardFacade.FAILED_CONNECTION
+		 * 		- BoardFacade.CLEAR_BOARD
 		 * @return An array of strings representing all the notifications being listened to
 		 * 
 		 */		
 		override public function listNotificationInterests():Array{
 			return [
 					BoardFacade.UPDATE,
-					BoardFacade.FAILED_CONNECTION
+					BoardFacade.FAILED_CONNECTION,
+					BoardFacade.CLEAR_BOARD,
+					BoardFacade.UNDO_SHAPE
 				   ];
 		}
 		
@@ -87,6 +121,13 @@ package view
 				
 				case BoardFacade.FAILED_CONNECTION:
 					this.board.enabled = false;
+					break;
+				
+				case BoardFacade.CLEAR_BOARD:
+					this.board.clearBoard();
+					break;
+				case BoardFacade.UNDO_SHAPE:
+					this.board.undoShape();
 					break;
 			}
 		}
