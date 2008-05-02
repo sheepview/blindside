@@ -18,6 +18,9 @@ package controller
 	 */	
 	public class StartupCommand extends SimpleCommand
 	{
+		public static const EXECUTED:String = "StartupCommand executed";
+		private var test:String;
+		
 		/**
 		 * The execute method that is executed upon creation of this class 
 		 * @param notification the notification which triggered the SimpleCommand class.
@@ -26,9 +29,18 @@ package controller
 		override public function execute(notification:INotification):void{
 			
 			var app:whiteboard = notification.getBody() as whiteboard;
-			app.txtDebug.text += "\n SimpleCommand.execute";
+			this.test = StartupCommand.EXECUTED;
 			facade.registerMediator(new ApplicationMediator(app));
 			facade.registerProxy(new DrawProxy(app.board.drawVO));
+		}
+		
+		/**
+		 * A test method to see if the command is executed. Used in Unit Tests 
+		 * @return 
+		 * 
+		 */		
+		public function checkExecute():String{
+			return this.test;
 		}
 
 	}
