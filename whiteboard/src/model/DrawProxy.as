@@ -121,6 +121,38 @@ package model
 			this.drawVO.segment = d;
 			sendNotification(BoardFacade.UPDATE, d);
 		}
+		
+		/**
+		 * Sends a call out to the red5 server to notify the clients that the board needs to be cleared 
+		 * 
+		 */		
+		public function clearBoard():void{
+			drawSO.send("clear");
+		}
+		
+		/**
+		 * Trigers the clear notification on a client 
+		 * 
+		 */		
+		public function clear():void{
+			sendNotification(BoardFacade.CLEAR_BOARD);
+		}
+		
+		/**
+		 * Sends a call out to the red5 server to notify the clients to undo a shape
+		 * 
+		 */		
+		public function undoShape():void{
+			drawSO.send("undo");
+		}
+		
+		/**
+		 * Triggers the undo shape event on all clients 
+		 * 
+		 */		
+		public function undo():void{
+			sendNotification(BoardFacade.UNDO_SHAPE);
+		}
 
 	}
 }

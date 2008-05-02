@@ -21,6 +21,8 @@ package
 		public static const STARTUP:String = "startup";
 		public static const UPDATE:String = "update";
 		public static const FAILED_CONNECTION:String = "conn_failed";
+		public static const CLEAR_BOARD:String = "clear";
+		public static const UNDO_SHAPE:String = "undoShape";
 		
 		/**
 		 * Returns the BoardFacade instance. This method always returns the same instance of this class
@@ -52,7 +54,6 @@ package
 		 * 
 		 */		
 		public function startup(app:whiteboard):void{
-			app.txtDebug.text += "\n startup"
 			sendNotification(BoardFacade.STARTUP, app);
 		}
 

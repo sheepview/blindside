@@ -22,7 +22,6 @@ package view
 		 */		
 		public function ApplicationMediator(viewComponent:whiteboard)
 		{
-			viewComponent.txtDebug.text += "\n ApplicationMediator";
 			super(NAME, viewComponent);
 			facade.registerMediator(new BoardMediator(viewComponent.board));
 		}
