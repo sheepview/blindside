@@ -20,7 +20,7 @@ package org.blindsideproject.core.apps.presentation.vo
 				this.name = slide.name;
 //				this.title = slide.description;
 				this.source = slide.source;
-//				log.debug("Slide [" + name + "][" + source + "]");				
+				log.debug("Slide [" + name + "][" + source + "]");				
 			}
 		}
 	}
