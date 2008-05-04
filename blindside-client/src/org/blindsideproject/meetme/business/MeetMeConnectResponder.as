@@ -226,18 +226,19 @@ package org.blindsideproject.meetme.business
 			var nc_responder : Responder;
 			nc_responder = new Responder(getMeetMeUsers, null);
 					
-			// call the server side method to get list of FLV's
-			meetMeRoom.getConnection().getConnection().call("meetmeService.muteUnmuteUser", null, userId, muteUser);			
+			log.info("MeetMe: calling meetmeService.muteUnmuteUser");
+			meetMeRoom.getConnection().getConnection().call("meetmeService.muteUnmuteUser", nc_responder, userId, muteUser);			
 		}
 
 		public function muteAllUsers(mute : Boolean) : void
 		{	
+			log.info("MeetMe: calling meetmeService.muteAllUsers");
 			meetMeRoom.getConnection().getConnection().call("meetmeService.muteAllUsers", null, mute);			
 		}
 
 		public function ejectUser(userId : Number) : void
 		{
-			// call the server side method to get list of FLV's
+			log.info("MeetMe: calling meetmeService.ejectUser");
 			meetMeRoom.getConnection().getConnection().call("meetmeService.ejectUser", null, userId);			
 		}
 		

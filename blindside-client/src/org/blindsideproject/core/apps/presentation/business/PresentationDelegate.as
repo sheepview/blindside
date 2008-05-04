@@ -14,6 +14,7 @@ package org.blindsideproject.core.apps.presentation.business
 	import org.blindsideproject.core.apps.presentation.model.PresentationModel;
 	import org.blindsideproject.core.apps.presentation.controller.events.ClearEvent;
 	import org.blindsideproject.core.apps.presentation.controller.events.ViewEvent;
+	import org.blindsideproject.core.apps.presentation.controller.events.PresentationReadyEvent;
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
 	import mx.states.SetProperty;
@@ -114,8 +115,9 @@ package org.blindsideproject.core.apps.presentation.business
 			// Force unshare of presentation
 			share(false);
 			
-			log.debug("Assign presenter control to [" + name + "]");
+			
 			presentationSO.setProperty(PRESENTER, {userid : userid, name : name});
+			log.debug("Assign presenter control to [" + name + "]");
 		}
 		
 		public function stopSharing() : void
@@ -140,8 +142,9 @@ package org.blindsideproject.core.apps.presentation.business
 					slides.push(presentation.decks.slides.source[i]);
 				}
 
-				presentationSO.setProperty(SHARING, {share : sharing, 
-						presentation : {id : name, description : title, page : curPage, slide : slides}});			
+//				presentationSO.setProperty(SHARING, {share : sharing, 
+//						presentation : {id : name, description : title, page : curPage, slide : slides}});	
+				presentationSO.setProperty(SHARING, {share : sharing});		
 			} else {
 				presentationSO.setProperty(SHARING, {share : sharing});
 			}
@@ -158,6 +161,7 @@ package org.blindsideproject.core.apps.presentation.business
 			presentationSO.client = this;
 
 			presentationSO.connect(connDelegate.getConnection());
+			log.debug( "PresentationDelegate::joinConference");
 		}
 
 		private function removeListeners() : void
@@ -169,11 +173,11 @@ package org.blindsideproject.core.apps.presentation.business
 								
 		private function sharedObjectSyncHandler( event : SyncEvent) : void
 		{
-//			log.debug( "Presentation::sharedObjectSyncHandler " + event.changeList.length);
+			log.debug( "Presentation::sharedObjectSyncHandler " + event.changeList.length);
 						
 			for (var i : uint = 0; i < event.changeList.length; i++) 
 			{
-//				log.debug( "Presentation::handlingChanges[" + event.changeList[i].name + "][" + i + "]");
+				log.debug( "Presentation::handlingChanges[" + event.changeList[i].name + "][" + i + "]");
 				handleChangesToSharedObject(event.changeList[i].code, 
 						event.changeList[i].name, event.changeList[i].oldValue);
 			}
@@ -216,12 +220,16 @@ package org.blindsideproject.core.apps.presentation.business
 					presentation.isSharing = presentationSO.data.sharing.share;
 				
 					if (presentationSO.data.sharing.share) {
-						log.debug( "SHARING true =[" + presentationSO.data.sharing.presentation.slide.length  + "]");
+						log.debug( "SHARING =[" + presentationSO.data.sharing.share + "]");
+//						log.debug( "SHARING true =[" + presentationSO.data.sharing.presentation.slide.length  + "]");
 										
-						processSharedPresentation(presentationSO.data.sharing.presentation);
+//						processSharedPresentation(presentationSO.data.sharing.presentation);
 						
-						var viewEvent : ViewEvent = new ViewEvent();
-						viewEvent.dispatch();
+//						var viewEvent : ViewEvent = new ViewEvent();
+//						viewEvent.dispatch();
+					var readyEvt : PresentationReadyEvent = new PresentationReadyEvent();
+					readyEvt.dispatch();
+					
 					} else {
 						log.debug( "SHARING =[" + presentationSO.data.sharing.share + "]");
 						// Should send a stop sharing event. This will allow UIs to do what they want 
