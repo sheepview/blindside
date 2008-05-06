@@ -1,8 +1,0 @@
-2008-04-02 20:00:17,500 [pool-4-thread-5] INFO  org.red5.demos.fitc.Application - Client connected 2 conn RTMPMinaConnection from 127.0.0.1 : 1413 to localhost (in: 3455 out 3073 )
-2008-04-02 20:00:17,500 [pool-4-thread-5] INFO  org.red5.demos.fitc.Application - Setting stream id: 0
-2008-04-02 20:00:17,515 [pool-4-thread-5] INFO  org.red5.demos.fitc.Application - Client joined app 2
-2008-04-02 20:00:18,421 [pool-4-thread-10] INFO  org.red5.demos.fitc.Application - Received result OK for setId
-2008-04-02 20:01:55,734 [pool-4-thread-16] INFO  org.red5.demos.fitc.Application - Client connected 7 conn RTMPMinaConnection from 127.0.0.1 : 1434 to localhost (in: 3455 out 3073 )
-2008-04-02 20:01:55,734 [pool-4-thread-16] INFO  org.red5.demos.fitc.Application - Setting stream id: 1
-2008-04-02 20:01:55,734 [pool-4-thread-16] INFO  org.red5.demos.fitc.Application - Client joined app 7
-2008-04-02 20:01:56,390 [pool-4-thread-16] INFO  org.red5.demos.fitc.Application - Received result OK for setId
