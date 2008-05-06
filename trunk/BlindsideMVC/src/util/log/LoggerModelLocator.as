@@ -1,23 +1,14 @@
 package util.log
 {
-	import com.adobe.cairngorm.model.IModelLocator;
-	import com.adobe.cairngorm.*;
+	
+	import org.puremvc.as3.interfaces.IFacade;
+	import org.puremvc.as3.patterns.facade.Facade;
 	
 	[Bindable]
-	public class LoggerModelLocator implements IModelLocator
+	public class LoggerModelLocator extends Facade implements IFacade
 	{
-		private static var instance : LoggerModelLocator;
 		
-		public var log : Logger;
-		
-	   	public function LoggerModelLocator() 
-	   	{
-	   		if ( instance != null )
-					throw new CairngormError(
-					   CairngormMessageCodes.SINGLETON_EXCEPTION, "LoggerModelLocator" );
-					
-				initialize();
-	   	}
+		public var log : Logger = new Logger();
 	   	
 		/**
 		 * 
@@ -28,15 +19,7 @@ package util.log
 			if ( instance == null )
 				instance = new LoggerModelLocator();
 				
-			return instance;
+			return instance as LoggerModelLocator;
 	   	}
-	   	
-	   	/**
-	   	 * 
-	   	 */	   	
-	   	private function initialize() : void
-	   	{
-			log = new Logger();
-	   	}		
 	}
 }
