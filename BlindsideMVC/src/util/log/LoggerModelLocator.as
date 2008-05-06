@@ -9,7 +9,7 @@ package util.log
 	{
 		
 		public var log : Logger = new Logger();
-	   	
+	   	 
 		/**
 		 * 
 		 * @return ModelLocator
