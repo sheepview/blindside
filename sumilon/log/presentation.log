@@ -1,0 +1,15 @@
+2008-04-02 19:59:35,000 [main] INFO  o.b.presentation.Application - Presentation::appStart - 
+2008-04-02 19:59:35,453 [main] INFO  o.b.p.b.JmsConnectionContextListener - Connecting to presentation service
+2008-04-02 19:59:35,484 [main] INFO  o.b.p.b.JmsConnectionContextListener - Connected to presentation service
+2008-04-02 19:59:35,484 [Conversion Updates Listener] INFO  o.b.p.ConversionUpdatesService - Will wait for document conversion updates messages.
+2008-04-02 20:00:17,328 [pool-4-thread-6] INFO  o.b.presentation.Application - Presentation::roomStart - 85115
+2008-04-02 20:00:17,328 [pool-4-thread-6] INFO  o.b.presentation.Application - Presentation::appConnect - 3
+2008-04-02 20:00:17,328 [pool-4-thread-6] INFO  o.b.presentation.Application - Presentation::roomConnect 3
+2008-04-02 20:00:17,328 [pool-4-thread-6] INFO  o.b.presentation.Application - Presentation::roomJoin - 3
+2008-04-02 20:01:56,015 [pool-4-thread-16] INFO  o.b.presentation.Application - Presentation::appConnect - 8
+2008-04-02 20:01:56,015 [pool-4-thread-16] INFO  o.b.presentation.Application - Presentation::roomConnect 8
+2008-04-02 20:01:56,078 [pool-4-thread-16] INFO  o.b.presentation.Application - Presentation::roomJoin - 8
+2008-04-02 20:03:55,156 [pool-4-thread-13] INFO  o.b.presentation.Application - Presentation::roomLeave - 8
+2008-04-02 20:03:55,156 [pool-4-thread-13] INFO  o.b.presentation.Application - Presentation::appDisconnect - 8
+2008-04-02 20:03:58,218 [pool-4-thread-16] INFO  o.b.presentation.Application - Presentation::roomLeave - 3
+2008-04-02 20:03:58,218 [pool-4-thread-16] INFO  o.b.presentation.Application - Presentation::appDisconnect - 3
