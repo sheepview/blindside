@@ -7,12 +7,13 @@
 			import model.MessageVO;
 			
 			public var m:MessageObject;
-			protected var drawColor:uint;
+			
 			
 			[Bindable]
 			public var messageVO:MessageVO = new MessageVO();
 		
 			public function sendChatMessage(rm:MessageObject):void{
+			
 			var newMessage:String;
 			newMessage = "<font color=\"#" + rm.color.toString(16) + "\">" + rm.message + "</font>";
 			txtChatBox.htmlText += newMessage + "\n";

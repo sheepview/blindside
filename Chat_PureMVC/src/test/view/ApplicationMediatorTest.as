@@ -11,7 +11,7 @@ package test.view
 		}
 		public static function suite():TestSuite {
                var ts:TestSuite = new TestSuite();
-               //ts.addTest( new MessageVOTest( "testGetInstance" ) );
+               
                return ts;
            }
 

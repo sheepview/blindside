@@ -8,25 +8,41 @@ package view
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.mediator.Mediator;
 	
-	
+	/**
+	 * ChatMediator  
+	 * @author snegari
+	 * 
+	 */	
 	public class ChatMediator extends Mediator implements IMediator
 	{
 		public static const NAME:String = "ChatMediator";
 		public static const SEND_MESSAGE:String = "sendMessage";
 		
-		
+		/**
+		 * Event listeners are added to view component in constructor
+		 * @param view
+		 * 
+		 */		
 		public function ChatMediator(view:Chat):void
 		{
 			super(NAME, view);
 			chat.addEventListener(ChatMediator.SEND_MESSAGE, sendUpdate);
 		}
 		
-		
+		/**
+		 * get method that returns the view component
+		 * @return view component Chat
+		 * 
+		 */		
 		protected function get chat():Chat{
 			return viewComponent as Chat;
 		}
 		
-			
+		/**
+		 * 
+		 * @param e: The event that has update information
+		 * 
+		 */			
 		protected function sendUpdate(e:Event):void{
 			proxy.sendMessage(this.chat.m);
 		}
@@ -58,7 +74,11 @@ package view
 					break;	
 			}
 		}
-		
+		/**
+		 * A get method to retrieve required proxy 
+		 * @return MessageProxy
+		 * 
+		 */		
 		public function get proxy():MessageProxy{
 			return facade.retrieveProxy(MessageProxy.NAME) as MessageProxy;
 		}
