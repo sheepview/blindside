@@ -10,6 +10,11 @@ package model
 	import red5.as3.net.Connection;
 	import red5.as3.net.events.ConnectionEvent;
 
+	/**
+	 * 
+	 * @author snegari
+	 * 
+	 */
 	public class MessageProxy extends Proxy implements IProxy
 	{
 		public static const NAME:String = "Message Proxy";
@@ -20,6 +25,11 @@ package model
 		private var messageSO:SharedObject;
 		private var uri:String;
 		
+		/**
+		 * This method makes a new connection and adds event listeners to it 
+		 * @param messageVO
+		 * 
+		 */
 		public function MessageProxy(messageVO:MessageVO)
 		{
 			super(NAME, messageVO);
@@ -31,10 +41,19 @@ package model
 			conn.connect();
 		}
 		
+		/**
+		 * 
+		 * @return the messageVO containig the message Object
+		 * 
+		 */
 		public function get messageVO():MessageVO{
 			return this.data as MessageVO;
 		}
-		
+		/**
+		 * Handles the event of successful connection
+		 * @param e:ConnectionEvent
+		 * 
+		 */		
 		public function handleSucessfulConnection(e:ConnectionEvent):void{
 			nc = conn.getConnection();
 			messageSO = SharedObject.getRemote("messageSO", uri, false);
@@ -43,19 +62,41 @@ package model
             messageSO.connect(nc);
 		}
 		
+		/**
+		 * SyncHandler for Shared Object
+		 * @param e:SyncEvent
+		 * 
+		 */
 		public function sharedObjectSyncHandler(e:SyncEvent):void{
 			
 		}
 		
+		/**
+		 * Handles disconnection
+		 * @param e:ConnectionEvent
+		 * 
+		 */
 		public function handleDisconnection(e:ConnectionEvent):void{
 			
 		}
 		
+		/**
+		 * Sends the message to the shared object 
+		 * @param message
+		 * 
+		 */
 		public function sendMessage(message:MessageObject):void{
 			
 			messageSO.send("addMessage", message.getMessgae(), message.getColor());
 		}
 		
+		/**
+		 * Updates the messageObject according to the new message received
+		 * and sends a notification for update 
+		 * @param message
+		 * @param color
+		 * 
+		 */		
 		public function addMessage(message:String , color:uint):void{
 			var m:MessageObject = new MessageObject(message, color);
 			this.messageVO.message = m;

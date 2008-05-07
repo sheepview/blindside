@@ -11,9 +11,12 @@ package test
 		}
 		public static function suite():TestSuite {
                var ts:TestSuite = new TestSuite();
-               //ts.addTest( new MessageVOTest( "testGetInstance" ) );
+               ts.addTest( new ApplicationFacadeTest( "testGetInstance" ) );
                return ts;
            }
-		
+		public function testGetInstance():void {
+			var applicationFacade:ApplicationFacade = ApplicationFacade.getInstance();
+			assertNotNull("Expecting instance not null", applicationFacade );
+		}
 	}
 }

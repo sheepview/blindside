@@ -7,7 +7,7 @@ package view
 	 * The Application Mediator is the main mediator class of the Whiteboard application
 	 * <p>
 	 * This class extends the Mediator class of the PureMVC framework 
-	 * @author dzgonjan
+	 * @author snegari
 	 * 
 	 */	
 	public class ApplicationMediator extends Mediator implements IMediator
