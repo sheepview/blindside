@@ -1,0 +1,5 @@
+<Root>
+	<user name="test" password="test">
+	<user name="jib" password="jab">
+	<user name="denis" password="12345">
+</Root>
