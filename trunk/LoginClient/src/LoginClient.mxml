@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:view="view.*"
+	 creationComplete="facade.startup(this)">
+	<mx:Script>
+		<![CDATA[
+			private var facade:LogInFacade = LogInFacade.getInstance()
+		]]>
+	</mx:Script>
+	
+	<view:LogIn id="login"  x="125" y="145"/>
+</mx:Application>
