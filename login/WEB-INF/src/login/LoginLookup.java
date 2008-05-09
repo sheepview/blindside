@@ -29,8 +29,6 @@ public class LoginLookup extends DefaultHandler{
 
 	private HashMap<String, String> users = new HashMap<String, String>();
 
-	private static final String PASSWORD_FILE = "users.xml";
-
 	/**
 	 * The LoginLookup constructor
 	 * @param userFile - The red5 resource file in the scope of the application

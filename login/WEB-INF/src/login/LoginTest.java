@@ -1,7 +1,5 @@
 package login;
 
-import java.io.FileOutputStream;
-
 /**
  * This is a tester class for the server-side application. It does not get executed when
  * the server is running, it is just a test case for the Login application
