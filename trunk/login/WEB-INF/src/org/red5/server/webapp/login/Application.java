@@ -1,7 +1,5 @@
 package org.red5.server.webapp.login;
 
-import java.io.FileOutputStream;
-
 import login.LoginLookup;
 import login.LoginRequest;
 
@@ -16,6 +14,7 @@ import org.springframework.core.io.Resource;
  */
 public class Application extends ApplicationAdapter {
 	
+	private static final String USERS_XML = "users.xml";
 	private LoginLookup lookup;
 	public static IScope appScope;
 	
@@ -38,17 +37,24 @@ public class Application extends ApplicationAdapter {
 	 */
 	public boolean appStart(IScope app){
 		appScope = app;
-		Resource users = appScope.getResource("users.xml");
+		Resource users = appScope.getResource(USERS_XML);
 		this.lookup = new LoginLookup(users);
 		this.lookup.readFile();
 		return true;
 	}
 	
 	/**
+	 * This method saves to file all the usernames and passwords
+	 */
+	public void saveToFile(){
+		this.lookup.saveToFile(USERS_XML);
+	}
+	
+	/**
 	 * Dumps all the usernames and passwords to an xml file on the server
 	 */
 	public void saveAll(){
-		this.lookup.saveToFile(appScope.getPath() + "users.xml");
+		this.lookup.saveToFile(appScope.getPath() + USERS_XML);
 	}
 	
 	/**
