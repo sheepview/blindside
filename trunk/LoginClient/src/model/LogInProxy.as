@@ -5,8 +5,8 @@ package model
 	import flash.net.Responder;
 	import flash.net.SharedObject;
 	
-	import org.puremvc.as3.interfaces.IProxy;
-	import org.puremvc.as3.patterns.proxy.Proxy;
+	import org.puremvc.as3.multicore.interfaces.IProxy;
+	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
 	
 	import red5.as3.net.Connection;
 	import red5.as3.net.events.ConnectionEvent;

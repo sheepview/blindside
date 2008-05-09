@@ -1,7 +1,7 @@
 package view
 {
-	import org.puremvc.as3.interfaces.IMediator;
-	import org.puremvc.as3.patterns.mediator.Mediator;
+	import org.puremvc.as3.multicore.interfaces.IMediator;
+	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
 	
 	public class ApplicationMediator extends Mediator implements IMediator
 	{
@@ -16,7 +16,12 @@ package view
 		public function ApplicationMediator(viewComponent:LoginClient)
 		{
 			super(NAME, viewComponent);
-			facade.registerMediator(new LogInMediator(viewComponent.login));
+			//facade.registerMediator(new LogInMediator(viewComponent.login));
+		}
+		
+		override public function initializeNotifier(key:String):void{
+			super.initializeNotifier(key);
+			facade.registerMediator(new LogInMediator(app.login));
 		}
 		
 		/**
