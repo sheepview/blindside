@@ -1,6 +1,6 @@
-package
+package login
 {
-	import controller.StartupCommand;
+	import login.controller.StartupCommand;
 	
 	import org.puremvc.as3.multicore.interfaces.IFacade;
 	import org.puremvc.as3.multicore.patterns.facade.Facade;
