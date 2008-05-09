@@ -1,4 +1,4 @@
-package model
+package login.model
 {
 	import flash.events.SyncEvent;
 	import flash.net.NetConnection;
@@ -10,6 +10,7 @@ package model
 	
 	import red5.as3.net.Connection;
 	import red5.as3.net.events.ConnectionEvent;
+	import login.LogInFacade;
 	
 	/**
 	 * The LogInProxy is a delagate class that communicates between the red5 server-side Login application and

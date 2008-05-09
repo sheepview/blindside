@@ -1,8 +1,9 @@
-package view
+package login.view
 {
 	import flash.events.Event;
 	
-	import model.LogInProxy;
+	import login.model.LogInProxy;
+	import login.LogInFacade;
 	
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
@@ -29,8 +30,8 @@ package view
 		public function LogInMediator(view:LogIn):void
 		{
 			super(NAME, view);
-			login.addEventListener(LogInMediator.TRY_LOGIN, tryLogin);
-			login.addEventListener(LogInMediator.REGISTER, tryRegister);
+			loginMXML.addEventListener(LogInMediator.TRY_LOGIN, tryLogin);
+			loginMXML.addEventListener(LogInMediator.REGISTER, tryRegister);
 			
 		}
 		
@@ -39,7 +40,7 @@ package view
 		 * @return 
 		 * 
 		 */		
-		protected function get login():LogIn{
+		protected function get loginMXML():LogIn{
 			return viewComponent as LogIn;
 		}
 		
@@ -58,11 +59,11 @@ package view
 		 * 
 		 */		
 		public function tryLogin(e:Event):void{
-			proxy.attempLogin(login.txtName.text, login.txtPass.text);
+			proxy.attempLogin(loginMXML.txtName.text, loginMXML.txtPass.text);
 		}
 		
 		public function tryRegister(e:Event):void{
-			proxy.attemptRegister(login.txtName.text, login.txtPass.text);
+			proxy.attemptRegister(loginMXML.txtName.text, loginMXML.txtPass.text);
 		}
 		
 		/**
@@ -91,21 +92,21 @@ package view
 		override public function handleNotification(notification:INotification):void{
 			switch (notification.getName()){
 				case LogInFacade.LOGIN_ATTEMPT:
-					login.lblMessage.text = "Login Attempt: " +  notification.getBody();
+					loginMXML.lblMessage.text = "Login Attempt: " +  notification.getBody();
 					//TODO handle login attempt
 					break;
 				
 				case LogInFacade.CALL_FAILED:
-					login.lblMessage.text = "Call Failed: " + notification.getBody();
+					loginMXML.lblMessage.text = "Call Failed: " + notification.getBody();
 					//TODO handle call failed
 					break;
 				
 				case LogInFacade.REGISTER_ATTEMPT:
-					login.lblMessage.text = "Register Attempt: " + notification.getBody();
+					loginMXML.lblMessage.text = "Register Attempt: " + notification.getBody();
 					break;
 				
 				case LogInFacade.NOT_CONNECTED:
-					login.lblMessage.text = "Not connected to server";
+					loginMXML.lblMessage.text = "Not connected to server";
 			}
 		}
 

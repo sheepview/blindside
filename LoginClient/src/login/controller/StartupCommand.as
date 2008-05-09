@@ -1,11 +1,10 @@
-package controller
+package login.controller
 {
-	import model.LogInProxy;
+	import login.model.LogInProxy;
+	import login.view.ApplicationMediator;
 	
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.command.SimpleCommand;
-	
-	import view.ApplicationMediator;
 	
 	/**
 	 * The StartupCommand class extends the SimpleCommand class of the PureMVC framework.
