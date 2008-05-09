@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" 
+	title="Welcome To Blindside" verticalScrollPolicy="off" horizontalScrollPolicy="off">
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.effects.easing.Bounce;
+			
+			/**
+			 * Determines what to do when the button was pressed based on the current state
+			 */ 
+			private function btnLoginDecide():void{
+				if (this.currentState == "register"){
+					dispatchEvent(new Event(LogInMediator.REGISTER));
+				} else{
+					dispatchEvent(new Event(LogInMediator.TRY_LOGIN));
+				}
+			}
+		]]>
+	</mx:Script>
+	
+	<!-- This is just a transition to make everything look pretty -->
+	<mx:transitions>
+		<mx:Transition>
+            <mx:Parallel 
+              targets="{[loginForm, btnLogin, registerLink, confirm]}">
+                <mx:Resize duration="500" easingFunction="Bounce.easeOut"/>
+                <mx:Sequence target="{}">
+                   <mx:Blur duration="200" blurYFrom="1.0" blurYTo="20.0"/>
+                   <mx:Blur duration="200" blurYFrom="20.0" blurYTo="1"/>
+                </mx:Sequence>
+            </mx:Parallel>
+        </mx:Transition>
+	</mx:transitions>
+    
+    <!-- Defines a different state whether the user wants to log in or register for a new account -->
+    <mx:states>
+        <mx:State name="register">
+            <mx:AddChild relativeTo="{loginForm}" 
+                position="lastChild">
+                <mx:FormItem id="confirm" label="Confirm:">
+                    <mx:TextInput/>
+                </mx:FormItem>
+            </mx:AddChild>            
+            <mx:SetProperty target="{this}"
+                name="title" value="Register"/>            
+            <mx:SetProperty target="{btnLogin}"
+               name="label" value="Register"/>
+            <mx:RemoveChild target="{registerLink}"/>
+            <mx:AddChild relativeTo="{spacer1}" position="before">
+                <mx:LinkButton label="Return to Login" 
+                    click="currentState=''"/>
+            </mx:AddChild>
+        </mx:State>
+    </mx:states>
+	
+	<!-- The login form which holds all the labels and text inputs -->
+	<mx:Form id="loginForm" width="302">
+		<mx:FormItem label="Name">
+			<mx:TextInput x="104" y="24" id="txtName"/>
+		</mx:FormItem>
+		<mx:FormItem label="Conference">
+			<mx:TextInput x="104" y="54" id="txtRoom"/>
+		</mx:FormItem>
+		<mx:FormItem label="Password">
+			<mx:TextInput x="104" y="84" displayAsPassword="true" id="txtPass"/>
+		</mx:FormItem>
+		<mx:FormItem label="Status">
+			<mx:Label id="lblMessage" />
+		</mx:FormItem>
+	</mx:Form>
+	
+	<!-- The control bar which holds the buttons -->
+	<mx:ControlBar>
+		<mx:LinkButton label="Don't have an account?" width="172" id="registerLink" click="currentState='register'"/>
+		<mx:Spacer x="170" y="127" width="30" height="1" id="spacer1"/>
+		<mx:Button label="Login" id="btnLogin" click="this.btnLoginDecide()" textAlign="right"/>
+	</mx:ControlBar>
+	
+</mx:Panel>
