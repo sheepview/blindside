@@ -9,12 +9,12 @@
 	 <flexlib:MDICanvas horizontalScrollPolicy="off" verticalScrollPolicy="off" width="100%" height="100%"
 	 	 effectsLib="{flexlib.mdi.effects.effectsLib.MDIVistaEffects}" id="mdiCanvas">
 	 	 
+	 </flexlib:MDICanvas>
+	 	 
 	 	 <mx:ApplicationControlBar x="0" y="0" dock="true" width="100%">
-	 	 	 <mx:MenuBar width="203" id="mainMenu" labelField="@label" dataProvider="{menuBarCollection}"
+	 	 	 <mx:MenuBar width="100%" id="mainMenu" labelField="@label" dataProvider="{menuBarCollection}"
 	 	 	 	 itemClick="menuHandler(event)">
 	 	 	 </mx:MenuBar>
 	 	 </mx:ApplicationControlBar>
-	 	
-	 </flexlib:MDICanvas>
 	
 </mx:Application>
