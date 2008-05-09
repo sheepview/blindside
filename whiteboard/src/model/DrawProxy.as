@@ -7,8 +7,8 @@ package model
 	import model.component.DrawObject;
 	import model.component.DrawObjectFactory;
 	
-	import org.puremvc.as3.interfaces.IProxy;
-	import org.puremvc.as3.patterns.proxy.Proxy;
+	import org.puremvc.as3.multicore.interfaces.IProxy;
+	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
 	
 	import red5.as3.net.Connection;
 	import red5.as3.net.events.ConnectionEvent;

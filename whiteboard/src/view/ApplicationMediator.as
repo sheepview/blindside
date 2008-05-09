@@ -1,7 +1,7 @@
 package view
 {
-	import org.puremvc.as3.interfaces.IMediator;
-	import org.puremvc.as3.patterns.mediator.Mediator;
+	import org.puremvc.as3.multicore.interfaces.IMediator;
+	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
 	
 	/**
 	 * The Application Mediator is the main mediator class of the Whiteboard application
@@ -23,7 +23,19 @@ package view
 		public function ApplicationMediator(viewComponent:whiteboard)
 		{
 			super(NAME, viewComponent);
-			facade.registerMediator(new BoardMediator(viewComponent.board));
+			//facade.registerMediator(new BoardMediator(viewComponent.board));
+		}
+		
+		/**
+		 * In the PureMVC - Multicore version it is necessary to override the initializeNotifier method
+		 * in order to get the facade, instead of getting the facade from the constructor. I don't know why
+		 * exactely this is the case.
+		 * @param key
+		 * 
+		 */		
+		override public function initializeNotifier(key:String):void{
+			super.initializeNotifier(key);
+			facade.registerMediator(new BoardMediator(app.board));
 		}
 		
 		/**

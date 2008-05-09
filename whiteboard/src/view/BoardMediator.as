@@ -5,9 +5,9 @@ package view
 	import model.DrawProxy;
 	import model.component.DrawObject;
 	
-	import org.puremvc.as3.interfaces.IMediator;
-	import org.puremvc.as3.interfaces.INotification;
-	import org.puremvc.as3.patterns.mediator.Mediator;
+	import org.puremvc.as3.multicore.interfaces.IMediator;
+	import org.puremvc.as3.multicore.interfaces.INotification;
+	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
 	
 	/**
 	 * The mediator class for the Board GUI component.
