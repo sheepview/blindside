@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application layout="absolute"
+	 xmlns:mx="http://www.adobe.com/2006/mxml" 
+     xmlns:flexlib = "http://code.google.com/p/flexlib/"
+     creationComplete="init()" xmlns:view="login.view.*">
+     
+	 <mx:Script source="Main.as"/>
+	 
+	 <flexlib:MDICanvas horizontalScrollPolicy="off" verticalScrollPolicy="off"  x="0" y="0" width="100%" height="100%"
+	 	 effectsLib="{flexlib.mdi.effects.effectsLib.MDIVistaEffects}" id="mdiCanvas">
+	 	 
+	 	 <view:LogIn id="login" x="200" y="200" />
+	 	 
+	 </flexlib:MDICanvas>
+	 
+	 <mx:ApplicationControlBar id="controlBar" dock="true" width="100%" enabled="false" top="0" left="0">
+	 	 <mx:MenuBar width="100%" id="mainMenu" labelField="@label" dataProvider="{menuBarCollection}"
+	 	 	 itemClick="menuHandler(event)">
+	 	 </mx:MenuBar>
+	 </mx:ApplicationControlBar>
+	
+</mx:Application>
