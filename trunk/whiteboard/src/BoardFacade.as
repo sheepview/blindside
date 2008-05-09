@@ -2,8 +2,8 @@ package
 {
 	import controller.*;
 	
-	import org.puremvc.as3.interfaces.IFacade;
-	import org.puremvc.as3.patterns.facade.Facade;
+	import org.puremvc.as3.multicore.interfaces.IFacade;
+	import org.puremvc.as3.multicore.patterns.facade.Facade;
 	
 	/**
 	 * The BoardFacade class is an implementation of the Facade pattern for the Whiteboard application.
@@ -18,11 +18,16 @@ package
 	 */	
 	public class BoardFacade extends Facade implements IFacade
 	{
+		public static const NAME:String = "BoardFacade";
 		public static const STARTUP:String = "startup";
 		public static const UPDATE:String = "update";
 		public static const FAILED_CONNECTION:String = "conn_failed";
 		public static const CLEAR_BOARD:String = "clear";
 		public static const UNDO_SHAPE:String = "undoShape";
+		
+		public function BoardFacade(){
+			super(NAME);
+		}
 		
 		/**
 		 * Returns the BoardFacade instance. This method always returns the same instance of this class
@@ -30,8 +35,8 @@ package
 		 * 
 		 */		
 		public static function getInstance():BoardFacade{
-			if (instance == null) instance = new BoardFacade();
-			return instance as BoardFacade;
+			if (instanceMap[NAME] == null) instanceMap[NAME] = new BoardFacade();
+			return instanceMap[NAME] as BoardFacade;
 		}
 		
 		/**

@@ -2,8 +2,8 @@ package controller
 {
 	import model.DrawProxy;
 	
-	import org.puremvc.as3.interfaces.INotification;
-	import org.puremvc.as3.patterns.command.SimpleCommand;
+	import org.puremvc.as3.multicore.interfaces.INotification;
+	import org.puremvc.as3.multicore.patterns.command.SimpleCommand;
 	
 	import view.ApplicationMediator;
 	
