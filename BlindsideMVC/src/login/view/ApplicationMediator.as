@@ -24,7 +24,7 @@ package login.view
 		
 		override public function initializeNotifier(key:String):void{
 			super.initializeNotifier(key);
-			facade.registerMediator(new LogInMediator(app.login));
+			facade.registerMediator(new LogInMediator(app.loginView));
 		}
 		
 		/**
@@ -48,7 +48,7 @@ package login.view
         		case LogInFacade.LOGIN_ATTEMPT:
         			if (String(notification.getBody()) == "true"){
         				app.controlBar.enabled = true;
-        				app.mdiCanvas.removeChild(app.mdiCanvas.getChildByName("login"));
+        				app.mdiCanvas.removeChild(app.loginView);
         			}
         			break;
         	}
