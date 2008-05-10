@@ -36,6 +36,8 @@ public var menuBarCollection:XMLListCollection
 private var logWindow:LogWindow;
 private var log:Logger = LoggerModelLocator.getInstance().log;
 
+private var style:String = "MacOS9.css";
+
 //Here add facade variables for each component
 private var loginFacade:LogInFacade = LogInFacade.getInstance();
 
