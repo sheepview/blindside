@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="WEB-INF/src"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/chatServer.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Program Files/Red5/red5.jar"/>
+	<classpathentry kind="lib" path="C:/tools/eclipse-3.3/eclipse/plugins/org.junit_3.8.2.v200706111738/junit.jar"/>
+	<classpathentry kind="output" path="WEB-INF/classes"/>
+</classpath>
