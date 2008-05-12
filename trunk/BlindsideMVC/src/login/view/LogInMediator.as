@@ -2,8 +2,8 @@ package login.view
 {
 	import flash.events.Event;
 	
-	import login.model.LogInProxy;
 	import login.LogInFacade;
+	import login.model.LogInProxy;
 	
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
@@ -19,7 +19,7 @@ package login.view
 	{
 		public static const NAME:String = "LogInMediator";
 		public static const TRY_LOGIN:String = "tryLogin";
-		public static const REGISTER:String = "register"
+		public static const REGISTER:String = "register";
 		
 		/**
 		 * The constructor. Calls the super constructor and registers the event listener to listen for updates
@@ -63,7 +63,13 @@ package login.view
 		}
 		
 		public function tryRegister(e:Event):void{
-			proxy.attemptRegister(loginMXML.txtName.text, loginMXML.txtPass.text);
+			if (loginMXML.txtName.text == ""){
+				loginMXML.lblMessage.text = "Please enter a username";
+			} else if (loginMXML.txtPass.text == loginMXML.txtConfirm.text){
+				proxy.attemptRegister(loginMXML.txtName.text, loginMXML.txtPass.text);	
+			} else{
+				loginMXML.lblMessage.text = "Passwords do not match";
+			}
 		}
 		
 		/**
@@ -102,7 +108,8 @@ package login.view
 					break;
 				
 				case LogInFacade.REGISTER_ATTEMPT:
-					loginMXML.lblMessage.text = "Register Attempt: " + notification.getBody();
+					if (String(notification.getBody()) == "true") loginMXML.lblMessage.text = "Registration Successful";
+					else if (String(notification.getBody()) == "false") loginMXML.lblMessage.text = "Registration Error";
 					break;
 				
 				case LogInFacade.NOT_CONNECTED:

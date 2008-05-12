@@ -7,11 +7,12 @@ private var menubarXML:XMLList =
                         <menuitem label="LogOut"/> 
                     </menuitem>
                     <menuitem label="Components">
-                        <menuitem label="Chat" type="check"/>
-                        <menuitem label="Audio" type="check"/>
-                        <menuitem label="Video" type="check"/>
-                        <menuitem label="Presentation" type="check"/>
-                        <menuitem type="separator" />
+                        <menuitem label="Chat"/>
+                        <menuitem label="Audio"/>
+                        <menuitem label="Video"/>
+                        <menuitem label="Presentation"/>
+                        <menuitem label="Whiteboard"/>
+                        <menuitem type="separator"/>
                         <menuitem label="Debug"/>
                     </menuitem>
                     <menuitem label="Layout" >
@@ -33,6 +34,8 @@ import mx.styles.StyleManager;
 import flash.net.URLRequest;
 import flash.net.navigateToURL;
 import mx.events.CloseEvent;
+import whiteboard.BoardFacade;
+import whiteboard.view.Board;
          
 [Bindable]
 public var menuBarCollection:XMLListCollection
@@ -44,6 +47,10 @@ private var cssURL:String;
 
 //Here add facade variables for each component
 private var loginFacade:LogInFacade = LogInFacade.getInstance();
+private var whiteboardFacade:BoardFacade;
+
+//Here add GUI modules for your components
+public var whiteboard:Board;
 
 public function init():void{
 	menuBarCollection = new XMLListCollection(menubarXML);
@@ -61,6 +68,8 @@ public function menuHandler(e:MenuEvent):void{
 		mdiCanvas.windowManager.tile();
 	} else if (e.item.@label == "Cascade"){
 		mdiCanvas.windowManager.cascade();
+	} else if (e.item.@label == "Whiteboard"){
+		popupWhiteboard();
 	}
 }
 
@@ -76,15 +85,15 @@ private function popupLogWindow():void{
 	mdiCanvas.windowManager.absPos(logWindow, 700, 500);
 }
 
-private function closeLogWindow():void{
-	logWindow.close();
-	logWindow = null;
+private function popupWhiteboard():void{
+	whiteboard = new Board();
+	this.whiteboardFacade = BoardFacade.getInstance();
 }
 
 //private function popupLogin
 
 private function checkFlashVersion():void{
-	if (Number(Capabilities.version.substr(4,1)) < 10){
+	if (Number(Capabilities.version.substr(4,1)) < 9){
 		Alert.show("You are using FlashPlayer v." + Capabilities.version.substr(4,7) +
 		 ". Please upgrade to the newest version","Warning",Alert.OK,this,downloadFlash);
 	}

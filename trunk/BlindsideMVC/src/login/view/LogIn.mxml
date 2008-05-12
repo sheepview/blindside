@@ -39,7 +39,7 @@
             <mx:AddChild relativeTo="{loginForm}" 
                 position="lastChild">
                 <mx:FormItem id="confirm" label="Confirm:">
-                    <mx:TextInput/>
+                    <mx:TextInput id="txtConfirm" displayAsPassword="true"/>
                 </mx:FormItem>
             </mx:AddChild>            
             <mx:SetProperty target="{this}"
