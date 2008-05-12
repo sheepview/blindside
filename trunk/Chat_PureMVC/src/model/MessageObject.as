@@ -1,4 +1,4 @@
-package model
+package chat.model
 {
 	public class MessageObject
 	{
