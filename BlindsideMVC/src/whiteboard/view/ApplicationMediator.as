@@ -35,7 +35,7 @@ package whiteboard.view
 		 */		
 		override public function initializeNotifier(key:String):void{
 			super.initializeNotifier(key);
-			facade.registerMediator(new BoardMediator(app.whiteboard));
+			facade.registerMediator(new BoardMediator(app.board));
 		}
 		
 		/**

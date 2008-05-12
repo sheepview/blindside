@@ -26,7 +26,7 @@ package whiteboard.controller
 			
 			var app:BlindsideMVC = notification.getBody() as BlindsideMVC;
 			facade.registerMediator(new ApplicationMediator(app));
-			facade.registerProxy(new DrawProxy(app.whiteboard.drawVO));
+			facade.registerProxy(new DrawProxy(app.board.drawVO));
 		}
 
 	}
