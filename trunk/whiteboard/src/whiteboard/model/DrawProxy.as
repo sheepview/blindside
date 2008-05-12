@@ -7,8 +7,8 @@ package whiteboard.model
 	import org.puremvc.as3.multicore.interfaces.IProxy;
 	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
 	
-	import red5.as3.net.Connection;
-	import red5.as3.net.events.ConnectionEvent;
+	import util.red5.as3.net.Connection;
+	import util.red5.as3.net.events.ConnectionEvent;
 	
 	import whiteboard.BoardFacade;
 	import whiteboard.model.component.DrawObject;

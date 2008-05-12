@@ -20,7 +20,7 @@ package whiteboard.view
 		 * @param viewComponent
 		 * 
 		 */		
-		public function ApplicationMediator(viewComponent:whiteboard)
+		public function ApplicationMediator(viewComponent:BlindsideMVC)
 		{
 			super(NAME, viewComponent);
 			//facade.registerMediator(new BoardMediator(viewComponent.board));
@@ -35,7 +35,7 @@ package whiteboard.view
 		 */		
 		override public function initializeNotifier(key:String):void{
 			super.initializeNotifier(key);
-			facade.registerMediator(new BoardMediator(app.board));
+			facade.registerMediator(new BoardMediator(app.whiteboard));
 		}
 		
 		/**
@@ -43,9 +43,9 @@ package whiteboard.view
 		 * @return 
 		 * 
 		 */		
-		protected function get app():whiteboard
+		protected function get app():BlindsideMVC
 		{
-            return viewComponent as whiteboard;
+            return viewComponent as BlindsideMVC;
         }
 
 	}
