@@ -36,6 +36,8 @@ import flash.net.navigateToURL;
 import mx.events.CloseEvent;
 import whiteboard.BoardFacade;
 import whiteboard.view.Board;
+import chat.ChatFacade;
+import chat.view.Chat;
          
 [Bindable]
 public var menuBarCollection:XMLListCollection
@@ -48,9 +50,11 @@ private var cssURL:String;
 //Here add facade variables for each component
 private var loginFacade:LogInFacade = LogInFacade.getInstance();
 private var whiteboardFacade:BoardFacade;
+private var chatwindowFacade:ChatFacade;
 
 //Here add GUI modules for your components
 public var board:Board;
+public var chat:Chat;
 
 public function init():void{
 	menuBarCollection = new XMLListCollection(menubarXML);
@@ -70,10 +74,12 @@ public function menuHandler(e:MenuEvent):void{
 		mdiCanvas.windowManager.cascade();
 	} else if (e.item.@label == "Whiteboard"){
 		popupWhiteboard();
+	} else if (e.item.@label == "Chat") {
+		popupChat();
 	}
 }
 
-private function popupLogWindow():void{
+private function popupLogWindow():void {
 	//if (logWindow != null) return;
 	
 	logWindow = new LogWindow();
@@ -84,8 +90,18 @@ private function popupLogWindow():void{
 	mdiCanvas.windowManager.add(logWindow);
 	mdiCanvas.windowManager.absPos(logWindow, 700, 500);
 }
-
-private function popupWhiteboard():void{
+private function popupChat():void {
+	chat = new Chat();
+	this.chatwindowFacade = ChatFacade.getInstance();
+	this.chatwindowFacade.startup(this);
+	//chat.width = 400;
+	//chat.height = 300;
+	//chat.title = "Public Chat";
+	//chat.showCloseButton = true;
+	mdiCanvas.windowManager.add(chat);
+	mdiCanvas.windowManager.absPos(chat, 300, 100);
+}
+private function popupWhiteboard():void {
 	board = new Board();
 	this.whiteboardFacade = BoardFacade.getInstance();
 	this.whiteboardFacade.startup(this);
@@ -99,7 +115,7 @@ private function popupWhiteboard():void{
 
 //private function popupLogin
 
-private function checkFlashVersion():void{
+private function checkFlashVersion():void {
 	if (Number(Capabilities.version.substr(4,1)) < 9){
 		Alert.show("You are using FlashPlayer v." + Capabilities.version.substr(4,7) +
 		 ". Please upgrade to the newest version","Warning",Alert.OK,this,downloadFlash);
