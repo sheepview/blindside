@@ -1,12 +1,15 @@
-package view
+package chat.view
 {
 	import flash.events.Event;
+
 	
-	import model.*;
+	import chat.model.*;
+	import chat.ChatFacade;
+	import chat.view.ApplicationMediator;
 	
-	import org.puremvc.as3.interfaces.IMediator;
-	import org.puremvc.as3.interfaces.INotification;
-	import org.puremvc.as3.patterns.mediator.Mediator;
+	import org.puremvc.as3.multicore.interfaces.IMediator;
+	import org.puremvc.as3.multicore.interfaces.INotification;
+	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
 	
 	/**
 	 * ChatMediator  
@@ -26,7 +29,7 @@ package view
 		public function ChatMediator(view:Chat):void
 		{
 			super(NAME, view);
-			chat.addEventListener(ChatMediator.SEND_MESSAGE, sendUpdate);
+			view.addEventListener(ChatMediator.SEND_MESSAGE, sendUpdate);
 		}
 		
 		/**
@@ -44,7 +47,7 @@ package view
 		 * 
 		 */			
 		protected function sendUpdate(e:Event):void{
-			proxy.sendMessage(this.chat.m);
+			proxy.sendMessage(this.getViewComponent().m);
 		}
 		
 		/**
@@ -57,7 +60,7 @@ package view
 		 */		
 		override public function listNotificationInterests():Array{
 			return [
-					ApplicationFacade.UPDATE
+					ChatFacade.UPDATE
 				   ];
 		}
 		
@@ -69,8 +72,8 @@ package view
 		override public function handleNotification(notification:INotification):void{
 			switch(notification.getName())
 			{
-				case ApplicationFacade.UPDATE:
-					this.chat.sendChatMessage(notification.getBody() as MessageObject);
+				case ChatFacade.UPDATE:
+					this.getViewComponent().sendChatMessage(notification.getBody() as MessageObject);
 					break;	
 			}
 		}

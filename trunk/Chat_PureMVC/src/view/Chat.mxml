@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="400" height="300">
+<MDIWindow xmlns="flexlib.mdi.containers.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="400" height="300"
+	xmlns:flexlib = "http://code.google.com/p/flexlib/">
 	<mx:Script>
 		<![CDATA[
 			import mx.utils.ColorUtil;
-			import model.MessageObject;
-			import model.MessageVO;
+			import chat.model.MessageObject;
+			import chat.model.MessageVO;
 			
 			public var m:MessageObject;
 			
@@ -36,4 +37,4 @@
 	    
 	</mx:ApplicationControlBar>
 
-</mx:Panel>
+</MDIWindow>

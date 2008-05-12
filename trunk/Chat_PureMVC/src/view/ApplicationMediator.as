@@ -1,7 +1,7 @@
-package view
+package chat.view
 {
-	import org.puremvc.as3.interfaces.IMediator;
-	import org.puremvc.as3.patterns.mediator.Mediator;
+	import org.puremvc.as3.multicore.interfaces.IMediator;
+	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
 	
 	/**
 	 * The Application Mediator is the main mediator class of the Whiteboard application
@@ -20,21 +20,25 @@ package view
 		 * @param viewComponent
 		 * 
 		 */		
-		public function ApplicationMediator(viewComponent:Chat_PureMVC)
+		public function ApplicationMediator(viewComponent:BlindsideMVC)
 		{
 			
 			super(NAME, viewComponent);
-			facade.registerMediator(new ChatMediator(viewComponent.chat));
+			//facade.registerMediator(new ChatMediator(viewComponent.chat));
 		}
 		
+		override public function initializeNotifier(key:String):void{
+			super.initializeNotifier(key);
+			facade.registerMediator(new ChatMediator(app.chat));
+		}
 		/**
 		 * Returns the application component (whiteboard.mxml) 
 		 * @return 
 		 * 
 		 */		
-		protected function get app():Chat_PureMVC
+		protected function get app():BlindsideMVC
 		{
-            return viewComponent as Chat_PureMVC;
+            return viewComponent as BlindsideMVC;
         }
 
 	}
