@@ -50,7 +50,7 @@ private var loginFacade:LogInFacade = LogInFacade.getInstance();
 private var whiteboardFacade:BoardFacade;
 
 //Here add GUI modules for your components
-public var whiteboard:Board;
+public var board:Board;
 
 public function init():void{
 	menuBarCollection = new XMLListCollection(menubarXML);
@@ -86,14 +86,21 @@ private function popupLogWindow():void{
 }
 
 private function popupWhiteboard():void{
-	whiteboard = new Board();
+	board = new Board();
 	this.whiteboardFacade = BoardFacade.getInstance();
+	this.whiteboardFacade.startup(this);
+	board.width = 400;
+	board.height = 300;
+	board.title = "Whiteboard";
+	board.showCloseButton = true;
+	mdiCanvas.windowManager.add(board);
+	mdiCanvas.windowManager.absPos(board, 500, 100);
 }
 
 //private function popupLogin
 
 private function checkFlashVersion():void{
-	if (Number(Capabilities.version.substr(4,1)) < 10){
+	if (Number(Capabilities.version.substr(4,1)) < 9){
 		Alert.show("You are using FlashPlayer v." + Capabilities.version.substr(4,7) +
 		 ". Please upgrade to the newest version","Warning",Alert.OK,this,downloadFlash);
 	}

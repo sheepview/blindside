@@ -16,7 +16,7 @@
 			private var y2:int;
 			
 			public var d:DrawObject;	
-			private var isDrawing:Boolean; 
+			private var isDrawing:Boolean;
 			private var feedback:Shape = new Shape();
 			private var segment:Array = new Array();
 			private var newShape:Shape = new Shape();
