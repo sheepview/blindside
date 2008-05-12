@@ -1,6 +1,5 @@
 package whiteboard
 {
-	import controller.*;
 	
 	import org.puremvc.as3.multicore.interfaces.IFacade;
 	import org.puremvc.as3.multicore.patterns.facade.Facade;
@@ -60,7 +59,7 @@ package whiteboard
 		 * @param app
 		 * 
 		 */		
-		public function startup(app:whiteboard):void{
+		public function startup(app:BlindsideMVC):void{
 			sendNotification(BoardFacade.STARTUP, app);
 		}
 
