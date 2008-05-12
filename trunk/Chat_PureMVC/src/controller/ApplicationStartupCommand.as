@@ -1,11 +1,11 @@
-package controller
+package chat.controller
 {
-	import org.puremvc.as3.patterns.command.SimpleCommand;
-    import model.MessageProxy;
-	import org.puremvc.as3.interfaces.INotification;
-	import view.ApplicationMediator;
-	import view.Chat;
-	import model.*;
+	import org.puremvc.as3.multicore.patterns.command.SimpleCommand;
+    import chat.model.MessageProxy;
+	import org.puremvc.as3.multicore.interfaces.INotification;
+	import chat.view.ApplicationMediator;
+	import chat.view.Chat;
+	import chat.model.*;
 	
 	/**
 	 * 
@@ -19,9 +19,8 @@ package controller
 		 * @param notification
 		 * 
 		 */	    
-		override public function execute(notification:INotification):void{
-			
-			var app:Chat_PureMVC = notification.getBody() as Chat_PureMVC;
+		override public function execute(notification:INotification):void {
+			var app:BlindsideMVC = notification.getBody() as BlindsideMVC;
 			facade.registerMediator(new ApplicationMediator(app));
 			facade.registerProxy(new MessageProxy(app.chat.messageVO));
 		}
