@@ -1,6 +1,7 @@
 package login.view
 {
 	import flash.events.Event;
+	import flash.events.KeyboardEvent;
 	
 	import login.LogInFacade;
 	import login.model.LogInProxy;
@@ -32,7 +33,15 @@ package login.view
 			super(NAME, view);
 			loginMXML.addEventListener(LogInMediator.TRY_LOGIN, tryLogin);
 			loginMXML.addEventListener(LogInMediator.REGISTER, tryRegister);
+			loginMXML.addEventListener(KeyboardEvent.KEY_DOWN, keyPressed);
 			
+		}
+		
+		protected function keyPressed(event:KeyboardEvent):void{
+			if (event.keyCode == 13){
+				if (loginMXML.currentState == "register") tryRegister(event);
+				else tryLogin(event);
+			}
 		}
 		
 		/**
