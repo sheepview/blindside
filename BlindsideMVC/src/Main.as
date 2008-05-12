@@ -29,6 +29,10 @@ import util.log.LoggerModelLocator;
 import mx.controls.Alert;
 import login.LogInFacade;
 import login.view.LogIn;
+import mx.styles.StyleManager;
+import flash.net.URLRequest;
+import flash.net.navigateToURL;
+import mx.events.CloseEvent;
          
 [Bindable]
 public var menuBarCollection:XMLListCollection
@@ -36,7 +40,7 @@ public var menuBarCollection:XMLListCollection
 private var logWindow:LogWindow;
 private var log:Logger = LoggerModelLocator.getInstance().log;
 
-private var style:String = "MacOS9.css";
+private var cssURL:String;
 
 //Here add facade variables for each component
 private var loginFacade:LogInFacade = LogInFacade.getInstance();
@@ -80,10 +84,16 @@ private function closeLogWindow():void{
 //private function popupLogin
 
 private function checkFlashVersion():void{
-	if (Number(Capabilities.version.substr(4,1)) < 9){
+	if (Number(Capabilities.version.substr(4,1)) < 10){
 		Alert.show("You are using FlashPlayer v." + Capabilities.version.substr(4,7) +
-		 ". If you experience problems please upgrade to the newest version");
+		 ". Please upgrade to the newest version","Warning",Alert.OK,this,downloadFlash);
 	}
+}
+
+private function downloadFlash(eventObject:CloseEvent):void{
+	var urlRequest:URLRequest = 
+		new URLRequest("http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash");
+	navigateToURL(urlRequest, "_top");
 }
 
 private function checkCapabilities():void{
