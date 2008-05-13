@@ -198,7 +198,12 @@ package model
 		 */
 		public function sendMessage(user:User):void{
 			//messageSO.data.aProperty = message.getMessgae();
+			
+			
+
 			testSO.send("getMessage", user.userid, user.message);
+			user.message = "A test event was sent to user with userid " + user.userid + "\n";
+			sendNotification(ApplicationFacade.UPDATE, user);
 			
 		}
 		
