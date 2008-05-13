@@ -10,6 +10,7 @@ package chat.model
 		
 		public function PrivateMessageVO(privateMessage:String)
 		{
+			this.privateMessage = privateMessage;
 		}
 
 	}
