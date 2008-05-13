@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="400" height="300">
+	<mx:Script>
+		<![CDATA[
+			
+			import model.*;
+			public var user:User = new User(null,null);
+			[Bindable]
+			public var conference:Conference = new Conference();
+			
+			
+			public function showMessage(user:User) {
+				
+				log.htmlText = user.message + "\n";
+			}
+			public function sendSomeEvent() {
+				this.user.message = "This is from TestSystem";
+				this.user.userid = 0;
+				dispatchEvent(new Event(TestMediator.SEND_MESSAGE));
+			}
+		
+			
+		]]>
+	</mx:Script>
+	
+	<mx:TextArea id="log" editable="false" width="100%" height="100%"/>
+		
+	<mx:ApplicationControlBar width="100%" height="10%">
+		<mx:Button id="sendEvent" label="Send Event" click="sendSomeEvent()"/>
+			    
+	</mx:ApplicationControlBar>
+
+</mx:Panel>
