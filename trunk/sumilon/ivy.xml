@@ -95,11 +95,11 @@
         <dependency name="jruby" rev="1.0.1" conf="java5->default"/>
         <dependency name="jruby-engine" rev="" conf="java5->default"/> 
 		<!-- Blindside -->
-		<dependency name="asterisk-java" rev="0.3.1"/>
-		<dependency name="activemq-core" rev="4.1.1"/>
+		<dependency org="asterisk" name="asterisk-java" rev="0.3.1"/>
+		<dependency org="activemq" name="activemq-core" rev="4.1.1"/>
 		<dependency name="backport-util-concurrent" rev="2.1"/>
-		<dependency name="geronimo-j2ee-management_1.0_spec" rev="1.0"/>
-		<dependency name="geronimo-jms_1.1_spec" rev="1.0"/>
+		<dependency org="geronimo" name="geronimo-j2ee-management_1.0_spec" rev="1.0"/>
+		<dependency org="geronimo" name="geronimo-jms_1.1_spec" rev="1.0"/>
 		<dependency org="spring" name="spring-jms" rev="2.0.8" />
     </dependencies>
 </ivy-module>
