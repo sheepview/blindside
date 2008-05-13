@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MDIWindow xmlns="flexlib.mdi.containers.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="400" height="300"
+	xmlns:flexlib = "http://code.google.com/p/flexlib/">
+	<mx:Script>
+		<![CDATA[
+			import mx.utils.ColorUtil;
+			import chat.model.MessageObject;
+			import chat.model.MessageVO;
+			
+			public var m:MessageObject;
+			
+			
+			[Bindable]
+			public var messageVO:MessageVO = new MessageVO();
+		
+			public function sendChatMessage(rm:MessageObject):void{
+			
+			var newMessage:String;
+			newMessage = "<font color=\"#" + rm.color.toString(16) + "\">" + rm.message + "</font>";
+			txtChatBox.htmlText += newMessage + "\n";
+			txtMsg.text = "";
+			}
+			
+		    public function sendMessages():void{
+		   	this.m = new MessageObject(txtMsg.text, cmpColorPicker.selectedColor);
+		   	dispatchEvent(new Event(ChatMediator.SEND_MESSAGE));
+		    }
+		]]>
+	</mx:Script>
+	
+	<mx:TextArea id="txtChatBox" editable="false" width="100%" height="100%"/>
+		
+	<mx:ApplicationControlBar width="100%" height="10%">
+		<mx:TextInput id="txtMsg" width="100%" enter="sendMessages()"/>
+		<mx:ColorPicker id="cmpColorPicker" showTextField="false" selectedColor="0x000000"/>
+		<mx:Button label="Send" id="send" click="sendMessages()"/>
+	    
+	</mx:ApplicationControlBar>
+
+</MDIWindow>
