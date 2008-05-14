@@ -3,8 +3,6 @@
 					 xmlns:view="org.blindsideproject.views.chat.*"
 					 xmlns:business="org.blindsideproject.core.apps.chat.business.*"
 					 creationComplete="init()">
-					 
-	<mx:Style source="/assets/superpanel/css/styles.css"/>
 					
 	<mx:Script>
 		<![CDATA[

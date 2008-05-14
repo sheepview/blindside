@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <view:LogPodClass xmlns:mx="http://www.adobe.com/2006/mxml"
                   xmlns:view="org.blindsideproject.views.log.*">
-	<mx:Style source="/assets/superpanel/css/styles.css"/>
 	<view:LogAppBar width="100%" paddingTop="5" paddingBottom="0"
 				   dock="true" shadowDistance="0.5"/>
 	

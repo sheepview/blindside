@@ -1,14 +1,10 @@
 package org.blindsideproject.views.log
 {
 	 
-	import mx.containers.Box;
-	import mx.controls.TextArea;
+	import flexlib.mdi.containers.MDIWindow;
 	
-	import org.blindsideproject.core.util.log.*;
-    import superpanel.nl.wv.extenders.panel.SuperPanel;
-    import org.blindsideproject.core.util.log.*
-    
-	public class LogPodClass extends SuperPanel
+	import org.blindsideproject.core.util.log.*;    
+	public class LogPodClass extends MDIWindow
 	{
 		/**
 		* 
