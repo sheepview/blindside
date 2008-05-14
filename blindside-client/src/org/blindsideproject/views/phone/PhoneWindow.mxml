@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <phone:MDIWindow xmlns:mx="http://www.adobe.com/2006/mxml"  
-	xmlns:phone="flexmdi.containers.*"
+	xmlns:phone="flexlib.mdi.containers.*"
 	layout="absolute">
 
 	<mx:Script>

@@ -2,7 +2,7 @@
 
 <pres:MDIWindow xmlns:mx="http://www.adobe.com/2006/mxml"  
 	xmlns:thumb="org.blindsideproject.views.presentation.*"
-	xmlns:pres="flexmdi.containers.*"
+	xmlns:pres="flexlib.mdi.containers.*"
 	paddingBottom="0" paddingTop="0" 
 	paddingLeft="0" paddingRight="0" 
     layout="vertical" 

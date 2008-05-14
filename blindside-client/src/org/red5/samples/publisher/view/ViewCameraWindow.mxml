@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <cam:MDIWindow xmlns:mx="http://www.adobe.com/2006/mxml"
-					  xmlns:cam="flexmdi.containers.*"
+					  xmlns:cam="flexlib.mdi.containers.*"
 					  xmlns:util="org.red5.ui.*"
 					  xmlns:monitor="org.red5.samples.publisher.view.monitor.*"
 					  creationComplete="init()">

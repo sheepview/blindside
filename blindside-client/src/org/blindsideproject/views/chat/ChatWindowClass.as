@@ -1,24 +1,22 @@
 package org.blindsideproject.views.chat
 {
-	import mx.containers.Panel;
+	import com.adobe.cairngorm.control.CairngormEventDispatcher;
+	
+	import flash.events.*;
+	
+	import flexlib.mdi.containers.MDIWindow;
+	
+	import mx.controls.ColorPicker;
+	import mx.controls.TextArea;
+	import mx.events.*;
+	
+	import org.blindsideproject.core.apps.chat.controller.commands.*;
+	import org.blindsideproject.core.apps.chat.controller.handlers.*;
 	import org.blindsideproject.core.apps.chat.model.*;
 	import org.blindsideproject.core.apps.chat.vo.MessageVO;
-	import com.adobe.cairngorm.control.CairngormEventDispatcher;
-	import org.blindsideproject.core.apps.chat.controller.handlers.*;
-	import org.blindsideproject.core.apps.chat.controller.commands.*;
-	import mx.events.*;
-	import flash.events.*;
-	import mx.controls.TextArea;
-	import mx.controls.TextInput;
-	import mx.controls.Button;
-	import mx.core.UIComponent;
-    import mx.events.FlexEvent;
-    import mx.core.Application;
-    import superpanel.nl.wv.extenders.panel.*;
-    import com.adobe.cairngorm.control.CairngormEvent;
-    import org.blindsideproject.core.apps.conference.model.ConferenceModelLocator;
-    import mx.controls.ColorPicker;
-    import flexmdi.containers.MDIWindow;
+	import org.blindsideproject.core.apps.conference.model.ConferenceModelLocator;
+	
+	import superpanel.nl.wv.extenders.panel.*;
     
    	
 	public class ChatWindowClass extends MDIWindow

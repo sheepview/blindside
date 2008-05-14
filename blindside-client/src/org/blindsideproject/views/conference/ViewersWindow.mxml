@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<viewer:MDIWindow xmlns:mx="http://www.adobe.com/2006/mxml" 
-	xmlns:viewer="flexmdi.containers.*">
+<MDIWindow xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns="flexlib.mdi.containers.*">
 
     <mx:Script>
         <![CDATA[
@@ -68,4 +68,4 @@
     	   			width="20" height="20"
     	   			toolTip="{toggleTooltip}" click="changeUserStatus()"/>   			
     </mx:ControlBar>    
-</viewer:MDIWindow>
+</MDIWindow>
