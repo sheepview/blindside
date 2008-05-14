@@ -118,7 +118,7 @@ private function popupWhiteboard():void {
 private function checkFlashVersion():void {
 	if (Number(Capabilities.version.substr(4,1)) < 9){
 		Alert.show("You are using FlashPlayer v." + Capabilities.version.substr(4,7) +
-		 ". Please upgrade to the newest version","Warning",Alert.OK,this,downloadFlash);
+		 ". Please upgrade to the newest version. You will be redirected when you click OK","Warning",Alert.OK,this,downloadFlash);
 	}
 }
 
