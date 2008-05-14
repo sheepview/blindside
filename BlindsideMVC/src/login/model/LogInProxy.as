@@ -22,7 +22,7 @@ package login.model
 	public class LogInProxy extends Proxy implements IProxy
 	{
 		public static const NAME:String = "Draw Proxy";
-		public static const DEFAULT_RED5:String = "rtmp://134.117.58.92/login";
+		public static const DEFAULT_RED5:String = "rtmp://134.117.58.92/conference";
 		
 		private var conn:Connection;
 		private var nc:NetConnection;
