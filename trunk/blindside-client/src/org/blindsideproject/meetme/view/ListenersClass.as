@@ -1,16 +1,16 @@
 package org.blindsideproject.meetme.view
 {
-	import mx.containers.Box;
-	import org.blindsideproject.meetme.model.MeetMeModelLocator;
-	import org.blindsideproject.meetme.model.MeetMeRoom;
-	import org.blindsideproject.meetme.business.NetConnectionDelegate;
-	import org.blindsideproject.meetme.events.*;
-
 	import com.adobe.cairngorm.control.CairngormEventDispatcher;
+	
+	import flexlib.mdi.containers.MDIWindow;
+	
+	import mx.controls.TileList;
+	
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
-	import mx.controls.TileList;
-	import flexmdi.containers.MDIWindow;
+	import org.blindsideproject.meetme.events.*;
+	import org.blindsideproject.meetme.model.MeetMeModelLocator;
+	import org.blindsideproject.meetme.model.MeetMeRoom;
 
 	
 	public class ListenersClass extends MDIWindow

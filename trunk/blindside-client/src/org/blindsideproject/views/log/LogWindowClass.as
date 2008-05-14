@@ -1,13 +1,9 @@
 package org.blindsideproject.views.log
 {
 	 
-	import mx.containers.Box;
-	import mx.controls.TextArea;
+	import flexlib.mdi.containers.MDIWindow;
 	
-	import org.blindsideproject.core.util.log.*;
-    import org.blindsideproject.core.util.log.*
-
-    import flexmdi.containers.MDIWindow;  
+	import org.blindsideproject.core.util.log.*;  
       
 	public class LogWindowClass extends MDIWindow
 	{

@@ -1,51 +1,31 @@
-import mx.containers.Panel;
-import flash.events.Event;
-import mx.controls.Alert;
-	
-import org.blindsideproject.core.apps.conference.model.*;
-import org.blindsideproject.core.util.log.ILogger;
-import org.blindsideproject.core.util.log.LoggerModelLocator;
-import org.blindsideproject.core.apps.conference.controller.commands.JoinCommand;
-import org.blindsideproject.core.apps.conference.controller.events.ConferenceEvents;
-import org.blindsideproject.core.apps.conference.controller.events.DisconnectedEvent;
-import com.adobe.cairngorm.control.CairngormEventDispatcher;
 import com.adobe.cairngorm.control.CairngormEvent;
-import org.blindsideproject.core.apps.conference.controller.commands.LeaveCommand;
-import org.blindsideproject.core.apps.presentation.PresentationApplication;
-import org.blindsideproject.meetme.model.MeetMeModelLocator;
-import org.blindsideproject.main.*;
+import com.adobe.cairngorm.control.CairngormEventDispatcher;
+
+import flexlib.mdi.effects.effectsLib.MDIVistaEffects;
+import flexlib.mdi.events.MDIManagerEvent;
 
 import mx.binding.utils.BindingUtils;
-import mx.core.Application;
-
-import flash.display.Stage;
-import org.blindsideproject.core.apps.chat.ChatApplication;
-import mx.utils.StringUtil;
-import mx.managers.PopUpManager;
-import org.red5.samples.publisher.PublisherApplication;
-import org.blindsideproject.core.apps.conference.ConferenceApplication;
-	
-import flexmdi.effects.effectsLib.MDILinearEffects;
-import flexmdi.effects.MDIEffectsDescriptorBase;
 import mx.controls.TextArea;
-import flexmdi.events.MDIWindowEvent;
-import flexmdi.effects.effectsLib.MDIVistaEffects;
-import flexmdi.events.MDIManagerEvent;
-			
-import mx.controls.Alert;
-import mx.events.CloseEvent;
-import org.blindsideproject.views.chat.ChatWindow;
+import mx.core.Application;
+import mx.managers.PopUpManager;
+
+import org.blindsideproject.core.apps.chat.ChatApplication;
+import org.blindsideproject.core.apps.conference.ConferenceApplication;
+import org.blindsideproject.core.apps.conference.model.*;
+import org.blindsideproject.core.apps.presentation.PresentationApplication;
+import org.blindsideproject.core.util.log.ILogger;
+import org.blindsideproject.core.util.log.LoggerModelLocator;
+import org.blindsideproject.main.*;
+import org.blindsideproject.meetme.model.MeetMeModelLocator;
 import org.blindsideproject.meetme.view.ListenersWindow;
-import org.blindsideproject.views.presentation.PresentationWindow;
+import org.blindsideproject.views.chat.ChatWindow;
 import org.blindsideproject.views.conference.ViewersWindow;
-import org.blindsideproject.views.phone.PhoneWindow;
-import flexmdi.containers.MDIWindow;
-import org.blindsideproject.views.control.events.ViewEvents;
 import org.blindsideproject.views.control.events.OpenWindowEvent;
+import org.blindsideproject.views.control.events.ViewEvents;
 import org.blindsideproject.views.log.LogWindow;
-import org.red5.samples.publisher.MediaType;
-import org.red5.samples.publisher.vo.IMedia;
 import org.blindsideproject.views.presentation.PresentationPanel;
+import org.blindsideproject.views.presentation.PresentationWindow;
+import org.red5.samples.publisher.PublisherApplication;
 			
 private var eventMonitor:TextArea;
 private var queuedEvent:MDIManagerEvent;
@@ -81,7 +61,7 @@ private var effectsList:Array;
 		log.debug("presentationHost = [" + presentationHost + "]");
 		log.debug("asteriskHost = [" + asteriskHost + "]");
 		
-		mdiCanvas.effectsLib = flexmdi.effects.effectsLib.MDIVistaEffects;
+		mdiCanvas.effectsLib = flexlib.mdi.effects.effectsLib.MDIVistaEffects;
 		
 		BlindsideAppLocator.getInstance().conferenceApp = new ConferenceApplication(red5Host);
 		
