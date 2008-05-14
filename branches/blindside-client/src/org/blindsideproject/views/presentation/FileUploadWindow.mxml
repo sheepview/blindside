@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" 
+    title="Upload Presentation" x="168" y="86" layout="absolute" width="500" height="200">
+	<mx:Script>
+		<![CDATA[
+			import org.blindsideproject.main.BlindsideAppLocator;
+			import org.blindsideproject.core.apps.presentation.controller.events.PresentationReadyEvent;
+			import org.blindsideproject.core.apps.presentation.controller.events.UpdateProgressEvent;
+			import org.blindsideproject.core.apps.presentation.controller.events.ConvertProgressEvent;
+			import org.blindsideproject.core.apps.presentation.controller.events.ExtractProgressEvent;
+			import org.blindsideproject.core.apps.presentation.controller.events.UploadIoErrorEvent;
+			import org.blindsideproject.core.apps.presentation.controller.events.UploadSecurityErrorEvent;
+			import org.blindsideproject.core.apps.presentation.controller.events.UploadProgressEvent;
+			import org.blindsideproject.core.apps.presentation.controller.events.UploadCompletedEvent;
+			import com.adobe.cairngorm.control.CairngormEvent;
+			import org.blindsideproject.core.apps.presentation.controller.PresentationController;
+			import com.adobe.cairngorm.control.CairngormEventDispatcher;
+		
+			import org.blindsideproject.core.util.log.ILogger;
+			import org.blindsideproject.core.util.log.LoggerModelLocator;
+			
+			import mx.controls.Alert;
+			import mx.managers.PopUpManager;
+			
+			private var log : ILogger = LoggerModelLocator.getInstance().log;
+
+			private var dispatcher : CairngormEventDispatcher = CairngormEventDispatcher.getInstance();
+				
+			private var fileToUpload : FileReference = new FileReference();
+			
+			// Var to determine how to handle okCancelBtn click
+			private var okState : Boolean = false;
+			
+			private function selectFile() : void
+			{
+				fileToUpload.addEventListener(Event.SELECT, onSelectFile);	
+				fileToUpload.browse([new FileFilter("PDF", "*.pdf")]);
+			}
+			
+			private function onSelectFile(event : Event) : void
+			{
+				fileTxtInput.text = fileToUpload.name;
+				uploadBtn.enabled = true;
+			}
+		
+			private function handleUploadComplete(event : CairngormEvent) : void
+			{
+				progressLbl.text = "Upload completed. Please wait while we convert the document."
+				progressBar.label = "Upload successful.";
+				progressBar.setProgress(0, 100);
+				progressBar.validateNow();
+
+				fileLbl.visible = false;
+				selectBtn.visible = false;
+				uploadBtn.visible = false;
+				fileTxtInput.visible = false;
+			}
+
+			private function handleUploadProgress(event : CairngormEvent) : void
+			{
+				var progEvt : UploadProgressEvent = UploadProgressEvent(event);
+				
+				progressBar.label = progEvt.percentUploaded + "% uploaded.";
+				progressBar.setProgress(progEvt.percentUploaded, 100);
+				progressBar.validateNow();
+			}
+
+			private function handleUploadIoError(event : CairngormEvent) : void
+			{
+				removeUploadListeners();
+				var errorEvt : UploadIoErrorEvent = UploadIoErrorEvent(event);
+				
+				Alert.show(errorEvt.message, "IO error when uploading file.");
+			}
+
+			private function handleUploadSecurityError(event : CairngormEvent) : void
+			{
+				removeUploadListeners();
+				var errorEvt : UploadSecurityErrorEvent = UploadSecurityErrorEvent(event);
+				
+				Alert.show(errorEvt.message, "Security error when uploading file.");
+			}
+
+			private function handleConvertProgress(event : CairngormEvent) : void
+			{
+				var convertEvt : ConvertProgressEvent = ConvertProgressEvent(event);
+
+				progressBar.label = "Converting slide " + convertEvt.completedSlides + " of " 
+						+ convertEvt.totalSlides + " slides.";
+				progressBar.setProgress(convertEvt.completedSlides, convertEvt.totalSlides);
+				progressBar.validateNow();
+			}
+			
+			private function handleExtractProgress(event : CairngormEvent) : void
+			{
+				var extractEvt : ExtractProgressEvent = ExtractProgressEvent(event);
+
+				progressBar.label = "Extracting slide " + extractEvt.completedSlides + " of " 
+						+ extractEvt.totalSlides + " slides.";
+				progressBar.setProgress(extractEvt.completedSlides, extractEvt.totalSlides);
+				progressBar.validateNow();
+			}
+
+			private function handleUpdateProgress(event : CairngormEvent) : void
+			{
+				var updEvt : UpdateProgressEvent = UpdateProgressEvent(event);
+				progressLbl.text = updEvt.message;
+			}
+
+			private function handleConvertSuccess(event : CairngormEvent) : void
+			{
+				okCancelBtn.label = "Ok";
+				okCancelBtn.visible = true;
+				okState = true;
+			}
+															
+			private function removeUploadListeners() : void
+			{
+				dispatcher.removeEventListener(PresentationController.UPLOAD_COMPLETED_EVENT, handleUploadComplete);
+				dispatcher.removeEventListener(PresentationController.UPLOAD_PROGRESS_EVENT, handleUploadProgress);
+				dispatcher.removeEventListener(PresentationController.UPLOAD_IO_ERROR_EVENT, handleUploadIoError);
+				dispatcher.removeEventListener(PresentationController.UPLOAD_SECURITY_ERROR_EVENT, handleUploadSecurityError);	
+				dispatcher.removeEventListener(PresentationController.CONVERT_PROGRESS_EVENT, handleConvertProgress);
+				dispatcher.removeEventListener(PresentationController.EXTRACT_PROGRESS_EVENT, handleExtractProgress);				
+				dispatcher.removeEventListener(PresentationController.UPDATE_PROGRESS_EVENT, handleUpdateProgress);
+				dispatcher.removeEventListener(PresentationController.CONVERT_SUCCESS_EVENT, handleConvertSuccess);
+				
+				enableControls();			
+			}
+			
+			private function startUpload() : void
+			{
+				dispatcher.addEventListener(PresentationController.UPLOAD_COMPLETED_EVENT, handleUploadComplete);
+				dispatcher.addEventListener(PresentationController.UPLOAD_PROGRESS_EVENT, handleUploadProgress);
+				dispatcher.addEventListener(PresentationController.UPLOAD_IO_ERROR_EVENT, handleUploadIoError);
+				dispatcher.addEventListener(PresentationController.UPLOAD_SECURITY_ERROR_EVENT, handleUploadSecurityError);
+				dispatcher.addEventListener(PresentationController.CONVERT_PROGRESS_EVENT, handleConvertProgress);
+				dispatcher.addEventListener(PresentationController.EXTRACT_PROGRESS_EVENT, handleExtractProgress);
+				dispatcher.addEventListener(PresentationController.UPDATE_PROGRESS_EVENT, handleUpdateProgress);
+				dispatcher.addEventListener(PresentationController.CONVERT_SUCCESS_EVENT, handleConvertSuccess);
+				
+				BlindsideAppLocator.getInstance().presentationApp.uploadPresentation(fileToUpload);
+								
+				progBarLbl.visible = true;
+				progressBar.visible = true;
+				
+				okCancelBtn.visible = false;
+				selectBtn.enabled = false;
+				uploadBtn.enabled = false;
+				fileTxtInput.enabled = false;
+				
+			}
+			
+			private function enableControls() : void
+			{
+				okCancelBtn.visible = false;
+				
+				selectBtn.enabled = true;
+				uploadBtn.enabled = true;
+				fileTxtInput.enabled = true;			
+			}
+			
+			private function closeFileUploadWindow() : void
+			{
+				if (okState) {
+					var readyEvt : PresentationReadyEvent = new PresentationReadyEvent();
+					readyEvt.dispatch();
+				}
+				removeUploadListeners();
+				PopUpManager.removePopUp(this);
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Spacer height="100%" x="0" y="0"/>
+	<mx:Label id="fileLbl" text="File:" x="50" y="28"/>
+	<mx:TextInput id="fileTxtInput" width="228" x="87" y="26"/>
+	<mx:Button id="selectBtn" toolTip="Browse file" click="selectFile()" icon="@Embed('assets/add.png')" width="26" x="332" y="26"/>
+	<mx:Button id="uploadBtn" label="Upload" toolTip="Upload file"  click="startUpload()" enabled="false"
+		icon="@Embed('assets/bullet_go.png')" x="366" y="26"/>
+	<mx:Label id="progBarLbl" text="Progress:" x="21" y="67" visible="false"/>
+	<mx:ProgressBar id="progressBar" mode="manual" label="" labelPlacement="center" width="360" y="67" x="87" visible="false"/>
+	
+	<mx:ControlBar horizontalAlign="center" verticalAlign="middle" x="0" y="106">
+		<mx:Label id="progressLbl" text="" width="100%"/>
+		<mx:Spacer width="100%"/>
+		<mx:Button id="okCancelBtn" label="Cancel" click="closeFileUploadWindow()"/>
+	</mx:ControlBar>	
+</mx:TitleWindow> 

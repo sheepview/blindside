@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phone:MDIWindow xmlns:mx="http://www.adobe.com/2006/mxml"  
+	xmlns:phone="flexmdi.containers.*"
+	layout="absolute">
+
+	<mx:Script>
+		<![CDATA[
+		
+			import flash.net.NetConnection;
+			import flash.net.Responder;
+			
+			import flash.external.*;
+			
+			public function jsCall():void
+			{
+				ExternalInterface.call("call", txtInput.text);
+				txtInput.text = "";
+			}
+			
+			public function jsCallChar(chr:String):void
+			{
+				ExternalInterface.call("callChar", chr);
+				txtInput.text += chr;
+			}
+			
+			public function jsHangUp():void
+			{
+				ExternalInterface.call("hangUp");
+				txtInput.text = "";
+			}
+			
+			//Not used. if you wish to get the current connection status, call this method.
+			public function jsStatus():void
+			{
+				//txtStatus.text = ExternalInterface.call("status");
+			}
+			
+			
+		]]>
+	</mx:Script>
+	<mx:Button x="10" y="40" label="1" id="cmdOne" click="jsCallChar('1');" width="30" height="15"/>
+	<mx:Button x="40" y="40" label="2" id="cmdTwo" click="jsCallChar('2');" width="30" height="15"/>
+	<mx:Button x="70" y="40" label="3" id="cmdThree" click="jsCallChar('3');" width="30" height="15"/>
+	<mx:Button x="10" y="55" label="4" id="cmdFour" click="jsCallChar('4');" width="30" height="15"/>
+	<mx:Button x="40" y="55" label="5" id="cmdFive" click="jsCallChar('5');" width="30" height="15"/>
+	<mx:Button x="70" y="55" label="6" id="cmdSix" click="jsCallChar('6');" width="30" height="15"/>
+	<mx:Button x="10" y="70" label="7" id="cmdSeven" click="jsCallChar('7');" width="30" height="15"/>
+	<mx:Button x="40" y="70" label="8" id="cmdEight" click="jsCallChar('8');" width="30" height="15"/>
+	<mx:Button x="70" y="70" label="9" id="cmdNine" click="jsCallChar('9');" width="30" height="15"/>
+	<mx:Button x="10" y="85" label="*" id="cmdStar" click="jsCallChar('*');" width="30" height="15"/>
+	<mx:Button x="40" y="85" label="0" id="cmdZero" click="jsCallChar('0');" width="30" height="15"/>
+	<mx:Button x="70" y="85" label="#" id="cmdPound" click="jsCallChar('#');" width="30" height="15"/>
+	<mx:TextInput x="10" y="12" width="90" text="" id="txtInput" fontSize="10" height="22"/>
+	<mx:Button x="10" y="106" label="Call" id="cmdCall" click="jsCall();" width="30" fontSize="8" height="15"/>
+	<mx:Button x="40" y="106" label="Hang Up" width="60" click="jsHangUp();" id="cmdHangUp" height="15" fontSize="8"/>
+	
+</phone:MDIWindow>
