@@ -21,4 +21,5 @@ In Flex, open the SVN perspective and create a new repository. The address is th
 Once all the files finish downloading, run the blindside-client inside of Eclipse. Blindside should then start. Provided you have the server running on the same machine, you can try logging in to the default room #85115, with password 'modpass' for the moderator or 'viewpass' for the viewer. Your name can be whatever you want.
 
 == The Presentation Module ==
-Now that you have Blindside running, there are a couple of extra things to do. If you've tried to upload a presentation inside the client, you will have gotten an I/O error. This is because the file uploading currently works independently of the sumilon server package. To get the file uploading to work, you will have to go to Eclipse and check out the blindside-servlet project
+=== Checking out the Servlet ===
+Now that you have Blindside running, there are a couple of extra things to do. If you've tried to upload a presentation inside the client, you will have gotten an I/O error. This is because the file uploading currently works independently of the sumilon server package. To get the file uploading to work, you will have to go to Eclipse and check out the blindside-servlet project. The full instructions on how to do this are in the original howto on this wiki.
