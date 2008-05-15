@@ -5,8 +5,10 @@ import flexlib.mdi.effects.effectsLib.MDIVistaEffects;
 import flexlib.mdi.events.MDIManagerEvent;
 
 import mx.binding.utils.BindingUtils;
+import mx.controls.Alert;
 import mx.controls.TextArea;
 import mx.core.Application;
+import mx.events.CloseEvent;
 import mx.managers.PopUpManager;
 
 import org.blindsideproject.core.apps.chat.ChatApplication;
@@ -53,6 +55,8 @@ private var effectsList:Array;
 	private var asteriskHost : String;
 	
 	public function conferenceMainClassInit() : void {
+		checkFlashPlayerVersion();
+		
 		red5Host = mx.core.Application.application.parameters.red5Host;			
 		presentationHost = mx.core.Application.application.parameters.presentationHost;
 		asteriskHost = mx.core.Application.application.parameters.asteriskHost;
@@ -71,7 +75,20 @@ private var effectsList:Array;
 		
 		dispatcher.addEventListener(ViewEvents.OPEN_NEW_WINDOW_EVENT, onOpenWindow);
 	}
-
+	
+	public function checkFlashPlayerVersion():void{
+		if (Number(Capabilities.version.substr(4,1)) < 9){
+			Alert.show("You are using FlashPlayer v." + Capabilities.version.substr(4,7) +
+		 	". Please upgrade to the newest version. You will be redirected when you click OK","Warning",Alert.OK,this,downloadFlash);
+		}
+	}
+	
+	private function downloadFlash(eventObject:CloseEvent):void{
+		var urlRequest:URLRequest = 
+			new URLRequest("http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash");
+		navigateToURL(urlRequest, "_top");
+	}
+	
 	public function handleConnected(connected : Boolean) : void
 	{
 		if (connected) {
