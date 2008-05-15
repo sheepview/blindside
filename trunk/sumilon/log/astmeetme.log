@@ -1,119 +1,61 @@
-2008-04-02 19:59:27,140 [main] DEBUG o.b.a.meetme.ConferenceRoomListener - RoomListener started...
-2008-04-02 19:59:27,171 [main] DEBUG o.b.asterisk.meetme.Application - Setting voice Services...
-2008-04-02 19:59:27,171 [main] INFO  o.b.asterisk.meetme.Application - MeetMe::appStart - 
-2008-04-02 19:59:27,203 [main] INFO  o.b.asterisk.AsteriskVoiceService - Logging at 134.117.254.226:5038
-2008-04-02 20:00:17,265 [pool-4-thread-4] INFO  o.b.asterisk.meetme.Application - MeetMe::roomStart - 85115
-2008-04-02 20:00:17,265 [pool-4-thread-4] INFO  o.b.asterisk.meetme.Application - MeetMe::appConnect - 1
-2008-04-02 20:00:17,265 [pool-4-thread-4] INFO  o.b.asterisk.meetme.Application - MeetMe::roomConnect 1
-2008-04-02 20:00:17,281 [pool-4-thread-4] INFO  o.b.a.meetme.ConferenceRoomListener - MeetMe::roomListener - There are 1 current users in room [85115]
-2008-04-02 20:00:17,437 [pool-4-thread-4] INFO  o.b.asterisk.meetme.Application - MeetMe::roomJoin - 1
-2008-04-02 20:00:18,406 [pool-4-thread-8] INFO  o.b.asterisk.meetme.Application - Received result Okay for setRoomNumber
-2008-04-02 20:00:18,937 [pool-4-thread-8] DEBUG o.b.asterisk.meetme.MeetMeService - GetMeetmeUsers request for room[85115]
-2008-04-02 20:00:18,937 [pool-4-thread-8] INFO  o.b.asterisk.meetme.MeetMeService - MeetMe::service - Getting current users for room 85115
-2008-04-02 20:00:18,937 [pool-4-thread-8] INFO  o.b.a.meetme.ConferenceRoomListener - MeetMe::roomListener - There are 1 current users in room [85115]
-2008-04-02 20:00:18,937 [pool-4-thread-8] INFO  o.b.asterisk.meetme.MeetMeService - MeetMe::service - There are 1 current users...
-2008-04-02 20:00:18,953 [pool-4-thread-8] INFO  o.b.asterisk.meetme.MeetMeService - MeetMe::service - Sending 1 current users...
-2008-04-02 20:00:22,250 [pool-4-thread-13] DEBUG o.b.asterisk.meetme.MeetMeService - MuteUnmuteAll request for room[85115]
-2008-04-02 20:00:22,250 [pool-4-thread-13] INFO  o.b.asterisk.meetme.MeetMeService - MeetMe::service - Getting current users for room 85115
-2008-04-02 20:00:22,250 [pool-4-thread-13] INFO  o.b.a.meetme.ConferenceRoomListener - MeetMe::roomListener - There are 1 current users in room [85115]
-2008-04-02 20:00:22,250 [pool-4-thread-13] INFO  o.b.asterisk.meetme.MeetMeService - MeetMe::service - There are 1 current users...
-2008-04-02 20:00:22,468 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - Received property changed event for muted old = 'false' new = 'true' room = 'MeetMeRoom[roomNumber='85115',systemHashcode=9178456]'
-2008-04-02 20:00:22,468 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - New data mute = true
-2008-04-02 20:00:22,468 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - User mute event: [1,true]
-2008-04-02 20:00:22,468 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - Received property changed event for muted old = 'false' new = 'true' room = 'MeetMeRoom[roomNumber='85115',systemHashcode=9178456]'
-2008-04-02 20:00:22,468 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - New data mute = true
-2008-04-02 20:00:22,468 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - User mute event: [1,true]
-2008-04-02 20:00:22,468 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - Received property changed event for muted old = 'false' new = 'true' room = 'MeetMeRoom[roomNumber='85115',systemHashcode=9178456]'
-2008-04-02 20:00:22,468 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - New data mute = true
-2008-04-02 20:00:22,468 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - User mute event: [1,true]
-2008-04-02 20:00:23,500 [pool-4-thread-14] DEBUG o.b.asterisk.meetme.MeetMeService - MuteUnmuteAll request for room[85115]
-2008-04-02 20:00:23,500 [pool-4-thread-14] INFO  o.b.asterisk.meetme.MeetMeService - MeetMe::service - Getting current users for room 85115
-2008-04-02 20:00:23,500 [pool-4-thread-14] INFO  o.b.a.meetme.ConferenceRoomListener - MeetMe::roomListener - There are 1 current users in room [85115]
-2008-04-02 20:00:23,500 [pool-4-thread-14] INFO  o.b.asterisk.meetme.MeetMeService - MeetMe::service - There are 1 current users...
-2008-04-02 20:00:24,859 [pool-4-thread-15] DEBUG o.b.asterisk.meetme.MeetMeService - MuteUnmuteAll request for room[85115]
-2008-04-02 20:00:24,859 [pool-4-thread-15] INFO  o.b.asterisk.meetme.MeetMeService - MeetMe::service - Getting current users for room 85115
-2008-04-02 20:00:24,859 [pool-4-thread-15] INFO  o.b.a.meetme.ConferenceRoomListener - MeetMe::roomListener - There are 1 current users in room [85115]
-2008-04-02 20:00:24,859 [pool-4-thread-15] INFO  o.b.asterisk.meetme.MeetMeService - MeetMe::service - There are 1 current users...
-2008-04-02 20:00:24,937 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - Received property changed event for muted old = 'true' new = 'false' room = 'MeetMeRoom[roomNumber='85115',systemHashcode=9178456]'
-2008-04-02 20:00:24,937 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - New data mute = false
-2008-04-02 20:00:24,937 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - User mute event: [1,false]
-2008-04-02 20:00:24,937 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - Received property changed event for muted old = 'true' new = 'false' room = 'MeetMeRoom[roomNumber='85115',systemHashcode=9178456]'
-2008-04-02 20:00:24,937 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - New data mute = false
-2008-04-02 20:00:24,937 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - User mute event: [1,false]
-2008-04-02 20:00:24,937 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - Received property changed event for muted old = 'true' new = 'false' room = 'MeetMeRoom[roomNumber='85115',systemHashcode=9178456]'
-2008-04-02 20:00:24,937 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - New data mute = false
-2008-04-02 20:00:24,937 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - User mute event: [1,false]
-2008-04-02 20:00:24,937 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - Received property changed event for muted old = 'true' new = 'false' room = 'MeetMeRoom[roomNumber='85115',systemHashcode=9178456]'
-2008-04-02 20:00:24,937 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - New data mute = false
-2008-04-02 20:00:24,937 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - User mute event: [1,false]
-2008-04-02 20:00:24,937 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - Received property changed event for muted old = 'true' new = 'false' room = 'MeetMeRoom[roomNumber='85115',systemHashcode=9178456]'
-2008-04-02 20:00:24,937 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - New data mute = false
-2008-04-02 20:00:24,937 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - User mute event: [1,false]
-2008-04-02 20:00:30,328 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - Received property changed event for muted old = 'false' new = 'true' room = 'MeetMeRoom[roomNumber='85115',systemHashcode=9178456]'
-2008-04-02 20:00:30,328 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - New data mute = true
-2008-04-02 20:00:30,328 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - User mute event: [1,true]
-2008-04-02 20:00:30,328 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - Received property changed event for muted old = 'false' new = 'true' room = 'MeetMeRoom[roomNumber='85115',systemHashcode=9178456]'
-2008-04-02 20:00:30,328 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - New data mute = true
-2008-04-02 20:00:30,328 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - User mute event: [1,true]
-2008-04-02 20:00:30,328 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - Received property changed event for muted old = 'false' new = 'true' room = 'MeetMeRoom[roomNumber='85115',systemHashcode=9178456]'
-2008-04-02 20:00:30,328 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - New data mute = true
-2008-04-02 20:00:30,328 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - User mute event: [1,true]
-2008-04-02 20:00:30,328 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - Received property changed event for muted old = 'false' new = 'true' room = 'MeetMeRoom[roomNumber='85115',systemHashcode=9178456]'
-2008-04-02 20:00:30,328 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - New data mute = true
-2008-04-02 20:00:30,328 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - User mute event: [1,true]
-2008-04-02 20:00:30,328 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - Received property changed event for muted old = 'false' new = 'true' room = 'MeetMeRoom[roomNumber='85115',systemHashcode=9178456]'
-2008-04-02 20:00:30,328 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - New data mute = true
-2008-04-02 20:00:30,328 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - User mute event: [1,true]
-2008-04-02 20:00:34,000 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - Received property changed event for muted old = 'true' new = 'false' room = 'MeetMeRoom[roomNumber='85115',systemHashcode=9178456]'
-2008-04-02 20:00:34,000 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - New data mute = false
-2008-04-02 20:00:34,000 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - User mute event: [1,false]
-2008-04-02 20:00:34,000 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - Received property changed event for muted old = 'true' new = 'false' room = 'MeetMeRoom[roomNumber='85115',systemHashcode=9178456]'
-2008-04-02 20:00:34,000 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - New data mute = false
-2008-04-02 20:00:34,000 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - User mute event: [1,false]
-2008-04-02 20:00:34,000 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - Received property changed event for muted old = 'true' new = 'false' room = 'MeetMeRoom[roomNumber='85115',systemHashcode=9178456]'
-2008-04-02 20:00:34,000 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - New data mute = false
-2008-04-02 20:00:34,000 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - User mute event: [1,false]
-2008-04-02 20:00:34,000 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - Received property changed event for muted old = 'true' new = 'false' room = 'MeetMeRoom[roomNumber='85115',systemHashcode=9178456]'
-2008-04-02 20:00:34,000 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - New data mute = false
-2008-04-02 20:00:34,000 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - User mute event: [1,false]
-2008-04-02 20:00:34,000 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - Received property changed event for muted old = 'true' new = 'false' room = 'MeetMeRoom[roomNumber='85115',systemHashcode=9178456]'
-2008-04-02 20:00:34,000 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - New data mute = false
-2008-04-02 20:00:34,000 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - User mute event: [1,false]
-2008-04-02 20:01:55,671 [pool-4-thread-16] INFO  o.b.asterisk.meetme.Application - MeetMe::appConnect - 6
-2008-04-02 20:01:55,671 [pool-4-thread-16] INFO  o.b.asterisk.meetme.Application - MeetMe::roomConnect 6
-2008-04-02 20:01:55,671 [pool-4-thread-16] INFO  o.b.asterisk.meetme.Application - MeetMe::roomJoin - 6
-2008-04-02 20:01:56,468 [pool-4-thread-16] INFO  o.b.asterisk.meetme.Application - Received result Okay for setRoomNumber
-2008-04-02 20:01:56,468 [pool-4-thread-16] DEBUG o.b.asterisk.meetme.MeetMeService - GetMeetmeUsers request for room[85115]
-2008-04-02 20:01:56,468 [pool-4-thread-16] INFO  o.b.asterisk.meetme.MeetMeService - MeetMe::service - Getting current users for room 85115
-2008-04-02 20:01:56,468 [pool-4-thread-16] INFO  o.b.a.meetme.ConferenceRoomListener - MeetMe::roomListener - There are 1 current users in room [85115]
-2008-04-02 20:01:56,468 [pool-4-thread-16] INFO  o.b.asterisk.meetme.MeetMeService - MeetMe::service - There are 1 current users...
-2008-04-02 20:01:56,468 [pool-4-thread-16] INFO  o.b.asterisk.meetme.MeetMeService - MeetMe::service - Sending 1 current users...
-2008-04-02 20:02:08,968 [pool-4-thread-16] DEBUG o.b.asterisk.meetme.MeetMeService - MuteUnmuteAll request for room[85115]
-2008-04-02 20:02:08,968 [pool-4-thread-16] INFO  o.b.asterisk.meetme.MeetMeService - MeetMe::service - Getting current users for room 85115
-2008-04-02 20:02:08,968 [pool-4-thread-16] INFO  o.b.a.meetme.ConferenceRoomListener - MeetMe::roomListener - There are 1 current users in room [85115]
-2008-04-02 20:02:08,968 [pool-4-thread-16] INFO  o.b.asterisk.meetme.MeetMeService - MeetMe::service - There are 1 current users...
-2008-04-02 20:02:09,078 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - Received property changed event for muted old = 'false' new = 'true' room = 'MeetMeRoom[roomNumber='85115',systemHashcode=9178456]'
-2008-04-02 20:02:09,078 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - New data mute = true
-2008-04-02 20:02:09,078 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - User mute event: [1,true]
-2008-04-02 20:02:09,078 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - Received property changed event for muted old = 'false' new = 'true' room = 'MeetMeRoom[roomNumber='85115',systemHashcode=9178456]'
-2008-04-02 20:02:09,078 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - New data mute = true
-2008-04-02 20:02:09,078 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - User mute event: [1,true]
-2008-04-02 20:02:09,078 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - Received property changed event for muted old = 'false' new = 'true' room = 'MeetMeRoom[roomNumber='85115',systemHashcode=9178456]'
-2008-04-02 20:02:09,078 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - New data mute = true
-2008-04-02 20:02:09,078 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - User mute event: [1,true]
-2008-04-02 20:02:09,078 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - Received property changed event for muted old = 'false' new = 'true' room = 'MeetMeRoom[roomNumber='85115',systemHashcode=9178456]'
-2008-04-02 20:02:09,078 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - New data mute = true
-2008-04-02 20:02:09,078 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - User mute event: [1,true]
-2008-04-02 20:02:09,078 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - Received property changed event for muted old = 'false' new = 'true' room = 'MeetMeRoom[roomNumber='85115',systemHashcode=9178456]'
-2008-04-02 20:02:09,078 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - New data mute = true
-2008-04-02 20:02:09,093 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - User mute event: [1,true]
-2008-04-02 20:02:09,093 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - Received property changed event for muted old = 'false' new = 'true' room = 'MeetMeRoom[roomNumber='85115',systemHashcode=9178456]'
-2008-04-02 20:02:09,093 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - New data mute = true
-2008-04-02 20:02:09,093 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - User mute event: [1,true]
-2008-04-02 20:02:09,093 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - Received property changed event for muted old = 'false' new = 'true' room = 'MeetMeRoom[roomNumber='85115',systemHashcode=9178456]'
-2008-04-02 20:02:09,093 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - New data mute = true
-2008-04-02 20:02:09,093 [Asterisk-Java DaemonPool-1-thread-1] INFO  o.b.a.meetme.ConferenceRoomListener - User mute event: [1,true]
-2008-04-02 20:03:55,937 [pool-4-thread-13] INFO  o.b.asterisk.meetme.Application - MeetMe::roomLeave - 6
-2008-04-02 20:03:55,937 [pool-4-thread-13] INFO  o.b.asterisk.meetme.Application - MeetMe::appDisconnect - 6
-2008-04-02 20:03:59,046 [pool-4-thread-14] INFO  o.b.asterisk.meetme.Application - MeetMe::roomLeave - 1
-2008-04-02 20:03:59,046 [pool-4-thread-14] INFO  o.b.asterisk.meetme.Application - MeetMe::appDisconnect - 1
+2008-05-15 17:13:32,849 [main] DEBUG o.b.a.meetme.ConferenceRoomListener - RoomListener started...
+2008-05-15 17:13:32,859 [main] DEBUG o.b.asterisk.meetme.Application - Setting voice Services...
+2008-05-15 17:13:32,869 [main] INFO  o.b.asterisk.meetme.Application - MeetMe::appStart - 
+2008-05-15 17:13:32,879 [main] INFO  o.b.asterisk.AsteriskVoiceService - Logging at 134.117.254.226:5038
+2008-05-15 17:13:56,502 [pool-4-thread-13] INFO  o.b.asterisk.meetme.Application - MeetMe::roomStart - 85115
+2008-05-15 17:13:56,502 [pool-4-thread-13] INFO  o.b.asterisk.meetme.Application - MeetMe::appConnect - 3
+2008-05-15 17:13:56,502 [pool-4-thread-13] INFO  o.b.asterisk.meetme.Application - MeetMe::roomConnect 3
+2008-05-15 17:13:56,612 [pool-4-thread-13] INFO  o.b.a.meetme.ConferenceRoomListener - MeetMe::roomListener - There are 0 current users in room [85115]
+2008-05-15 17:13:56,612 [pool-4-thread-13] INFO  o.b.asterisk.meetme.Application - MeetMe::roomJoin - 3
+2008-05-15 17:13:56,632 [pool-4-thread-13] INFO  o.b.asterisk.meetme.Application - Received result Okay for setRoomNumber
+2008-05-15 17:13:56,702 [pool-4-thread-13] DEBUG o.b.asterisk.meetme.MeetMeService - GetMeetmeUsers request for room[85115]
+2008-05-15 17:13:56,702 [pool-4-thread-13] INFO  o.b.asterisk.meetme.MeetMeService - MeetMe::service - Getting current users for room 85115
+2008-05-15 17:13:56,702 [pool-4-thread-13] INFO  o.b.a.meetme.ConferenceRoomListener - MeetMe::roomListener - There are 0 current users in room [85115]
+2008-05-15 17:13:56,702 [pool-4-thread-13] INFO  o.b.asterisk.meetme.MeetMeService - MeetMe::service - There are 0 current users...
+2008-05-15 17:13:56,702 [pool-4-thread-13] INFO  o.b.asterisk.meetme.MeetMeService - MeetMe::service - Sending 0 current users...
+2008-05-15 17:14:38,911 [pool-4-thread-13] INFO  o.b.asterisk.meetme.Application - MeetMe::appConnect - 6
+2008-05-15 17:14:38,911 [pool-4-thread-13] INFO  o.b.asterisk.meetme.Application - MeetMe::roomConnect 6
+2008-05-15 17:14:38,911 [pool-4-thread-13] INFO  o.b.asterisk.meetme.Application - MeetMe::roomJoin - 6
+2008-05-15 17:14:39,422 [pool-4-thread-16] INFO  o.b.asterisk.meetme.Application - Received result Okay for setRoomNumber
+2008-05-15 17:14:39,442 [pool-4-thread-16] DEBUG o.b.asterisk.meetme.MeetMeService - GetMeetmeUsers request for room[85115]
+2008-05-15 17:14:39,442 [pool-4-thread-16] INFO  o.b.asterisk.meetme.MeetMeService - MeetMe::service - Getting current users for room 85115
+2008-05-15 17:14:39,442 [pool-4-thread-16] INFO  o.b.a.meetme.ConferenceRoomListener - MeetMe::roomListener - There are 0 current users in room [85115]
+2008-05-15 17:14:39,442 [pool-4-thread-16] INFO  o.b.asterisk.meetme.MeetMeService - MeetMe::service - There are 0 current users...
+2008-05-15 17:14:39,442 [pool-4-thread-16] INFO  o.b.asterisk.meetme.MeetMeService - MeetMe::service - Sending 0 current users...
+2008-05-15 17:15:16,925 [pool-4-thread-7] INFO  o.b.asterisk.meetme.Application - MeetMe::appConnect - 11
+2008-05-15 17:15:16,925 [pool-4-thread-7] INFO  o.b.asterisk.meetme.Application - MeetMe::roomConnect 11
+2008-05-15 17:15:16,925 [pool-4-thread-7] INFO  o.b.asterisk.meetme.Application - MeetMe::roomJoin - 11
+2008-05-15 17:15:17,445 [pool-4-thread-13] INFO  o.b.asterisk.meetme.Application - Received result Okay for setRoomNumber
+2008-05-15 17:15:17,445 [pool-4-thread-13] DEBUG o.b.asterisk.meetme.MeetMeService - GetMeetmeUsers request for room[85115]
+2008-05-15 17:15:17,445 [pool-4-thread-13] INFO  o.b.asterisk.meetme.MeetMeService - MeetMe::service - Getting current users for room 85115
+2008-05-15 17:15:17,445 [pool-4-thread-13] INFO  o.b.a.meetme.ConferenceRoomListener - MeetMe::roomListener - There are 0 current users in room [85115]
+2008-05-15 17:15:17,445 [pool-4-thread-13] INFO  o.b.asterisk.meetme.MeetMeService - MeetMe::service - There are 0 current users...
+2008-05-15 17:15:17,445 [pool-4-thread-13] INFO  o.b.asterisk.meetme.MeetMeService - MeetMe::service - Sending 0 current users...
+2008-05-15 17:17:03,744 [pool-4-thread-16] INFO  o.b.asterisk.meetme.Application - MeetMe::appConnect - 16
+2008-05-15 17:17:03,754 [pool-4-thread-16] INFO  o.b.asterisk.meetme.Application - MeetMe::roomConnect 16
+2008-05-15 17:17:03,754 [pool-4-thread-16] INFO  o.b.asterisk.meetme.Application - MeetMe::roomJoin - 16
+2008-05-15 17:17:04,455 [pool-4-thread-12] INFO  o.b.asterisk.meetme.Application - Received result Okay for setRoomNumber
+2008-05-15 17:17:04,495 [pool-4-thread-12] DEBUG o.b.asterisk.meetme.MeetMeService - GetMeetmeUsers request for room[85115]
+2008-05-15 17:17:04,495 [pool-4-thread-12] INFO  o.b.asterisk.meetme.MeetMeService - MeetMe::service - Getting current users for room 85115
+2008-05-15 17:17:04,495 [pool-4-thread-12] INFO  o.b.a.meetme.ConferenceRoomListener - MeetMe::roomListener - There are 0 current users in room [85115]
+2008-05-15 17:17:04,495 [pool-4-thread-12] INFO  o.b.asterisk.meetme.MeetMeService - MeetMe::service - There are 0 current users...
+2008-05-15 17:17:04,495 [pool-4-thread-12] INFO  o.b.asterisk.meetme.MeetMeService - MeetMe::service - Sending 0 current users...
+2008-05-15 17:20:59,674 [pool-4-thread-12] INFO  o.b.asterisk.meetme.Application - MeetMe::appConnect - 21
+2008-05-15 17:20:59,674 [pool-4-thread-12] INFO  o.b.asterisk.meetme.Application - MeetMe::roomConnect 21
+2008-05-15 17:20:59,674 [pool-4-thread-12] INFO  o.b.asterisk.meetme.Application - MeetMe::roomJoin - 21
+2008-05-15 17:21:00,265 [pool-4-thread-14] INFO  o.b.asterisk.meetme.Application - Received result Okay for setRoomNumber
+2008-05-15 17:21:00,265 [pool-4-thread-14] DEBUG o.b.asterisk.meetme.MeetMeService - GetMeetmeUsers request for room[85115]
+2008-05-15 17:21:00,265 [pool-4-thread-14] INFO  o.b.asterisk.meetme.MeetMeService - MeetMe::service - Getting current users for room 85115
+2008-05-15 17:21:00,265 [pool-4-thread-14] INFO  o.b.a.meetme.ConferenceRoomListener - MeetMe::roomListener - There are 0 current users in room [85115]
+2008-05-15 17:21:00,265 [pool-4-thread-14] INFO  o.b.asterisk.meetme.MeetMeService - MeetMe::service - There are 0 current users...
+2008-05-15 17:21:00,265 [pool-4-thread-14] INFO  o.b.asterisk.meetme.MeetMeService - MeetMe::service - Sending 0 current users...
+2008-05-15 17:40:27,957 [pool-4-thread-7] INFO  o.b.asterisk.meetme.Application - MeetMe::roomLeave - 3
+2008-05-15 17:40:28,097 [pool-4-thread-7] INFO  o.b.asterisk.meetme.Application - MeetMe::appDisconnect - 3
+2008-05-15 17:40:28,898 [pool-4-thread-12] INFO  o.b.asterisk.meetme.Application - MeetMe::roomLeave - 6
+2008-05-15 17:40:28,898 [pool-4-thread-12] INFO  o.b.asterisk.meetme.Application - MeetMe::appDisconnect - 6
+2008-05-15 17:40:29,499 [pool-4-thread-13] INFO  o.b.asterisk.meetme.Application - MeetMe::roomLeave - 11
+2008-05-15 17:40:29,499 [pool-4-thread-13] INFO  o.b.asterisk.meetme.Application - MeetMe::appDisconnect - 11
+2008-05-15 17:40:30,030 [pool-4-thread-16] INFO  o.b.asterisk.meetme.Application - MeetMe::roomLeave - 16
+2008-05-15 17:40:30,030 [pool-4-thread-16] INFO  o.b.asterisk.meetme.Application - MeetMe::appDisconnect - 16
+2008-05-15 17:40:30,421 [pool-4-thread-12] INFO  o.b.asterisk.meetme.Application - MeetMe::roomLeave - 21
+2008-05-15 17:40:30,421 [pool-4-thread-12] INFO  o.b.asterisk.meetme.Application - MeetMe::appDisconnect - 21

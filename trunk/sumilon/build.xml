@@ -334,6 +334,12 @@
 				<logback webapp="conference"/>
 			</copy-assets>
 		</build-demo>
+		
+		<build-demo name="chat">
+			<copy-assets>
+				<logback webapp="chat"/>
+			</copy-assets>
+		</build-demo>
 		<build-demo name="echo">
 			<copy-assets>
 				<logback webapp="echo"/>
@@ -578,6 +584,7 @@
 		<compile-jardemo name="astmeetme"/>
 		<compile-jardemo name="bwcheck"/>
 		<compile-jardemo name="conference"/>
+		<compile-jardemo name="chat"/>		
 		<compile-jardemo name="echo"/>
 		<compile-jardemo name="fitcDemo"/>
 		<compile-jardemo name="midiDemo"/>
