@@ -1,100 +1,24 @@
 #summary How to setup your development environment
 #labels Phase-Implementation,Featured
 
-= Development Environment =
-Note: The instructions assumes you are working on a Windows machine. There is no specific requirement on what type of machine or OS is needed. If it has enough processor and memory (at least 512MB), has Java installed, you're good to go.
-
-== Create Directories ==
- 1. Create {{{c:\tools}}} - will be referred to as {{{TOOLS_DIR}}} for the rest of this document
- 1. Create {{{c:\source\client}}} - will be referred to as {{{CLIENT_DIR}}} for the rest of this document
- 1. Create {{{c:\source\server}}} - will be referred to as {{{SERVER_DIR}}} for the rest of this document
-
-== Download and Install Software ==
-=== Ant ===
- 1. Download [http://ant.apache.org Ant]
- 1. Install ant in {{{TOOLS_DIR}}} - e.g. {{{TOOLS_DIR\ant-1.7.0}}}
- 1. Click {{{Start -> Control Panel -> System -> Advanced tab -> Environment Variables}}} on your computer
- 1. Add {{{ANT_HOME}}} in your system variables - e.g {{{ANT_HOME = TOOLS_DIR\ant-1.7.0}}}
- 1. Add {{{ANT_HOME\bin}}} to your PATH
- 1. Open a command prompt and run {{{ant -version}}}. You should see the ant version displayed.
-
-=== Tomcat ===
- 1. Download [http://tomcat.apache.org Tomcat]
- 1. Install tomcat in {{{TOOLS_DIR}}} - e.g. {{{TOOLS_DIR\tomcat-5.5.23}}}
- 1. Open a command prompt and cd to {{{TOOLS_DIR\tomcat-5.5.23}}}
- 1. Run {{{bin\catalina.bat start}}}
- 1. Open your browser and go to {{{http://localhost:8080}}}
- 1. You should see the Tomcat page displayed
-
-=== ActiveMQ ===
- 1. Download [http://activemq.apache.org ActiveMQ]
- 1. Install activeMQ in {{{TOOLS_DIR}}} - e.g. {{{TOOLS_DIR\activemq-4.1.1}}}
- 1. Open a command prompt and cd to {{{TOOLS_DIR\activemq-4.1.1}}}
- 1. Run {{{bin\activemq}}}
- 1. Make sure it starts without any problems 
-
+== Setting up your IDEs ==
 === Eclipse ===
- 1. Download [http://www.eclipse.org Eclipse IDE]
- 1. Install eclipse in {{{TOOLS_DIR}}} - e.g. {{{TOOLS_DIR\eclipse-3.3}}}
- 1. Start eclipse and set your workspace to the {{{SERVER_DIR}}}
- 1. Install the [http://subclipse.tigris.org/ Subclipse plugin]. Make sure you get the correct version
+*To start, you will need to download Eclipse. You can get it [http://www.eclipse.org/ here].
+*Once done, you will need to install the subversion plug-in for eclipse called [http://subclipse.tigris.org/ subclipse]. To install it, in Eclipse go to Help>Software Updates>Find and Install. Select 'Search for new Features to Install', then click on 'New Remote Site'. In the site URL enter 'http://subclipse.tigris.org/update_1.2.x' then click next. If you get an error on the following screen make sure to uncheck Mylyn Integration. You don't need it.
 
-=== Flex Builder 2 ===
- 1. Download [http://www.adobe.com/products/flex/ Flex Builder 2]
- 1. Install flexbuilder in {{{TOOLS_DIR}}} - e.g. {{{TOOLS_DIR\flex-2}}}
- 1. Start flexbuilder
- 1. Install the [http://subclipse.tigris.org/ Subclipse plugin]. Make sure you get the correct version. Flex Builder is built on top of Eclipse 3.0/3.1
+=== Flex Builder ===
+Flex Builder is the Adobe IDE for the Flex platform. It's built on top of Eclipse, so if you want you can download it as an Eclipse plug-in. I prefer the standalone version. You can download Flex3 from [http://www.adobe.com/products/flex/ here]. It has a 60 day free trial, but if you're a student or academia you can get a free copy from [http://www.flexregistration.com/ here]. Once you've installed Flex, repeat the process of installing Subclipse in Flex.
 
-=== !OpenOffice (Optional) ===
- 1. Follow the instructions on [InstallOpenOffice Installing OpenOffice]
- 1. Create a batch file, {{{TOOLS_DIR\ooo-2.2\start-oo.bat}}} 
- 1. Copy this command inside batch file -- {{{C:\tools\ooo-2.2\program\soffice.exe -headless -accept="socket,port=8100;urp;" }}}
- 1. On a command window, run {{{start-oo.bat}}}
- 1. Open another command window and run {{{netstat -a}}} and verify if your computer is LISTENING on port 8100
+== Checking out the Code ==
+=== Server-side ===
+To check out the server code, open the SVN perspective in Eclipse and make a new repository location. The address is available if you click on the source tab here on google code.
+Once you've opened the repository, check out the project named 'sumilon'
+When the download is complete, open the command prompt and navigate to the root directory of sumilon. Run the command 'ant retrieve' (you will need [http://ant.apache.org/ ant] installed. This will download all the dependencies that sumilon needs to compile properly. If you now go to Eclipse and refresh the workspace, Eclipse should not report any errors. Finally, to run the server, in Eclipse find the file called build.xml under the sumilon root folder. Right click on the file and go to Run>Ant Build. After a somewhat lenghty startup procedure the server should start.
+If the server doesn't start make sure you don't have any other instances of Tomcat or Red5 running on your machine, and make sure you have the latest Java JDK installed - the server will likely not compile properly with just a JRE.
 
-=== SWF Tools and PDF Toolkit===
- 1. Download [http://www.swftools.org SWF Tools]
- 1. Download [http://www.accesspdf.com/pdftk PDF Toolkit]
- 1. Install in {{{TOOLS_DIR\swftools}}}
- 1. Add {{{SWFTOOLS_HOME = TOOLS_DIR\swftools}}} in you environment variables
- 1. Add {{{SWFTOOLS_HOME}}} to your PATH
+=== Client ===
+In Flex, open the SVN perspective and create a new repository. The address is the same as for the server code. Check out the project called blindside-client.
+Once all the files finish downloading, run the blindside-client inside of Eclipse. Blindside should then start. Provided you have the server running on the same machine, you can try logging in to the default room #85115, with password 'modpass' for the moderator or 'viewpass' for the viewer. Your name can be whatever you want.
 
-=== Asterisk ===
- 1. Download and install Asterisk 1.2 from [http://www.asterisk.org/downloads Asterisk website].
- 1. Apply [http://blindside.googlecode.com/svn/trunk/asterisk meetme.c.patch].
- 1. Configure Asterisk using [http://blindside.googlecode.com/svn/trunk/asterisk sample conf].
-
-== Checkout Blindside Components ==
- 1. Checkout blindside-server and blindside-servlet from [http://blindside.googlecode.com/svn/trunk/ code repository] on your Eclipse IDE and put into {{{SERVER_DIR}}}.
- 1. Checkout blindside-client from [http://blindside.googlecode.com/svn/trunk/ code repository] on your Flex IDE and put into {{{CLIENT_DIR}}}.
-
-== Running Blindside ==
- 1. Edit {{{SERVER_DIR\blindside-servlet\war\WEB-INF\blindside.properties}}}.
-  * swftoolLocation=c:/tools/pdf2swf (Edit to point to your pdf2swf executable)
-  * pdfExtractor=c:/tools/pdftk (Edit to point to your pdftk executable)
-  * presBaseDirectory=c:/temp/upload (directory where uploaded slides are extracted)
-  * extractedFolder=extracted
-
- 1. Edit {{{SERVER_DIR\blindside-server\webapps\astmeetme\WEB-INF\astmeetme.properties}}} with your Asterisk Management Interface (AMI) values.
-  * These properties are for Asterisk Management Interface (AMI)
-  * ami.host=192.168.0.101
-  * ami.port=5038
-  * ami.username=<username>
-  * ami.password=<password>
-
- 1. Edit {{{SERVER_DIR\blindside-server\webapps\conference\conferences\conferences.xml}}} to create conference rooms. Make sure <name> has an equivalent entry in your Asterisk's {{{meetme.conf}}} file.
-	<conference-room>
-	    <name>85101</name>
-	    <mod-password>modpass</mod-password>
-	    <view-password>viewpass</view-password>
-	</conference-room>
- 1. Open a command window and start ActiveMQ.
- 1. Open another command window and change directory to {{{SERVER_DIR\blindside-server}}} and start it by typing {{{ant server}}}.
- 1. Open another command window and start Tomcat.
- 1. Open another command window and change directory to {{{SERVER_DIR\blindside-servlet}}} and build it by typing {{{ant warfile}}}. This will generate {{{blindside.war}}}.
- 1. Deploy {{{blindside.war}}} to your Tomcat installation.
- 1. Open {{{CLIENT_DIR\blindside-client\html-template\index.template.html}}} change value of {{{red5Host}}} to your blindside-server and {{{presentationHost}}} to your tomcat-server.
- 1. Run the {{{blindside-client}}} from your Flex IDE.
- 1. Login using information you provided in {{{conferences.xml}}}.
- 1. Convert a Powerpoint slide to PDF using OpenOffice or another tool.
- 1. Upload the converted PDF slides to share presentation.
+== The Presentation Module ==
+Now that you have Blindside running, there are a couple of extra things to do. If you've tried to upload a presentation inside the client, you will have gotten an I/O error. This is because the file uploading currently works independently of the sumilon server package. To get the file uploading to work, you will have to go to Eclipse and check out the blindside-servlet project
