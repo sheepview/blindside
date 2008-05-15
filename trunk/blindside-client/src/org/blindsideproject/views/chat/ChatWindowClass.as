@@ -15,8 +15,6 @@ package org.blindsideproject.views.chat
 	import org.blindsideproject.core.apps.chat.model.*;
 	import org.blindsideproject.core.apps.chat.vo.MessageVO;
 	import org.blindsideproject.core.apps.conference.model.ConferenceModelLocator;
-	
-	import superpanel.nl.wv.extenders.panel.*;
     
    	
 	public class ChatWindowClass extends MDIWindow
