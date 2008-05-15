@@ -19,5 +19,5 @@ public enum Role {
 	
 	public int value() {
 		return value;
-	}
+	} 
 }

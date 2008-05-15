@@ -26,4 +26,4 @@ public class Participant {
 	public String getRole() {
 		return role;
 	}
-}
+} 
