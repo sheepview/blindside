@@ -6,22 +6,16 @@
 	paddingBottom="0" paddingTop="0" 
 	paddingLeft="0" paddingRight="0" 
     layout="vertical" 
-	preinitialize="registerForEvents()"
 	creationComplete="init()">
 
 	<mx:Script>
 		<![CDATA[
+			
 			import org.blindsideproject.main.BlindsideAppLocator;
-			import org.blindsideproject.core.apps.presentation.controller.commands.AssignPresenterCommand;
-
-			import com.adobe.cairngorm.control.CairngormEvent;
-			import com.adobe.cairngorm.control.CairngormEventDispatcher;
 			import mx.binding.utils.BindingUtils;
 	
 			import org.blindsideproject.core.util.log.ILogger;
 			import org.blindsideproject.core.util.log.LoggerModelLocator;
-				
-			import org.blindsideproject.core.apps.presentation.controller.PresentationController;
 						
 			import org.blindsideproject.core.apps.presentation.vo.SlidesDeck;
 			import org.blindsideproject.core.apps.presentation.model.*;
@@ -45,13 +39,12 @@
 			[Bindable] private var sharingTooltip : String = "Share presentation";		
 			[Bindable] public var presenterIcon : Class = images.user_gray;
 			
-			[Bindable] private var model : PresentationModelLocator = PresentationModelLocator.getInstance(); 
-			private var dispatcher : CairngormEventDispatcher = model.dispatcher;
-			private var log : ILogger = LoggerModelLocator.getInstance().log;
+			[Bindable] public var model : PresentationFacade = PresentationFacade.getInstance(); 
+			public var log : ILogger = LoggerModelLocator.getInstance().log;
 						
 			[Bindable] private var deck : SlidesDeck = model.presentation.decks;
 			
-			private var uploadWindow : FileUploadWindow;
+			public var uploadWindow : FileUploadWindow;
 
 			public function handleConnected(connected : Boolean) : void
 			{
@@ -84,13 +77,6 @@
 				BindingUtils.bindSetter(handlePresenterControl, model.presentation, "isPresenter");
 				BindingUtils.bindSetter(handlePresenterName, model.presentation, "presenterName");
 				BindingUtils.bindSetter(handlePresentationLoaded, model.presentation, "presentationLoaded");	
-			}
-			
-			private function registerForEvents() : void
-			{
-				dispatcher.addEventListener(PresentationController.CLEAR_EVENT, handleClearEvent);
-				dispatcher.addEventListener(PresentationController.VIEW_EVENT, handleViewEvent);
-				dispatcher.addEventListener(PresentationController.READY_EVENT, handlePresentationReadyEvent);					
 			}
 
 			public function handlePresenterName(name : String) : void
@@ -125,48 +111,6 @@
 				}
 			}
 
-			private function handlePresentationReadyEvent(event : CairngormEvent) : void
-			{
-				thumbnailView.visible = false;
-				
-				BlindsideAppLocator.getInstance().presentationApp.loadPresentation();			
-			}
-
-			private function handleClearEvent(event : CairngormEvent) : void
-			{
-				// Don't clear our screen if we are the presenter
-				if (model.presentation.isPresenter) return;
-				
-				thumbnailView.visible = false;
-			}
-
-			private function handleViewEvent(event : CairngormEvent) : void
-			{
-				log.debug("Received viewEvent....");
-				
-				thumbnailView.visible = true;
-			}
- 
-			private function connectToPresentation() : void
-			{
-				if (model.presentation.isConnected) {
-					BlindsideAppLocator.getInstance().presentationApp.leave();
-				} else {
-					BlindsideAppLocator.getInstance().presentationApp.join();					
-				}
-			}
-			
-			private function sharePresentation() : void
-			{
-				if (model.presentation.isSharing) {
-					BlindsideAppLocator.getInstance().presentationApp.sharePresentation(false);
-					uploadPres.enabled = true;	
-				} else {
-					BlindsideAppLocator.getInstance().presentationApp.sharePresentation(true);
-					uploadPres.enabled = false;				
-				}
-			}	
-
 			public function dragEnterHandler(event:DragEvent):void
 	   		{
 	   			var dropTarget : Button = event.currentTarget as Button;
@@ -182,20 +126,6 @@
 
 	   			BlindsideAppLocator.getInstance().presentationApp.assignPresenter(presenterid, presentername);		  		
 	   		}
-	
-			private function openFileUploadWindow() : void
-			{
-
-                uploadWindow = FileUploadWindow(PopUpManager.createPopUp( this, FileUploadWindow, false));
-				
-				var point1:Point = new Point();
-                // Calculate position of TitleWindow in Application's coordinates. 
-                point1.x = thumbnailView.x;
-                point1.y = thumbnailView.y;                
-                point1 = thumbnailView.localToGlobal(point1);
-                uploadWindow.x = point1.x + 25;
-                uploadWindow.y = point1.y + 25;
-            }				
 				
 		]]>
 	</mx:Script>
@@ -207,10 +137,10 @@
     <mx:ControlBar width="100%">
     	  <mx:Button id="uploadPres" icon="{uploadIcon}" visible="true"
     	   			width="20" height="20"
-    	   			toolTip="Upload Powerpoint" click="openFileUploadWindow()"/>    
+    	   			toolTip="Upload Powerpoint" click="dispatchEvent(new Event(PresentationPanelMediator.OPEN_UPLOAD))"/>    
     	  <mx:Button id="sharePres" icon="{sharingIcon}" visible="false"
     	   			width="20" height="20"
-    	   			toolTip="{sharingTooltip}" click="sharePresentation()"/> 
+    	   			toolTip="{sharingTooltip}" click="dispatchEvent(new Event(PresentationPanelMediator.SHARE))"/> 
     	  <mx:Spacer width="100"/>
     	  <mx:Label id="presenterLbl" text="Presenter:" />
     	  <mx:Button id="presenterName" icon="{presenterIcon}" label="Presenter's Name"
@@ -219,7 +149,7 @@
     	   <mx:Spacer width="100%"/>						
     	  <mx:Button id="connect" icon="{connectIcon}" 
     	   			width="20" height="20" enabled="false"
-    	   			toolTip="{connectTooltip}" click="connectToPresentation()"/>
+    	   			toolTip="{connectTooltip}" click="dispatchEvent(new Event(PresentationPanelMediator.CONNECT))"/>
     </mx:ControlBar>
 			
 </mx:Panel>

@@ -1,31 +1,20 @@
 package org.blindsideproject.core.apps.presentation.business
 {
-	import mx.rpc.IResponder;
-	import flash.net.SharedObject;
-	import flash.events.NetStatusEvent;
 	import flash.events.AsyncErrorEvent;
+	import flash.events.NetStatusEvent;
 	import flash.events.SyncEvent;
-	import mx.collections.ArrayCollection;
-	import mx.rpc.events.AbstractEvent;
-
-	import com.adobe.cairngorm.control.CairngormEventDispatcher;
-		
-	import org.blindsideproject.core.apps.presentation.model.PresentationModelLocator;
+	import flash.net.SharedObject;
+	
+	import org.blindsideproject.core.apps.presentation.controller.notifiers.ProgressNotifier;
+	import org.blindsideproject.core.apps.presentation.model.PresentationFacade;
 	import org.blindsideproject.core.apps.presentation.model.PresentationModel;
-	import org.blindsideproject.core.apps.presentation.controller.events.ClearEvent;
-	import org.blindsideproject.core.apps.presentation.controller.events.ViewEvent;
-	import org.blindsideproject.core.apps.presentation.controller.events.PresentationReadyEvent;
+	import org.blindsideproject.core.apps.presentation.vo.SlidesDeck;
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
-	import mx.states.SetProperty;
-	import flexunit.utils.ArrayList;
-	import org.blindsideproject.core.apps.presentation.vo.SlidesDeck;
-	import org.blindsideproject.core.apps.presentation.controller.events.ExtractProgressEvent;
-	import org.blindsideproject.core.apps.presentation.controller.events.ConvertProgressEvent;
-	import org.blindsideproject.core.apps.presentation.controller.events.UpdateProgressEvent;
-	import org.blindsideproject.core.apps.presentation.controller.events.ConvertSuccessEvent;
+	import org.puremvc.as3.multicore.interfaces.IProxy;
+	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
 					
-	public class PresentationDelegate
+	public class PresentationDelegate extends Proxy implements IProxy
 	{
 		public static const ID : String = "PresentationDelegate";
 		
@@ -40,10 +29,8 @@ package org.blindsideproject.core.apps.presentation.business
 		private static const EXTRACT_RC : String = "EXTRACT";
 		private static const CONVERT_RC : String = "CONVERT";
 		
-		private var model : PresentationModelLocator = PresentationModelLocator.getInstance();
+		private var model : PresentationFacade = PresentationFacade.getInstance();
 		private var log : ILogger = LoggerModelLocator.getInstance().log;
-
-		private var dispatcher : CairngormEventDispatcher = model.dispatcher;
 		
 		public var presentation : PresentationModel = model.presentation;
 		
@@ -106,8 +93,7 @@ package org.blindsideproject.core.apps.presentation.business
 		public function clearPresentation() : void
 		{
 			presentationSO.setProperty(SHARING, false);
-			var event : ClearEvent = new ClearEvent();
-			event.dispatch();
+			sendNotification(PresentationFacade.CLEAR_EVENT);
 		}
 		
 		public function givePresenterControl(userid : Number, name : String) : void
@@ -227,8 +213,7 @@ package org.blindsideproject.core.apps.presentation.business
 						
 //						var viewEvent : ViewEvent = new ViewEvent();
 //						viewEvent.dispatch();
-					var readyEvt : PresentationReadyEvent = new PresentationReadyEvent();
-					readyEvt.dispatch();
+					sendNotification(PresentationFacade.READY_EVENT);
 					
 					} else {
 						log.debug( "SHARING =[" + presentationSO.data.sharing.share + "]");
@@ -237,8 +222,7 @@ package org.blindsideproject.core.apps.presentation.business
 						if (! presentation.isPresenter) {
 						//	presentation.decks = null;
 						}
-						var event : ClearEvent = new ClearEvent();
-						event.dispatch();
+						sendNotification(PresentationFacade.CLEAR_EVENT);
 					}
 					break
 					
@@ -266,17 +250,12 @@ package org.blindsideproject.core.apps.presentation.business
 			{
 				case SUCCESS_RC:
 					message = presentationSO.data.updateMessage.message;
-					
-					var successEvt : ConvertSuccessEvent = new ConvertSuccessEvent(message);
-					successEvt.dispatch();
-								
+					sendNotification(PresentationFacade.CONVERT_SUCCESS_EVENT, message);
 					break;
 					
 				case UPDATE_RC:
 					message = presentationSO.data.updateMessage.message;
-					
-					var updProgEvt : UpdateProgressEvent = new UpdateProgressEvent(message);
-					updProgEvt.dispatch();
+					sendNotification(PresentationFacade.UPDATE_PROGRESS_EVENT, message);
 					
 					break;
 										
@@ -288,8 +267,8 @@ package org.blindsideproject.core.apps.presentation.business
 					completedSlides = presentationSO.data.updateMessage.completedSlides;
 //					log.debug( "EXTRACTING = [" + completedSlides + " of " + totalSlides + "]");
 					
-					var extractEvt : ExtractProgressEvent = new ExtractProgressEvent(totalSlides, completedSlides);
-					extractEvt.dispatch();
+					sendNotification(PresentationFacade.EXTRACT_PROGRESS_EVENT, 
+										new ProgressNotifier(totalSlides,completedSlides));
 					
 					break;
 				case CONVERT_RC:
@@ -297,8 +276,8 @@ package org.blindsideproject.core.apps.presentation.business
 					completedSlides = presentationSO.data.updateMessage.completedSlides;
 //					log.debug( "CONVERTING = [" + completedSlides + " of " + totalSlides + "]");
 					
-					var convertEvt : ConvertProgressEvent = new ConvertProgressEvent(totalSlides, completedSlides);
-					convertEvt.dispatch();								
+					sendNotification(PresentationFacade.CONVERT_PROGRESS_EVENT,
+										new ProgressNotifier(totalSlides, completedSlides));							
 					break;			
 				default:
 			

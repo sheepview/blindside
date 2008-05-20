@@ -3,7 +3,6 @@ package org.blindsideproject.core.apps.presentation.model
 	import org.blindsideproject.core.IApplication;
 	import mx.collections.ArrayCollection;
 
-	import org.blindsideproject.core.apps.presentation.business.PresentationDelegate;
 	import org.blindsideproject.core.apps.presentation.vo.SlidesDeck;
 	
 	public class PresentationModel implements IApplication
