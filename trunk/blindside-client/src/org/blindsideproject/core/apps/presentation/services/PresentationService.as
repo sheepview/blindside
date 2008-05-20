@@ -15,7 +15,7 @@ package org.blindsideproject.core.apps.presentation.services
 	        	
 	public class PresentationService
 	{
-		private var model : PresentationModelLocator = PresentationModelLocator.getInstance();  
+		private var model : PresentationFacade = PresentationFacade.getInstance();  
 		private var log : ILogger = LoggerModelLocator.getInstance().log;
 		    
 		private var service : HTTPService;

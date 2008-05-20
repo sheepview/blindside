@@ -1,19 +1,17 @@
 package org.blindsideproject.core.apps.presentation
 {
-	import org.blindsideproject.core.apps.presentation.controller.commands.UploadCommand;
-	import org.blindsideproject.core.apps.presentation.controller.commands.JoinCommand;
-	import org.blindsideproject.core.apps.presentation.controller.commands.LoadCommand;
-	import org.blindsideproject.core.apps.presentation.controller.commands.LeaveCommand;
-	import org.blindsideproject.core.apps.presentation.controller.commands.StartSharingCommand;
-	import org.blindsideproject.core.apps.presentation.controller.commands.StopSharingCommand;
-	import org.blindsideproject.core.apps.presentation.controller.commands.AssignPresenterCommand;
 				
-	import org.blindsideproject.core.apps.presentation.model.PresentationModelLocator;
-	import org.blindsideproject.core.apps.presentation.model.PresentationModel;
-	
 	import flash.net.FileReference;
+	
+	import org.blindsideproject.core.apps.presentation.controller.notifiers.FileUploadNotifier;
+	import org.blindsideproject.core.apps.presentation.controller.notifiers.JoinNotifier;
+	import org.blindsideproject.core.apps.presentation.controller.notifiers.UserNotifier;
+	import org.blindsideproject.core.apps.presentation.model.PresentationFacade;
+	import org.blindsideproject.core.apps.presentation.model.PresentationModel;
+	import org.puremvc.as3.multicore.interfaces.IMediator;
+	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
 						
-	public class PresentationApplication
+	public class PresentationApplication extends Mediator implements IMediator
 	{
 		public var model : PresentationModel; 
 
@@ -31,52 +29,43 @@ package org.blindsideproject.core.apps.presentation
 			_docServiceAddress = docServiceAddress;
 			
 			// Initialize the model
-			model = PresentationModelLocator.getInstance().presentation;
+			model = PresentationFacade.getInstance().presentation;
 		}
 		
 		public function join() : void
 		{
-			var joinCmd : JoinCommand = new JoinCommand(_userid, _url, _room);
-			joinCmd.dispatch();						
+			sendNotification(PresentationFacade.JOIN_COMMAND, new JoinNotifier(_userid, _url, _room));			
 		}
 		
 		public function leave() : void
 		{
-			var leaveCmd : LeaveCommand = new LeaveCommand();
-			leaveCmd.dispatch();
+			sendNotification(PresentationFacade.LEAVE_COMMAND);
 		}
 		
 		public function uploadPresentation(fileToUpload : FileReference) : void
 		{
 			var fullUri : String = _docServiceAddress + "/blindside/file/upload";
-			
-			var uploadCmd : UploadCommand = new UploadCommand(fullUri, _room, fileToUpload);
-			uploadCmd.dispatch();
+			sendNotification(PresentationFacade.UPLOAD_COMMAND, new FileUploadNotifier(fullUri, _room, fileToUpload));
 		}
 		
 		public function loadPresentation() : void
 		{
-			var fullUri : String = _docServiceAddress + "/blindside/file/xmlslides?room=" + _room;
-			var loadCmd : LoadCommand = new LoadCommand(fullUri);
-			loadCmd.dispatch();				
+			var fullUri : String = _docServiceAddress + "/blindside/file/xmlslides?room=" + _room;	
+			sendNotification(PresentationFacade.LOAD_COMMAND, fullUri);
 		}
 		
 		public function sharePresentation(share : Boolean) : void
 		{
-			if (share) {
-				var shareCmd : StartSharingCommand = new StartSharingCommand();
-				shareCmd.dispatch();					
+			if (share) {	
+				sendNotification(PresentationFacade.START_SHARE_COMMAND);				
 			} else {
-				var stopShareCmd : StopSharingCommand = new StopSharingCommand();
-				stopShareCmd.dispatch();					
+				sendNotification(PresentationFacade.STOP_SHARE_COMMAND);					
 			}		
 		}
 		
 		public function assignPresenter(userid : Number, name : String) : void
 		{
-			var assignPresenterCmd : AssignPresenterCommand 
-					= new AssignPresenterCommand(userid, name);
-			assignPresenterCmd.dispatch();				
+			sendNotification(PresentationFacade.ASSIGN_COMMAND, new UserNotifier(userid, name));			
 		}
 	}
 }

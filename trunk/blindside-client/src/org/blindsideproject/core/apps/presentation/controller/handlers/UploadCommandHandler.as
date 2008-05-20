@@ -3,7 +3,7 @@ package org.blindsideproject.core.apps.presentation.controller.handlers
 	import com.adobe.cairngorm.control.CairngormEvent;
 	import com.adobe.cairngorm.commands.ICommand;
 	
-	import org.blindsideproject.core.apps.presentation.model.PresentationModelLocator;
+	import org.blindsideproject.core.apps.presentation.model.PresentationFacade;
 	import org.blindsideproject.core.apps.presentation.controller.commands.UploadCommand;
 	import org.blindsideproject.core.util.log.ILogger;
 
@@ -13,7 +13,7 @@ package org.blindsideproject.core.apps.presentation.controller.handlers
 		
 	public class UploadCommandHandler implements ICommand
 	{		
-		private var model : PresentationModelLocator = PresentationModelLocator.getInstance();
+		private var model : PresentationFacade = PresentationFacade.getInstance();
 
 		private var service : FileUploadService;
 		

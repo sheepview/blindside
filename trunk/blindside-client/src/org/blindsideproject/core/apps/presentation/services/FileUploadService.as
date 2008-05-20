@@ -1,18 +1,18 @@
 package org.blindsideproject.core.apps.presentation.services
 {
-	import flash.net.URLVariables;
-	import flash.net.FileReference;
-	import flash.net.URLRequest;
-	import flash.events.ProgressEvent;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
+	import flash.events.ProgressEvent;
 	import flash.events.SecurityErrorEvent;
-	import org.blindsideproject.core.apps.presentation.controller.events.UploadProgressEvent;
-	import org.blindsideproject.core.apps.presentation.controller.events.UploadCompletedEvent;
-	import org.blindsideproject.core.apps.presentation.controller.events.UploadIoErrorEvent;
-	import org.blindsideproject.core.apps.presentation.controller.events.UploadSecurityErrorEvent;	
+	import flash.net.FileReference;
+	import flash.net.URLRequest;
+	import flash.net.URLVariables;
 	
-	public class FileUploadService
+	import org.blindsideproject.core.apps.presentation.model.PresentationFacade;
+	import org.puremvc.as3.multicore.interfaces.IProxy;
+	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
+	
+	public class FileUploadService extends Proxy implements IProxy
 	{
 		private var request : URLRequest = new URLRequest();
 		private var sendVars : URLVariables = new URLVariables();
@@ -41,26 +41,22 @@ package org.blindsideproject.core.apps.presentation.services
 		private function onUploadProgress(event : ProgressEvent) : void
 		{
 			var percentage : Number = Math.round((event.bytesLoaded / event.bytesTotal) * 100);
-			var progEvent : UploadProgressEvent = new UploadProgressEvent(percentage);
-			progEvent.dispatch();
+			sendNotification(PresentationFacade.UPLOAD_PROGRESS_EVENT, percentage);
 		}
 		
 		private function onUploadComplete(event : Event) : void
 		{
-			var completeEvent : UploadCompletedEvent = new UploadCompletedEvent();
-			completeEvent.dispatch();
+			sendNotification(PresentationFacade.UPLOAD_COMPLETED_EVENT);
 		}
 
 		private function onUploadIoError(event : IOErrorEvent) : void
 		{
-			var ioErrorEvent : UploadIoErrorEvent = new UploadIoErrorEvent(event.text);
-			ioErrorEvent.dispatch();
+			sendNotification(PresentationFacade.UPLOAD_IO_ERROR_EVENT, event.text);
 		}
 		
 		private function onUploadSecurityError(event : SecurityErrorEvent) : void
 		{
-			var secErrorEvent : UploadSecurityErrorEvent = new UploadSecurityErrorEvent(event.text);
-			secErrorEvent.dispatch();
+			sendNotification(PresentationFacade.UPLOAD_SECURITY_ERROR_EVENT, event.text);
 		}		
 	}
 }
