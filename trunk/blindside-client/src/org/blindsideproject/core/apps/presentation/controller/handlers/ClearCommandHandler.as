@@ -18,7 +18,7 @@ package org.blindsideproject.core.apps.presentation.controller.handlers
 		{
 			var command : ClearCommand = ClearCommand(cgCommand);
 	
-			model.presentationDelegate.clear();
+			model.presentationDelegate.clear(); 
 		}
 	}
 }

@@ -15,8 +15,6 @@
 	
 			import org.blindsideproject.core.util.log.ILogger;
 			import org.blindsideproject.core.util.log.LoggerModelLocator;
-				
-			import org.blindsideproject.core.apps.presentation.controller.PresentationController;
 						
 			import org.blindsideproject.core.apps.presentation.vo.SlidesDeck;
 			import org.blindsideproject.core.apps.presentation.model.*;
@@ -45,7 +43,7 @@
 						
 			[Bindable] private var deck : SlidesDeck = model.presentation.decks;
 			
-			private var uploadWindow : FileUploadWindow;
+			public var uploadWindow : FileUploadWindow;
 
 			public function handleConnected(connected : Boolean) : void
 			{
@@ -72,7 +70,8 @@
 			}
 						
 			private function init():void 
-			{					
+			{		
+				PresentationFacade.getInstance().startup(this);			
 				BindingUtils.bindSetter(handleConnected, model.presentation, "isConnected");
 				BindingUtils.bindSetter(handleSharing, model.presentation, "isSharing");
 				BindingUtils.bindSetter(handlePresenterControl, model.presentation, "isPresenter");
