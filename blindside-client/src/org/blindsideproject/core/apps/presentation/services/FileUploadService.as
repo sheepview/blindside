@@ -14,6 +14,8 @@ package org.blindsideproject.core.apps.presentation.services
 	
 	public class FileUploadService extends Proxy implements IProxy
 	{
+		public static const ID:String = "FileUploadService";
+		
 		private var request : URLRequest = new URLRequest();
 		private var sendVars : URLVariables = new URLVariables();
 		
@@ -26,6 +28,7 @@ package org.blindsideproject.core.apps.presentation.services
 		
 		public function upload(file : FileReference) : void
 		{
+			super(ID);
 			var fileToUpload : FileReference = new FileReference();
 			fileToUpload = file;
 			

@@ -3,6 +3,8 @@ package org.blindsideproject.views.presentation
 	import flash.events.Event;
 	import flash.geom.Point;
 	
+	import mx.managers.PopUpManager;
+	
 	import org.blindsideproject.core.apps.presentation.model.PresentationFacade;
 	import org.blindsideproject.main.BlindsideAppLocator;
 	import org.puremvc.as3.multicore.interfaces.IMediator;
@@ -74,7 +76,7 @@ package org.blindsideproject.views.presentation
 		}
 		
 		private function openFileUploadWindow(e:Event) : void{
-            presentationWindow.uploadWindow = FileUploadWindow(PopUpManager.createPopUp( this, FileUploadWindow, false));
+            presentationWindow.uploadWindow = FileUploadWindow(PopUpManager.createPopUp( presentationWindow, FileUploadWindow, false));
 			
 			var point1:Point = new Point();
             // Calculate position of TitleWindow in Application's coordinates. 

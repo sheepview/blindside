@@ -3,14 +3,17 @@ package org.blindsideproject.core.apps.presentation.model
 	import com.adobe.cairngorm.*;
 	
 	import org.blindsideproject.core.apps.presentation.business.PresentationDelegate;
+	import org.blindsideproject.core.apps.presentation.controller.StartupCommand;
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
+	import org.blindsideproject.views.presentation.PresentationWindow;
 	import org.puremvc.as3.multicore.interfaces.IFacade;
 	import org.puremvc.as3.multicore.patterns.facade.Facade;
 	
 	public class PresentationFacade extends Facade implements IFacade
 	{
 		public static const ID : String = "PresentationFacade";
+		public static const STARTUP:String = "startup";
 		
 		// List of Commands
 		public static const GOTO_PAGE_COMMAND : String = "PRESENTATION_GOTO_PAGE_COMMAND";	
@@ -55,7 +58,7 @@ package org.blindsideproject.core.apps.presentation.model
 	   	
 	   	override protected function initializeController():void{
 	   		super.initializeController();
-	   		//registerCommand(STARTUP, StartupCommand);
+	   		registerCommand(STARTUP, StartupCommand);
 	   	}	   	
 	   	
 	   	public function get presentationDelegate() : PresentationDelegate
@@ -65,6 +68,10 @@ package org.blindsideproject.core.apps.presentation.model
 	   		}
 	   		
 	   		return _presentationDelegate;
+	   	}
+	   	
+	   	public function startup(app:PresentationWindow):void{
+	 		  sendNotification(STARTUP, app);
 	   	}
 	}
 }

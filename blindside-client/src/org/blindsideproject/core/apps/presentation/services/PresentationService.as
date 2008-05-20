@@ -2,19 +2,19 @@
 package org.blindsideproject.core.apps.presentation.services
 {
 	import flash.events.*;
-
-	import mx.core.Application;
-	import mx.rpc.events.ResultEvent;
-	import mx.rpc.events.FaultEvent;
+	
+	import mx.rpc.IResponder;
 	import mx.rpc.http.HTTPService;
 	
-	import org.blindsideproject.core.util.log.*;
 	import org.blindsideproject.core.apps.presentation.model.*;
-
-	import mx.rpc.IResponder;
+	import org.blindsideproject.core.util.log.*;
+	import org.puremvc.as3.multicore.interfaces.IProxy;
+	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
 	        	
-	public class PresentationService
+	public class PresentationService extends Proxy implements IProxy
 	{
+		public static const ID:String = "PresentationService";
+		
 		private var model : PresentationFacade = PresentationFacade.getInstance();  
 		private var log : ILogger = LoggerModelLocator.getInstance().log;
 		    
@@ -24,6 +24,7 @@ package org.blindsideproject.core.apps.presentation.services
 		
 		public function PresentationService(url:String, responder : IResponder)
 		{
+			super(ID);
 			service = new HTTPService();
 			this.responder = responder;
 			load(url);
