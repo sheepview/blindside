@@ -44,7 +44,6 @@ public class Application extends ApplicationAdapter implements
     @Override
     public boolean appStart (IScope app )
     {
-    	//System.out.println("\n\n\n-----------------APPLICATION START-------------------------\n\n\n");
         log.info( "Blindside.appStart" );
         appScope = app;
         
@@ -61,13 +60,11 @@ public class Application extends ApplicationAdapter implements
 
     public void appStop ( )
     {
-    	//System.out.println("\n\n\n-----------------APPLICATION STOP-------------------------\n\n\n");
         log.info( "Blindside.appStop" );
     }
 
     public boolean appConnect( IConnection conn , Object[] params )
     {
-    	//System.out.println("\n\n\n-----------------APPLICATION CONNECT-------------------------\n\n\n");
         log.info( "Blindside.appConnect " + conn.getClient().getId() );
     	
         return true;
@@ -95,12 +92,10 @@ public class Application extends ApplicationAdapter implements
 
     public void appDisconnect( IConnection conn)
     {
-    	//System.out.println("\n\n\n-----------------APPLICATION DISCONNECT-------------------------\n\n\n");
         log.info( "Blindside.appDisconnect " + conn.getClient().getId() );
     }
     
     public boolean roomStart(IScope room) {
-    	//System.out.println("\n\n\n-----------------ROOM START-------------------------\n\n\n");
     	log.info( "Blindside.roomStart " );
     	if (!super.roomStart(room))
     		return false;
@@ -109,7 +104,6 @@ public class Application extends ApplicationAdapter implements
     }
     
     public boolean roomConnect(IConnection conn, Object[] params) {
-    	//System.out.println("\n\n\n-----------------ROOM CONNECT-------------------------\n\n\n");
     	log.info( "Blindside.roomConnect " + conn.getClient().getId() );
 
     	String room = ((String) params[0]).toString();
@@ -169,7 +163,6 @@ public class Application extends ApplicationAdapter implements
     }
 
     public void roomLeave(IClient client, IScope room) {
-    	//System.out.println("\n\n\n-----------------ROOM LEAVE-------------------------\n\n\n");
     	super.roomLeave(client, room);
     	ISharedObject so = getSharedObject(room, PARTICIPANTS_SO, false);
     	
@@ -187,7 +180,6 @@ public class Application extends ApplicationAdapter implements
     }
     
     public boolean roomJoin(IClient client, IScope room) {
-    	//System.out.println("\n\n\n-----------------ROOM JOIN-------------------------\n\n\n");
     	super.roomJoin(client, room);    	
     	
     	log.info("Blindside::roomJoin - " + client.getId());
