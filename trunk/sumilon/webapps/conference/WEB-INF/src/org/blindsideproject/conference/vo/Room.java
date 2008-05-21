@@ -18,7 +18,7 @@ public class Room {
 	private Map <Integer, Participant> participants = new HashMap<Integer, Participant>();
 	
 	public Room(String room, String modPass, String viewPass)
-	{  
+	{
 		this.room = room;
 		this.moderatorPassword = modPass;
 		this.viewerPassword = viewPass;

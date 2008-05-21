@@ -4,7 +4,6 @@
 	<classpathentry kind="src" path="webapps/conference/WEB-INF/src"/>
 	<classpathentry kind="src" path="webapps/astmeetme/WEB-INF/src"/>
 	<classpathentry kind="src" path="webapps/presentation/WEB-INF/src"/>
-	<classpathentry kind="src" path="webapps/chat/WEB-INF/src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/acegi-security-1.0.4.jar"/>
 	<classpathentry kind="lib" path="lib/activation-1.1.jar"/>
@@ -75,6 +74,5 @@
 	<classpathentry kind="lib" path="lib/geronimo-jms_1.1_spec-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/geronimo-j2ee-management_1.0_spec-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/spring-jms-2.0.8.jar"/>
-	<classpathentry kind="lib" path="C:/tools/Red5/red5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
