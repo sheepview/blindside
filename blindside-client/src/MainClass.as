@@ -50,7 +50,6 @@ private var effectsList:Array;
 	private var mainApp : BlindsideAppLocator = BlindsideAppLocator.getInstance();
 		
 	private var presentationApp : PresentationApplication;
-	private var presentationFacade:PresentationFacade = PresentationFacade.getInstance();
 		
 	private var red5Host : String = "present.carleton.ca";		
 	private var presentationHost : String = "present.carleton.ca";
