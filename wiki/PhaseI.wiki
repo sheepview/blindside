@@ -4,7 +4,7 @@ Author: Rokhsareh Sakhravi
 
 Introduction 
 
-The aim of this Phase-I is to analyze and re-factor the existing code of Blindside Project. In this Phase, different plug-in architectures will be reviewed and investigated, keeping in mind the feasibility in the ongoing BlindSide Project.  Finally, an initial Plug-in architecture will be selected based on its viability and feasibility in order to pursue the Blindside project.
+The aim of this Phase-I is to analyze and re-factor the existing code of Blindside Project. In this Phase, different plug-in architectures will be reviewed and investigated.  Finally, an initial Plug-in architecture will be selected based on its viability and feasibility in order to pursue the Blindside project.
 
 Details 
     - Analyze the existing code and the control flow of the application.
