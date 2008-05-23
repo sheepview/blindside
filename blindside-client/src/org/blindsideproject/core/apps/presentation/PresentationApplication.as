@@ -3,18 +3,25 @@ package org.blindsideproject.core.apps.presentation
 				
 	import flash.net.FileReference;
 	
+	import mx.collections.ArrayCollection;
+	import mx.collections.IViewCursor;
+	import mx.rpc.IResponder;
+	import mx.utils.ArrayUtil;
+	
 	import org.blindsideproject.core.apps.presentation.business.PresentationDelegate;
-	import org.blindsideproject.core.apps.presentation.controller.notifiers.JoinNotifier;
-	import org.blindsideproject.core.apps.presentation.controller.notifiers.UserNotifier;
 	import org.blindsideproject.core.apps.presentation.model.PresentationFacade;
 	import org.blindsideproject.core.apps.presentation.model.PresentationModel;
 	import org.blindsideproject.core.apps.presentation.services.FileUploadService;
+	import org.blindsideproject.core.apps.presentation.services.PresentationService;
+	import org.blindsideproject.core.apps.presentation.vo.SlidesDeck;
 	import org.puremvc.as3.multicore.interfaces.IMediator;
+	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
 						
-	public class PresentationApplication extends Mediator implements IMediator
+	public class PresentationApplication extends Mediator implements IMediator, IResponder
 	{
 		public var model : PresentationModel; 
+		public static const NAME:String = "PresentationApplication";
 
 		private var _url : String;
 		private var _userid : Number;
@@ -24,6 +31,7 @@ package org.blindsideproject.core.apps.presentation
 		public function PresentationApplication(userid : Number, room : String, 
 				url : String, docServiceAddress : String) : void 
 		{
+			super(NAME);
 			_url = url;
 			_userid = userid;
 			_room = room;
@@ -34,8 +42,7 @@ package org.blindsideproject.core.apps.presentation
 		}
 		
 		public function join() : void
-		{
-			//sendNotification(PresentationFacade.JOIN_COMMAND, new JoinNotifier(_userid, _url, _room));	
+		{	
 			presentationProxy.join(_userid, _url, _room);		
 		}
 		
@@ -48,11 +55,20 @@ package org.blindsideproject.core.apps.presentation
 			presentationProxy.leave();
 		}
 		
+		override public function listNotificationInterests():Array{
+			return [
+					];
+		}
+		
+		override public function handleNotification(notification:INotification):void{
+			//switch(notification.getName()){
+			//}
+		}
+		
 		public function uploadPresentation(fileToUpload : FileReference) : void
 		{
 			var fullUri : String = _docServiceAddress + "/blindside/file/upload";
-			//sendNotification(PresentationFacade.UPLOAD_COMMAND, new FileUploadNotifier(fullUri, _room, fileToUpload));
-			
+						
 			var service:FileUploadService = new FileUploadService(fullUri, _room);
 			facade.registerProxy(service);
 			service.upload(fileToUpload);
@@ -61,24 +77,50 @@ package org.blindsideproject.core.apps.presentation
 		public function loadPresentation() : void
 		{
 			var fullUri : String = _docServiceAddress + "/blindside/file/xmlslides?room=" + _room;	
-			sendNotification(PresentationFacade.LOAD_COMMAND, fullUri);
+			model.presentationLoaded = false;
+			
+			var service:PresentationService = new PresentationService(fullUri, this);
 		}
 		
 		public function sharePresentation(share : Boolean) : void
 		{
 			if (share) {	
-				//sendNotification(PresentationFacade.START_SHARE_COMMAND);		
 				presentationProxy.share(true);		
 			} else {
-				//sendNotification(PresentationFacade.STOP_SHARE_COMMAND);
 				presentationProxy.share(false);					
 			}		
 		}
 		
 		public function assignPresenter(userid : Number, name : String) : void
 		{
-			//sendNotification(PresentationFacade.ASSIGN_COMMAND, new UserNotifier(userid, name));	
 			presentationProxy.givePresenterControl(userid, name);		
 		}
+		
+		public function result(event : Object):void
+		{
+			//log.debug("Got result [" + event.result.toString() + "]");
+		
+			if (event.result.presentations == null)	return;
+			
+		    var result:ArrayCollection = event.result.presentations.presentation is ArrayCollection
+		        ? event.result.presentations.presentation as ArrayCollection
+		        : new ArrayCollection(ArrayUtil.toArray(event.result.presentations.presentation));
+		    
+		    var temp:ArrayCollection = new ArrayCollection();
+		    var cursor:IViewCursor = result.createCursor();
+		    
+		    while (!cursor.afterLast)
+		    {
+		    	var deck : SlidesDeck = new SlidesDeck(cursor.current);
+		    	//log.debug("Got gallery [" + deck.title + "]");
+				model.newDeckOfSlides(deck);
+		        cursor.moveNext();
+		    }
+		}
+
+		public function fault(event : Object):void
+		{
+			//log.debug("Got fault [" + event.fault.toString() + "]");		
+		}		
 	}
 }

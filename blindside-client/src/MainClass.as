@@ -99,7 +99,7 @@ private var effectsList:Array;
 
 			toolbar.visible = true;
 		} else {
-			if (mainApp.presentationFacade != null) mainApp.presentationFacade.leave();
+			if (mainApp.presentationFacade.presentationApp != null) mainApp.presentationFacade.presentationApp.leave();
 			if (mainApp.chatApp != null) mainApp.chatApp.leave();
 			if (mainApp.publisherApp != null) mainApp.publisherApp.disconnect();
 
@@ -146,7 +146,7 @@ private var effectsList:Array;
 		mdiCanvas.windowManager.absPos(presentationWindow, 240, 20);
 		mainApp.presentationFacade.setPresentationApp(model.conference.me.userid, model.conference.room,
 					"rtmp://" + red5Host, "http://" + presentationHost);
-		mainApp.presentationFacade.join();
+		mainApp.presentationFacade.presentationApp.join();
 		
 		mainApp.chatApp 
 				= new ChatApplication(model.conference.me.userid, model.conference.room, "rtmp://" + red5Host);

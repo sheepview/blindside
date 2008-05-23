@@ -122,7 +122,7 @@
 	   			var presenterid : Number = Number(event.dragSource.dataForFormat('presenterUserid'));
 	   			var presentername : String = event.dragSource.dataForFormat('presenterUsername').toString();
 
-	   			BlindsideAppLocator.getInstance().presentationApp.assignPresenter(presenterid, presentername);		  		
+	   			BlindsideAppLocator.getInstance().presentationFacade.presentationApp.assignPresenter(presenterid, presentername);		  		
 	   		}				
 				
 		]]>

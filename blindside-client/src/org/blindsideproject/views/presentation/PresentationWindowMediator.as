@@ -18,9 +18,9 @@ package org.blindsideproject.views.presentation
 		public function PresentationWindowMediator(view:PresentationWindow)
 		{
 			super(NAME, view);
-			presentationWindow.addEventListener(PresentationPanelMediator.CONNECT, connectToPresentation);
-			presentationWindow.addEventListener(PresentationPanelMediator.SHARE, sharePresentation);
-			presentationWindow.addEventListener(PresentationPanelMediator.OPEN_UPLOAD, openFileUploadWindow);
+			view.addEventListener(PresentationPanelMediator.CONNECT, connectToPresentation);
+			view.addEventListener(PresentationPanelMediator.SHARE, sharePresentation);
+			view.addEventListener(PresentationPanelMediator.OPEN_UPLOAD, openFileUploadWindow);
 		}
 		
 		public function get presentationWindow():PresentationWindow{
@@ -48,7 +48,7 @@ package org.blindsideproject.views.presentation
 		private function handleReadyEvent():void{
 			presentationWindow.thumbnailView.visible = false;
 				
-			BlindsideAppLocator.getInstance().presentationApp.loadPresentation();	
+			BlindsideAppLocator.getInstance().presentationFacade.presentationApp.loadPresentation();	
 		}
 		
 		private function handleViewEvent():void{
@@ -59,18 +59,18 @@ package org.blindsideproject.views.presentation
 		
 		private function connectToPresentation(e:Event) : void{
 			if (presentationWindow.model.presentation.isConnected) {
-				BlindsideAppLocator.getInstance().presentationApp.leave();
+				BlindsideAppLocator.getInstance().presentationFacade.presentationApp.leave();
 			} else {
-				BlindsideAppLocator.getInstance().presentationApp.join();					
+				BlindsideAppLocator.getInstance().presentationFacade.presentationApp.join();					
 			}
 		}
 		
 		private function sharePresentation(e:Event) : void{
 			if (presentationWindow.model.presentation.isSharing) {
-				BlindsideAppLocator.getInstance().presentationApp.sharePresentation(false);
+				BlindsideAppLocator.getInstance().presentationFacade.presentationApp.sharePresentation(false);
 				presentationWindow.uploadPres.enabled = true;	
 			} else {
-				BlindsideAppLocator.getInstance().presentationApp.sharePresentation(true);
+				BlindsideAppLocator.getInstance().presentationFacade.presentationApp.sharePresentation(true);
 				presentationWindow.uploadPres.enabled = false;				
 			}
 		}
