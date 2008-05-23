@@ -41,7 +41,7 @@ package org.blindsideproject.core.apps.presentation.business
 		{
 			super(NAME);
 			connDelegate = new NetConnectionDelegate(this);
-		}		
+		}	
 				
 		public function connectionSuccess() : void
 		{
@@ -68,6 +68,7 @@ package org.blindsideproject.core.apps.presentation.business
 			presentation.room = room;
 						
 			connDelegate.connect(host, room);
+			sendNotification(PresentationFacade.LOAD_COMMAND);
 		}
 		
 		public function leave() : void

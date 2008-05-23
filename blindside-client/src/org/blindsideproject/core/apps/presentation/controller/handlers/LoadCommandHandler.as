@@ -35,7 +35,7 @@ package org.blindsideproject.core.apps.presentation.controller.handlers
 		public function result(event : Object):void
 		{
 			log.debug("Got result [" + event.result.toString() + "]");
-		
+			
 			if (event.result.presentations == null)	return;
 			
 		    var result:ArrayCollection = event.result.presentations.presentation is ArrayCollection

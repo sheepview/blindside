@@ -21,6 +21,7 @@ package org.blindsideproject.core.apps.presentation.services
 		
 		public function FileUploadService(url : String, room : String) : void
 		{
+			super(ID);
 			sendVars.room = room;	
 			request.url = url;
 			request.data = sendVars;
@@ -28,7 +29,6 @@ package org.blindsideproject.core.apps.presentation.services
 		
 		public function upload(file : FileReference) : void
 		{
-			super(ID);
 			var fileToUpload : FileReference = new FileReference();
 			fileToUpload = file;
 			

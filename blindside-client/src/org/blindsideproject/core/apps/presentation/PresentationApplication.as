@@ -3,11 +3,12 @@ package org.blindsideproject.core.apps.presentation
 				
 	import flash.net.FileReference;
 	
-	import org.blindsideproject.core.apps.presentation.controller.notifiers.FileUploadNotifier;
+	import org.blindsideproject.core.apps.presentation.business.PresentationDelegate;
 	import org.blindsideproject.core.apps.presentation.controller.notifiers.JoinNotifier;
 	import org.blindsideproject.core.apps.presentation.controller.notifiers.UserNotifier;
 	import org.blindsideproject.core.apps.presentation.model.PresentationFacade;
 	import org.blindsideproject.core.apps.presentation.model.PresentationModel;
+	import org.blindsideproject.core.apps.presentation.services.FileUploadService;
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
 						
@@ -34,18 +35,27 @@ package org.blindsideproject.core.apps.presentation
 		
 		public function join() : void
 		{
-			sendNotification(PresentationFacade.JOIN_COMMAND, new JoinNotifier(_userid, _url, _room));			
+			//sendNotification(PresentationFacade.JOIN_COMMAND, new JoinNotifier(_userid, _url, _room));	
+			presentationProxy.join(_userid, _url, _room);		
+		}
+		
+		public function get presentationProxy():PresentationDelegate{
+			return facade.retrieveProxy(PresentationDelegate.ID) as PresentationDelegate;
 		}
 		
 		public function leave() : void
 		{
-			sendNotification(PresentationFacade.LEAVE_COMMAND);
+			presentationProxy.leave();
 		}
 		
 		public function uploadPresentation(fileToUpload : FileReference) : void
 		{
 			var fullUri : String = _docServiceAddress + "/blindside/file/upload";
-			sendNotification(PresentationFacade.UPLOAD_COMMAND, new FileUploadNotifier(fullUri, _room, fileToUpload));
+			//sendNotification(PresentationFacade.UPLOAD_COMMAND, new FileUploadNotifier(fullUri, _room, fileToUpload));
+			
+			var service:FileUploadService = new FileUploadService(fullUri, _room);
+			facade.registerProxy(service);
+			service.upload(fileToUpload);
 		}
 		
 		public function loadPresentation() : void
@@ -57,15 +67,18 @@ package org.blindsideproject.core.apps.presentation
 		public function sharePresentation(share : Boolean) : void
 		{
 			if (share) {	
-				sendNotification(PresentationFacade.START_SHARE_COMMAND);				
+				//sendNotification(PresentationFacade.START_SHARE_COMMAND);		
+				presentationProxy.share(true);		
 			} else {
-				sendNotification(PresentationFacade.STOP_SHARE_COMMAND);					
+				//sendNotification(PresentationFacade.STOP_SHARE_COMMAND);
+				presentationProxy.share(false);					
 			}		
 		}
 		
 		public function assignPresenter(userid : Number, name : String) : void
 		{
-			sendNotification(PresentationFacade.ASSIGN_COMMAND, new UserNotifier(userid, name));			
+			//sendNotification(PresentationFacade.ASSIGN_COMMAND, new UserNotifier(userid, name));	
+			presentationProxy.givePresenterControl(userid, name);		
 		}
 	}
 }
