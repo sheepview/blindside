@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
-	xmlns:log="tests.org.blindsideproject.core.util.log.*"
+	xmlns:log="org.blindsideproject.core.util.log.*"
 	xmlns:flexunit="flexunit.flexui.*"
 	creationComplete="onCreationComplete()"
 	layout="absolute">
 
 	<mx:Script>
 		<![CDATA[
-			import tests.examples.TemperatureConverterTest;
-			import tests.org.blindsideproject.core.apps.conference.SharedObjectConferenceDelegateTest;
-			import tests.org.blindsideproject.core.apps.conference.ConferenceModelTest;
-			import tests.org.blindsideproject.core.apps.voiceconference.VoiceConferenceModelTest;
-			import tests.org.red5.samples.publisher.PublisherSharedObjectTest;
+			import examples.TemperatureConverterTest;
+			import org.blindsideproject.core.apps.conference.SharedObjectConferenceDelegateTest;
+			import org.blindsideproject.core.apps.conference.ConferenceModelTest;
+			import org.blindsideproject.core.apps.voiceconference.VoiceConferenceModelTest;
+			import org.red5.samples.publisher.PublisherSharedObjectTest;
 			import flexunit.framework.TestSuite;
 			import org.blindsideproject.core.apps.presentation.business.*;
 
