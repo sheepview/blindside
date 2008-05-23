@@ -60,7 +60,7 @@ package org.blindsideproject.views.presentation
 		
 		private function handleReadyEvent():void{
 			presentationPanel.thumbnailView.visible = false;
-			BlindsideAppLocator.getInstance().presentationApp.loadPresentation();	
+			BlindsideAppLocator.getInstance().presentationFacade.presentationApp.loadPresentation();	
 		}
 		
 		private function handleViewEvent():void{
@@ -71,18 +71,18 @@ package org.blindsideproject.views.presentation
 		
 		private function connectToPresentation(e:Event) : void{
 			if (presentationPanel.model.presentation.isConnected) {
-				BlindsideAppLocator.getInstance().presentationApp.leave();
+				BlindsideAppLocator.getInstance().presentationFacade.presentationApp.leave();
 			} else {
-				BlindsideAppLocator.getInstance().presentationApp.join();					
+				BlindsideAppLocator.getInstance().presentationFacade.presentationApp.join();					
 			}
 		}
 		
 		private function sharePresentation(e:Event) : void{
 			if (presentationPanel.model.presentation.isSharing) {
-				BlindsideAppLocator.getInstance().presentationApp.sharePresentation(false);
+				BlindsideAppLocator.getInstance().presentationFacade.presentationApp.sharePresentation(false);
 				presentationPanel.uploadPres.enabled = true;	
 			} else {
-				BlindsideAppLocator.getInstance().presentationApp.sharePresentation(true);
+				BlindsideAppLocator.getInstance().presentationFacade.presentationApp.sharePresentation(true);
 				presentationPanel.uploadPres.enabled = false;				
 			}
 		}

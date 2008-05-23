@@ -53,7 +53,7 @@ package org.blindsideproject.views.presentation
 		}
 		
 		private function startUpload(e:Event):void{
-			BlindsideAppLocator.getInstance().presentationApp.uploadPresentation(fileToUpload);
+			BlindsideAppLocator.getInstance().presentationFacade.presentationApp.uploadPresentation(fileToUpload);
 							
 			fileUploadWindow.progBarLbl.visible = true;
 			fileUploadWindow.progressBar.visible = true;

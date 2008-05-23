@@ -2,6 +2,7 @@ package org.blindsideproject.core.apps.presentation.model
 {
 	import com.adobe.cairngorm.*;
 	
+	import org.blindsideproject.core.apps.presentation.PresentationApplication;
 	import org.blindsideproject.core.apps.presentation.business.PresentationDelegate;
 	import org.blindsideproject.core.apps.presentation.controller.StartupCommand;
 	import org.blindsideproject.core.util.log.ILogger;
@@ -72,6 +73,15 @@ package org.blindsideproject.core.apps.presentation.model
 	   	
 	   	public function startup(app:PresentationWindow):void{
 	 		  sendNotification(STARTUP, app);
+	   	}
+	   	
+	   	public function setPresentationApp(userid : Number, room : String, 
+				url : String, docServiceAddress : String):void{
+	   		this.registerMediator(new PresentationApplication(userid, room, url, docServiceAddress));
+	   	}
+	   	
+	   	public function get presentationApp():PresentationApplication{
+	   		return this.retrieveMediator(PresentationApplication.NAME) as PresentationApplication;
 	   	}
 	}
 }
