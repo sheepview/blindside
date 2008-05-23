@@ -26,7 +26,6 @@
 </sourceAttachmentPath>
 </compiler>
 <applications>
-<application path="TestRunners.mxml"/>
 <application path="src/main.mxml"/>
 <application path="main.mxml"/>
 <application path="src/TestRunners.mxml"/>
