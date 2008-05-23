@@ -15,6 +15,7 @@ import org.blindsideproject.core.apps.chat.ChatApplication;
 import org.blindsideproject.core.apps.conference.ConferenceApplication;
 import org.blindsideproject.core.apps.conference.model.*;
 import org.blindsideproject.core.apps.presentation.PresentationApplication;
+import org.blindsideproject.core.apps.presentation.model.PresentationFacade;
 import org.blindsideproject.core.util.log.ILogger;
 import org.blindsideproject.core.util.log.LoggerModelLocator;
 import org.blindsideproject.main.*;
@@ -49,16 +50,17 @@ private var effectsList:Array;
 	private var mainApp : BlindsideAppLocator = BlindsideAppLocator.getInstance();
 		
 	private var presentationApp : PresentationApplication;
+	private var presentationFacade:PresentationFacade = PresentationFacade.getInstance();
 		
-	private var red5Host : String = "localhost";		
-	private var presentationHost : String = "localhost";
+	private var red5Host : String = "present.carleton.ca";		
+	private var presentationHost : String = "present.carleton.ca";
 	private var asteriskHost : String;
 	
 	public function conferenceMainClassInit() : void {
 		checkFlashPlayerVersion();
 		
-		red5Host = mx.core.Application.application.parameters.red5Host;			
-		presentationHost = mx.core.Application.application.parameters.presentationHost;
+		//red5Host = mx.core.Application.application.parameters.red5Host;			
+		//presentationHost = mx.core.Application.application.parameters.presentationHost;
 		asteriskHost = mx.core.Application.application.parameters.asteriskHost;
 		
 		log.debug("red5Host = [" + red5Host + "]");
@@ -97,7 +99,7 @@ private var effectsList:Array;
 
 			toolbar.visible = true;
 		} else {
-			if (mainApp.presentationApp != null) mainApp.presentationApp.leave();
+			if (mainApp.presentationFacade != null) mainApp.presentationFacade.leave();
 			if (mainApp.chatApp != null) mainApp.chatApp.leave();
 			if (mainApp.publisherApp != null) mainApp.publisherApp.disconnect();
 
@@ -135,10 +137,16 @@ private var effectsList:Array;
 		meetMeModel.meetMeRoom.setUri("rtmp://" + red5Host + "/astmeetme/" + model.conference.room);	
 		meetMeModel.connectToMeetMe();
 		
-		mainApp.presentationApp 
-			= new PresentationApplication(model.conference.me.userid, model.conference.room,
+		presentationWindow = new PresentationWindow();
+		presentationWindow.width = 464;
+		presentationWindow.height = 378;
+		presentationWindow.title = "Presentation";
+		presentationWindow.showCloseButton = false;
+		mdiCanvas.windowManager.add(presentationWindow);
+		mdiCanvas.windowManager.absPos(presentationWindow, 240, 20);
+		mainApp.presentationFacade.setPresentationApp(model.conference.me.userid, model.conference.room,
 					"rtmp://" + red5Host, "http://" + presentationHost);
-		mainApp.presentationApp.join();
+		mainApp.presentationFacade.join();
 		
 		mainApp.chatApp 
 				= new ChatApplication(model.conference.me.userid, model.conference.room, "rtmp://" + red5Host);
@@ -173,14 +181,6 @@ private var effectsList:Array;
 		listenersWindow.showCloseButton = false;
 		mdiCanvas.windowManager.add(listenersWindow);
 		mdiCanvas.windowManager.absPos(listenersWindow, 20, 250);
-			
-		presentationWindow = new PresentationWindow();
-		presentationWindow.width = 464;
-		presentationWindow.height = 378;
-		presentationWindow.title = "Presentation";
-		presentationWindow.showCloseButton = false;
-		mdiCanvas.windowManager.add(presentationWindow);
-		mdiCanvas.windowManager.absPos(presentationWindow, 240, 20);
 
 /*
 		presentationPanel = new PresentationPanel();
