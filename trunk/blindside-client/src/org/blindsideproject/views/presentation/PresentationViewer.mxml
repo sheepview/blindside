@@ -17,8 +17,6 @@
 	
 			import org.blindsideproject.core.util.log.ILogger;
 			import org.blindsideproject.core.util.log.LoggerModelLocator;
-				
-			import org.blindsideproject.core.apps.presentation.controller.PresentationController;
 						
 			import org.blindsideproject.core.apps.presentation.vo.SlidesDeck;
 			import org.blindsideproject.core.apps.presentation.model.*;
