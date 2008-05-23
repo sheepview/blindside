@@ -15,7 +15,7 @@ package org.blindsideproject.main
 			
 		private static var instance : BlindsideAppLocator;
 				
-		public var presentationFacade :PresentationFacade;
+		public var presentationFacade :PresentationFacade = PresentationFacade.getInstance();
 		public var chatApp : ChatApplication;
 		public var publisherApp : PublisherApplication;
 		public var conferenceApp : ConferenceApplication;
