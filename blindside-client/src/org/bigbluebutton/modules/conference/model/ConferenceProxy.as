@@ -1,23 +1,18 @@
 package org.bigbluebutton.modules.conference.model
 {
-	import mx.rpc.events.ResultEvent;
-	
-	import org.bigbluebutton.modules.conference.model.vo.UserVO;
+	import org.bigbluebutton.modules.conference.model.vo.ConferenceVO;
 	import org.puremvc.as3.multicore.interfaces.IProxy;
 	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
 
 	public class ConferenceProxy extends Proxy implements IProxy
 	{
 		public static const NAME : String			= 'ConferenceProxy';
-		public static const LOGIN_ATTEMPT : String 	= 'loginAttempt';
-		public static const LOGIN_SUCCESS : String 	= 'loginSuccess';
-		public static const LOGIN_FAILED : String	= 'loginFailed';
-		public static const LOGGED_OUT : String		= 'loggedOut';
+		private var confHost : String;
 		
-		
-		public function ConferenceProxy()
+		public function ConferenceProxy(host : String)
 		{
-			super(NAME, new UserVO());
+			super(NAME, new ConferenceVO());
+			confHost = host;
 		}
 		
 		public function get userVO() : UserVO
@@ -38,7 +33,7 @@ package org.bigbluebutton.modules.conference.model
 		public login( user : UserVO ) : void
 		{
 			if ( ! loggedIn ) {
-				sendNotification( LOGIN_ATTEMPT );
+				sendNotification( ConferenceConstants.LOGIN_ATTEMPT );
 				userVO.username = user.username;
 				userVO.password = user.password;
 			} else {
@@ -50,18 +45,18 @@ package org.bigbluebutton.modules.conference.model
 		public function logout() : void
 		{
 			if ( loggedIn ) userVO = new UserVO();
-			sendNotification( LOGGED_OUT );
+			sendNotification( ConferenceConstants.LOGGED_OUT );
 		}
 		
-		private function onResult( event : ResultEvent ) : void
+		private function loginSuccessful( userId : Number, authToken : String ) : void
 		{
 			setData( event.result );
-			sendNotification( LOGIN_SUCCESS , authToken );
+			sendNotification( ConferenceConstants.LOGIN_SUCCESS );
 		}
 		
-		private function onFault( event : FaultEvent ) : void
+		private function loginFailed( reason : String ) : void
 		{
-			sendNotification( LOGIN_FAILED, event.fault.faultString );
+			sendNotification( ConferenceConstants.LOGIN_FAILED, reason );
 		}
 	}
 }

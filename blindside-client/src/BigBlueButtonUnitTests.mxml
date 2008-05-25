@@ -7,6 +7,7 @@
 
 	<mx:Script>
 		<![CDATA[
+			import org.bigbluebutton.modules.conference.model.ConnectionMockTest;
 			import flexunit.framework.TestSuite;		
 			import org.bigbluebutton.modules.conference.model.ConferenceVOTest;
 			import org.bigbluebutton.modules.conference.model.ConferenceProxyTest;
@@ -28,6 +29,7 @@
  				// by calling addTest as often as necessary
  				ts.addTest( ConferenceProxyTest.suite() );
  				ts.addTest( ConferenceVOTest.suite() );
+ 				ts.addTest( ConnectionMockTest.suite() );
  				return ts;
  			}
 			
