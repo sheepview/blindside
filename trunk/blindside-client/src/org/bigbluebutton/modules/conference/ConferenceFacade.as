@@ -1,17 +1,14 @@
-package org.bigbluebutton.main
+package org.bigbluebutton.modules.conference
 {
-	import org.bigbluebutton.core.Constants;
 	import org.puremvc.as3.multicore.interfaces.IFacade;
-	import org.puremvc.as3.multicore.interfaces.IMediator;
-	import org.puremvc.as3.multicore.interfaces.INotification;
-	import org.puremvc.as3.multicore.interfaces.IProxy;
 	import org.puremvc.as3.multicore.patterns.facade.Facade;
+	import org.puremvc.as3.multicore.interfaces.IMediator;
+	import org.puremvc.as3.multicore.interfaces.IProxy;
+	import org.puremvc.as3.multicore.interfaces.INotification;
 
-	public class MainApplicationFacade extends Facade implements IFacade
+	public class ConferenceFacade extends Facade implements IFacade
 	{
-		private var ENV : String = Constants.DEV_ENV;
-		
-		public function MainApplicationFacade(key:String)
+		public function ConferenceFacade(key:String)
 		{
 			super(key);
 		}
@@ -83,14 +80,5 @@ package org.bigbluebutton.main
 		{
 		}
 		
-		public function get runtimeEnvironment() : String
-		{
-			return ENV;
-		}
-		
-		public function set runtimeEnvironment(env : String)
-		{
-			ENV = env;
-		}
 	}
 }
