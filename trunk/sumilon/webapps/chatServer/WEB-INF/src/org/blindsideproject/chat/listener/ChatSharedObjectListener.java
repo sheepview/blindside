@@ -8,9 +8,22 @@ import org.red5.server.api.so.ISharedObjectBase;
 import org.red5.server.api.so.ISharedObjectListener;
 import java.sql.Time;
 
+/**
+ * This class implements the interface ISharedObjectListener to be registered as listener of a SharedObject. 
+ * Whenever there is an event occurs on SharedObject, methods of this class are automatically called.
+ * 
+ * @author kthiruka
+ *
+ */
+
 public class ChatSharedObjectListener implements ISharedObjectListener {
 	
+	/**
+	 * chat log storage string buffer
+	 */
 	StringBuffer chatLog = new StringBuffer();
+	
+	
 	@Override
 	public void onSharedObjectClear(ISharedObjectBase so) {
 		// TODO Auto-generated method stub
@@ -35,6 +48,15 @@ public class ChatSharedObjectListener implements ISharedObjectListener {
 
 	}
 
+	
+	/**
+	 * Called when a shared object method call, newMessage() is sent using chatSO. 
+	 * The chat message is extracted from the parameters passed and stored in stringBuffer.
+	 * @param so chatSO SharedObject
+	 * @param method method invoked
+	 * @param params List of parameters passed to the method
+	 *  
+	 */
 	@Override
 	public void onSharedObjectSend(ISharedObjectBase so, String method,
 			List params) {
@@ -68,7 +90,11 @@ public class ChatSharedObjectListener implements ISharedObjectListener {
 		// TODO Auto-generated method stub
 
 	}
-	
+	/**
+	 * To get the chat history stored in StringBuffer
+	 * 
+	 * @return chat History
+	 */
 	public String getChatLog(){
 		return chatLog.toString();
 	}
