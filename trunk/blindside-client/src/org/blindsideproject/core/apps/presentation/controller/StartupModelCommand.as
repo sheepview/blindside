@@ -8,7 +8,7 @@ package org.blindsideproject.core.apps.presentation.controller
 	public class StartupModelCommand extends SimpleCommand
 	{
 		override public function execute(notification:INotification):void{
-			var app:PresentationWindow = notification as PresentationWindow;
+			var app:PresentationWindow = notification.getBody() as PresentationWindow;
 			facade.registerProxy(new PresentationDelegate());
 		}
 

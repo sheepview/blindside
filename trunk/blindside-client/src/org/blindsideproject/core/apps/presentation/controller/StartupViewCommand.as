@@ -11,10 +11,10 @@ package org.blindsideproject.core.apps.presentation.controller
 	public class StartupViewCommand extends SimpleCommand
 	{
 		override public function execute(notification:INotification):void{
-			var app:PresentationWindow = notification as PresentationWindow;
+			var app:PresentationWindow = notification.getBody() as PresentationWindow;
 			facade.registerMediator(new PresentationWindowMediator(app));
 			facade.registerMediator(new ThumbnailViewMediator(app.thumbnailView));
-			facade.registerMediator(new FileUploadWindowMediator(app.uploadWindow));
+			//facade.registerMediator(new FileUploadWindowMediator(app.uploadWindow));
 		}
 
 	}
