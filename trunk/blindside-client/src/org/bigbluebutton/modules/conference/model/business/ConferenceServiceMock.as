@@ -1,9 +1,11 @@
 package org.bigbluebutton.modules.conference.model.business
 {	
+    import mx.collections.ArrayCollection;
+    
     import org.bigbluebutton.modules.conference.model.vo.Role;
     import org.bigbluebutton.modules.conference.model.vo.UserVO;
        
-	public class ConnectionServiceMock
+	public class ConferenceServiceMock implements IConferenceService
 	{
 		public var username : String = "guest";
 		public var viewPassword : String = "vpass";
@@ -12,22 +14,25 @@ package org.bigbluebutton.modules.conference.model.business
 		public var userId : Number = 1;
 		public var authToken : String = 'authenticated';
 		
+		public var participants : ArrayCollection = new ArrayCollection();
+		
 		public var connectResult : Boolean = true;
 		public var failReason : String = "Failed to join the conference.";
 		
-        public function ConnectionServiceMock() 
-        {
-        }
-
-		public function connect(host : String, connectSuccess : Function, connectFailed : Function ) : void
+		public var confDelegate : IConferenceDelegate = null;
+		
+        public function ConferenceServiceMock() {}
+        
+		public function connect(host : String ) : void
 		{
-			connectResult ? connectSuccess() : connectFailed();						
+			connectResult ? confDelegate.connectSuccess() : confDelegate.connectFailed();						
 		}
 		
-		public function join(user : UserVO, joinSuccess : Function, joinFailed : Function) : void
+		public function join(user : UserVO ) : void
 		{
 			if ((conference == user.conference) && 
 				((viewPassword == user.password) || (modPassword == user.password))) {
+					
 				if (viewPassword == user.password) {
 					user.role = Role.VIEWER;
 				} else if (modPassword == user.password) {
@@ -35,10 +40,15 @@ package org.bigbluebutton.modules.conference.model.business
 				}
 				user.authToken = authToken;
 				user.userId = userId;
-				joinSuccess(user);
+				confDelegate.joinSuccess(user);
 			} else {
-				joinFailed(failReason);
+				confDelegate.joinFailed(failReason);
 			}
 		}		
+		
+		public function leave() : void
+		{
+			confDelegate.leftConference();
+		}
     }
 }
