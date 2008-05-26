@@ -43,18 +43,7 @@
    				ejectEvent.dispatch();
 	   		
 	   		}
-
-	   		private function unmuteAllUsers() : void
-	   		{
-	   			var unmuteAllEvent : MuteAllUsersEvent = new MuteAllUsersEvent(false);
-	   			unmuteAllEvent.dispatch();
-	   		}
-	   			   		
-	   		private function muteAllUsers() : void
-	   		{
-	   			var muteAllEvent : MuteAllUsersEvent = new MuteAllUsersEvent(true);
-	   			muteAllEvent.dispatch();
-	   		}
+	   		
 		]]>
 	</mx:Script>
 	
@@ -67,10 +56,10 @@
     	
     	<mx:ControlBar width="100%">
     	   <mx:Button id="muteAllIconImg" icon="{muteAllIcon}" 
-    	   			toolTip="Mute All" click="muteAllUsers()"
+    	   			toolTip="Mute All" click="dispatchEvent(new Event(ListenersWindowMediator.MUTE_ALL))"
     	   			visible="{role == Role.MODERATOR}"/> 
     	   <mx:Button id="unmuteAllIconImg" icon="{unmuteAllIcon}" 
-    	   			toolTip="Unmute All" click="unmuteAllUsers()"
+    	   			toolTip="Unmute All" click="dispatchEvent(new Event(ListenersWindowMediator.UNMUTE_ALL))"
     	   			visible="{role == Role.MODERATOR}"/> 
      	   <mx:Spacer width="100%"/>
     		<mx:Image id="ejectUserDropTarget" source="{dropTargetIcon}" 
