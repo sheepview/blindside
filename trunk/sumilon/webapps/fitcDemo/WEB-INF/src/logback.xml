@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-	<appender name="FITC" class="ch.qos.logback.core.FileAppender">
-		<File>log/fitcdemo.log</File>
+	<appender name="CHAT" class="ch.qos.logback.core.FileAppender">
+		<File>log/chatServer.log</File>
 		<Append>false</Append>
 		<Encoding>UTF-8</Encoding>
 		<BufferedIO>false</BufferedIO>
@@ -14,9 +14,9 @@
 	</appender>
 	<root>
 		<level value="DEBUG" />
-		<appender-ref ref="FITC" />
+		<appender-ref ref="CHAT" />
 	</root>		
-	<logger name="org.red5.demos.fitc">
+	<logger name="org.blindsideproject.chat">
 		<level value="DEBUG" />
 	</logger>
 </configuration>
