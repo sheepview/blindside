@@ -39,7 +39,7 @@ package org.blindsideproject.core.apps.presentation.business
 				
 		public function PresentationDelegate()
 		{
-			super(NAME);
+			super(ID);
 			connDelegate = new NetConnectionDelegate(this);
 		}	
 				

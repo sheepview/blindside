@@ -85,6 +85,8 @@ package org.blindsideproject.views.presentation
             point1 = presentationWindow.thumbnailView.localToGlobal(point1);
             presentationWindow.uploadWindow.x = point1.x + 25;
             presentationWindow.uploadWindow.y = point1.y + 25;
+            
+            sendNotification(PresentationFacade.STARTUPLOADWINDOW, presentationWindow.uploadWindow);
         }	
 
 	}

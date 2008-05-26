@@ -150,21 +150,21 @@ package org.blindsideproject.views.presentation
 		}
 		
 		private function handleUploadProgressEvent(note:INotification):void{
-			//var progEvt : UploadProgressEvent = UploadProgressEvent(event);
-			//	
-			//fileUploadWindow.progressBar.label = progEvt.percentUploaded + "% uploaded.";
-			//fileUploadWindow.progressBar.setProgress(progEvt.percentUploaded, 100);
-			//fileUploadWindow.progressBar.validateNow();
+			var progress:Number = note.getBody() as Number;
+			
+			fileUploadWindow.progressBar.label = progress + "% uploaded.";
+			fileUploadWindow.progressBar.setProgress(progress, 100);
+			fileUploadWindow.progressBar.validateNow();
 		}
 		
 		private function handleUploadIOErrorEvent(note:INotification):void{
 			enableControls();
-			Alert.show(note.getName(), "IO Error When Uploading File");
+			Alert.show(note.getBody() as String, "IO Error When Uploading File");
 		}
 		
 		private function handleUploadSecurityErrorEvent(note:INotification):void{
 			enableControls();
-			Alert.show(note.getName(), "Security Error When Uploading File");
+			Alert.show(note.getBody() as String, "Security Error When Uploading File");
 		}
 		
 		private function handleConvertProgressEvent(note:INotification):void{

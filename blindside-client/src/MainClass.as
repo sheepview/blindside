@@ -143,9 +143,11 @@ private var effectsList:Array;
 		presentationWindow.showCloseButton = false;
 		mdiCanvas.windowManager.add(presentationWindow);
 		mdiCanvas.windowManager.absPos(presentationWindow, 240, 20);
+		//mainApp.presentationFacade = PresentationFacade.getInstance();
+		//mainApp.presentationFacade.startup(presentationWindow);
 		mainApp.presentationFacade.setPresentationApp(model.conference.me.userid, model.conference.room,
 					"rtmp://" + red5Host, "http://" + presentationHost);
-		mainApp.presentationFacade.presentationApp.join();
+		mainApp.presentationFacade.presApp.join();
 		
 		mainApp.chatApp 
 				= new ChatApplication(model.conference.me.userid, model.conference.room, "rtmp://" + red5Host);

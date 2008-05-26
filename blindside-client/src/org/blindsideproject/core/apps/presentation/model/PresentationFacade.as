@@ -4,6 +4,8 @@ package org.blindsideproject.core.apps.presentation.model
 	
 	import org.blindsideproject.core.apps.presentation.PresentationApplication;
 	import org.blindsideproject.core.apps.presentation.business.PresentationDelegate;
+	import org.blindsideproject.core.apps.presentation.controller.StartPresentationAppCommand;
+	import org.blindsideproject.core.apps.presentation.controller.StartUploadWindowCommand;
 	import org.blindsideproject.core.apps.presentation.controller.StartupCommand;
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
@@ -15,6 +17,8 @@ package org.blindsideproject.core.apps.presentation.model
 	{
 		public static const ID : String = "PresentationFacade";
 		public static const STARTUP:String = "startup";
+		public static const STARTUPLOADWINDOW:String = "start upload";
+		public static const START_PRESENTATION_APPLICATION:String = "start presentation app";
 		
 		// List of Commands
 		public static const GOTO_PAGE_COMMAND : String = "PRESENTATION_GOTO_PAGE_COMMAND";	
@@ -44,6 +48,7 @@ package org.blindsideproject.core.apps.presentation.model
 		private var _presentationDelegate : PresentationDelegate = null;	
 		[Bindable]
 		public var presentation : PresentationModel = new PresentationModel();
+		public var presApp:PresentationApplication;
 		
 		public function PresentationFacade() : void
 		{
@@ -60,6 +65,8 @@ package org.blindsideproject.core.apps.presentation.model
 	   	override protected function initializeController():void{
 	   		super.initializeController();
 	   		registerCommand(STARTUP, StartupCommand);
+	   		registerCommand(STARTUPLOADWINDOW, StartUploadWindowCommand);
+	   		registerCommand(START_PRESENTATION_APPLICATION, StartPresentationAppCommand);
 	   	}	   	
 	   	
 	   	public function get presentationDelegate() : PresentationDelegate
@@ -77,7 +84,8 @@ package org.blindsideproject.core.apps.presentation.model
 	   	
 	   	public function setPresentationApp(userid : Number, room : String, 
 				url : String, docServiceAddress : String):void{
-	   		this.registerMediator(new PresentationApplication(userid, room, url, docServiceAddress));
+			presApp = new PresentationApplication(userid, room, url, docServiceAddress);
+	   		sendNotification(START_PRESENTATION_APPLICATION, presApp);
 	   	}
 	   	
 	   	public function get presentationApp():PresentationApplication{
