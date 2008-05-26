@@ -1,18 +1,27 @@
 package org.blindsideproject.core.apps.voiceconference.model
 {
-	import com.adobe.cairngorm.model.IModelLocator;
-	import org.blindsideproject.core.util.log.*;
-
-	import com.adobe.cairngorm.control.CairngormEventDispatcher;
-	import com.adobe.cairngorm.*
+	import com.adobe.cairngorm.*;
 	import com.adobe.cairngorm.control.FrontController;
+	
 	import org.blindsideproject.core.apps.voiceconference.business.SOVoiceConferenceDelegate;
 	import org.blindsideproject.core.apps.voiceconference.controller.VoiceConferenceController;
+	import org.blindsideproject.core.util.log.*;
+	import org.blindsideproject.meetme.view.ListenersWindow;
+	import org.puremvc.as3.multicore.interfaces.IFacade;
+	import org.puremvc.as3.multicore.patterns.facade.Facade;
 
 	
-	public class VoiceConferenceModelLocator implements IModelLocator
+	public class VoiceConferenceModelLocator extends Facade implements IFacade
 	{
 		public static const ID : String = "VoiceConferenceModelLocator";
+		public static const STARTUP:String = "StartupVoiceConference";
+		
+		//EVENTS
+		public static const JOIN_COMMAND : String = "VOICE_CONFERENCE_JOIN_COMMAND";
+		public static const LEAVE_COMMAND : String = "VOICE_CONFERENCE_LEAVE_COMMAND";
+		public static const EJECT_USER_COMMAND : String = "VOICE_CONFERENCE_EJECT_USER_COMMAND";
+		public static const MUTE_USER_COMMAND : String = "VOICE_CONFERENCE_MUTE_USER_COMMAND";	
+		public static const MUTE_ALL_USERS_COMMAND : String = "VOICE_CONFERENCE_MUTE_ALL_USERS_COMMAND";
 	
 		private var _controller : FrontController = null;
 		
@@ -25,21 +34,23 @@ package org.blindsideproject.core.apps.voiceconference.model
 		
 		public function VoiceConferenceModelLocator() : void
 		{
-			if ( instance != null ) {
-					throw new CairngormError(
-					   CairngormMessageCodes.SINGLETON_EXCEPTION, ID );
-			}
-			
-			initialize();		
+			super(ID);		
 		}
 
 		public static function getInstance() : VoiceConferenceModelLocator
 		{
-			if ( instance == null )
-				instance = new VoiceConferenceModelLocator();
-				
-			return instance;
+			if (instanceMap[ID] == null) instanceMap[ID] = new VoiceConferenceModelLocator();
+			return instanceMap[ID] as VoiceConferenceModelLocator;
+	   	}
+	   	
+	   	override public function initializeController():void{
+	   		super.initializeController();
+	   		registerCommand(STARTUP, StartupCommand);
 	   	}	
+	   	
+	   	public function startup(app:ListenersWindow):void{
+	   		sendNotification(STARTUP, app);
+	   	}
 
 	   	private function initialize() : void
 	   	{		
