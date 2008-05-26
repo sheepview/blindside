@@ -2,16 +2,12 @@
 <mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" creationComplete="initParticipantItem()">
    <mx:Script>
    	<![CDATA[
-   		import org.blindsideproject.meetme.events.MuteUnmuteUserEvent;
-   		import org.blindsideproject.meetme.events.EjectUserEvent;
    		import mx.controls.Image;
    		import org.blindsideproject.views.general.Images;
-   		import org.blindsideproject.meetme.events.NewMeetMeEvent;
    		import com.adobe.cairngorm.control.CairngormEventDispatcher;
    		import org.blindsideproject.meetme.model.*;
 		import org.blindsideproject.core.util.log.ILogger;
 		import org.blindsideproject.core.util.log.LoggerModelLocator;
-		import org.blindsideproject.meetme.events.MeetMeEvents;
 
 		import mx.events.DragEvent;
 	    import flash.events.MouseEvent;
@@ -31,7 +27,6 @@
 		private var model : MeetMeModelLocator = MeetMeModelLocator.getInstance();
 		private var dispatcher : CairngormEventDispatcher = model.getDispatcher();
 		private var log : ILogger = LoggerModelLocator.getInstance().log;
-	   	
    		
    		private var images : Images = new Images();
    		
@@ -40,15 +35,14 @@
    		[Bindable] private var ejectIcon : Object = images.eject_user;  		  		
    		[Bindable] private var statusTooltip : String = "";
    		[Bindable] private var ejectTooltip : String = "Click to eject user.";   		   		
-   		[Bindable] private var isModerator : Boolean = false;
+   		[Bindable] public var isModerator : Boolean = false;
    		
    		private function initParticipantItem() : void
    		{
-   			dispatcher.addEventListener(MeetMeEvents.USER_JOIN_EVENT, onNewMeetMeEvent);
    			displayStatusIcon();
    		}
    		   		
-   		private function displayStatusIcon() : void
+   		public function displayStatusIcon() : void
    		{
    			if (data.isMuted) {
    				muteIcon = images.sound_mute;
@@ -76,35 +70,6 @@
    				ejectTooltip = "";
    			}
    		}
-
-	   	private function onNewMeetMeEvent(event : Event) : void
-   		{
-   			var statusEvent : NewMeetMeEvent = NewMeetMeEvent(event);
-   				
-   			log.debug("Got newMeeetMeEvent."); // comment out as generates too much noise
-
-   			displayStatusIcon();	
-   		}
-   		
-   		private function muteUnmuteUser() : void
-   		{
-   			if (! isModerator) return;
-   			
-   			var muteEvent : MuteUnmuteUserEvent = new MuteUnmuteUserEvent(data.userid, !data.isMuted);
-   			muteEvent.dispatch();
-   			
-   			log.debug("MeetMeUserItem::muteUnmuteUser : [" + data.userid + "," + !data.isMuted + "]");
-   		}
-
-   		private function ejectUser() : void
-   		{
-   			if (! isModerator) return;
-   			
-   			var ejectEvent : EjectUserEvent = new EjectUserEvent(data.userid);
-   			ejectEvent.dispatch();
-   			
-   			log.debug("MeetMeUserItem::ejectUser : [" + data.userid + "]");
-   		}
    		
    		public function dragIt(event:MouseEvent, userid:Number):void
 	   	{
@@ -130,7 +95,7 @@
 	
    	]]>
    </mx:Script>
-   		<mx:Image id="muteImg" source="{muteIcon}" click="muteUnmuteUser()"/>
+   		<mx:Image id="muteImg" source="{muteIcon}" click="dispatchEvent(new Event(MeetMeUserItemMediator.MUTE_UNMUTE_USER))"/>
 	    <mx:Label id="nameLabel" mouseDown="dragIt(event,data.userid)" useHandCursor="true"
 	    	toolTip="Drag to eject." text="{data.callerName}"/>
 		<mx:Image id="talkImg" source="{talkIcon}" visible="{data.isTalking}" toolTip="Talking"/>

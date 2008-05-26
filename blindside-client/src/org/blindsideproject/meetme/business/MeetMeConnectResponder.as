@@ -1,25 +1,25 @@
 package org.blindsideproject.meetme.business
 {
-	import mx.rpc.IResponder;
-
-	import org.blindsideproject.meetme.model.MeetMeModelLocator;
-	import org.blindsideproject.meetme.model.MeetMeRoom;
-	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerModelLocator;
-
-	import org.blindsideproject.meetme.events.NewMeetMeEvent;
-	import org.blindsideproject.meetme.events.MeetMeEvents;
 	import com.adobe.cairngorm.control.CairngormEventDispatcher;
 	
-	import flash.net.SharedObject;
-	import flash.events.NetStatusEvent;
 	import flash.events.AsyncErrorEvent;
+	import flash.events.NetStatusEvent;
 	import flash.events.SyncEvent;
-	import mx.collections.ArrayCollection;
-	import org.blindsideproject.meetme.vo.MeetMeUser;
 	import flash.net.Responder;
+	import flash.net.SharedObject;
+	
+	import mx.collections.ArrayCollection;
+	import mx.rpc.IResponder;
+	
+	import org.blindsideproject.core.util.log.ILogger;
+	import org.blindsideproject.core.util.log.LoggerModelLocator;
+	import org.blindsideproject.meetme.model.MeetMeModelLocator;
+	import org.blindsideproject.meetme.model.MeetMeRoom;
+	import org.blindsideproject.meetme.vo.MeetMeUser;
+	import org.puremvc.as3.multicore.interfaces.IMediator;
+	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
 			
-	public class MeetMeConnectResponder implements IResponder
+	public class MeetMeConnectResponder extends Mediator implements IResponder, IMediator
 	{
 		private var model : MeetMeModelLocator = MeetMeModelLocator.getInstance();
 		private var log : ILogger = LoggerModelLocator.getInstance().log;
@@ -290,9 +290,10 @@ package org.blindsideproject.meetme.business
 		
 		public function sendNewMeetMeEvent():void
 		{
-			var event : NewMeetMeEvent = 
-					new NewMeetMeEvent(MeetMeEvents.USER_JOIN_EVENT);
-			dispatcher.dispatchEvent(event);
+			//var event : NewMeetMeEvent = 
+			//		new NewMeetMeEvent(MeetMeEvents.USER_JOIN_EVENT);
+			//dispatcher.dispatchEvent(event);
+			sendNotification(MeetMeModelLocator.USER_JOIN_EVENT);
 		}		
 	}
 }

@@ -27,6 +27,8 @@
 			[Bindable] private var unmuteAllIcon : Class = images.sound_none;
 			[Bindable] private var role : String = mainApp.conferenceApp.conference.me.role;
 			
+			public var userid:Number;
+			
 			public function dragEnterHandler(event:DragEvent):void
 	   		{
 	   			var dropTarget : Image = event.currentTarget as Image;
@@ -39,15 +41,14 @@
 	   		{
 	   			dropTargetIcon = images.door_open;
 	   			
-	   			var ejectEvent : EjectUserEvent = new EjectUserEvent(Number(event.dragSource.dataForFormat('userid')));
-   				ejectEvent.dispatch();
+   				userid = Number(event.dragSource.dataForFormat('userid'));
+				dispatchEvent(new Event(ListenersWindowMediator.EJECT_USER));
 	   		
 	   		}
 	   		
 		]]>
 	</mx:Script>
 	
-	<controller:MeetMeController/>
     	<mx:TileList id="participantsList" height="100%" width="100%" 
         	itemRenderer="org.blindsideproject.meetme.view.MeetMeUserItem"
             maxColumns="1" rowHeight="25" columnWidth="200" 
