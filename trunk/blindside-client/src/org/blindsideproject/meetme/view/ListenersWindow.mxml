@@ -16,7 +16,6 @@
 			import mx.controls.Image;	
 
 			import org.blindsideproject.views.general.Images;
-			import org.blindsideproject.meetme.events.*;	
 				
 			private var images : Images = new Images();
 			private var mainApp : BlindsideAppLocator = BlindsideAppLocator.getInstance();
