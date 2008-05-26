@@ -40,6 +40,7 @@ package org.bigbluebutton.modules.conference.model
 			ts.addTest( new ConferenceVOTest( "testGetParticipant" ) );
 			ts.addTest( new ConferenceVOTest( "testRemoveParticipant" ) );
 			ts.addTest( new ConferenceVOTest( "testRemoveAllParticipants" ) );
+			
    			return ts;
    		}
    		

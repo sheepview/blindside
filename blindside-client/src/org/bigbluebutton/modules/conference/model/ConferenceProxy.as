@@ -1,17 +1,20 @@
 package org.bigbluebutton.modules.conference.model
 {
-	import org.bigbluebutton.modules.conference.model.vo.ConferenceVO;
+	import org.bigbluebutton.modules.conference.ConferenceConstants;
+	import org.bigbluebutton.modules.conference.model.business.IConferenceDelegate;
+	import org.bigbluebutton.modules.conference.model.business.IConferenceService;
 	import org.puremvc.as3.multicore.interfaces.IProxy;
 	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
 
 	public class ConferenceProxy extends Proxy implements IProxy
 	{
 		public static const NAME : String			= 'ConferenceProxy';
-		private var confHost : String;
+		public var host : String = 'localhost';
 		
-		public function ConferenceProxy(host : String)
+		private
+		public function ConferenceProxy(confService : IConferenceService)
 		{
-			super(NAME, new ConferenceVO());
+			super(NAME);
 			confHost = host;
 		}
 		
@@ -33,7 +36,7 @@ package org.bigbluebutton.modules.conference.model
 		public login( user : UserVO ) : void
 		{
 			if ( ! loggedIn ) {
-				sendNotification( ConferenceConstants.LOGIN_ATTEMPT );
+				sendNotification( ConferenceConstants.JOIN_ATTEMPT );
 				userVO.username = user.username;
 				userVO.password = user.password;
 			} else {
@@ -45,18 +48,19 @@ package org.bigbluebutton.modules.conference.model
 		public function logout() : void
 		{
 			if ( loggedIn ) userVO = new UserVO();
-			sendNotification( ConferenceConstants.LOGGED_OUT );
+			sendNotification( ConferenceConstants.LEFT_CONFERENCE );
 		}
 		
 		private function loginSuccessful( userId : Number, authToken : String ) : void
 		{
 			setData( event.result );
-			sendNotification( ConferenceConstants.LOGIN_SUCCESS );
+			sendNotification( ConferenceConstants.JOINED_CONFERENCE );
 		}
 		
 		private function loginFailed( reason : String ) : void
 		{
-			sendNotification( ConferenceConstants.LOGIN_FAILED, reason );
+			sendNotification( ConferenceConstants.JOIN_FAILED, reason );
 		}
+  
 	}
 }
