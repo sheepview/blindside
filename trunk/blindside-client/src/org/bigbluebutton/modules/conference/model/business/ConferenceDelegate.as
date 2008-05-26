@@ -1,6 +1,8 @@
 package org.bigbluebutton.modules.conference.model.business
 {
+	import org.bigbluebutton.modules.conference.ConferenceConstants;
 	import org.bigbluebutton.modules.conference.model.vo.ConferenceVO;
+	import org.bigbluebutton.modules.conference.model.vo.UserVO;
 	
 	public class ConferenceDelegate implements IConferenceDelegate
 	{
@@ -14,7 +16,7 @@ package org.bigbluebutton.modules.conference.model.business
 			confService = service;
 		}
 
-		public function get conferenceModel : ConferenceVO
+		public function get conferenceModel() : ConferenceVO
 		{
 			return conferenceVO;
 		}
@@ -25,7 +27,7 @@ package org.bigbluebutton.modules.conference.model.business
    		 
    		public function joinSuccess(user : UserVO) : void
    		{
-			sendNotification( ConferenceConstants.JOINED_CONFERENCE );
+			sendNotification( ConferenceConstants.JOINED_CONFERENCE , user);
    		}
 
    		public function joinFailed(reason : String) : void
@@ -41,6 +43,11 @@ package org.bigbluebutton.modules.conference.model.business
    		public function connectFailed() : void
    		{
 
-   		}   		
+   		}   	
+   		
+   		public function leftConference() : void
+   		{
+   			
+   		}	
 	}
 }
