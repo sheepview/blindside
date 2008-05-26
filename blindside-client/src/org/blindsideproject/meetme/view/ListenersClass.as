@@ -8,7 +8,6 @@ package org.blindsideproject.meetme.view
 	
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
-	import org.blindsideproject.meetme.events.*;
 	import org.blindsideproject.meetme.model.MeetMeModelLocator;
 	import org.blindsideproject.meetme.model.MeetMeRoom;
 
