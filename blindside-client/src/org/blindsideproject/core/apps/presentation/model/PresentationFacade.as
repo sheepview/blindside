@@ -20,6 +20,8 @@ package org.blindsideproject.core.apps.presentation.model
 		public static const STARTUPLOADWINDOW:String = "start upload";
 		public static const START_PRESENTATION_APPLICATION:String = "start presentation app";
 		
+		public static const START_UPLOAD:String = "start upload";
+		
 		// List of Commands
 		public static const GOTO_PAGE_COMMAND : String = "PRESENTATION_GOTO_PAGE_COMMAND";	
 		public static const JOIN_COMMAND : String = "PRESENTATION_JOIN_COMMAND";
