@@ -344,6 +344,11 @@
 				<logback webapp="fitcDemo"/>
 			</copy-assets>
 		</build-demo>
+		<build-demo name="chatServer">
+			<copy-assets>
+				<logback webapp="chatServer"/>
+			</copy-assets>
+		</build-demo>
 		<build-demo name="midiDemo">
 			<copy-assets>
 				<logback webapp="midiDemo"/>
@@ -438,6 +443,7 @@
 			<fileset dir="${webapps.build.dir}/bwcheck/WEB-INF/classes"/>
 			<fileset dir="${webapps.build.dir}/echo/WEB-INF/classes"/>
 			<fileset dir="${webapps.build.dir}/fitcDemo/WEB-INF/classes"/>
+			<fileset dir="${webapps.build.dir}/chatServer/WEB-INF/classes"/>
 			<fileset dir="${webapps.build.dir}/oflaDemo/WEB-INF/classes"/>
 			<fileset dir="${webapps.build.dir}/tutorial/WEB-INF/classes"/>
 		</copy>
@@ -476,6 +482,7 @@
 		<compile-wardemo name="admin"/>
 		<compile-wardemo name="bwcheck"/>
 		<compile-wardemo name="fitcDemo"/>
+		<compile-wardemo name="chatServer"/>
 		<compile-wardemo name="echo"/>		
 		<compile-wardemo name="oflaDemo"/>
 		<compile-wardemo name="SOSample"/>
@@ -577,9 +584,10 @@
 		<!-- create jar files for demos -->
 		<compile-jardemo name="astmeetme"/>
 		<compile-jardemo name="bwcheck"/>
-		<compile-jardemo name="conference"/>	
+		<compile-jardemo name="conference"/>
 		<compile-jardemo name="echo"/>
 		<compile-jardemo name="fitcDemo"/>
+		<compile-jardemo name="chatServer"/>
 		<compile-jardemo name="midiDemo"/>
 		<compile-jardemo name="oflaDemo">
 			<copy-assets>
