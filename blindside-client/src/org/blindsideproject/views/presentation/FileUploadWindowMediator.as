@@ -7,6 +7,7 @@ package org.blindsideproject.views.presentation
 	import mx.controls.Alert;
 	import mx.managers.PopUpManager;
 	
+	import org.blindsideproject.core.apps.presentation.controller.notifiers.ProgressNotifier;
 	import org.blindsideproject.core.apps.presentation.model.PresentationFacade;
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
@@ -28,7 +29,7 @@ package org.blindsideproject.views.presentation
 		// Var to determine how to handle okCancelBtn click
 		private var okState : Boolean = false;
 		
-		public var isListening:Boolean;
+		public var isListening:Boolean = true;
 		
 		/**
 		 * The default constructor. Creates this mediator 
@@ -41,6 +42,7 @@ package org.blindsideproject.views.presentation
 			fileUploadWindow.addEventListener(START_UPLOAD, startUpload);
 			fileUploadWindow.addEventListener(CLOSE_UPLOAD_WINDOW, closeFileUploadWindow);
 			fileUploadWindow.addEventListener(SELECT_FILE, selectFile);
+			log.debug("FileUploadMediator Created");
 		}
 		
 		/**
@@ -108,6 +110,7 @@ package org.blindsideproject.views.presentation
 		 * 
 		 */		
 		override public function handleNotification(notification:INotification):void{
+			log.debug("Upload Mediator: notification : " + notification.getName());
 			if (isListening == false) return;
 			switch(notification.getName()){
 				case PresentationFacade.UPLOAD_COMPLETED_EVENT:
@@ -168,28 +171,29 @@ package org.blindsideproject.views.presentation
 		}
 		
 		private function handleConvertProgressEvent(note:INotification):void{
-			//var convertEvt : ConvertProgressEvent = ConvertProgressEvent(event);
+			var convertEvt:ProgressNotifier = note.getBody() as ProgressNotifier;
 
-			//fileUploadWindow.progressBar.label = "Converting slide " + convertEvt.completedSlides + " of " 
-			//		+ convertEvt.totalSlides + " slides.";
-			//fileUploadWindow.progressBar.setProgress(convertEvt.completedSlides, convertEvt.totalSlides);
-			//fileUploadWindow.progressBar.validateNow();
+			fileUploadWindow.progressBar.label = "Converting slide " + convertEvt.completedSlides + " of " 
+					+ convertEvt.totalSlides + " slides.";
+			fileUploadWindow.progressBar.setProgress(convertEvt.completedSlides, convertEvt.totalSlides);
+			fileUploadWindow.progressBar.validateNow();
 		}
 		
 		private function handleExtractProgressEvent(note:INotification):void{
-			//var extractEvt : ExtractProgressEvent = ExtractProgressEvent(event);
+			var extractEvt:ProgressNotifier = note.getBody() as ProgressNotifier;
 
-			//fileUploadWindow.progressBar.label = "Extracting slide " + extractEvt.completedSlides + " of " 
-			//		+ extractEvt.totalSlides + " slides.";
-			//fileUploadWindow.progressBar.setProgress(extractEvt.completedSlides, extractEvt.totalSlides);
-			//fileUploadWindow.progressBar.validateNow();
+			fileUploadWindow.progressBar.label = "Extracting slide " + extractEvt.completedSlides + " of " 
+					+ extractEvt.totalSlides + " slides.";
+			fileUploadWindow.progressBar.setProgress(extractEvt.completedSlides, extractEvt.totalSlides);
+			fileUploadWindow.progressBar.validateNow();
 		}
 		
 		private function handleUpdateProgressEvent(note:INotification):void{
-			fileUploadWindow.progressLbl.text = note.getName();
+			fileUploadWindow.progressLbl.text = note.getBody() as String;
 		}
 		
 		private function handleConvertSuccessEvent(note:INotification):void{
+			log.debug("UploadMediator:: Convert Success " + note.getBody() as String);
 			fileUploadWindow.okCancelBtn.label = "Ok";
 			fileUploadWindow.okCancelBtn.visible = true;
 			okState = true;

@@ -180,7 +180,7 @@ package org.blindsideproject.core.apps.presentation.business
 			{
 				case UPDATE_MESSAGE:
 					if (presentation.isPresenter) {
-//						log.debug( UPDATE_MESSAGE + " =[" + presentationSO.data.updateMessage.returnCode + "]");
+						log.debug( UPDATE_MESSAGE + " =[" + presentationSO.data.updateMessage.returnCode + "]");
 						processUpdateMessage(presentationSO.data.updateMessage.returnCode);
 					}
 					
@@ -253,6 +253,7 @@ package org.blindsideproject.core.apps.presentation.business
 				case SUCCESS_RC:
 					message = presentationSO.data.updateMessage.message;
 					sendNotification(PresentationFacade.CONVERT_SUCCESS_EVENT, message);
+					log.debug("PresentationDelegate - Success Note sent");
 					break;
 					
 				case UPDATE_RC:
@@ -267,7 +268,7 @@ package org.blindsideproject.core.apps.presentation.business
 				case EXTRACT_RC:
 					totalSlides = presentationSO.data.updateMessage.totalSlides;
 					completedSlides = presentationSO.data.updateMessage.completedSlides;
-//					log.debug( "EXTRACTING = [" + completedSlides + " of " + totalSlides + "]");
+					log.debug( "EXTRACTING = [" + completedSlides + " of " + totalSlides + "]");
 					
 					sendNotification(PresentationFacade.EXTRACT_PROGRESS_EVENT, 
 										new ProgressNotifier(totalSlides,completedSlides));
@@ -276,7 +277,7 @@ package org.blindsideproject.core.apps.presentation.business
 				case CONVERT_RC:
 					totalSlides = presentationSO.data.updateMessage.totalSlides;
 					completedSlides = presentationSO.data.updateMessage.completedSlides;
-//					log.debug( "CONVERTING = [" + completedSlides + " of " + totalSlides + "]");
+					log.debug( "CONVERTING = [" + completedSlides + " of " + totalSlides + "]");
 					
 					sendNotification(PresentationFacade.CONVERT_PROGRESS_EVENT,
 										new ProgressNotifier(totalSlides, completedSlides));							
