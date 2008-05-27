@@ -22,6 +22,15 @@ package org.bigbluebutton.modules.chat.controller
 		public function initializeNotifier(key:String):void
 		{
 		}
-		
+		/**
+		 * registers the mediator and proxy with the facade
+		 * @param notification
+		 * 
+		 */		
+		override public function execute(notification:INotification):void {
+			var app:BigBlueButton = notification.getBody() as BigBlueButton;
+			facade.registerMediator(new ApplicationMediator(app));
+			facade.registerProxy(new ChatProxy(app.chatWindow.messageVO));
+		}
 	}
 }
