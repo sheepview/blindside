@@ -12,6 +12,7 @@
 			import flexunit.framework.TestSuite;		
 			import org.bigbluebutton.modules.conference.model.ConferenceVOTest;
 			import org.bigbluebutton.modules.conference.model.ConferenceProxyTest;
+			import org.bigbluebutton.modules.chat.test.*;
 			
 			// After everything is built, configure the test
 			// runner to use the appropriate test suite and
@@ -32,6 +33,13 @@
  				ts.addTest( ConferenceVOTest.suite() );
  				ts.addTest( ConnectionServiceMockTest.suite() );
  				ts.addTest( ConferenceDelegateTest.suite() );
+ 				//Tests for chat module
+ 				ts.addTest( MessageVOTest.suite() );
+                ts.addTest( ChatProxyTest.suite() );
+                ts.addTest( ApplicationMediatorTest.suite() );
+                ts.addTest( ChatWindowMediatorTest.suite() );
+                ts.addTest( StartupCommandTest.suite() );
+                ts.addTest( ChatFacadeTest.suite() );     
  				return ts;
  			}
 			
