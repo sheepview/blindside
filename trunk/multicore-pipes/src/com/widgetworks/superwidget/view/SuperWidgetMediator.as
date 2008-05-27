@@ -41,7 +41,7 @@ package com.widgetworks.superwidget.view
 			var button:LinkButton = new LinkButton();
 			button.label = 'You poked the Super Widget! [ Click to Remove ]';
 			button.addEventListener( MouseEvent.CLICK, onComponentClick );
-
+			button.setStyle("color", "red");
 			var btnMsg : IPipeMessage = new Message("AddComponent", null, button);			
 			superWidget.mbus.outputPipe().write(btnMsg);
 			
