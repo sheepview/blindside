@@ -7,11 +7,12 @@ package org.blindsideproject.meetme.model
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
 	import org.blindsideproject.meetme.business.NetConnectionDelegate;
 	import org.blindsideproject.meetme.control.StartupMeetMeCommand;
+	import org.blindsideproject.meetme.view.ListenersWindow;
 	import org.puremvc.as3.multicore.interfaces.IFacade;
 	import org.puremvc.as3.multicore.patterns.facade.Facade;
 		
 	[Bindable]
-	public class MeetMeModelLocator extends Facade implements IFacade
+	public class MeetMeFacade extends Facade implements IFacade
 	{
 		public static const ID : String = "VoiceConferenceModelLocator";
 		public static const STARTUP:String = "StartupVoiceConference";
@@ -23,43 +24,37 @@ package org.blindsideproject.meetme.model
 		public static const USER_JOIN_EVENT:String = "User Join Event";
 		public static const MUTE_EVENT:String = "mute event";
 		
-		private static var instance : MeetMeModelLocator;
+		private static var instance : MeetMeFacade;
 		private var log : ILogger = LoggerModelLocator.getInstance().log;
 		
-		// Dispatcher to send events to UIs
-		private var dispatcher : CairngormEventDispatcher = CairngormEventDispatcher.getInstance();
-		
 		public var meetMeRoom : MeetMeRoom;
-		
-		private var conn : NetConnectionDelegate;
 				
-		public function MeetMeModelLocator()
+		public function MeetMeFacade()
 		{
 			super(ID);		
 		}
 		
-		public static function getInstance() : MeetMeModelLocator
+		public static function getInstance() : MeetMeFacade
 		{
-			if (instanceMap[ID] == null) instanceMap[ID] = new MeetMeModelLocator();
-			return instanceMap[ID] as MeetMeModelLocator;
+			if (instanceMap[ID] == null) instanceMap[ID] = new MeetMeFacade();
+			return instanceMap[ID] as MeetMeFacade;
 	   	}		
 	   	
 	   	override protected function initializeController():void{
 	   		super.initializeController();
 	   		registerCommand(STARTUP, StartupMeetMeCommand);
 	   	}
-		
-	   	private function initialize() : void
-	   	{		
-			meetMeRoom = new MeetMeRoom();
-	   	}	
+	   	
+	   	public function startup(app:ListenersWindow):void{
+	   		meetMeRoom = new MeetMeRoom();
+	   		sendNotification(STARTUP, app);
+	   		//meetMeRoom.getConnection().connect();
+	   	}
 	   	
 	   	// Had to create this to prevent stack overflow when done during initialize	 
 	   	public function setupMeetMeRoom(userRole : String) : void
 	   	{
-			
 			meetMeRoom.userRole = userRole;
-			conn = new NetConnectionDelegate(meetMeRoom);	 		
 	   	}  	
 
 		public function connectToMeetMe() : void
@@ -70,11 +65,6 @@ package org.blindsideproject.meetme.model
 	   	public function getMeetMeRoom() : MeetMeRoom
 	   	{
 	   		return meetMeRoom;
-	   	}
-	   		   	
-	   	public function getDispatcher() : CairngormEventDispatcher
-	   	{
-	   		return dispatcher;
 	   	}
 	}
 }

@@ -8,14 +8,13 @@ package org.blindsideproject.meetme.view
 	
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
-	import org.blindsideproject.meetme.model.MeetMeModelLocator;
+	import org.blindsideproject.meetme.model.MeetMeFacade;
 	import org.blindsideproject.meetme.model.MeetMeRoom;
 
 	
 	public class ListenersClass extends MDIWindow
 	{
-		private var model : MeetMeModelLocator = MeetMeModelLocator.getInstance();
-		private var dispatcher : CairngormEventDispatcher = model.getDispatcher();
+		private var model : MeetMeFacade = MeetMeFacade.getInstance();
 		private var log : ILogger = LoggerModelLocator.getInstance().log;
 		
 		

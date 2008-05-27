@@ -1,7 +1,5 @@
 package org.blindsideproject.meetme.business
 {
-	import com.adobe.cairngorm.control.CairngormEventDispatcher;
-	
 	import flash.events.AsyncErrorEvent;
 	import flash.events.NetStatusEvent;
 	import flash.events.SyncEvent;
@@ -13,17 +11,18 @@ package org.blindsideproject.meetme.business
 	
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
-	import org.blindsideproject.meetme.model.MeetMeModelLocator;
+	import org.blindsideproject.meetme.model.MeetMeFacade;
 	import org.blindsideproject.meetme.model.MeetMeRoom;
 	import org.blindsideproject.meetme.vo.MeetMeUser;
-	import org.puremvc.as3.multicore.interfaces.IMediator;
-	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
+	import org.puremvc.as3.multicore.interfaces.IProxy;
+	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
 			
-	public class MeetMeConnectResponder extends Mediator implements IResponder, IMediator
+	public class MeetMeConnectResponder extends Proxy implements IResponder, IProxy
 	{
-		private var model : MeetMeModelLocator = MeetMeModelLocator.getInstance();
+		public static const NAME:String = "MeetMeConnectResponder";
+		
+		private var model : MeetMeFacade = MeetMeFacade.getInstance();
 		private var log : ILogger = LoggerModelLocator.getInstance().log;
-		private var dispatcher : CairngormEventDispatcher = model.getDispatcher();
 		
 		private var meetMeRoom : MeetMeRoom;
 		private var participantsSO : SharedObject;
@@ -31,6 +30,7 @@ package org.blindsideproject.meetme.business
 				
 		public function MeetMeConnectResponder(meetMeRoom : MeetMeRoom)
 		{
+			super(NAME);
 			this.meetMeRoom = meetMeRoom;
 		}		
 		
@@ -181,6 +181,7 @@ package org.blindsideproject.meetme.business
 
 		public function userTalk(userId : Number, talk : Boolean) : void
 		{
+			log.debug("User Talking");
 			if (participants == null) return;
 			
 			for (var i:int = 0; i < participants.length; i++)
@@ -264,7 +265,8 @@ package org.blindsideproject.meetme.business
 			}			
 
 			participants.sortOn("callerName", Array.CASEINSENSITIVE);
-				
+			
+			log.debug("Getting users for refresh");
 			meetMeRoom.dpParticipants = new ArrayCollection(participants);
 			meetMeRoom.dpParticipants.refresh();
 		}
@@ -290,10 +292,11 @@ package org.blindsideproject.meetme.business
 		
 		public function sendNewMeetMeEvent():void
 		{
+			log.debug("Got to sendMeetMeEvent");
 			//var event : NewMeetMeEvent = 
 			//		new NewMeetMeEvent(MeetMeEvents.USER_JOIN_EVENT);
 			//dispatcher.dispatchEvent(event);
-			sendNotification(MeetMeModelLocator.USER_JOIN_EVENT);
+			sendNotification(MeetMeFacade.USER_JOIN_EVENT);
 		}		
 	}
 }

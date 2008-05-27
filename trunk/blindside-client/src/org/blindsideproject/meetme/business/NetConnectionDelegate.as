@@ -1,28 +1,35 @@
 package org.blindsideproject.meetme.business
 {
-	import org.blindsideproject.meetme.model.MeetMeRoom;
-	import org.blindsideproject.meetme.model.MeetMeModelLocator;
-	import mx.rpc.IResponder;
-	import flash.net.NetConnection;
 	import flash.events.*;
+	import flash.net.NetConnection;
+	
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
+	import org.blindsideproject.meetme.model.MeetMeFacade;
+	import org.blindsideproject.meetme.model.MeetMeRoom;
+	import org.puremvc.as3.multicore.interfaces.IProxy;
+	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
 		
-	public class NetConnectionDelegate
+	public class NetConnectionDelegate extends Proxy implements IProxy
 	{
-		private var model : MeetMeModelLocator = MeetMeModelLocator.getInstance();
-		private var log : ILogger = LoggerModelLocator.getInstance().log;
+		public static const NAME:String = "NetConnectionDelegate";
 		
-		private var responder : MeetMeConnectResponder;		
+		private var model : MeetMeFacade = MeetMeFacade.getInstance();
+		private var log : ILogger = LoggerModelLocator.getInstance().log;
+			
 		private var netConnection : NetConnection;	
 		private var meetmeRoom : MeetMeRoom;
 		private var roomNumber : String;
 					
 		public function NetConnectionDelegate(meetmeRoom : MeetMeRoom)
 		{
+			super(NAME);
 			this.meetmeRoom = meetmeRoom;
-			responder = new MeetMeConnectResponder(meetmeRoom);
 			meetmeRoom.setConnectionDelegate(this);
+		}
+		
+		public function get responder():MeetMeConnectResponder{
+			return facade.retrieveProxy(MeetMeConnectResponder.NAME) as MeetMeConnectResponder;
 		}
 
 		public function connect() : void

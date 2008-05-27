@@ -1,17 +1,11 @@
 package org.blindsideproject.meetme.model
 {
-	import com.adobe.cairngorm.control.CairngormEventDispatcher;
-	import com.adobe.cairngorm.control.CairngormEvent;
+	import mx.collections.ArrayCollection;
 	
 	import org.blindsideproject.meetme.business.NetConnectionDelegate;
-
-	import flash.events.Event;
-	import mx.collections.ArrayCollection;
  	
 	public class MeetMeRoom
 	{
-		// Dispatcher to send events to UIs
-		public var dispatcher : CairngormEventDispatcher = CairngormEventDispatcher.getInstance();
 					
 		[Bindable]
 		public var isConnected : Boolean;
@@ -48,7 +42,7 @@ package org.blindsideproject.meetme.model
 		}
 		
 		public function getConnection() : NetConnectionDelegate {
-			return netConnection;
+			return MeetMeFacade.getInstance().retrieveProxy(NetConnectionDelegate.NAME) as NetConnectionDelegate;
 		}
 
 		public function sendConnectedEvent():void

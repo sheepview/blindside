@@ -3,7 +3,7 @@ package org.blindsideproject.meetme.view
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
 	import org.blindsideproject.meetme.control.notifiers.MuteNotifier;
-	import org.blindsideproject.meetme.model.MeetMeModelLocator;
+	import org.blindsideproject.meetme.model.MeetMeFacade;
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
@@ -17,6 +17,7 @@ package org.blindsideproject.meetme.view
 		
 		public function MeetMeUserItemMediator(view:MeetMeUserItem)
 		{
+			log.debug("MeetMeUserMediator");
 			super(NAME, view);
 			view.addEventListener(MUTE_UNMUTE_USER, muteUnmuteUser);
 		}
@@ -27,13 +28,13 @@ package org.blindsideproject.meetme.view
 		
 		override public function listNotificationInterests():Array{
 			return [
-					MeetMeModelLocator.USER_JOIN_EVENT
+					MeetMeFacade.USER_JOIN_EVENT
 					];
 		}
 		
 		override public function handleNotification(notification:INotification):void{
 			switch(notification.getName()){
-				case MeetMeModelLocator.USER_JOIN_EVENT:
+				case MeetMeFacade.USER_JOIN_EVENT:
 					onNewMeetMeEvent(notification);
 					break;
 			}
@@ -45,7 +46,7 @@ package org.blindsideproject.meetme.view
    			
    			//var muteEvent : MuteUnmuteUserEvent = new MuteUnmuteUserEvent(data.userid, !data.isMuted);
    			//muteEvent.dispatch();
-   			sendNotification(MeetMeModelLocator.MUTE_EVENT, new MuteNotifier(meetMeUserItem.data.userid, !meetMeUserItem.data.isMuted));
+   			sendNotification(MeetMeFacade.MUTE_EVENT, new MuteNotifier(meetMeUserItem.data.userid, !meetMeUserItem.data.isMuted));
    			
    			log.debug("MeetMeUserItem::muteUnmuteUser : [" + meetMeUserItem.data.userid + "," + !meetMeUserItem.data.isMuted + "]");
    		}
@@ -65,7 +66,7 @@ package org.blindsideproject.meetme.view
    			
    			//var ejectEvent : EjectUserEvent = new EjectUserEvent(data.userid);
    			//ejectEvent.dispatch();
-   			sendNotification(MeetMeModelLocator.EJECT_USER_COMMAND, meetMeUserItem.data.userid);
+   			sendNotification(MeetMeFacade.EJECT_USER_COMMAND, meetMeUserItem.data.userid);
    			
    			log.debug("MeetMeUserItem::ejectUser : [" + meetMeUserItem.data.userid + "]");
    		}
