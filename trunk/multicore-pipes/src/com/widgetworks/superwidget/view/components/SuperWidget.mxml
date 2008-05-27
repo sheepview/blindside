@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+  Modularity - A PureMVC AS3 MultiCore Flex Demo
+  Copyright(c) 2008 Cliff Hall <clifford.hall@puremvc.org>
+  Your reuse is governed by the Creative Commons Attribution 3.0 License
+ -->
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" 
+	implements="org.puremvc.as3.multicore.demos.flex.modularity.interfaces.IWidget"
+	creationComplete="initializeWidget( )"
+	layout="absolute">
+	
+	<mx:Metadata>
+		[Event('poke')]	
+	</mx:Metadata>
+	
+	<mx:Script>
+		<![CDATA[
+			import org.puremvc.as3.multicore.demos.flex.modularity.interfaces.MessageBus;
+			import com.widgetworks.superwidget.ApplicationFacade;
+			
+			// URI for this widget. Must be unique
+			public static const WIDGET_URI:String = "http://widgetworks.com/SuperWidget/";
+			
+			// Constants for the events this component dispatches. 
+			public static const POKE:String='poke';
+			
+			public var mbus:MessageBus;
+						
+			public function setMessageBus( bus : MessageBus ) : void
+			{
+				mbus = bus;
+			}
+			
+			// The unique key for this widget instance
+			public function getWidgetKey():String
+			{
+				return WIDGET_URI+this.id
+			}
+			
+			/**
+			 * Startup the widget using the multiton key passed in.
+			 */
+			public function initializeWidget( ):void
+			{
+				ApplicationFacade.getInstance( getWidgetKey() ).startup(this);
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Button label="SuperWidget" click="dispatchEvent(new Event(POKE,true));"/>
+	
+</mx:Module>
+
