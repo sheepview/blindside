@@ -60,8 +60,9 @@ public class ChatSharedObjectListener implements ISharedObjectListener {
 	@Override
 	public void onSharedObjectSend(ISharedObjectBase so, String method,
 			List params) {
-		//System.out.println("\n\n" + (String)params.get(0) + "\n\n");
-	 	 
+		
+	 	// newMessage method is called by client when sending new chat message
+		// store chat message only when newMessage is called
 		if(method.equals("newMessage")){
 			
 			chatLog.append("[" + new Time(System.currentTimeMillis())+ "] "+(String)params.get(0));

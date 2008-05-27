@@ -35,7 +35,8 @@ public class Application extends ApplicationAdapter
 	boolean debugMode = true;
 	
 	  /** 
-	   * Called once on scope start. overrides MultiThreadedApplicationAdapter.appStart(IScope).
+	   * This method is called once on scope start. overrides MultiThreadedApplicationAdapter.appStart(IScope).
+	   * Since this is the Application start handler method, all the initialization tasks that the server application needs, have to go here.
 	   *  
 	   * @param app the Application scope
 	   * @return true if Application can be started, or esle false
@@ -52,7 +53,8 @@ public class Application extends ApplicationAdapter
 	  }
 	  
 	  /**
-	   * Automatically Called when chatServer is stopped
+	   * This method is automatically called when chat Server application is stopped. 
+	   * The tasks that are needed to be done before exiting the server, have to go here.
 	   * 
 	   */
 	  public void appStop ()
@@ -94,7 +96,7 @@ public class Application extends ApplicationAdapter
 	      return true;            
 	  }
 	  /**
-	   * Called every time client leaves room scope.
+	   * This method is called every time client leaves room scope. Developer can add tasks here that are needed to be executed when a client disconnects from the server.
 	   * @param client chat client
 	   * @param room room scope
 	   * @return
@@ -118,8 +120,9 @@ public class Application extends ApplicationAdapter
 		  return true;
 	  } 
 	  /**
-	   * Called every time new client connects to the application. 
-	   * The server invokes setChatLog() method remotely to send chat history to the new client
+	   * This method is called every time new client connects to the application. NetConnection.connect() call from client side, call this function in server side.
+	   * It also takes parameters from the client. This method is a powerful handler method which allows developers to add tasks here that needs to be done every time a new client connects to the server. 
+	   * In this method, server invokes setChatLog() method remotely to send chat history to the new client
 	   * @param conn the connection between server and client
 	   * 
 	   * @param params parameter array passed from client
@@ -131,7 +134,7 @@ public class Application extends ApplicationAdapter
 		  if (conn instanceof IServiceCapableConnection) {
 			  IServiceCapableConnection sc = (IServiceCapableConnection) conn;
 			  String chatLog = chatListener.getChatLog();
-
+			  // call client method remotely to send chat Log
 			  sc.invoke("setChatLog", new Object[]{chatLog});
 		  }
 		  
