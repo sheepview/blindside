@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+  Modularity - A PureMVC AS3 MultiCore Flex Demo
+  Copyright(c) 2008 Cliff Hall <clifford.hall@puremvc.org>
+  Your reuse is governed by the Creative Commons Attribution 3.0 License
+ -->
+<mx:Application 
+	xmlns:view="org.puremvc.as3.multicore.demos.flex.modularity.view.components.*"
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	pageTitle="Modularity - A PureMVC AS3 MultiCore Demo"
+	paddingTop="70" paddingBottom="0" paddingRight="0" paddingLeft="0"
+	backgroundGradientColors="[#325EC0,#FFFFFF]"
+	viewSourceURL="srcview/index.html"
+	backgroundColor="#FFFFFF" 
+	themeColor="HaloBlue" 
+	layout="vertical"
+	creationComplete="facade.startup(this)"
+	>
+	
+	<mx:Script>
+		<![CDATA[
+			import org.puremvc.as3.multicore.demos.flex.modularity.ApplicationFacade;
+			public static const NAME:String = 'Modularity';
+			protected var facade:ApplicationFacade = ApplicationFacade.getInstance( NAME );		
+		]]>
+	</mx:Script>
+
+	<!-- Widget Shell -->	
+	<view:WidgetShell id="widgetShell"/>
+	
+	<!-- Widget Canvas -->
+	<view:WidgetCanvas id="widgetCanvas"/>	
+		
+</mx:Application>
