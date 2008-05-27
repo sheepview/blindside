@@ -1,5 +1,12 @@
 package org.blindsideproject.conference;
 
+/**
+ * Role class keeps enum values of the different roles that the user can take in the conference room.
+ * 
+ * @author ritzalam
+ *
+ */
+
 public enum Role {
 	VIEWER (0, "VIEWER"),
 	MODERATOR (1, "MODERATOR"),
