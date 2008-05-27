@@ -1,10 +1,11 @@
 package org.puremvc.as3.multicore.demos.flex.modularity.interfaces
 {
 	import org.puremvc.as3.multicore.utilities.pipes.interfaces.IPipeFitting;
+	import org.puremvc.as3.multicore.utilities.pipes.plumbing.Junction;
 	import org.puremvc.as3.multicore.utilities.pipes.plumbing.Pipe;
 	import org.puremvc.as3.multicore.utilities.pipes.plumbing.PipeListener;
 	
-	public class MessageBus
+	public class MessageBus extends Junction
 	{
 		private var outPipe : IPipeFitting = new Pipe();
 		

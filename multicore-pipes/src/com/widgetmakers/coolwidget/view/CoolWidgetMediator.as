@@ -37,7 +37,7 @@ package com.widgetmakers.coolwidget.view
 			var button:Button = new Button();
 			button.label = 'You prodded the Cool Widget! [ Click to Remove ]';
 			button.addEventListener( MouseEvent.CLICK, onComponentClick );
-			
+			button.setStyle("color", "blue");
 			var btnMsg : IPipeMessage = new Message("AddComponent", null, button);			
 			coolWidget.mbus.outputPipe().write(btnMsg);
 			
