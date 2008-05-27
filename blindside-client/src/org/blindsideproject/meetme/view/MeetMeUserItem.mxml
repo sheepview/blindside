@@ -24,8 +24,7 @@
 			
 		private var userRole : String = confModel.conference.me.role;
 					
-		private var model : MeetMeModelLocator = MeetMeModelLocator.getInstance();
-		private var dispatcher : CairngormEventDispatcher = model.getDispatcher();
+		private var model : MeetMeFacade = MeetMeFacade.getInstance();
 		private var log : ILogger = LoggerModelLocator.getInstance().log;
    		
    		private var images : Images = new Images();
@@ -39,7 +38,9 @@
    		
    		private function initParticipantItem() : void
    		{
+   			log.debug("Init MeetMeUserItem");
    			displayStatusIcon();
+   			MeetMeFacade.getInstance().registerMediator(new MeetMeUserItemMediator(this));
    		}
    		   		
    		public function displayStatusIcon() : void

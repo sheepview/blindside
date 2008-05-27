@@ -1,7 +1,7 @@
 package org.blindsideproject.meetme.view
 {
 	import mx.containers.Box;
-	import org.blindsideproject.meetme.model.MeetMeModelLocator;
+	import org.blindsideproject.meetme.model.MeetMeFacade;
 	import org.blindsideproject.meetme.model.MeetMeRoom;
 	import org.blindsideproject.meetme.business.NetConnectionDelegate;
 	import org.blindsideproject.meetme.events.*;
@@ -15,7 +15,7 @@ package org.blindsideproject.meetme.view
 	
 	public class MeetMeUserListClass extends SuperPanel
 	{
-		private var model : MeetMeModelLocator = MeetMeModelLocator.getInstance();
+		private var model : MeetMeFacade = MeetMeFacade.getInstance();
 		private var dispatcher : CairngormEventDispatcher = model.getDispatcher();
 		private var log : ILogger = LoggerModelLocator.getInstance().log;
 		

@@ -8,8 +8,8 @@ package org.bigbluebutton.modules.chat.test
 	{
 		
 		public var messageVO:MessageVO = new MessageVO();
-		messageVO.message = "Hello";
-		messageVO.color = 0x000;
+		//messageVO.message = "Hello";
+		//messageVO.color = 0x000; 
 		public function MessageVOTest(methodName:String=null)
 		{
 			super(methodName);

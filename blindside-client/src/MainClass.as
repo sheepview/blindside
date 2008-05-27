@@ -19,7 +19,7 @@ import org.blindsideproject.core.apps.presentation.model.PresentationFacade;
 import org.blindsideproject.core.util.log.ILogger;
 import org.blindsideproject.core.util.log.LoggerModelLocator;
 import org.blindsideproject.main.*;
-import org.blindsideproject.meetme.model.MeetMeModelLocator;
+import org.blindsideproject.meetme.model.MeetMeFacade;
 import org.blindsideproject.meetme.view.ListenersWindow;
 import org.blindsideproject.views.chat.ChatWindow;
 import org.blindsideproject.views.conference.ViewersWindow;
@@ -46,7 +46,7 @@ private var effectsList:Array;
 	private var model : ConferenceModelLocator = ConferenceModelLocator.getInstance();
 	private var dispatcher : CairngormEventDispatcher = CairngormEventDispatcher.getInstance();
 	private var log : ILogger = LoggerModelLocator.getInstance().log;
-	private var meetMeModel : MeetMeModelLocator = MeetMeModelLocator.getInstance();
+	private var meetMeModel : MeetMeFacade = MeetMeFacade.getInstance();
 	private var mainApp : BlindsideAppLocator = BlindsideAppLocator.getInstance();
 		
 	private var presentationApp : PresentationApplication;
@@ -132,6 +132,14 @@ private var effectsList:Array;
 	{	
 		log.debug("Logged in. Initializing conference.");
 	
+		listenersWindow = new ListenersWindow();
+		listenersWindow.width = 210;
+		listenersWindow.height = 200;
+		listenersWindow.title = "Listeners";
+		listenersWindow.showCloseButton = false;
+		mdiCanvas.windowManager.add(listenersWindow);
+		mdiCanvas.windowManager.absPos(listenersWindow, 20, 250);
+		meetMeModel.startup(listenersWindow);
 	   	meetMeModel.setupMeetMeRoom(model.conference.me.role);	   		
 		meetMeModel.meetMeRoom.setUri("rtmp://" + red5Host + "/astmeetme/" + model.conference.room);	
 		meetMeModel.connectToMeetMe();
@@ -174,14 +182,6 @@ private var effectsList:Array;
 			toolbar.phoneBtn.visible = true;
 			toolbar.asteriskHost = asteriskHost;
 		}
-		
-		listenersWindow = new ListenersWindow();
-		listenersWindow.width = 210;
-		listenersWindow.height = 200;
-		listenersWindow.title = "Listeners";
-		listenersWindow.showCloseButton = false;
-		mdiCanvas.windowManager.add(listenersWindow);
-		mdiCanvas.windowManager.absPos(listenersWindow, 20, 250);
 
 /*
 		presentationPanel = new PresentationPanel();
