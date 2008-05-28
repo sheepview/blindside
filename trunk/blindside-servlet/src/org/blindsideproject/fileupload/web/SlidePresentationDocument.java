@@ -30,6 +30,13 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.Session;
 
+/**
+ * This class is used to 
+ * 
+ * @author kthiruka
+ *
+ */
+
 
 public class SlidePresentationDocument {
     private static Log log = LogFactory.getLog(SlidePresentationDocument.class);
@@ -40,7 +47,9 @@ public class SlidePresentationDocument {
     private PptToSwfDocumentHandler pptToSwfHandler = null;
     private PdfToSwfDocumentHandler pdfToSwfHandler = null;
     
+   
     private File uploadedFile = null;
+    // directory of the file to be uploaded to memory from file System
     private File destDir = null;
     private Integer room;
     

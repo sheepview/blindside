@@ -25,3 +25,4 @@ public interface ISlideDatabase {
 	
 	public void clearDatabase();
 }
+ 
