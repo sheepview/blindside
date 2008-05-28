@@ -1,25 +1,23 @@
-package org.blindsideproject.meetme.view
+package org.bigbluebutton.modules.meetme.view
 {
-	import com.adobe.cairngorm.control.CairngormEventDispatcher;
-	
 	import flexlib.mdi.containers.MDIWindow;
 	
 	import mx.controls.TileList;
 	
+	import org.bigbluebutton.modules.meetme.model.MeetMeFacade;
+	import org.bigbluebutton.modules.meetme.model.MeetMeRoom;
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
-	import org.blindsideproject.meetme.model.MeetMeFacade;
-	import org.blindsideproject.meetme.model.MeetMeRoom;
 
 	
 	public class ListenersClass extends MDIWindow
 	{
-		private var model : MeetMeFacade = MeetMeFacade.getInstance();
+		private var model:MeetMeFacade = MeetMeFacade.getInstance();
 		private var log : ILogger = LoggerModelLocator.getInstance().log;
 		
 		
 		[Bindable]
-		public var meetMeRoom : MeetMeRoom = model.meetMeRoom;;
+		public var meetMeRoom:MeetMeRoom = model.meetMeRoom;;
 		
 		[Bindable] 
 		public var participantsList:TileList; 

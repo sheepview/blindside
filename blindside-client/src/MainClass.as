@@ -11,16 +11,15 @@ import mx.core.Application;
 import mx.events.CloseEvent;
 import mx.managers.PopUpManager;
 
+import org.bigbluebutton.modules.meetme.model.MeetMeFacade;
+import org.bigbluebutton.modules.meetme.view.ListenersWindow;
 import org.blindsideproject.core.apps.chat.ChatApplication;
 import org.blindsideproject.core.apps.conference.ConferenceApplication;
 import org.blindsideproject.core.apps.conference.model.*;
 import org.blindsideproject.core.apps.presentation.PresentationApplication;
-import org.blindsideproject.core.apps.presentation.model.PresentationFacade;
 import org.blindsideproject.core.util.log.ILogger;
 import org.blindsideproject.core.util.log.LoggerModelLocator;
 import org.blindsideproject.main.*;
-import org.blindsideproject.meetme.model.MeetMeFacade;
-import org.blindsideproject.meetme.view.ListenersWindow;
 import org.blindsideproject.views.chat.ChatWindow;
 import org.blindsideproject.views.conference.ViewersWindow;
 import org.blindsideproject.views.control.events.OpenWindowEvent;
@@ -36,7 +35,7 @@ private var effectsList:Array;
 						 
 	private var joinWindow : JoinWindow;
 	private var chatWindow : ChatWindow;
-	private var listenersWindow : ListenersWindow;
+	private var listenersWindow:ListenersWindow;
 	private var presentationWindow : PresentationWindow;
 	private var presentationPanel : PresentationPanel;
 	private var viewersWindow : ViewersWindow;
@@ -46,7 +45,7 @@ private var effectsList:Array;
 	private var model : ConferenceModelLocator = ConferenceModelLocator.getInstance();
 	private var dispatcher : CairngormEventDispatcher = CairngormEventDispatcher.getInstance();
 	private var log : ILogger = LoggerModelLocator.getInstance().log;
-	private var meetMeModel : MeetMeFacade = MeetMeFacade.getInstance();
+	private var meetMeModel:MeetMeFacade = MeetMeFacade.getInstance();
 	private var mainApp : BlindsideAppLocator = BlindsideAppLocator.getInstance();
 		
 	private var presentationApp : PresentationApplication;

@@ -1,11 +1,10 @@
-package org.blindsideproject.meetme.control
+package org.bigbluebutton.modules.meetme.control
 {
-	import org.blindsideproject.meetme.business.MeetMeConnectResponder;
-	import org.blindsideproject.meetme.business.NetConnectionDelegate;
-	import org.blindsideproject.meetme.model.MeetMeFacade;
-	import org.blindsideproject.meetme.view.ListenersWindow;
-	import org.blindsideproject.meetme.view.ListenersWindowMediator;
-	import org.blindsideproject.meetme.view.MeetMeUserItemMediator;
+	import org.bigbluebutton.modules.meetme.business.MeetMeConnectResponder;
+	import org.bigbluebutton.modules.meetme.business.NetConnectionDelegate;
+	import org.bigbluebutton.modules.meetme.model.MeetMeFacade;
+	import org.bigbluebutton.modules.meetme.view.ListenersWindow;
+	import org.bigbluebutton.modules.meetme.view.ListenersWindowMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.command.SimpleCommand;
 	

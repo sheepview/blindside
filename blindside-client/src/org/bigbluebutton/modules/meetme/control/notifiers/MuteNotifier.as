@@ -1,4 +1,4 @@
-package org.blindsideproject.meetme.control.notifiers
+package org.bigbluebutton.modules.meetme.control.notifiers
 {
 	public class MuteNotifier
 	{

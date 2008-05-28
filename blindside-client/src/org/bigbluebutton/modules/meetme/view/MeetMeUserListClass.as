@@ -1,4 +1,4 @@
-package org.blindsideproject.meetme.view
+package org.bigbluebutton.modules.meetme.view
 {
 	import mx.containers.Box;
 	import org.blindsideproject.meetme.model.MeetMeFacade;
