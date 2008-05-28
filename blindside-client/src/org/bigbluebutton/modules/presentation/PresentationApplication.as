@@ -1,4 +1,4 @@
-package org.blindsideproject.core.apps.presentation
+package org.bigbluebutton.modules.presentation
 {
 				
 	import flash.net.FileReference;
@@ -8,19 +8,19 @@ package org.blindsideproject.core.apps.presentation
 	import mx.rpc.IResponder;
 	import mx.utils.ArrayUtil;
 	
-	import org.blindsideproject.core.apps.presentation.business.PresentationDelegate;
-	import org.blindsideproject.core.apps.presentation.model.PresentationFacade;
-	import org.blindsideproject.core.apps.presentation.model.PresentationModel;
-	import org.blindsideproject.core.apps.presentation.services.FileUploadService;
-	import org.blindsideproject.core.apps.presentation.services.PresentationService;
-	import org.blindsideproject.core.apps.presentation.vo.SlidesDeck;
+	import org.bigbluebutton.modules.presentation.business.PresentationDelegate;
+	import org.bigbluebutton.modules.presentation.model.PresentationFacade;
+	import org.bigbluebutton.modules.presentation.model.PresentationModel;
+	import org.bigbluebutton.modules.presentation.services.FileUploadService;
+	import org.bigbluebutton.modules.presentation.services.PresentationService;
+	import org.bigbluebutton.modules.presentation.vo.SlidesDeck;
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
 						
 	public class PresentationApplication extends Mediator implements IMediator, IResponder
 	{
-		public var model : PresentationModel; 
+		public var model:PresentationModel; 
 		public static const NAME:String = "PresentationApplication";
 
 		private var _url : String;
@@ -111,7 +111,7 @@ package org.blindsideproject.core.apps.presentation
 		    
 		    while (!cursor.afterLast)
 		    {
-		    	var deck : SlidesDeck = new SlidesDeck(cursor.current);
+		    	var deck:SlidesDeck = new SlidesDeck(cursor.current);
 		    	//log.debug("Got gallery [" + deck.title + "]");
 				model.newDeckOfSlides(deck);
 		        cursor.moveNext();

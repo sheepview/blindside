@@ -1,10 +1,9 @@
-package org.blindsideproject.core.apps.presentation.business
+package org.bigbluebutton.modules.presentation.business
 {
-	import mx.rpc.IResponder;
+	import flash.events.*;
 	import flash.net.NetConnection;
-	import flash.events.*; 
-		
-	import org.blindsideproject.core.apps.presentation.model.PresentationFacade;
+	
+	import org.bigbluebutton.modules.presentation.model.PresentationFacade;
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
 		
@@ -12,7 +11,7 @@ package org.blindsideproject.core.apps.presentation.business
 	{
 		public static const ID : String = "Presentation.NetConnectionDelegate";
 		
-		private var model : PresentationFacade = PresentationFacade.getInstance();
+		private var model:PresentationFacade = PresentationFacade.getInstance();
 		private var log : ILogger = LoggerModelLocator.getInstance().log;
 		
 		private var _delegate : PresentationDelegate;

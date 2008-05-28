@@ -1,4 +1,4 @@
-package org.blindsideproject.core.apps.presentation.vo
+package org.bigbluebutton.modules.presentation.vo
 {
 	import org.blindsideproject.core.util.log.*;
 	

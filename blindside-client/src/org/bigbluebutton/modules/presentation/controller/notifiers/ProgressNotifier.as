@@ -1,4 +1,4 @@
-package org.blindsideproject.core.apps.presentation.controller.notifiers
+package org.bigbluebutton.modules.presentation.controller.notifiers
 {
 	public class ProgressNotifier
 	{

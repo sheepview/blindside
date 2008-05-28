@@ -1,4 +1,4 @@
-package org.blindsideproject.core.apps.presentation.controller
+package org.bigbluebutton.modules.presentation.controller
 {
 	import org.puremvc.as3.multicore.patterns.command.MacroCommand;
 	

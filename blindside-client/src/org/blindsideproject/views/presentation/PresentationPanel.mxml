@@ -10,6 +10,8 @@
 
 	<mx:Script>
 		<![CDATA[
+			import org.bigbluebutton.modules.presentation.vo.SlidesDeck;
+			import org.bigbluebutton.modules.presentation.model.PresentationFacade;
 			
 			import org.blindsideproject.main.BlindsideAppLocator;
 			import mx.binding.utils.BindingUtils;
@@ -17,7 +19,6 @@
 			import org.blindsideproject.core.util.log.ILogger;
 			import org.blindsideproject.core.util.log.LoggerModelLocator;
 						
-			import org.blindsideproject.core.apps.presentation.vo.SlidesDeck;
 			import org.blindsideproject.core.apps.presentation.model.*;
 			import org.blindsideproject.views.general.Images;
 
@@ -39,10 +40,10 @@
 			[Bindable] private var sharingTooltip : String = "Share presentation";		
 			[Bindable] public var presenterIcon : Class = images.user_gray;
 			
-			[Bindable] public var model : PresentationFacade = PresentationFacade.getInstance(); 
+			[Bindable] public var model:PresentationFacade = PresentationFacade.getInstance(); 
 			public var log : ILogger = LoggerModelLocator.getInstance().log;
 						
-			[Bindable] private var deck : SlidesDeck = model.presentation.decks;
+			[Bindable] private var deck:SlidesDeck = model.presentation.decks;
 			
 			public var uploadWindow : FileUploadWindow;
 

@@ -13,10 +13,10 @@ import mx.managers.PopUpManager;
 
 import org.bigbluebutton.modules.meetme.model.MeetMeFacade;
 import org.bigbluebutton.modules.meetme.view.ListenersWindow;
+import org.bigbluebutton.modules.presentation.PresentationApplication;
 import org.blindsideproject.core.apps.chat.ChatApplication;
 import org.blindsideproject.core.apps.conference.ConferenceApplication;
 import org.blindsideproject.core.apps.conference.model.*;
-import org.blindsideproject.core.apps.presentation.PresentationApplication;
 import org.blindsideproject.core.util.log.ILogger;
 import org.blindsideproject.core.util.log.LoggerModelLocator;
 import org.blindsideproject.main.*;
@@ -48,7 +48,7 @@ private var effectsList:Array;
 	private var meetMeModel:MeetMeFacade = MeetMeFacade.getInstance();
 	private var mainApp : BlindsideAppLocator = BlindsideAppLocator.getInstance();
 		
-	private var presentationApp : PresentationApplication;
+	private var presentationApp:PresentationApplication;
 		
 	private var red5Host : String = "present.carleton.ca";		
 	private var presentationHost : String = "present.carleton.ca";

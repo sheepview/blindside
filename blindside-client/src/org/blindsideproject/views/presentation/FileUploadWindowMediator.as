@@ -7,8 +7,8 @@ package org.blindsideproject.views.presentation
 	import mx.controls.Alert;
 	import mx.managers.PopUpManager;
 	
-	import org.blindsideproject.core.apps.presentation.controller.notifiers.ProgressNotifier;
-	import org.blindsideproject.core.apps.presentation.model.PresentationFacade;
+	import org.bigbluebutton.modules.presentation.controller.notifiers.ProgressNotifier;
+	import org.bigbluebutton.modules.presentation.model.PresentationFacade;
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
 	import org.blindsideproject.main.BlindsideAppLocator;
