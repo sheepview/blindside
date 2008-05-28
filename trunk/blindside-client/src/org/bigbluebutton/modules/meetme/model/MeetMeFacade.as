@@ -1,13 +1,11 @@
-package org.blindsideproject.meetme.model
+package org.bigbluebutton.modules.meetme.model
 {
 	import com.adobe.cairngorm.*;
-	import com.adobe.cairngorm.control.CairngormEventDispatcher;
 	
+	import org.bigbluebutton.modules.meetme.control.StartupMeetMeCommand;
+	import org.bigbluebutton.modules.meetme.view.ListenersWindow;
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
-	import org.blindsideproject.meetme.business.NetConnectionDelegate;
-	import org.blindsideproject.meetme.control.StartupMeetMeCommand;
-	import org.blindsideproject.meetme.view.ListenersWindow;
 	import org.puremvc.as3.multicore.interfaces.IFacade;
 	import org.puremvc.as3.multicore.patterns.facade.Facade;
 		

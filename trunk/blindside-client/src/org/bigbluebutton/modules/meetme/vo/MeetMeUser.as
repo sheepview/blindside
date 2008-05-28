@@ -1,4 +1,4 @@
-package org.blindsideproject.meetme.vo
+package org.bigbluebutton.modules.meetme.vo
 {
 	import com.adobe.cairngorm.vo.IValueObject;
 	

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <view:ListenersClass xmlns:mx="http://www.adobe.com/2006/mxml" 
-			xmlns:view="org.blindsideproject.meetme.view.*" 
-			xmlns:controller="org.blindsideproject.meetme.control.*">
+			xmlns:view="org.bigbluebutton.modules.meetme.view.*" 
+			xmlns:controller="org.bigbluebutton.modules.meetme.control.*">
 
 	<mx:Script>
 		<![CDATA[
@@ -49,7 +49,7 @@
 	</mx:Script>
 	
     	<mx:TileList id="participantsList" height="100%" width="100%" 
-        	itemRenderer="org.blindsideproject.meetme.view.MeetMeUserItem"
+        	itemRenderer="org.bigbluebutton.modules.meetme.view.MeetMeUserItem"
             maxColumns="1" rowHeight="25" columnWidth="200" 
             dataProvider="{meetMeRoom.dpParticipants}">
     	</mx:TileList>				

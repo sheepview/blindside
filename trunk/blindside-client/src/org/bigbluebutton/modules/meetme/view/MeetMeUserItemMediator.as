@@ -1,9 +1,9 @@
-package org.blindsideproject.meetme.view
+package org.bigbluebutton.modules.meetme.view
 {
+	import org.bigbluebutton.modules.meetme.control.notifiers.MuteNotifier;
+	import org.bigbluebutton.modules.meetme.model.MeetMeFacade;
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
-	import org.blindsideproject.meetme.control.notifiers.MuteNotifier;
-	import org.blindsideproject.meetme.model.MeetMeFacade;
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;

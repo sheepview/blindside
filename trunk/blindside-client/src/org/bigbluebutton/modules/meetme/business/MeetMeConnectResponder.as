@@ -1,4 +1,4 @@
-package org.blindsideproject.meetme.business
+package org.bigbluebutton.modules.meetme.business
 {
 	import flash.events.AsyncErrorEvent;
 	import flash.events.NetStatusEvent;
@@ -9,11 +9,11 @@ package org.blindsideproject.meetme.business
 	import mx.collections.ArrayCollection;
 	import mx.rpc.IResponder;
 	
+	import org.bigbluebutton.modules.meetme.model.MeetMeFacade;
+	import org.bigbluebutton.modules.meetme.model.MeetMeRoom;
+	import org.bigbluebutton.modules.meetme.vo.MeetMeUser;
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
-	import org.blindsideproject.meetme.model.MeetMeFacade;
-	import org.blindsideproject.meetme.model.MeetMeRoom;
-	import org.blindsideproject.meetme.vo.MeetMeUser;
 	import org.puremvc.as3.multicore.interfaces.IProxy;
 	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
 			
@@ -21,14 +21,14 @@ package org.blindsideproject.meetme.business
 	{
 		public static const NAME:String = "MeetMeConnectResponder";
 		
-		private var model : MeetMeFacade = MeetMeFacade.getInstance();
+		private var model:MeetMeFacade = MeetMeFacade.getInstance();
 		private var log : ILogger = LoggerModelLocator.getInstance().log;
 		
 		private var meetMeRoom : MeetMeRoom;
 		private var participantsSO : SharedObject;
 		private var participants : Array;
 				
-		public function MeetMeConnectResponder(meetMeRoom : MeetMeRoom)
+		public function MeetMeConnectResponder(meetMeRoom:MeetMeRoom)
 		{
 			super(NAME);
 			this.meetMeRoom = meetMeRoom;
@@ -211,7 +211,7 @@ package org.blindsideproject.meetme.business
 			meetMeRoom.dpParticipants.refresh();	
 		}
 		
-		public function newStatus(user : MeetMeUser) : void {
+		public function newStatus(user:MeetMeUser) : void {
 //			log.debug("MeetMe::newStatus : [" + user.callerIdName + "," + user.userNumber + "]");
 		}
 

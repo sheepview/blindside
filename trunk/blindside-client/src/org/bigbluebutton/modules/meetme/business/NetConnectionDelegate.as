@@ -1,12 +1,12 @@
-package org.blindsideproject.meetme.business
+package org.bigbluebutton.modules.meetme.business
 {
 	import flash.events.*;
 	import flash.net.NetConnection;
 	
+	import org.bigbluebutton.modules.meetme.model.MeetMeFacade;
+	import org.bigbluebutton.modules.meetme.model.MeetMeRoom;
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
-	import org.blindsideproject.meetme.model.MeetMeFacade;
-	import org.blindsideproject.meetme.model.MeetMeRoom;
 	import org.puremvc.as3.multicore.interfaces.IProxy;
 	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
 		
@@ -14,14 +14,14 @@ package org.blindsideproject.meetme.business
 	{
 		public static const NAME:String = "NetConnectionDelegate";
 		
-		private var model : MeetMeFacade = MeetMeFacade.getInstance();
+		private var model:MeetMeFacade = MeetMeFacade.getInstance();
 		private var log : ILogger = LoggerModelLocator.getInstance().log;
 			
 		private var netConnection : NetConnection;	
 		private var meetmeRoom : MeetMeRoom;
 		private var roomNumber : String;
 					
-		public function NetConnectionDelegate(meetmeRoom : MeetMeRoom)
+		public function NetConnectionDelegate(meetmeRoom:MeetMeRoom)
 		{
 			super(NAME);
 			this.meetmeRoom = meetmeRoom;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <view:MeetMeUserListClass xmlns:mx="http://www.adobe.com/2006/mxml" 
-			xmlns:view="org.blindsideproject.meetme.view.*" 
-			xmlns:controller="org.blindsideproject.meetme.control.*">
+			xmlns:view="org.bigbluebutton.modules.meetme.view.*" 
+			xmlns:controller="org.bigbluebutton.modules.meetme.control.*">
 			<mx:Style source="/assets/superpanel/css/styles.css"/>
 
 	<mx:Script>

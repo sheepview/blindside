@@ -1,8 +1,8 @@
-package org.blindsideproject.meetme.model
+package org.bigbluebutton.modules.meetme.model
 {
 	import mx.collections.ArrayCollection;
 	
-	import org.blindsideproject.meetme.business.NetConnectionDelegate;
+	import org.bigbluebutton.modules.meetme.business.NetConnectionDelegate;
  	
 	public class MeetMeRoom
 	{
@@ -36,7 +36,7 @@ package org.blindsideproject.meetme.model
 			return uri;
 		}
 		
-		public function setConnectionDelegate(connection : NetConnectionDelegate) : void
+		public function setConnectionDelegate(connection:NetConnectionDelegate) : void
 		{
 			netConnection = connection;
 		}
