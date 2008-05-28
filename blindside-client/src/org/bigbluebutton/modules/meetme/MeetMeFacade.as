@@ -1,8 +1,9 @@
-package org.bigbluebutton.modules.meetme.model
+package org.bigbluebutton.modules.meetme
 {
 	import com.adobe.cairngorm.*;
 	
 	import org.bigbluebutton.modules.meetme.control.StartupMeetMeCommand;
+	import org.bigbluebutton.modules.meetme.model.MeetMeRoom;
 	import org.bigbluebutton.modules.meetme.view.ListenersWindow;
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
@@ -25,7 +26,7 @@ package org.bigbluebutton.modules.meetme.model
 		private static var instance : MeetMeFacade;
 		private var log : ILogger = LoggerModelLocator.getInstance().log;
 		
-		public var meetMeRoom : MeetMeRoom;
+		public var meetMeRoom:MeetMeRoom;
 				
 		public function MeetMeFacade()
 		{

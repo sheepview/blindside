@@ -2,7 +2,7 @@
 <mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" creationComplete="initParticipantItem()">
    <mx:Script>
    	<![CDATA[
-   		import org.bigbluebutton.modules.meetme.model.MeetMeFacade;
+   		import org.bigbluebutton.modules.meetme.MeetMeFacade;
    		import mx.controls.Image;
    		import org.blindsideproject.views.general.Images;
    		import com.adobe.cairngorm.control.CairngormEventDispatcher;

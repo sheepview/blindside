@@ -1,9 +1,9 @@
-package org.bigbluebutton.modules.meetme.business
+package org.bigbluebutton.modules.meetme.model.business
 {
 	import flash.events.*;
 	import flash.net.NetConnection;
 	
-	import org.bigbluebutton.modules.meetme.model.MeetMeFacade;
+	import org.bigbluebutton.modules.meetme.MeetMeFacade;
 	import org.bigbluebutton.modules.meetme.model.MeetMeRoom;
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;

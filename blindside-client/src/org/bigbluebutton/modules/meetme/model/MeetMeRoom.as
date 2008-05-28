@@ -2,7 +2,8 @@ package org.bigbluebutton.modules.meetme.model
 {
 	import mx.collections.ArrayCollection;
 	
-	import org.bigbluebutton.modules.meetme.business.NetConnectionDelegate;
+	import org.bigbluebutton.modules.meetme.MeetMeFacade;
+	import org.bigbluebutton.modules.meetme.model.business.NetConnectionDelegate;
  	
 	public class MeetMeRoom
 	{
