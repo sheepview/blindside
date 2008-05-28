@@ -2,7 +2,7 @@ package org.bigbluebutton.modules.presentation.model
 {
 	import mx.collections.ArrayCollection;
 	
-	import org.bigbluebutton.modules.presentation.vo.SlidesDeck;
+	import org.bigbluebutton.modules.presentation.model.vo.SlidesDeck;
 	import org.blindsideproject.core.IApplication;
 	
 	public class PresentationModel implements IApplication

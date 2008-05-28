@@ -4,7 +4,7 @@ package org.blindsideproject.main
 	import com.adobe.cairngorm.CairngormMessageCodes;
 	import com.adobe.cairngorm.model.IModelLocator;
 	
-	import org.bigbluebutton.modules.presentation.model.PresentationFacade;
+	import org.bigbluebutton.modules.presentation.PresentationFacade;
 	import org.blindsideproject.core.apps.chat.ChatApplication;
 	import org.blindsideproject.core.apps.conference.ConferenceApplication;
 	import org.red5.samples.publisher.PublisherApplication;

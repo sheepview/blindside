@@ -1,9 +1,9 @@
-package org.bigbluebutton.modules.presentation.business
+package org.bigbluebutton.modules.presentation.model.business
 {
 	import flash.events.*;
 	import flash.net.NetConnection;
 	
-	import org.bigbluebutton.modules.presentation.model.PresentationFacade;
+	import org.bigbluebutton.modules.presentation.PresentationFacade;
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
 		

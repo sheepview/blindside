@@ -1,6 +1,6 @@
 package org.bigbluebutton.modules.presentation.controller
 {
-	import org.bigbluebutton.modules.presentation.PresentationApplication;
+	import org.bigbluebutton.modules.presentation.model.PresentationApplication;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.command.SimpleCommand;
 	

@@ -1,4 +1,4 @@
-package org.bigbluebutton.modules.presentation
+package org.bigbluebutton.modules.presentation.model
 {
 				
 	import flash.net.FileReference;
@@ -8,12 +8,11 @@ package org.bigbluebutton.modules.presentation
 	import mx.rpc.IResponder;
 	import mx.utils.ArrayUtil;
 	
-	import org.bigbluebutton.modules.presentation.business.PresentationDelegate;
-	import org.bigbluebutton.modules.presentation.model.PresentationFacade;
-	import org.bigbluebutton.modules.presentation.model.PresentationModel;
-	import org.bigbluebutton.modules.presentation.services.FileUploadService;
-	import org.bigbluebutton.modules.presentation.services.PresentationService;
-	import org.bigbluebutton.modules.presentation.vo.SlidesDeck;
+	import org.bigbluebutton.modules.presentation.PresentationFacade;
+	import org.bigbluebutton.modules.presentation.model.business.PresentationDelegate;
+	import org.bigbluebutton.modules.presentation.model.services.FileUploadService;
+	import org.bigbluebutton.modules.presentation.model.services.PresentationService;
+	import org.bigbluebutton.modules.presentation.model.vo.SlidesDeck;
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;

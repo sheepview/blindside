@@ -1,9 +1,8 @@
 package org.bigbluebutton.modules.presentation.controller
 {
-	import org.blindsideproject.views.presentation.FileUploadWindowMediator;
-	import org.blindsideproject.views.presentation.PresentationWindow;
-	import org.blindsideproject.views.presentation.PresentationWindowMediator;
-	import org.blindsideproject.views.presentation.ThumbnailViewMediator;
+	import org.bigbluebutton.modules.presentation.view.PresentationWindow;
+	import org.bigbluebutton.modules.presentation.view.PresentationWindowMediator;
+	import org.bigbluebutton.modules.presentation.view.ThumbnailViewMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.command.SimpleCommand;
 	
