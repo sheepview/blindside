@@ -5,7 +5,7 @@ package org.blindsideproject.views.presentation
 	
 	import mx.managers.PopUpManager;
 	
-	import org.blindsideproject.core.apps.presentation.model.PresentationFacade;
+	import org.bigbluebutton.modules.presentation.model.PresentationFacade;
 	import org.blindsideproject.main.BlindsideAppLocator;
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;

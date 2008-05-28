@@ -1,9 +1,9 @@
-package org.blindsideproject.core.apps.presentation.model
+package org.bigbluebutton.modules.presentation.model
 {
-	import org.blindsideproject.core.IApplication;
 	import mx.collections.ArrayCollection;
-
-	import org.blindsideproject.core.apps.presentation.vo.SlidesDeck;
+	
+	import org.bigbluebutton.modules.presentation.vo.SlidesDeck;
+	import org.blindsideproject.core.IApplication;
 	
 	public class PresentationModel implements IApplication
 	{
@@ -46,7 +46,7 @@ package org.blindsideproject.core.apps.presentation.model
 		/**
 		 * The presentation slides being shared.
 		 */
-		[Bindable] public var decks : SlidesDeck;
+		[Bindable] public var decks:SlidesDeck;
 		
 		public function PresentationModel() : void {}
 				

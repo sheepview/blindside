@@ -2,8 +2,7 @@ package org.blindsideproject.views.presentation
 {
 	import flash.events.Event;
 	
-	import org.blindsideproject.core.apps.presentation.business.PresentationDelegate;
-	import org.blindsideproject.core.apps.presentation.model.PresentationFacade;
+	import org.bigbluebutton.modules.presentation.business.PresentationDelegate;
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;

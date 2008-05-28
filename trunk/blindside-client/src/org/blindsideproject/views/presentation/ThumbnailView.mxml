@@ -5,6 +5,9 @@
 <mx:Style source="presentation.css"/>
 	<mx:Script>
 		<![CDATA[
+			import org.bigbluebutton.modules.presentation.vo.SlidesDeck;
+			import org.bigbluebutton.modules.presentation.vo.Slide;
+			import org.bigbluebutton.modules.presentation.model.PresentationFacade;
 		import mx.collections.ArrayCollection;
 		import mx.binding.utils.BindingUtils;
 		import flash.events.Event;
@@ -13,22 +16,20 @@
 		import org.blindsideproject.core.util.log.*;
 
 		import com.adobe.cairngorm.control.CairngormEventDispatcher;    
-		import org.blindsideproject.core.apps.presentation.vo.Slide;
-		import org.blindsideproject.core.apps.presentation.vo.SlidesDeck;
 		import com.adobe.cairngorm.control.CairngormEvent;
 		import org.blindsideproject.core.apps.presentation.model.*;
 		
 		[Bindable]	
-		public var model : PresentationFacade = PresentationFacade.getInstance();
+		public var model:PresentationFacade = PresentationFacade.getInstance();
 		
 		[Bindable]
 		private var slideWord:String = "Slides";
 				
 		[Bindable]
-        public var deck : SlidesDeck;
+        public var deck:SlidesDeck;
         		
 		[Bindable]
-		private var selectedSlide : Slide;
+		private var selectedSlide:Slide;
 				
 		private function init() : void
 		{

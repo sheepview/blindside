@@ -1,4 +1,4 @@
-package org.blindsideproject.core.apps.presentation.controller
+package org.bigbluebutton.modules.presentation.controller
 {
 	import org.blindsideproject.views.presentation.FileUploadWindow;
 	import org.blindsideproject.views.presentation.FileUploadWindowMediator;

@@ -1,4 +1,4 @@
-package org.blindsideproject.core.apps.presentation.services
+package org.bigbluebutton.modules.presentation.services
 {
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
@@ -8,7 +8,7 @@ package org.blindsideproject.core.apps.presentation.services
 	import flash.net.URLRequest;
 	import flash.net.URLVariables;
 	
-	import org.blindsideproject.core.apps.presentation.model.PresentationFacade;
+	import org.bigbluebutton.modules.presentation.model.PresentationFacade;
 	import org.puremvc.as3.multicore.interfaces.IProxy;
 	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
 	

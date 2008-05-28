@@ -1,12 +1,12 @@
-package org.blindsideproject.core.apps.presentation.model
+package org.bigbluebutton.modules.presentation.model
 {
 	import com.adobe.cairngorm.*;
 	
-	import org.blindsideproject.core.apps.presentation.PresentationApplication;
-	import org.blindsideproject.core.apps.presentation.business.PresentationDelegate;
-	import org.blindsideproject.core.apps.presentation.controller.StartPresentationAppCommand;
-	import org.blindsideproject.core.apps.presentation.controller.StartUploadWindowCommand;
-	import org.blindsideproject.core.apps.presentation.controller.StartupCommand;
+	import org.bigbluebutton.modules.presentation.PresentationApplication;
+	import org.bigbluebutton.modules.presentation.business.PresentationDelegate;
+	import org.bigbluebutton.modules.presentation.controller.StartPresentationAppCommand;
+	import org.bigbluebutton.modules.presentation.controller.StartUploadWindowCommand;
+	import org.bigbluebutton.modules.presentation.controller.StartupCommand;
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
 	import org.blindsideproject.views.presentation.PresentationWindow;
@@ -71,7 +71,7 @@ package org.blindsideproject.core.apps.presentation.model
 	   		registerCommand(START_PRESENTATION_APPLICATION, StartPresentationAppCommand);
 	   	}	   	
 	   	
-	   	public function get presentationDelegate() : PresentationDelegate
+	   	public function get presentationDelegate():PresentationDelegate
 	   	{
 	   		if (_presentationDelegate == null) {
 	   			_presentationDelegate = new PresentationDelegate();

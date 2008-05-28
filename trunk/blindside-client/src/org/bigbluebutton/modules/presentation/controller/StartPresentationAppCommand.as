@@ -1,6 +1,6 @@
-package org.blindsideproject.core.apps.presentation.controller
+package org.bigbluebutton.modules.presentation.controller
 {
-	import org.blindsideproject.core.apps.presentation.PresentationApplication;
+	import org.bigbluebutton.modules.presentation.PresentationApplication;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.command.SimpleCommand;
 	

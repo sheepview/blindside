@@ -1,14 +1,14 @@
-package org.blindsideproject.core.apps.presentation.business
+package org.bigbluebutton.modules.presentation.business
 {
 	import flash.events.AsyncErrorEvent;
 	import flash.events.NetStatusEvent;
 	import flash.events.SyncEvent;
 	import flash.net.SharedObject;
 	
-	import org.blindsideproject.core.apps.presentation.controller.notifiers.ProgressNotifier;
-	import org.blindsideproject.core.apps.presentation.model.PresentationFacade;
-	import org.blindsideproject.core.apps.presentation.model.PresentationModel;
-	import org.blindsideproject.core.apps.presentation.vo.SlidesDeck;
+	import org.bigbluebutton.modules.presentation.controller.notifiers.ProgressNotifier;
+	import org.bigbluebutton.modules.presentation.model.PresentationFacade;
+	import org.bigbluebutton.modules.presentation.model.PresentationModel;
+	import org.bigbluebutton.modules.presentation.vo.SlidesDeck;
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
 	import org.puremvc.as3.multicore.interfaces.IProxy;
@@ -29,10 +29,10 @@ package org.blindsideproject.core.apps.presentation.business
 		private static const EXTRACT_RC : String = "EXTRACT";
 		private static const CONVERT_RC : String = "CONVERT";
 		
-		private var model : PresentationFacade = PresentationFacade.getInstance();
+		private var model:PresentationFacade = PresentationFacade.getInstance();
 		private var log : ILogger = LoggerModelLocator.getInstance().log;
 		
-		public var presentation : PresentationModel = model.presentation;
+		public var presentation:PresentationModel = model.presentation;
 		
 		private var presentationSO : SharedObject;
 		private var connDelegate : NetConnectionDelegate;
@@ -236,7 +236,7 @@ package org.blindsideproject.core.apps.presentation.business
 		
 		private function processSharedPresentation(pres : Object) : void
 		{
-			var deck : SlidesDeck = new SlidesDeck(pres);
+			var deck:SlidesDeck = new SlidesDeck(pres);
 			
 			presentation.newDeckOfSlides(deck);		
 			presentation.decks.selected = pres.page;	
@@ -270,7 +270,7 @@ package org.blindsideproject.core.apps.presentation.business
 					completedSlides = presentationSO.data.updateMessage.completedSlides;
 					log.debug( "EXTRACTING = [" + completedSlides + " of " + totalSlides + "]");
 					
-					sendNotification(PresentationFacade.EXTRACT_PROGRESS_EVENT, 
+					sendNotification(PresentationFacade.EXTRACT_PROGRESS_EVENT,
 										new ProgressNotifier(totalSlides,completedSlides));
 					
 					break;

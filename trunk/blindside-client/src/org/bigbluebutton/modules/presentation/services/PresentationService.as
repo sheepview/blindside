@@ -1,11 +1,11 @@
-
-package org.blindsideproject.core.apps.presentation.services
+package org.bigbluebutton.modules.presentation.services
 {
 	import flash.events.*;
 	
 	import mx.rpc.IResponder;
 	import mx.rpc.http.HTTPService;
 	
+	import org.bigbluebutton.modules.presentation.model.PresentationFacade;
 	import org.blindsideproject.core.apps.presentation.model.*;
 	import org.blindsideproject.core.util.log.*;
 	import org.puremvc.as3.multicore.interfaces.IProxy;
@@ -15,7 +15,7 @@ package org.blindsideproject.core.apps.presentation.services
 	{
 		public static const ID:String = "PresentationService";
 		
-		private var model : PresentationFacade = PresentationFacade.getInstance();  
+		private var model:PresentationFacade = PresentationFacade.getInstance();  
 		private var log : ILogger = LoggerModelLocator.getInstance().log;
 		    
 		private var service : HTTPService;
