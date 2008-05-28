@@ -12,7 +12,7 @@
 			import flexunit.framework.TestSuite;		
 			import org.bigbluebutton.modules.conference.model.ConferenceVOTest;
 			import org.bigbluebutton.modules.conference.model.ConferenceProxyTest;
-			import org.bigbluebutton.modules.chat.test.*;
+			//import org.bigbluebutton.modules.chat.test.*;
 			
 			// After everything is built, configure the test
 			// runner to use the appropriate test suite and
