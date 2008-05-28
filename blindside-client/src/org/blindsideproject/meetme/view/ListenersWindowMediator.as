@@ -39,7 +39,8 @@ package org.blindsideproject.meetme.view
 		override public function handleNotification(notification:INotification):void{
 			switch(notification.getName()){
 				case MeetMeFacade.USER_JOIN_EVENT:
-					log.debug("Got Event Elsewhere");
+					listenersWindow.participantsList.dataProvider = MeetMeFacade.getInstance().meetMeRoom.dpParticipants;
+					log.debug("Participants: " + MeetMeFacade.getInstance().meetMeRoom.dpParticipants.length);
 					break;
 			}
 		}
