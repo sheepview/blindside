@@ -20,13 +20,34 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
+
+/**
+ * This is the base class of blindside-servlet, which listen to the HTTP requests from blindside clients (Extends MultiActionController for this purpose). 
+ * Requests from clients can be: File upload, Request for Slides, Request for slideXML or Request for slide descriptors 
+ * 
+ * This class uses FileSystemSlideManager.java and SlidePresentationDocument.java (keeping instances of those two classes).
+ * Basically, this class is used as an adapter class which relays Http client requests to other classes. 
+ * @author 
+ *
+ */
 public class FileUploadController extends MultiActionController {
+	
+	// register logging service
 	private final Log logger = LogFactory.getLog(getClass());
 	
+	/**
+	 * FileSystemSlideManager implements ISlideDatabase
+	 */
 	private ISlideDatabase slideDatabase = null;
 	
+	/**
+	 * Used for loading saved slide presentation files before sending them to client
+	 */
 	private SlidePresentationDocument slidePres = null;
-
+	
+	/**
+	 * Used for SlideXML creation. SlideXML holds the description of slides 
+	 */
 	private static final String HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 	private static final String PRESENTATIONS = "<presentations>";
 	private static final String PRESENTATIONS_END_TAG = "</presentations>";
@@ -45,8 +66,14 @@ public class FileUploadController extends MultiActionController {
 	private static final String ROOM = "<room>";
 	private static final String ROOM_END_TAG = "</room>";
 
+	
 	private static final String host = "http://localhost:8080/blindside/file/display?name=";
 	
+	/**
+	 * Setter for slideDatabase
+	 * 
+	 * @param slideDatabase
+	 */
 	public void setSlideDatabase(ISlideDatabase slideDatabase) {
 		this.slideDatabase = slideDatabase;
 	}
@@ -56,7 +83,14 @@ public class FileUploadController extends MultiActionController {
 		return new ModelAndView("upload");
 
 	}	
-	
+	/**
+	 * This method sends the List of slide descriptors for the room (given roomID) to HttpServletResponse.
+	 * Calls getSlidesForRoom() method from FileSystemSlideManager class
+	 * 
+	 * @param request HttpServletRequest
+	 * @param response HttpServletResponse
+	 * 
+	 */
 	public ModelAndView showSlides(HttpServletRequest request, HttpServletResponse response) throws Exception {		
 		Integer room = new Integer(request.getParameterValues("room")[0]);
 		
@@ -66,11 +100,26 @@ public class FileUploadController extends MultiActionController {
 		
 		return new ModelAndView("upload", "slides", getSlidesForRoom(room));
 	}
-
+	
+	/**
+	 * This method returns the List of slide descriptors for the room (given roomID).
+	 * Calls getSlidesForRoom() method from FileSystemSlideManager class
+	 * 
+	 * @param room RoomID
+	 * @return List of SlideDescriptors of corresponding room
+	 */
 	private List<SlideDescriptor> getSlidesForRoom(Integer room) {
 		return this.slideDatabase.getSlidesForRoom(room);
 	}
-
+	/**
+	 * This handler method overwriting the method in MultiActionController. 
+	 * Its purpose is to stream slide XML from server to the HTTP response. 
+	 * It writes the response using HttpServletResponse. 
+	 * 
+	 * @param request HttpServletRequest
+	 * @param response HttpServletResponse where the Slide XML is sent
+	 * 
+	 */
 	public ModelAndView getXmlSlides(HttpServletRequest request, HttpServletResponse response) throws Exception {		
 		Integer room = new Integer(request.getParameterValues("room")[0]);
 		
@@ -80,18 +129,25 @@ public class FileUploadController extends MultiActionController {
 		logger.info("Request URI = [" + request.getRequestURI() + "]");
 		logger.info("Request URL = [" + request.getRequestURL() + "]");
 		
+		// get URL from client request
 		int lastIndex = request.getRequestURL().lastIndexOf("/");
 		String url = request.getRequestURL().substring(0, lastIndex);
 		
+		// create slide presentation descriptor XML
 		String slidesXml = createXml(url, getSlidesForRoom(room));
 //		String slidesXml = this.slideDatabase.getSlidesInXml(room);
   	
 		logger.info("XML Slides = " + slidesXml);
 		
-		response.setContentType("text/xml"); 
+		// before sending the xml string to the client,
+		// set content type and header
+		response.setContentType("text/xml");
+		//Ask browser not to chache images
 		response.setHeader("Cache-Control", "no-cache");
-
+		
+		// get ServletOutputStream from HttpServletResponse
 		ServletOutputStream out = response.getOutputStream();
+		// send the xml string to client
 		out.print(slidesXml);
 		out.flush();
 		out.close();
@@ -99,9 +155,11 @@ public class FileUploadController extends MultiActionController {
 	}	
 	
 	/**
-	 * Creates an xml formatted string that is returned to the client.
-	 * @param slides
-	 * @return
+	 * This method creates an xml formatted string (Slide description) that is returned to the client.
+	 * 
+	 * @param url URL address from client's HttpRequest
+	 * @param slides List of SlideDescriptors  
+	 * @return SlidesXML
 	 */
 	private String createXml(String url, List<SlideDescriptor> slides) {
 		
@@ -129,7 +187,7 @@ public class FileUploadController extends MultiActionController {
 	}
 
 	
-	/***
+	/*
 	 * Don't do this for now. Need to get slides as quickly as possible.
 	 * Let's do this when we can provide feedback to user through DWR.
 	 * 	
@@ -141,7 +199,17 @@ public class FileUploadController extends MultiActionController {
 		return new ModelAndView("imageList", "slides", 
 				this.slideDatabase.getThumbnailsForRoom(room));
 	}	
-***/
+*/
+	
+	/**
+	 * This handler method overwriting the method in MultiActionController. 
+	 * Its purpose is to stream slide content from server to the HTTP response. 
+	 * It writes the response using HttpServletResponse parameter. 
+	 * 
+	 * @param request HttpServletRequest
+	 * @param response HttpServletResponse where the image is sent
+	 * 
+	 */
 	
 	public ModelAndView streamImageContent(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -151,20 +219,31 @@ public class FileUploadController extends MultiActionController {
 		
 		// Ask browser not to chache images
 		response.setHeader("Cache-Control", "no-cache");
-		
+		// call streamImage method in FileSystemSlideManager to stream slide to client
 		this.slideDatabase.streamImage(room, filename, response.getOutputStream());
 		
 		return null;
 	}
-
+	/**
+	 * This method is called when the client HTTP request for file upload.
+	 * Calls saveUploadedFile() from FileSystemManager class to save uploaded pdf file from client. 
+	 * Also creates Slide description XML file by calling createDefaultXml() from FileSystemManager class
+	 * 
+	 * @param request
+	 * @param response HttpServletResponse
+	 * @return
+	 * @throws Exception
+	 */
 	public ModelAndView processFileUpload(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-
+		// MultipartFile is a copy of file in memory, not in file system
 		MultipartFile multipartFile = multipartRequest.getFile("pres");
+		// get Room ID from HttpServletRequest
 		Integer conferenceRoom = new Integer(request.getParameterValues("room")[0]);
 
 		try { 
+			// save MultipartFile in server fileSystem by calling saveUploadedFile in FileSystemSlideManager class
 			File file = this.slideDatabase.saveUploadedFile(multipartFile, conferenceRoom); 
 			this.slideDatabase.createDefaultXml(conferenceRoom);
 			slidePres.load(file, new Integer(conferenceRoom));			
@@ -181,7 +260,11 @@ public class FileUploadController extends MultiActionController {
 	public ModelAndView clearDatabase(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		return new ModelAndView("redirect:imageList");
 	}
-
+	/**
+	 * Setter for slidePres
+	 * 
+	 * @param slidePres
+	 */
 	public void setSlidePres(SlidePresentationDocument slidePres) {
 		this.slidePres = slidePres;
 	}
