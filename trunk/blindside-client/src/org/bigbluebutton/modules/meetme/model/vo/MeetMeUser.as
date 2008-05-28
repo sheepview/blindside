@@ -1,4 +1,4 @@
-package org.bigbluebutton.modules.meetme.vo
+package org.bigbluebutton.modules.meetme.model.vo
 {
 	import com.adobe.cairngorm.vo.IValueObject;
 	

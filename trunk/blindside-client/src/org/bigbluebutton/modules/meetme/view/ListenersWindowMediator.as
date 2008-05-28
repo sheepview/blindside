@@ -2,7 +2,7 @@ package org.bigbluebutton.modules.meetme.view
 {
 	import flash.events.Event;
 	
-	import org.bigbluebutton.modules.meetme.model.MeetMeFacade;
+	import org.bigbluebutton.modules.meetme.MeetMeFacade;
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
 	import org.puremvc.as3.multicore.interfaces.IMediator;

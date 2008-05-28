@@ -1,4 +1,4 @@
-package org.bigbluebutton.modules.meetme.business
+package org.bigbluebutton.modules.meetme.model.business
 {
 	import flash.events.AsyncErrorEvent;
 	import flash.events.NetStatusEvent;
@@ -9,9 +9,9 @@ package org.bigbluebutton.modules.meetme.business
 	import mx.collections.ArrayCollection;
 	import mx.rpc.IResponder;
 	
-	import org.bigbluebutton.modules.meetme.model.MeetMeFacade;
+	import org.bigbluebutton.modules.meetme.MeetMeFacade;
 	import org.bigbluebutton.modules.meetme.model.MeetMeRoom;
-	import org.bigbluebutton.modules.meetme.vo.MeetMeUser;
+	import org.bigbluebutton.modules.meetme.model.vo.MeetMeUser;
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
 	import org.puremvc.as3.multicore.interfaces.IProxy;

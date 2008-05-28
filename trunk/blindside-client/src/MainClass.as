@@ -11,7 +11,7 @@ import mx.core.Application;
 import mx.events.CloseEvent;
 import mx.managers.PopUpManager;
 
-import org.bigbluebutton.modules.meetme.model.MeetMeFacade;
+import org.bigbluebutton.modules.meetme.MeetMeFacade;
 import org.bigbluebutton.modules.meetme.view.ListenersWindow;
 import org.bigbluebutton.modules.presentation.model.PresentationApplication;
 import org.bigbluebutton.modules.presentation.view.PresentationPanel;
