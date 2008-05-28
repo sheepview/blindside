@@ -1,14 +1,14 @@
-package org.bigbluebutton.modules.presentation.business
+package org.bigbluebutton.modules.presentation.model.business
 {
 	import flash.events.AsyncErrorEvent;
 	import flash.events.NetStatusEvent;
 	import flash.events.SyncEvent;
 	import flash.net.SharedObject;
 	
+	import org.bigbluebutton.modules.presentation.PresentationFacade;
 	import org.bigbluebutton.modules.presentation.controller.notifiers.ProgressNotifier;
-	import org.bigbluebutton.modules.presentation.model.PresentationFacade;
 	import org.bigbluebutton.modules.presentation.model.PresentationModel;
-	import org.bigbluebutton.modules.presentation.vo.SlidesDeck;
+	import org.bigbluebutton.modules.presentation.model.vo.SlidesDeck;
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
 	import org.puremvc.as3.multicore.interfaces.IProxy;

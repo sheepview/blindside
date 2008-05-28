@@ -13,7 +13,9 @@ import mx.managers.PopUpManager;
 
 import org.bigbluebutton.modules.meetme.model.MeetMeFacade;
 import org.bigbluebutton.modules.meetme.view.ListenersWindow;
-import org.bigbluebutton.modules.presentation.PresentationApplication;
+import org.bigbluebutton.modules.presentation.model.PresentationApplication;
+import org.bigbluebutton.modules.presentation.view.PresentationPanel;
+import org.bigbluebutton.modules.presentation.view.PresentationWindow;
 import org.blindsideproject.core.apps.chat.ChatApplication;
 import org.blindsideproject.core.apps.conference.ConferenceApplication;
 import org.blindsideproject.core.apps.conference.model.*;
@@ -25,8 +27,6 @@ import org.blindsideproject.views.conference.ViewersWindow;
 import org.blindsideproject.views.control.events.OpenWindowEvent;
 import org.blindsideproject.views.control.events.ViewEvents;
 import org.blindsideproject.views.log.LogWindow;
-import org.blindsideproject.views.presentation.PresentationPanel;
-import org.blindsideproject.views.presentation.PresentationWindow;
 import org.red5.samples.publisher.PublisherApplication;
 			
 private var eventMonitor:TextArea;
@@ -36,8 +36,8 @@ private var effectsList:Array;
 	private var joinWindow : JoinWindow;
 	private var chatWindow : ChatWindow;
 	private var listenersWindow:ListenersWindow;
-	private var presentationWindow : PresentationWindow;
-	private var presentationPanel : PresentationPanel;
+	private var presentationWindow:PresentationWindow;
+	private var presentationPanel:PresentationPanel;
 	private var viewersWindow : ViewersWindow;
 	private var logWindow : LogWindow;
 

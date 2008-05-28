@@ -1,11 +1,11 @@
-package org.bigbluebutton.modules.presentation.services
+package org.bigbluebutton.modules.presentation.model.services
 {
 	import flash.events.*;
 	
 	import mx.rpc.IResponder;
 	import mx.rpc.http.HTTPService;
 	
-	import org.bigbluebutton.modules.presentation.model.PresentationFacade;
+	import org.bigbluebutton.modules.presentation.PresentationFacade;
 	import org.blindsideproject.core.apps.presentation.model.*;
 	import org.blindsideproject.core.util.log.*;
 	import org.puremvc.as3.multicore.interfaces.IProxy;
@@ -14,8 +14,7 @@ package org.bigbluebutton.modules.presentation.services
 	public class PresentationService extends Proxy implements IProxy
 	{
 		public static const ID:String = "PresentationService";
-		
-		private var model:PresentationFacade = PresentationFacade.getInstance();  
+	
 		private var log : ILogger = LoggerModelLocator.getInstance().log;
 		    
 		private var service : HTTPService;

@@ -1,15 +1,16 @@
-package org.bigbluebutton.modules.presentation.model
+package org.bigbluebutton.modules.presentation
 {
 	import com.adobe.cairngorm.*;
 	
-	import org.bigbluebutton.modules.presentation.PresentationApplication;
-	import org.bigbluebutton.modules.presentation.business.PresentationDelegate;
 	import org.bigbluebutton.modules.presentation.controller.StartPresentationAppCommand;
 	import org.bigbluebutton.modules.presentation.controller.StartUploadWindowCommand;
 	import org.bigbluebutton.modules.presentation.controller.StartupCommand;
+	import org.bigbluebutton.modules.presentation.model.PresentationApplication;
+	import org.bigbluebutton.modules.presentation.model.PresentationModel;
+	import org.bigbluebutton.modules.presentation.model.business.PresentationDelegate;
+	import org.bigbluebutton.modules.presentation.view.PresentationWindow;
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
-	import org.blindsideproject.views.presentation.PresentationWindow;
 	import org.puremvc.as3.multicore.interfaces.IFacade;
 	import org.puremvc.as3.multicore.patterns.facade.Facade;
 	
@@ -49,7 +50,7 @@ package org.bigbluebutton.modules.presentation.model
 		private var _log : ILogger = LoggerModelLocator.getInstance().log;		
 		private var _presentationDelegate : PresentationDelegate = null;	
 		[Bindable]
-		public var presentation : PresentationModel = new PresentationModel();
+		public var presentation:PresentationModel = new PresentationModel();
 		public var presApp:PresentationApplication;
 		
 		public function PresentationFacade() : void

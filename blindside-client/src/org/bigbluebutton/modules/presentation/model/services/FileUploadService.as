@@ -1,4 +1,4 @@
-package org.bigbluebutton.modules.presentation.services
+package org.bigbluebutton.modules.presentation.model.services
 {
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
@@ -8,7 +8,7 @@ package org.bigbluebutton.modules.presentation.services
 	import flash.net.URLRequest;
 	import flash.net.URLVariables;
 	
-	import org.bigbluebutton.modules.presentation.model.PresentationFacade;
+	import org.bigbluebutton.modules.presentation.PresentationFacade;
 	import org.puremvc.as3.multicore.interfaces.IProxy;
 	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
 	

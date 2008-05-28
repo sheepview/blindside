@@ -1,7 +1,7 @@
 package org.bigbluebutton.modules.presentation.controller
 {
-	import org.bigbluebutton.modules.presentation.business.PresentationDelegate;
-	import org.blindsideproject.views.presentation.PresentationWindow;
+	import org.bigbluebutton.modules.presentation.model.business.PresentationDelegate;
+	import org.bigbluebutton.modules.presentation.view.PresentationWindow;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.command.SimpleCommand;
 	
