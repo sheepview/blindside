@@ -5,11 +5,11 @@ package org.bigbluebutton.modules.chat.view
 
 	public class ApplicationMediator extends Mediator implements IMediator
 	{
+		public static const NAME:String = "ApplicationMediator";
+		
 		public function ApplicationMediator(viewComponent:BigBlueButton)
 		{
-			
 			super(NAME, viewComponent);
-			
 		}
 		/**
 		 * registers the ChatWindowMediator with the facade 

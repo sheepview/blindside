@@ -7,9 +7,12 @@ package org.bigbluebutton.modules.chat.model.vo
 	 * 
 	 */	
 	
+	[Bindable]
 	public class MessageVO
 	{
-		public var message : String = "";
+		public var message:MessageObject;
+		
+
 		public var color : uint;
 		public var font : String;
 		public var fontSize : uint;

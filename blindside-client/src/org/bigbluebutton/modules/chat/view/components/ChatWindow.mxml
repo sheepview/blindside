@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<MDIWindow xmlns="flexlib.mdi.containers.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="400" height="300">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" width="400" height="300">
+<!--MDIWindow xmlns="flexlib.mdi.containers.*"-->
 	<mx:Script>
 		<![CDATA[
 			import mx.utils.ColorUtil;
 			import org.bigbluebutton.modules.chat.model.vo.MessageVO;
+			import org.bigbluebutton.modules.chat.view.ChatWindowMediator;
+			import org.bigbluebutton.modules.chat.model.vo.*;
 			
+		
+			
+			public var m:MessageObject;
 			[Bindable]
-			public var newMessage:MessageVO = new MessageVO();
-			
-			
+			public var messageVO:MessageVO = new MessageVO();
 			
 			
 		
-			public function showNewMessage(rm : MessageVO):void{
-			
+			public function showNewMessage(rm : MessageObject):void{
 			var newMessage:String;
 			newMessage = "<font color=\"#" + rm.color.toString(16) + "\">" + rm.message + "</font>";
 			txtChatBox.htmlText += newMessage + "\n";
 			txtMsg.text = "";
 			}
 			
+		    
 		    public function sendMessages():void{
-		   	newMessage.message = txtMsg.text;
-		   	newMessage.color = cmpColorPicker.selectedColor;
+		   	this.m = new MessageObject(txtMsg.text, cmpColorPicker.selectedColor);
 		   	dispatchEvent(new Event(ChatWindowMediator.NEW_MESSAGE));
 		    }
 		]]>
@@ -36,4 +39,4 @@
 		<mx:Button label="Send" id="send" click="sendMessages()"/>
 	    
 	</mx:ApplicationControlBar>
-</MDIWindow>
+</mx:Panel>
