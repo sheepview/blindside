@@ -2,7 +2,6 @@ package org.blindsideproject.core.apps.chat.model
 {
 	import org.blindsideproject.core.IApplication;
 	import org.blindsideproject.core.apps.chat.vo.MessageVO;
-    import org.blindsideproject.core.apps.presentation.business.PresentationDelegate;
     import mx.collections.ArrayCollection;
     import org.blindsideproject.core.apps.chat.vo.PrivateMessageVO;
     import org.blindsideproject.views.chat.PrivateChatViewManager;

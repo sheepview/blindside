@@ -1,7 +1,6 @@
 package org.bigbluebutton.modules.presentation.model.vo
 {
 	import org.blindsideproject.core.util.log.*;
-	import org.blindsideproject.core.apps.presentation.vo.*;
 	        
 	[Bindable]
 	public class Slide

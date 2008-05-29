@@ -6,7 +6,6 @@ package org.bigbluebutton.modules.presentation.model.services
 	import mx.rpc.http.HTTPService;
 	
 	import org.bigbluebutton.modules.presentation.PresentationFacade;
-	import org.blindsideproject.core.apps.presentation.model.*;
 	import org.blindsideproject.core.util.log.*;
 	import org.puremvc.as3.multicore.interfaces.IProxy;
 	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
