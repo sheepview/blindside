@@ -1,5 +1,10 @@
 package org.bigbluebutton.modules.meetme.control.notifiers
 {
+	/**
+	 * A wrapper class so that multiple pieces of information can be sent inside a PureMVC notification 
+	 * @author dzgonjan
+	 * 
+	 */	
 	public class MuteNotifier
 	{
 		public var _userid:Number;

@@ -9,6 +9,13 @@ package org.bigbluebutton.modules.meetme.view
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
 	
+	/**
+	 * The ListenersWindowMediator is a Mediator class for the ListenersWindow mxml component
+	 * <p>
+	 * This class extends the Mediator class of the PureMVC framework 
+	 * @author dzgonjan
+	 * 
+	 */	
 	public class ListenersWindowMediator extends Mediator implements IMediator
 	{
 		public static const NAME:String = "ListenersWindowMediator";
@@ -18,6 +25,11 @@ package org.bigbluebutton.modules.meetme.view
 		
 		private var log : ILogger = LoggerModelLocator.getInstance().log;
 		
+		/**
+		 * The default constructor. Assigns this class to a certain GUI component 
+		 * @param view - the gui component which this class Mediates
+		 * 
+		 */		
 		public function ListenersWindowMediator(view:ListenersWindow)
 		{
 			super(NAME, view);
@@ -26,16 +38,34 @@ package org.bigbluebutton.modules.meetme.view
 			view.addEventListener(EJECT_USER, ejectUser);
 		}
 		
+		/**
+		 *  
+		 * @return The GUI component of this mediator
+		 * 
+		 */		
 		public function get listenersWindow():ListenersWindow{
 			return viewComponent as ListenersWindow;
 		}
 		
+		/**
+		 *  
+		 * @return The array of strings representing which notifications this class listens to
+		 * <p>
+		 * This class listens to the following notifications:
+		 * 	MeetMeFacade.USER_JOIN_EVENT
+		 * 
+		 */		
 		override public function listNotificationInterests():Array{
 			return [
 					MeetMeFacade.USER_JOIN_EVENT
 					];
 		}
 		
+		/**
+		 * Decides how to handle a notification received by this class 
+		 * @param notification
+		 * 
+		 */		
 		override public function handleNotification(notification:INotification):void{
 			switch(notification.getName()){
 				case MeetMeFacade.USER_JOIN_EVENT:
@@ -45,16 +75,31 @@ package org.bigbluebutton.modules.meetme.view
 			}
 		}
 		
+		/**
+		 * Sends a MUTE_ALL_USERS_COMMAND notification (false - unmutes all users)
+		 * @param e - the event which generated the call to this method
+		 * 
+		 */		
 		private function unmuteAllUsers(e:Event) : void
    		{
    			sendNotification(MeetMeFacade.MUTE_ALL_USERS_COMMAND, false);
    		}
    		
+   		/**
+   		 * Sends a MUTE_ALL_USERS_COMMAND notification (true - mutes all users)
+   		 * @param e - the event which generated the call to this method
+   		 * 
+   		 */   		
    		private function muteAllUsers(e:Event) : void
    		{
    			sendNotification(MeetMeFacade.MUTE_ALL_USERS_COMMAND, true);
    		}
    		
+   		/**
+   		 * Sends an EJECT_USER_COMMAND notification 
+   		 * @param e - the event which generated the call to this method
+   		 * 
+   		 */   		
    		private function ejectUser(e:Event):void{
    			sendNotification(MeetMeFacade.EJECT_USER_COMMAND, listenersWindow.userid);
    		}
