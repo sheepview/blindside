@@ -1,7 +1,7 @@
-package org.bigbluebutton.modules.meetme.view
+package org.bigbluebutton.modules.voiceconference.view
 {
-	import org.bigbluebutton.modules.meetme.MeetMeFacade;
-	import org.bigbluebutton.modules.meetme.control.notifiers.MuteNotifier;
+	import org.bigbluebutton.modules.voiceconference.VoiceConferenceFacade;
+	import org.bigbluebutton.modules.voiceconference.control.notifiers.MuteNotifier;
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
 	import org.puremvc.as3.multicore.interfaces.IMediator;
@@ -53,7 +53,7 @@ package org.bigbluebutton.modules.meetme.view
 		 */		
 		override public function listNotificationInterests():Array{
 			return [
-					MeetMeFacade.USER_JOIN_EVENT
+					VoiceConferenceFacade.USER_JOIN_EVENT
 					];
 		}
 		
@@ -64,7 +64,7 @@ package org.bigbluebutton.modules.meetme.view
 		 */		
 		override public function handleNotification(notification:INotification):void{
 			switch(notification.getName()){
-				case MeetMeFacade.USER_JOIN_EVENT:
+				case VoiceConferenceFacade.USER_JOIN_EVENT:
 					onNewMeetMeEvent(notification);
 					break;
 			}
@@ -78,7 +78,7 @@ package org.bigbluebutton.modules.meetme.view
    		{
    			if (! meetMeUserItem.isModerator) return;
    			
-   			sendNotification(MeetMeFacade.MUTE_EVENT, new MuteNotifier(meetMeUserItem.data.userid, !meetMeUserItem.data.isMuted));
+   			sendNotification(VoiceConferenceFacade.MUTE_EVENT, new MuteNotifier(meetMeUserItem.data.userid, !meetMeUserItem.data.isMuted));
    			
    			log.debug("MeetMeUserItem::muteUnmuteUser : [" + meetMeUserItem.data.userid + "," + !meetMeUserItem.data.isMuted + "]");
    		}
@@ -103,7 +103,7 @@ package org.bigbluebutton.modules.meetme.view
    		{
    			if (! meetMeUserItem.isModerator) return;
    			
-   			sendNotification(MeetMeFacade.EJECT_USER_COMMAND, meetMeUserItem.data.userid);
+   			sendNotification(VoiceConferenceFacade.EJECT_USER_COMMAND, meetMeUserItem.data.userid);
    			
    			log.debug("MeetMeUserItem::ejectUser : [" + meetMeUserItem.data.userid + "]");
    		}

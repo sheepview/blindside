@@ -1,4 +1,4 @@
-package org.bigbluebutton.modules.meetme.model.business
+package org.bigbluebutton.modules.voiceconference.model.business
 {
 	import flash.events.AsyncErrorEvent;
 	import flash.events.NetStatusEvent;
@@ -9,9 +9,8 @@ package org.bigbluebutton.modules.meetme.model.business
 	import mx.collections.ArrayCollection;
 	import mx.rpc.IResponder;
 	
-	import org.bigbluebutton.modules.meetme.MeetMeFacade;
-	import org.bigbluebutton.modules.meetme.model.MeetMeRoom;
-	import org.bigbluebutton.modules.meetme.model.vo.MeetMeUser;
+	import org.bigbluebutton.modules.voiceconference.VoiceConferenceFacade;
+	import org.bigbluebutton.modules.voiceconference.model.VoiceConferenceRoom;
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
 	import org.puremvc.as3.multicore.interfaces.IProxy;
@@ -26,14 +25,14 @@ package org.bigbluebutton.modules.meetme.model.business
 	 * @author Richard Alam
 	 * 
 	 */			
-	public class MeetMeConnectResponder extends Proxy implements IResponder, IProxy
+	public class VoiceConfConnectResponder extends Proxy implements IResponder, IProxy
 	{
 		public static const NAME:String = "MeetMeConnectResponder";
 		
-		private var model:MeetMeFacade = MeetMeFacade.getInstance();
+		private var model:VoiceConferenceFacade = VoiceConferenceFacade.getInstance();
 		private var log : ILogger = LoggerModelLocator.getInstance().log;
 		
-		private var meetMeRoom : MeetMeRoom;
+		private var meetMeRoom : VoiceConferenceRoom;
 		private var participantsSO : SharedObject;
 		private var participants : Array;
 				
@@ -42,7 +41,7 @@ package org.bigbluebutton.modules.meetme.model.business
 		 * @param meetMeRoom - The MeetMeRoom class of the MeetMe module
 		 * 
 		 */				
-		public function MeetMeConnectResponder(meetMeRoom:MeetMeRoom)
+		public function VoiceConfConnectResponder(meetMeRoom:VoiceConferenceRoom)
 		{
 			super(NAME);
 			this.meetMeRoom = meetMeRoom;
@@ -375,7 +374,7 @@ package org.bigbluebutton.modules.meetme.model.business
 			//var event : NewMeetMeEvent = 
 			//		new NewMeetMeEvent(MeetMeEvents.USER_JOIN_EVENT);
 			//dispatcher.dispatchEvent(event);
-			sendNotification(MeetMeFacade.USER_JOIN_EVENT);
+			sendNotification(VoiceConferenceFacade.USER_JOIN_EVENT);
 		}		
 	}
 }

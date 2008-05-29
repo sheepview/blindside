@@ -2,7 +2,7 @@
 <mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" creationComplete="initParticipantItem()">
    <mx:Script>
    	<![CDATA[
-   		import org.bigbluebutton.modules.meetme.MeetMeFacade;
+   		import org.bigbluebutton.modules.voiceconference.VoiceConferenceFacade;
    		import mx.controls.Image;
    		import org.blindsideproject.views.general.Images;
    		import com.adobe.cairngorm.control.CairngormEventDispatcher;
@@ -24,7 +24,7 @@
 			
 		private var userRole : String = confModel.conference.me.role;
 					
-		private var model:MeetMeFacade = MeetMeFacade.getInstance();
+		private var model:VoiceConferenceFacade = VoiceConferenceFacade.getInstance();
 		private var log : ILogger = LoggerModelLocator.getInstance().log;
    		
    		private var images : Images = new Images();
@@ -40,7 +40,7 @@
    		{
    			log.debug("Init MeetMeUserItem");
    			displayStatusIcon();
-   			MeetMeFacade.getInstance().registerMediator(new MeetMeUserItemMediator(this));
+   			VoiceConferenceFacade.getInstance().registerMediator(new MeetMeUserItemMediator(this));
    		}
    		   		
    		public function displayStatusIcon() : void
