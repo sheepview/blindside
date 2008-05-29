@@ -5,40 +5,17 @@ package org.bigbluebutton.modules.log.model
 
 	public class LogProxy extends Proxy implements IProxy
 	{
-		public function LogProxy(proxyName:String=null, data:Object=null)
+		public static const NAME:String = "LogProxy";
+		
+		public function LogProxy()
 		{
-			super(proxyName, data);
+			super(NAME);
 		}
 		
-		public function getProxyName():String
-		{
-			return null;
+		public function sendClearLog () {
+			sendNotification(LogFacade.CLEAR);
 		}
 		
-		public function setData(data:Object):void
-		{
-		}
-		
-		public function getData():Object
-		{
-			return null;
-		}
-		
-		public function onRegister():void
-		{
-		}
-		
-		public function sendNotification(notificationName:String, body:Object=null, type:String=null):void
-		{
-		}
-		
-		public function onRemove():void
-		{
-		}
-		
-		public function initializeNotifier(key:String):void
-		{
-		}
 		
 	}
 }
