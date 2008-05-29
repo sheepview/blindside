@@ -14,6 +14,13 @@ package org.bigbluebutton.modules.presentation
 	import org.puremvc.as3.multicore.interfaces.IFacade;
 	import org.puremvc.as3.multicore.patterns.facade.Facade;
 	
+	/**
+	 * This is the main facade class of the Presentation module
+	 * <p>
+	 * This class extends the Facade class of the pureMVC framework 
+	 * @author dzgonjan
+	 * 
+	 */	
 	public class PresentationFacade extends Facade implements IFacade
 	{
 		public static const ID : String = "PresentationFacade";
@@ -53,11 +60,22 @@ package org.bigbluebutton.modules.presentation
 		public var presentation:PresentationModel = new PresentationModel();
 		public var presApp:PresentationApplication;
 		
+		/**
+		 * The default constructor. Should never be called directly as this class is a singleton, however
+		 * ActionScript does not support provate constructors. 
+		 * 
+		 */		
 		public function PresentationFacade() : void
 		{
 			super(ID);		
 		}
 
+		/**
+		 * Return the instance of PresentationFacade. Should be called whenever you need a PresentationFacade
+		 * Always returns the same instance. 
+		 * @return 
+		 * 
+		 */
 		public static function getInstance() : PresentationFacade
 		{
 			if ( instanceMap[ID] == null ) instanceMap[ID] = new PresentationFacade();
@@ -65,6 +83,10 @@ package org.bigbluebutton.modules.presentation
 			return instanceMap[ID] as PresentationFacade;
 	   	}	
 	   	
+	   	/**
+	   	 * Initializes the controller part of this module 
+	   	 * 
+	   	 */	   	
 	   	override protected function initializeController():void{
 	   		super.initializeController();
 	   		registerCommand(STARTUP, StartupCommand);
@@ -72,6 +94,11 @@ package org.bigbluebutton.modules.presentation
 	   		registerCommand(START_PRESENTATION_APPLICATION, StartPresentationAppCommand);
 	   	}	   	
 	   	
+	   	/**
+	   	 * Returns the presentationDelegate of the Presentation module 
+	   	 * @return 
+	   	 * 
+	   	 */	   	
 	   	public function get presentationDelegate():PresentationDelegate
 	   	{
 	   		if (_presentationDelegate == null) {
@@ -81,16 +108,34 @@ package org.bigbluebutton.modules.presentation
 	   		return _presentationDelegate;
 	   	}
 	   	
+	   	/**
+	   	 * Sends out a notification to startup the Presentation module. Calls the StartupCommand 
+	   	 * @param app
+	   	 * 
+	   	 */	   	
 	   	public function startup(app:PresentationWindow):void{
 	 		  sendNotification(STARTUP, app);
 	   	}
 	   	
+	   	/**
+	   	 * Sets the Presentation Application. It is created from the passed in parameters 
+	   	 * @param userid
+	   	 * @param room
+	   	 * @param url
+	   	 * @param docServiceAddress
+	   	 * 
+	   	 */	   	
 	   	public function setPresentationApp(userid : Number, room : String, 
 				url : String, docServiceAddress : String):void{
 			presApp = new PresentationApplication(userid, room, url, docServiceAddress);
 	   		sendNotification(START_PRESENTATION_APPLICATION, presApp);
 	   	}
 	   	
+	   	/**
+	   	 *  
+	   	 * @return The presentationApplication of the Presentation module
+	   	 * 
+	   	 */	   	
 	   	public function get presentationApp():PresentationApplication{
 	   		return this.retrieveMediator(PresentationApplication.NAME) as PresentationApplication;
 	   	}

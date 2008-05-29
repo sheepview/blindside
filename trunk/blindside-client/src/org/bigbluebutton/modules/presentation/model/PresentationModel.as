@@ -5,6 +5,11 @@ package org.bigbluebutton.modules.presentation.model
 	import org.bigbluebutton.modules.presentation.model.vo.SlidesDeck;
 	import org.blindsideproject.core.IApplication;
 	
+	/**
+	 * The PresentationModel class holds the properties of the presentation 
+	 * @author dzgonjan
+	 * 
+	 */	
 	public class PresentationModel implements IApplication
 	{
 		/**
@@ -55,6 +60,11 @@ package org.bigbluebutton.modules.presentation.model
 			decks.displayDefaultSlide();
 		}
 				
+		/**
+		 * Register a new SlidesDeck with this presentation 
+		 * @param deck
+		 * 
+		 */				
 		public function newDeckOfSlides(deck : SlidesDeck) : void
 		{
 		    if (decks == null) {

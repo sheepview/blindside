@@ -14,6 +14,14 @@ package org.bigbluebutton.modules.presentation.model.business
 	import org.puremvc.as3.multicore.interfaces.IProxy;
 	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
 					
+	/**
+	 * The PresentationDelegate class handles calls to and from the server 
+	 * In most cases the communication with the Red5 server is handles using a shared object
+	 * <p>
+	 * This class extends the Proxy class of the PureMVC framework
+	 * @author Richard Alam
+	 * 
+	 */					
 	public class PresentationDelegate extends Proxy implements IProxy
 	{
 		public static const ID : String = "PresentationDelegate";
@@ -37,30 +45,46 @@ package org.bigbluebutton.modules.presentation.model.business
 		private var presentationSO : SharedObject;
 		private var connDelegate : NetConnectionDelegate;
 				
+		/**
+		 * The default constructor. Creates a new NetConnectionDelegate
+		 * 
+		 */				
 		public function PresentationDelegate()
 		{
 			super(ID);
 			connDelegate = new NetConnectionDelegate(this);
 		}	
 				
+		/**
+		 * The event is called when a successful connection is established
+		 * 
+		 */				
 		public function connectionSuccess() : void
 		{
 			presentation.isConnected = true;
 			
-			sendConnectedEvent();
-			
 			joinConference();
 		}
-			
+		
+		/**
+		 * The event is called when a connection could not be established 
+		 * @param message - the reason the connection was not established
+		 * 
+		 */			
 		public function connectionFailed(message : String) : void 
 		{
 			if (presentationSO != null) presentationSO.close();
 			
 			presentation.isConnected = false;
-			
-			sendDisconnectedEvent(message);
 		}		
 		
+		/**
+		 * Attempt to join a room on the server 
+		 * @param userid - Our userid
+		 * @param host - The host we're trying to connect to 
+		 * @param room - The room on the host we're trying to connect to
+		 * 
+		 */		
 		public function join(userid: Number, host : String, room : String) : void
 		{			
 			presentation.userid = userid;
@@ -71,48 +95,86 @@ package org.bigbluebutton.modules.presentation.model.business
 			sendNotification(PresentationFacade.LOAD_COMMAND);
 		}
 		
+		/**
+		 * Leave the server, close the connection 
+		 * 
+		 */		
 		public function leave() : void
 		{
 			presentationSO.close();
 			connDelegate.disconnect();
 		}
 		
+		/**
+		 * Send an event out to the server to go to a new page in the SlidesDeck 
+		 * @param page
+		 * 
+		 */		
 		public function gotoPage(page : Number) : void
 		{
 			presentationSO.send("newPageNumber", page);
 		}
 		
+		/**
+		 * A callback method. It is called after the gotoPage method has successfully executed on the server
+		 * The method sets the clients view to the page number received 
+		 * @param page
+		 * 
+		 */		
 		public function newPageNumber(page : Number) : void
 		{
 			presentation.decks.selected = page;
 		}
 		
+		/**
+		 * Send an event to the server to clear the presentation 
+		 * 
+		 */		
 		public function clear() : void
 		{
 			presentationSO.send("clearPresentation");			
 		}
 		
+		/**
+		 * A call-back method for the clear method. This method is called when the clear method has
+		 * successfuly called the server.
+		 * 
+		 */		
 		public function clearPresentation() : void
 		{
 			presentationSO.setProperty(SHARING, false);
 			sendNotification(PresentationFacade.CLEAR_EVENT);
 		}
 		
+		/**
+		 * Calls the server in order to give the presentation control to someone else
+		 * @param userid
+		 * @param name
+		 * 
+		 */		
 		public function givePresenterControl(userid : Number, name : String) : void
 		{
 			// Force unshare of presentation
 			share(false);
 			
-			
 			presentationSO.setProperty(PRESENTER, {userid : userid, name : name});
 			log.debug("Assign presenter control to [" + name + "]");
 		}
 		
+		/**
+		 * Stop sharing the presentation 
+		 * 
+		 */		
 		public function stopSharing() : void
 		{
 			presentationSO.setProperty(SHARING, false);
 		}
 		
+		/**
+		 * Start sharing the presentation 
+		 * @param sharing
+		 * 
+		 */		
 		public function share(sharing : Boolean) : void
 		{
 			if (sharing) {
@@ -138,6 +200,10 @@ package org.bigbluebutton.modules.presentation.model.business
 			}
 		}
 				
+		/**
+		 * Joins a conference on the server 
+		 * 
+		 */				
 		private function joinConference() : void
 		{
 			presentationSO = SharedObject.getRemote(SHAREDOBJECT, connDelegate.connUri, false);
@@ -152,6 +218,10 @@ package org.bigbluebutton.modules.presentation.model.business
 			log.debug( "PresentationDelegate::joinConference");
 		}
 
+		/**
+		 * Remove the events that the presentationSO:SharedObject of this class listens to 
+		 * 
+		 */
 		private function removeListeners() : void
 		{
 			presentationSO.removeEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);
@@ -159,6 +229,11 @@ package org.bigbluebutton.modules.presentation.model.business
 			presentationSO.removeEventListener(SyncEvent.SYNC, sharedObjectSyncHandler);
 		}		
 								
+		/**
+		 * Event called automatically once a SharedObject Sync method is received 
+		 * @param event
+		 * 
+		 */								
 		private function sharedObjectSyncHandler( event : SyncEvent) : void
 		{
 			log.debug( "Presentation::sharedObjectSyncHandler " + event.changeList.length);
@@ -234,6 +309,11 @@ package org.bigbluebutton.modules.presentation.model.business
 			}
 		}
 		
+		/**
+		 * Processes a new SlideDeck
+		 * @param pres - an Object representing a SlideDeck
+		 * 
+		 */		
 		private function processSharedPresentation(pres : Object) : void
 		{
 			var deck:SlidesDeck = new SlidesDeck(pres);
@@ -242,6 +322,11 @@ package org.bigbluebutton.modules.presentation.model.business
 			presentation.decks.selected = pres.page;	
 		}
 		
+		/**
+		 *  Called when there is an update from the server
+		 * @param returnCode - an update message from the server
+		 * 
+		 */		
 		private function processUpdateMessage(returnCode : String) : void
 		{
 			var totalSlides : Number;
@@ -288,28 +373,24 @@ package org.bigbluebutton.modules.presentation.model.business
 			}															
 		}
 		
+		/**
+		 * Method is called when a new NetStatusEvent is received 
+		 * @param event
+		 * 
+		 */		
 		private function netStatusHandler ( event : NetStatusEvent ) : void
 		{
 			log.debug( "netStatusHandler " + event.info.code );
 		}
 		
+		/**
+		 * Method is called when a new AsyncErrorEvent is received 
+		 * @param event
+		 * 
+		 */		
 		private function asyncErrorHandler ( event : AsyncErrorEvent ) : void
 		{
 			log.debug( "asyncErrorHandler " + event.error);
-		}
-		
-			
-		public function sendConnectedEvent() : void
-		{
-//			var event : ConnectedEvent = new ConnectedEvent(ConferenceEvents.CONNECTED_EVENT);
-//			event.dispatch();
-		}
-//
-		public function sendDisconnectedEvent(message : String):void
-		{
-//			var event : DisconnectedEvent = new DisconnectedEvent(ConferenceEvents.DISCONNECTED_EVENT,
-//												message);
-//			dispatcher.dispatchEvent(event);
 		}
 	}
 }

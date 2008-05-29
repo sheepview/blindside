@@ -10,6 +10,14 @@ package org.bigbluebutton.modules.presentation.model.services
 	import org.puremvc.as3.multicore.interfaces.IProxy;
 	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
 	        	
+	/**
+	 * This class directly communicates with an HTTP service in order to send and recives files (slides
+	 * in this case)
+	 * <p>
+	 * This class extends the Proxy class of the pureMVC framework
+	 * @author Richard Alam
+	 * 
+	 */	        	
 	public class PresentationService extends Proxy implements IProxy
 	{
 		public static const ID:String = "PresentationService";
@@ -20,6 +28,12 @@ package org.bigbluebutton.modules.presentation.model.services
 		
 		private var responder : IResponder;
 		
+		/**
+		 * The default constructor 
+		 * @param url - the address of the HTTP service
+		 * @param responder - A responer, in this case a PresentationApplication class
+		 * 
+		 */		
 		public function PresentationService(url:String, responder : IResponder)
 		{
 			super(ID);
@@ -28,6 +42,11 @@ package org.bigbluebutton.modules.presentation.model.services
 			load(url);
 		}
 		
+		/**
+		 * Load slides from an HTTP service. Response is received in the Responder class' onResult method 
+		 * @param url
+		 * 
+		 */		
 		public function load(url : String) : void
 		{
 			service.url = url;

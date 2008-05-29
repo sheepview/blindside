@@ -6,6 +6,11 @@ package org.bigbluebutton.modules.presentation.model.vo
 	import mx.collections.ArrayCollection;
 	import mx.collections.IViewCursor;
 	
+	/**
+	 * This class represents a SlidesDeck, a collection of Slide object 
+	 * @author dzgonjan
+	 * 
+	 */	
 	[Bindable]
 	public class SlidesDeck
 	{
