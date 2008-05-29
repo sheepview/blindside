@@ -1,10 +1,10 @@
-package org.bigbluebutton.modules.meetme.model.business
+package org.bigbluebutton.modules.voiceconference.model.business
 {
 	import flash.events.*;
 	import flash.net.NetConnection;
 	
-	import org.bigbluebutton.modules.meetme.MeetMeFacade;
-	import org.bigbluebutton.modules.meetme.model.MeetMeRoom;
+	import org.bigbluebutton.modules.voiceconference.VoiceConferenceFacade;
+	import org.bigbluebutton.modules.voiceconference.model.VoiceConferenceRoom;
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
 	import org.puremvc.as3.multicore.interfaces.IProxy;
@@ -21,11 +21,11 @@ package org.bigbluebutton.modules.meetme.model.business
 	{
 		public static const NAME:String = "NetConnectionDelegate";
 		
-		private var model:MeetMeFacade = MeetMeFacade.getInstance();
+		private var model:VoiceConferenceFacade = VoiceConferenceFacade.getInstance();
 		private var log : ILogger = LoggerModelLocator.getInstance().log;
 			
 		private var netConnection : NetConnection;	
-		private var meetmeRoom : MeetMeRoom;
+		private var meetmeRoom : VoiceConferenceRoom;
 		private var roomNumber : String;
 					
 		/**
@@ -33,7 +33,7 @@ package org.bigbluebutton.modules.meetme.model.business
 		 * @param meetmeRoom - the MeetMeRoom this class uses
 		 * 
 		 */					
-		public function NetConnectionDelegate(meetmeRoom:MeetMeRoom)
+		public function NetConnectionDelegate(meetmeRoom:VoiceConferenceRoom)
 		{
 			super(NAME);
 			this.meetmeRoom = meetmeRoom;
@@ -45,8 +45,8 @@ package org.bigbluebutton.modules.meetme.model.business
 		 * @return - the MeetMeConnectResponder of this class
 		 * 
 		 */		
-		public function get responder():MeetMeConnectResponder{
-			return facade.retrieveProxy(MeetMeConnectResponder.NAME) as MeetMeConnectResponder;
+		public function get responder():VoiceConfConnectResponder{
+			return facade.retrieveProxy(VoiceConfConnectResponder.NAME) as VoiceConfConnectResponder;
 		}
 
 		/**

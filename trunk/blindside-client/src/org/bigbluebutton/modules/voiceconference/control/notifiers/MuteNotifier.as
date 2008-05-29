@@ -1,4 +1,4 @@
-package org.bigbluebutton.modules.meetme.control.notifiers
+package org.bigbluebutton.modules.voiceconference.control.notifiers
 {
 	/**
 	 * A wrapper class so that multiple pieces of information can be sent inside a PureMVC notification 

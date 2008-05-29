@@ -1,4 +1,4 @@
-package org.bigbluebutton.modules.meetme.model.vo
+package org.bigbluebutton.modules.voiceconference.model.vo
 {
 	import com.adobe.cairngorm.vo.IValueObject;
 	
@@ -7,7 +7,7 @@ package org.bigbluebutton.modules.meetme.model.vo
 	 * @author Richard Alam
 	 * 
 	 */	
-	public class MeetMeUser implements IValueObject
+	public class VoiceConferenceUser implements IValueObject
 	{
 	[RemoteClass(alias="org.blindsideproject.asterisk.meetme.vo.MeetMeUserVo")]		
 

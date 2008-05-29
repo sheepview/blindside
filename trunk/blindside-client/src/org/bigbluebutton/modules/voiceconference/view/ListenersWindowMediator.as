@@ -1,8 +1,8 @@
-package org.bigbluebutton.modules.meetme.view
+package org.bigbluebutton.modules.voiceconference.view
 {
 	import flash.events.Event;
 	
-	import org.bigbluebutton.modules.meetme.MeetMeFacade;
+	import org.bigbluebutton.modules.voiceconference.VoiceConferenceFacade;
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
 	import org.puremvc.as3.multicore.interfaces.IMediator;
@@ -57,7 +57,7 @@ package org.bigbluebutton.modules.meetme.view
 		 */		
 		override public function listNotificationInterests():Array{
 			return [
-					MeetMeFacade.USER_JOIN_EVENT
+					VoiceConferenceFacade.USER_JOIN_EVENT
 					];
 		}
 		
@@ -68,9 +68,9 @@ package org.bigbluebutton.modules.meetme.view
 		 */		
 		override public function handleNotification(notification:INotification):void{
 			switch(notification.getName()){
-				case MeetMeFacade.USER_JOIN_EVENT:
-					listenersWindow.participantsList.dataProvider = MeetMeFacade.getInstance().meetMeRoom.dpParticipants;
-					log.debug("Participants: " + MeetMeFacade.getInstance().meetMeRoom.dpParticipants.length);
+				case VoiceConferenceFacade.USER_JOIN_EVENT:
+					listenersWindow.participantsList.dataProvider = VoiceConferenceFacade.getInstance().meetMeRoom.dpParticipants;
+					log.debug("Participants: " + VoiceConferenceFacade.getInstance().meetMeRoom.dpParticipants.length);
 					break;
 			}
 		}
@@ -82,7 +82,7 @@ package org.bigbluebutton.modules.meetme.view
 		 */		
 		private function unmuteAllUsers(e:Event) : void
    		{
-   			sendNotification(MeetMeFacade.MUTE_ALL_USERS_COMMAND, false);
+   			sendNotification(VoiceConferenceFacade.MUTE_ALL_USERS_COMMAND, false);
    		}
    		
    		/**
@@ -92,7 +92,7 @@ package org.bigbluebutton.modules.meetme.view
    		 */   		
    		private function muteAllUsers(e:Event) : void
    		{
-   			sendNotification(MeetMeFacade.MUTE_ALL_USERS_COMMAND, true);
+   			sendNotification(VoiceConferenceFacade.MUTE_ALL_USERS_COMMAND, true);
    		}
    		
    		/**
@@ -101,7 +101,7 @@ package org.bigbluebutton.modules.meetme.view
    		 * 
    		 */   		
    		private function ejectUser(e:Event):void{
-   			sendNotification(MeetMeFacade.EJECT_USER_COMMAND, listenersWindow.userid);
+   			sendNotification(VoiceConferenceFacade.EJECT_USER_COMMAND, listenersWindow.userid);
    		}
 
 	}

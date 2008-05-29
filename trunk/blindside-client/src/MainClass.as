@@ -11,11 +11,11 @@ import mx.core.Application;
 import mx.events.CloseEvent;
 import mx.managers.PopUpManager;
 
-import org.bigbluebutton.modules.meetme.MeetMeFacade;
-import org.bigbluebutton.modules.meetme.view.ListenersWindow;
 import org.bigbluebutton.modules.presentation.model.PresentationApplication;
 import org.bigbluebutton.modules.presentation.view.PresentationPanel;
 import org.bigbluebutton.modules.presentation.view.PresentationWindow;
+import org.bigbluebutton.modules.voiceconference.VoiceConferenceFacade;
+import org.bigbluebutton.modules.voiceconference.view.ListenersWindow;
 import org.blindsideproject.core.apps.chat.ChatApplication;
 import org.blindsideproject.core.apps.conference.ConferenceApplication;
 import org.blindsideproject.core.apps.conference.model.*;
@@ -45,7 +45,7 @@ private var effectsList:Array;
 	private var model : ConferenceModelLocator = ConferenceModelLocator.getInstance();
 	private var dispatcher : CairngormEventDispatcher = CairngormEventDispatcher.getInstance();
 	private var log : ILogger = LoggerModelLocator.getInstance().log;
-	private var meetMeModel:MeetMeFacade = MeetMeFacade.getInstance();
+	private var meetMeModel:VoiceConferenceFacade = VoiceConferenceFacade.getInstance();
 	private var mainApp : BlindsideAppLocator = BlindsideAppLocator.getInstance();
 		
 	private var presentationApp:PresentationApplication;

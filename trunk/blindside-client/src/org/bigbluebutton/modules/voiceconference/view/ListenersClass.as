@@ -1,11 +1,11 @@
-package org.bigbluebutton.modules.meetme.view
+package org.bigbluebutton.modules.voiceconference.view
 {
 	import flexlib.mdi.containers.MDIWindow;
 	
 	import mx.controls.TileList;
 	
-	import org.bigbluebutton.modules.meetme.MeetMeFacade;
-	import org.bigbluebutton.modules.meetme.model.MeetMeRoom;
+	import org.bigbluebutton.modules.voiceconference.VoiceConferenceFacade;
+	import org.bigbluebutton.modules.voiceconference.model.VoiceConferenceRoom;
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
 
@@ -16,12 +16,12 @@ package org.bigbluebutton.modules.meetme.view
 	 */	
 	public class ListenersClass extends MDIWindow
 	{
-		private var model:MeetMeFacade = MeetMeFacade.getInstance();
+		private var model:VoiceConferenceFacade = VoiceConferenceFacade.getInstance();
 		private var log : ILogger = LoggerModelLocator.getInstance().log;
 		
 		
 		[Bindable]
-		public var meetMeRoom:MeetMeRoom = model.meetMeRoom;;
+		public var meetMeRoom:VoiceConferenceRoom = model.meetMeRoom;;
 		
 		[Bindable] 
 		public var participantsList:TileList; 

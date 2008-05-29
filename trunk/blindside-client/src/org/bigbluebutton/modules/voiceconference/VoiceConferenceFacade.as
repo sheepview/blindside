@@ -1,10 +1,10 @@
-package org.bigbluebutton.modules.meetme
+package org.bigbluebutton.modules.voiceconference
 {
 	import com.adobe.cairngorm.*;
 	
-	import org.bigbluebutton.modules.meetme.control.StartupMeetMeCommand;
-	import org.bigbluebutton.modules.meetme.model.MeetMeRoom;
-	import org.bigbluebutton.modules.meetme.view.ListenersWindow;
+	import org.bigbluebutton.modules.voiceconference.control.StartupVoiceConfCommand;
+	import org.bigbluebutton.modules.voiceconference.model.VoiceConferenceRoom;
+	import org.bigbluebutton.modules.voiceconference.view.ListenersWindow;
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
 	import org.puremvc.as3.multicore.interfaces.IFacade;
@@ -16,7 +16,7 @@ package org.bigbluebutton.modules.meetme
 	 * @author Richard Alam
 	 * 
 	 */	
-	public class MeetMeFacade extends Facade implements IFacade
+	public class VoiceConferenceFacade extends Facade implements IFacade
 	{
 		public static const ID : String = "VoiceConferenceFacade";
 		public static const STARTUP:String = "StartupVoiceConference";
@@ -30,14 +30,14 @@ package org.bigbluebutton.modules.meetme
 		
 		private var log : ILogger = LoggerModelLocator.getInstance().log;
 		
-		public var meetMeRoom:MeetMeRoom;
+		public var meetMeRoom:VoiceConferenceRoom;
 				
 		/**
 		 * The default constructor. Should NEVER be called directly, as this class is a singleton.
 		 * Instead, use the getInstance() method 
 		 * 
 		 */		
-		public function MeetMeFacade()
+		public function VoiceConferenceFacade()
 		{
 			super(ID);		
 		}
@@ -47,10 +47,10 @@ package org.bigbluebutton.modules.meetme
 		 * @return The instance of MeetMeFacade singleton class
 		 * 
 		 */		
-		public static function getInstance() : MeetMeFacade
+		public static function getInstance() : VoiceConferenceFacade
 		{
-			if (instanceMap[ID] == null) instanceMap[ID] = new MeetMeFacade();
-			return instanceMap[ID] as MeetMeFacade;
+			if (instanceMap[ID] == null) instanceMap[ID] = new VoiceConferenceFacade();
+			return instanceMap[ID] as VoiceConferenceFacade;
 	   	}		
 	   	
 	   	/**
@@ -59,7 +59,7 @@ package org.bigbluebutton.modules.meetme
 	   	 */	   	
 	   	override protected function initializeController():void{
 	   		super.initializeController();
-	   		registerCommand(STARTUP, StartupMeetMeCommand);
+	   		registerCommand(STARTUP, StartupVoiceConfCommand);
 	   	}
 	   	
 	   	/**
@@ -68,7 +68,7 @@ package org.bigbluebutton.modules.meetme
 	   	 * 
 	   	 */	   	
 	   	public function startup(app:ListenersWindow):void{
-	   		meetMeRoom = new MeetMeRoom();
+	   		meetMeRoom = new VoiceConferenceRoom();
 	   		sendNotification(STARTUP, app);
 	   		//meetMeRoom.getConnection().connect();
 	   	}
@@ -97,7 +97,7 @@ package org.bigbluebutton.modules.meetme
 	   	 * @return The MeetMeRoom of the MeetMe module
 	   	 * 
 	   	 */	   		   	
-	   	public function getMeetMeRoom() : MeetMeRoom
+	   	public function getMeetMeRoom():VoiceConferenceRoom
 	   	{
 	   		return meetMeRoom;
 	   	}

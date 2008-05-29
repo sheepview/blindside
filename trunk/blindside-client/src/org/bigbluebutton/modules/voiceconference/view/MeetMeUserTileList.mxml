@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<0?xml version="1.0" encoding="utf-8"?>
 <view:MeetMeUserListClass xmlns:mx="http://www.adobe.com/2006/mxml" 
 			xmlns:view="org.bigbluebutton.modules.meetme.view.*" 
 			xmlns:controller="org.bigbluebutton.modules.meetme.control.*">

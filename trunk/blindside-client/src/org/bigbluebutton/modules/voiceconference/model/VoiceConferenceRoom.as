@@ -1,9 +1,9 @@
-package org.bigbluebutton.modules.meetme.model
+package org.bigbluebutton.modules.voiceconference.model
 {
 	import mx.collections.ArrayCollection;
 	
-	import org.bigbluebutton.modules.meetme.MeetMeFacade;
-	import org.bigbluebutton.modules.meetme.model.business.NetConnectionDelegate;
+	import org.bigbluebutton.modules.voiceconference.VoiceConferenceFacade;
+	import org.bigbluebutton.modules.voiceconference.model.business.NetConnectionDelegate;
  	
 	/**
 	 * This class represents a room in the Asterisk server. The information about the participants is held
@@ -11,7 +11,7 @@ package org.bigbluebutton.modules.meetme.model
 	 * @authorRichard Alam
 	 * 
 	 */ 	
-	public class MeetMeRoom
+	public class VoiceConferenceRoom
 	{
 					
 		[Bindable]
@@ -28,7 +28,7 @@ package org.bigbluebutton.modules.meetme.model
 		[Bindable]
 		public var userRole : String;
 	
-		public function MeetMeRoom()
+		public function VoiceConferenceRoom()
 		{
 							
 		}
@@ -69,7 +69,7 @@ package org.bigbluebutton.modules.meetme.model
 		 * 
 		 */		
 		public function getConnection() : NetConnectionDelegate {
-			return MeetMeFacade.getInstance().retrieveProxy(NetConnectionDelegate.NAME) as NetConnectionDelegate;
+			return VoiceConferenceFacade.getInstance().retrieveProxy(NetConnectionDelegate.NAME) as NetConnectionDelegate;
 		}
 	}
 }
