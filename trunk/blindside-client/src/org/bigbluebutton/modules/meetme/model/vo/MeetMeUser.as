@@ -2,12 +2,15 @@ package org.bigbluebutton.modules.meetme.model.vo
 {
 	import com.adobe.cairngorm.vo.IValueObject;
 	
+	/**
+	 * Represents a user in the MeetMeRoom
+	 * @author Richard Alam
+	 * 
+	 */	
 	public class MeetMeUser implements IValueObject
 	{
 	[RemoteClass(alias="org.blindsideproject.asterisk.meetme.vo.MeetMeUserVo")]		
-//		public static var registered:Boolean 
-//			= ValueObject.registerClass("org.blindsideproject.asterisk.meetme.vo.MeetMeUserVo");
-			
+
 		public var roomNumber : String;
 		public var callerIdName : String;
 		public var callerIdNumber : String;

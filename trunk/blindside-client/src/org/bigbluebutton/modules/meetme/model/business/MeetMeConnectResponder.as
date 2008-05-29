@@ -17,6 +17,15 @@ package org.bigbluebutton.modules.meetme.model.business
 	import org.puremvc.as3.multicore.interfaces.IProxy;
 	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
 			
+	/**
+	 *  This class communicaties with the server and receives notifications of server events
+	 * <p>
+	 * This class extends the Proxy class of the PureMVC framework
+	 * <p>
+	 * This class implements the IResponder Interface
+	 * @author Richard Alam
+	 * 
+	 */			
 	public class MeetMeConnectResponder extends Proxy implements IResponder, IProxy
 	{
 		public static const NAME:String = "MeetMeConnectResponder";
@@ -28,6 +37,11 @@ package org.bigbluebutton.modules.meetme.model.business
 		private var participantsSO : SharedObject;
 		private var participants : Array;
 				
+		/**
+		 * The default constructor. 
+		 * @param meetMeRoom - The MeetMeRoom class of the MeetMe module
+		 * 
+		 */				
 		public function MeetMeConnectResponder(meetMeRoom:MeetMeRoom)
 		{
 			super(NAME);
@@ -54,8 +68,6 @@ package org.bigbluebutton.modules.meetme.model.business
 				case "NetConnection.Connect.Success" :
 					//
 					meetMeRoom.isConnected = true;
-
-					meetMeRoom.sendConnectedEvent();
 									
 					// find out if it's a secure (HTTPS/TLS) connection
 					if ( event.target.connectedProxyType == "HTTPS" || event.target.usingTLS ) {
@@ -119,17 +131,30 @@ package org.bigbluebutton.modules.meetme.model.business
 			log.error( event.text);
 		}
 		
-			
+		
+		/**
+		 * Method is called when the delegate receives a disconnect notice from the server 
+		 * @param reason
+		 * @param message
+		 * 
+		 */		
 		private function serverDisconnect(reason : uint, message : String) : void 
 		{
 			close();
-			
-			meetMeRoom.sendDisconnectedEvent(reason, message);
 		}		
 		
+		/**
+		 * Gets called when the server has disconnected 
+		 * 
+		 */		
 		public function close() : void {
 			if (participantsSO != null) participantsSO.close();
 		}
+		
+		/**
+		 * Joins a room on the server 
+		 * 
+		 */		
 		private function joinMeetMeRoom() : void
 		{
 			participantsSO = SharedObject.getRemote("meetMeUsersSO", meetMeRoom.getConnection().getUri(), false);
@@ -141,6 +166,15 @@ package org.bigbluebutton.modules.meetme.model.business
 			participantsSO.connect(meetMeRoom.getConnection().getConnection());			
 		}
 
+		/**
+		 * This event is called when a new user has joined a room on the server 
+		 * @param userId
+		 * @param cidName
+		 * @param cidNum
+		 * @param muted
+		 * @param talking
+		 * 
+		 */
 		public function userJoin(userId : Number, cidName : String, cidNum : String, 
 									muted : Boolean, talking : Boolean) : void
 		{
@@ -166,6 +200,12 @@ package org.bigbluebutton.modules.meetme.model.business
 			meetMeRoom.dpParticipants.refresh();
 		}
 
+		/**
+		 * Gets called when a particular user was muted/unmuted
+		 * @param userId - The user
+		 * @param mute - mute?
+		 * 
+		 */
 		public function userMute(userId : Number, mute : Boolean) : void
 		{
 			if (participants == null) return;
@@ -179,6 +219,12 @@ package org.bigbluebutton.modules.meetme.model.business
 			}			
 		}
 
+		/**
+		 *  Method gets called when a user is talking
+		 * @param userId - the user who is talking
+		 * @param talk
+		 * 
+		 */
 		public function userTalk(userId : Number, talk : Boolean) : void
 		{
 			log.debug("User Talking");
@@ -193,6 +239,11 @@ package org.bigbluebutton.modules.meetme.model.business
 			}			
 		}
 
+		/**
+		 * Method gets called when the user has left 
+		 * @param userId - the user which left the room
+		 * 
+		 */
 		public function userLeft(userId : Number) : void
 		{
 			if (participants == null) return;
@@ -211,17 +262,12 @@ package org.bigbluebutton.modules.meetme.model.business
 			meetMeRoom.dpParticipants.refresh();	
 		}
 		
-		public function newStatus(user:MeetMeUser) : void {
-//			log.debug("MeetMe::newStatus : [" + user.callerIdName + "," + user.userNumber + "]");
-		}
-
-		public function currentUsers(users : Object) : void {
-		}
-		
-		public function sendEjectUserFromMeetMe() : void {
-
-		}
-		
+		/**
+		 * Mute or Unmute a specific user 
+		 * @param userId - the user to mute/unmute
+		 * @param muteUser - mute/unmute?
+		 * 
+		 */		
 		public function muteUnmuteUser(userId : Number, muteUser : Boolean) : void
 		{
 			var nc_responder : Responder;
@@ -231,18 +277,34 @@ package org.bigbluebutton.modules.meetme.model.business
 			meetMeRoom.getConnection().getConnection().call("meetmeService.muteUnmuteUser", nc_responder, userId, muteUser);			
 		}
 
+		/**
+		 * Send a call to the server to mute all users 
+		 * @param muteUSers
+		 * 
+		 */		
 		public function muteAllUsers(mute : Boolean) : void
 		{	
 			log.info("MeetMe: calling meetmeService.muteAllUsers");
 			meetMeRoom.getConnection().getConnection().call("meetmeService.muteAllUsers", null, mute);			
 		}
-
+		
+		/**
+		 * Ejects a particular user 
+		 * @param userId - the user to eject
+		 * 
+		 */
 		public function ejectUser(userId : Number) : void
 		{
 			log.info("MeetMe: calling meetmeService.ejectUser");
 			meetMeRoom.getConnection().getConnection().call("meetmeService.ejectUser", null, userId);			
 		}
 		
+		/**
+		 * Gets all the users in the room on the server and then refreshes the ArrayCollection of users
+		 * which is stored in the MeetMeRoom class 
+		 * @param meetmeUser
+		 * 
+		 */		
 		public function getMeetMeUsers(meetmeUser : Object) : void
 		{
 			var i:Number = 0;
@@ -270,26 +332,43 @@ package org.bigbluebutton.modules.meetme.model.business
 			meetMeRoom.dpParticipants = new ArrayCollection(participants);
 			meetMeRoom.dpParticipants.refresh();
 		}
-	
-		public function newStatusForUser(status : String) : void {
 			
-		}	
-			
+		/**
+		 * Responds to a SYNC event of a shared object 
+		 * @param event
+		 * 
+		 */			
 		private function sharedObjectSyncHandler( event : SyncEvent) : void
 		{
 			log.debug( "MeetMe::sharedObjectSyncHandler " + event.changeList);
 		}
 		
+		/**
+		 * Responds to a NET_STATUS_EVENT of a shared object 
+		 * @param event
+		 * 
+		 */		
 		private function netStatusHandler ( event : NetStatusEvent ) : void
 		{
 			log.debug( "MeetMe::netStatusHandler " + event.info.code );
 		}
 		
+		/**
+		 * Responds to an ASYNC_ERROR_EVENT of a shared object 
+		 * @param event
+		 * 
+		 */		
 		private function asyncErrorHandler ( event : AsyncErrorEvent ) : void
 		{
 			log.debug( "MeetMe::asyncErrorHandler " + event.error);
 		}
 		
+		/**
+		 * The method is called when a new event is received from the server
+		 * <p>
+		 * This method then sends out a notification to the rest of the module
+		 * 
+		 */		
 		public function sendNewMeetMeEvent():void
 		{
 			log.debug("Got to sendMeetMeEvent");

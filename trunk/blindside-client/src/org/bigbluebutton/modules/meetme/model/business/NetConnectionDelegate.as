@@ -10,6 +10,13 @@ package org.bigbluebutton.modules.meetme.model.business
 	import org.puremvc.as3.multicore.interfaces.IProxy;
 	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
 		
+	/**
+	 *  This is the NetConnectionDelegate which connects to the server
+	 * <p>
+	 * This class extends the Proxy Class of the PureMVC framework
+	 * @author Richard Alam
+	 * 
+	 */	
 	public class NetConnectionDelegate extends Proxy implements IProxy
 	{
 		public static const NAME:String = "NetConnectionDelegate";
@@ -21,6 +28,11 @@ package org.bigbluebutton.modules.meetme.model.business
 		private var meetmeRoom : MeetMeRoom;
 		private var roomNumber : String;
 					
+		/**
+		 * The Default constructor 
+		 * @param meetmeRoom - the MeetMeRoom this class uses
+		 * 
+		 */					
 		public function NetConnectionDelegate(meetmeRoom:MeetMeRoom)
 		{
 			super(NAME);
@@ -28,10 +40,19 @@ package org.bigbluebutton.modules.meetme.model.business
 			meetmeRoom.setConnectionDelegate(this);
 		}
 		
+		/**
+		 *  
+		 * @return - the MeetMeConnectResponder of this class
+		 * 
+		 */		
 		public function get responder():MeetMeConnectResponder{
 			return facade.retrieveProxy(MeetMeConnectResponder.NAME) as MeetMeConnectResponder;
 		}
 
+		/**
+		 * Attempts connect to the server 
+		 * 
+		 */
 		public function connect() : void
 		{		
 			netConnection = new NetConnection();
@@ -66,7 +87,7 @@ package org.bigbluebutton.modules.meetme.model.business
 		}
 		
 		/**
-		 * 
+		 * Closes the connection to the server
 		 * 
 		 */		
 		public function close() : void
@@ -77,7 +98,7 @@ package org.bigbluebutton.modules.meetme.model.business
 		}
 				
 		/**
-		 * 
+		 * This method gets called when a NET_STATUS event is received from the server
 		 * @param event
 		 */		
 		protected function netStatus( event : NetStatusEvent ) : void 
@@ -86,7 +107,7 @@ package org.bigbluebutton.modules.meetme.model.business
 		}
 		
 		/**
-		 * 
+		 * This method gets called when a NET_SECURITY_ERROR is received from the server
 		 * @param event
 		 */		
 		protected function netSecurityError( event : SecurityErrorEvent ) : void 
@@ -96,7 +117,7 @@ package org.bigbluebutton.modules.meetme.model.business
 		}
 		
 		/**
-		 * 
+		 * This method gets called when an IO_ERROR event is received from the server
 		 * @param event
 		 */		
 		protected function netIOError( event : IOErrorEvent ) : void 
@@ -106,7 +127,7 @@ package org.bigbluebutton.modules.meetme.model.business
 		}
 		
 		/**
-		 * 
+		 * This method gets called when an ASYNC_ERROR event is received from the server
 		 * @param event
 		 */		
 		protected function netASyncError( event : AsyncErrorEvent ) : void 
@@ -126,25 +147,42 @@ package org.bigbluebutton.modules.meetme.model.business
 			return "Okay";
 		}	
 		
-//		public function getClientId() : Number
-//		{
-//			return connectionId;
-//		}
-		
+		/**
+		 *  
+		 * @return the URI of the MeetMeRoom
+		 * 
+		 */		
 		public function getUri() : String{
 			return meetmeRoom.getUri();
 		}	
 		
+		/**
+		 * 
+		 * @return the NetConnection of this class
+		 * 
+		 */		
 		public function getConnection() : NetConnection
 		{
 			return netConnection;
 		}
 		
+		/**
+		 * Send a call to the server to mute all users 
+		 * @param muteUSers
+		 * 
+		 */		
 		public function muteAllUsers(muteUSers : Boolean) : void 
 		{
 			responder.muteAllUsers(muteUSers);
 			
 		}
+		
+		/**
+		 * Mute or Unmute a specific user 
+		 * @param userId - the user to mute/unmute
+		 * @param muteUser - mute/unmute?
+		 * 
+		 */		
 		public function muteUnmuteUser(userId : Number, muteUser : Boolean) : void
 		{
 			log.debug("NetConnectionDelegate::muteUnmuteUser : [" + userId + "," + muteUser + "]");
@@ -152,6 +190,11 @@ package org.bigbluebutton.modules.meetme.model.business
 			responder.muteUnmuteUser(userId, muteUser);
 		}
 
+		/**
+		 * Ejects a particular user 
+		 * @param userId - the user to eject
+		 * 
+		 */
 		public function ejectUser(userId : Number) : void
 		{
 			log.debug("NetConnectionDelegate::ejectUser : [" + userId + "]");

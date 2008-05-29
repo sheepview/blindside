@@ -12,7 +12,11 @@ package org.bigbluebutton.modules.meetme.view
     import superpanel.nl.wv.extenders.panel.SuperPanel;
 	import mx.controls.TileList;
 
-	
+	/**
+	 * This is a convinience class for the MeetMeUserTileList GUI component. It holds some variables
+	 * @author Richard Alam
+	 * 
+	 */	
 	public class MeetMeUserListClass extends SuperPanel
 	{
 		private var model : MeetMeFacade = MeetMeFacade.getInstance();
@@ -28,14 +32,5 @@ package org.bigbluebutton.modules.meetme.view
 		
 		[Bindable]
 		public var userRole : uint;
-/*		
-		protected function connectToMeetMe() : void
-	   	{
-			model.meetMeRoom.getConnection().connect();
-			meetMeRoom = model.meetMeRoom;
-			meetMeRoom.userRole = userRole;
-			
-	   	}
-*/
 	}  	
 }
