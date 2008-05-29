@@ -16,6 +16,13 @@ package org.bigbluebutton.modules.presentation.view
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
 	
+	/**
+	 * This is the Mediator class for the FileUploadWindow component
+	 * <p>
+	 * This class extends the Mediator class of the pureMVC framework 
+	 * @author dzgonjan
+	 * 
+	 */	
 	public class FileUploadWindowMediator extends Mediator implements IMediator
 	{
 		public static const NAME:String = "FileUploadWindowMediator";
@@ -46,7 +53,7 @@ package org.bigbluebutton.modules.presentation.view
 		}
 		
 		/**
-		 * Returns the Board GUI component that is registered to this Mediator object 
+		 * Returns the FileUploadWindow GUI component that is registered to this Mediator object 
 		 * @return 
 		 * 
 		 */		
@@ -54,6 +61,11 @@ package org.bigbluebutton.modules.presentation.view
 			return viewComponent as FileUploadWindow;
 		}
 		
+		/**
+		 * Start the upload 
+		 * @param e
+		 * 
+		 */		
 		private function startUpload(e:Event):void{
 			BlindsideAppLocator.getInstance().presentationFacade.presentationApp.uploadPresentation(fileToUpload);
 							
@@ -66,6 +78,11 @@ package org.bigbluebutton.modules.presentation.view
 			fileUploadWindow.fileTxtInput.enabled = false;
 		}
 		
+		/**
+		 * Send a notification to close the upload window 
+		 * @param e
+		 * 
+		 */		
 		private function closeFileUploadWindow(e:Event) : void
 		{
 			if (okState) {
@@ -75,12 +92,22 @@ package org.bigbluebutton.modules.presentation.view
 			PopUpManager.removePopUp(fileUploadWindow);
 		}
 		
+		/**
+		 * Called when a file is selected from the file system 
+		 * @param e
+		 * 
+		 */		
 		private function onSelectFile(e:Event):void
 		{
 			fileUploadWindow.fileTxtInput.text = fileToUpload.name;
 			fileUploadWindow.uploadBtn.enabled = true;
 		}
 		
+		/**
+		 * Opens a file browser window 
+		 * @param e
+		 * 
+		 */		
 		private function selectFile(e:Event):void{
 			fileToUpload.addEventListener(Event.SELECT, onSelectFile);	
 			fileToUpload.browse([new FileFilter("PDF", "*.pdf")]);
@@ -89,6 +116,15 @@ package org.bigbluebutton.modules.presentation.view
 		/**
 		 * Lists the notifications in which this class is interested. 
 		 * @return An array of Strings representing notifications
+		 * This class listens to:
+		 * 	PresentationFacade.UPLOAD_COMPLETED_EVENT,
+		 *	PresentationFacade.UPLOAD_PROGRESS_EVENT,
+		 *	PresentationFacade.UPLOAD_IO_ERROR_EVENT,
+		 *  PresentationFacade.UPLOAD_SECURITY_ERROR_EVENT,
+		 *	PresentationFacade.CONVERT_PROGRESS_EVENT,
+		 *	PresentationFacade.EXTRACT_PROGRESS_EVENT,
+		 *	PresentationFacade.UPDATE_PROGRESS_EVENT,
+		 *	PresentationFacade.CONVERT_SUCCESS_EVENT
 		 * 
 		 */		
 		override public function listNotificationInterests():Array{
@@ -140,6 +176,11 @@ package org.bigbluebutton.modules.presentation.view
 			}
 		}
 		
+		/**
+		 * Handles an UploadComplete Notification 
+		 * @param note
+		 * 
+		 */		
 		private function handleUploadCompleteEvent(note:INotification):void{
 			fileUploadWindow.progressLbl.text = "Upload completed. Please wait while we convert the document."
 			fileUploadWindow.progressBar.label = "Upload successful.";
@@ -152,6 +193,11 @@ package org.bigbluebutton.modules.presentation.view
 			fileUploadWindow.fileTxtInput.visible = false;
 		}
 		
+		/**
+		 * Handles an UploadProgress Notification 
+		 * @param note
+		 * 
+		 */		
 		private function handleUploadProgressEvent(note:INotification):void{
 			var progress:Number = note.getBody() as Number;
 			
@@ -160,16 +206,31 @@ package org.bigbluebutton.modules.presentation.view
 			fileUploadWindow.progressBar.validateNow();
 		}
 		
+		/**
+		 * Handles an UploadError Notification 
+		 * @param note
+		 * 
+		 */		
 		private function handleUploadIOErrorEvent(note:INotification):void{
 			enableControls();
 			Alert.show(note.getBody() as String, "IO Error When Uploading File");
 		}
 		
+		/**
+		 * Handles an UploadSecurityError notification 
+		 * @param note
+		 * 
+		 */		
 		private function handleUploadSecurityErrorEvent(note:INotification):void{
 			enableControls();
 			Alert.show(note.getBody() as String, "Security Error When Uploading File");
 		}
 		
+		/**
+		 * Handles a ProgressEvent Notification 
+		 * @param note
+		 * 
+		 */		
 		private function handleConvertProgressEvent(note:INotification):void{
 			var convertEvt:ProgressNotifier = note.getBody() as ProgressNotifier;
 
@@ -179,6 +240,11 @@ package org.bigbluebutton.modules.presentation.view
 			fileUploadWindow.progressBar.validateNow();
 		}
 		
+		/**
+		 * Handles an ExtractProgressEvent notification 
+		 * @param note
+		 * 
+		 */		
 		private function handleExtractProgressEvent(note:INotification):void{
 			var extractEvt:ProgressNotifier = note.getBody() as ProgressNotifier;
 
@@ -188,10 +254,20 @@ package org.bigbluebutton.modules.presentation.view
 			fileUploadWindow.progressBar.validateNow();
 		}
 		
+		/**
+		 * Handles an UpdateProgressEvent notification 
+		 * @param note
+		 * 
+		 */		
 		private function handleUpdateProgressEvent(note:INotification):void{
 			fileUploadWindow.progressLbl.text = note.getBody() as String;
 		}
 		
+		/**
+		 * Handles a convert success event notification 
+		 * @param note
+		 * 
+		 */		
 		private function handleConvertSuccessEvent(note:INotification):void{
 			log.debug("UploadMediator:: Convert Success " + note.getBody() as String);
 			fileUploadWindow.okCancelBtn.label = "Ok";
@@ -199,6 +275,10 @@ package org.bigbluebutton.modules.presentation.view
 			okState = true;
 		}
 		
+		/**
+		 * Enables control buttons 
+		 * 
+		 */		
 		private function enableControls() : void
 		{
 			//First, remove this class from listening
