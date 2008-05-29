@@ -1,7 +1,12 @@
 package org.bigbluebutton.modules.presentation.model.vo
 {
 	import org.blindsideproject.core.util.log.*;
-	        
+	
+	/**
+	 * This class represents the default empty slide
+	 * @author dzgonjan
+	 * 
+	 */	        
 	[Bindable]
 	public class DefaultSlide
 	{

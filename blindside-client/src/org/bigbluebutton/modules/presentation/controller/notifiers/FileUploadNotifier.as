@@ -2,6 +2,11 @@ package org.bigbluebutton.modules.presentation.controller.notifiers
 {
 	import flash.net.FileReference;
 	
+	/**
+	 * This is a convinience class so that multiple pieces of data can be sent via a pureMVC notification 
+	 * @author dzgonjan
+	 * 
+	 */	
 	public class FileUploadNotifier
 	{
 		private var _fullURI:String;

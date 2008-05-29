@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<pres:SuperPanel xmlns:mx="http://www.adobe.com/2006/mxml"  
-	xmlns:thumb="org.bigbluebutton.modules.presentation.view.*"
-	xmlns:pres="superpanel.nl.wv.extenders.panel.*"
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml"  
+	xmlns:thumb="org.bigbluebutton.modules.presentation.view*"
+	xmlns:pres="flexmdi.containers.*"
 	paddingBottom="0" paddingTop="0" 
 	paddingLeft="0" paddingRight="0" 
     layout="vertical" 
-    pageTitle="Slide Presentation"
-	creationComplete="init()">
+	creationComplete="init()" xmlns:view="org.bigbluebutton.modules.presentation.view.*">
 
 	<mx:Script>
 		<![CDATA[
+			import org.bigbluebutton.modules.presentation.model.vo.SlidesDeck;
+			import org.bigbluebutton.modules.presentation.PresentationFacade;
+			
 			import org.blindsideproject.main.BlindsideAppLocator;
-			import org.blindsideproject.core.apps.presentation.controller.commands.AssignPresenterCommand;
 			import mx.binding.utils.BindingUtils;
 	
 			import org.blindsideproject.core.util.log.ILogger;
 			import org.blindsideproject.core.util.log.LoggerModelLocator;
 						
-			import org.blindsideproject.core.apps.presentation.vo.SlidesDeck;
-			import org.blindsideproject.core.apps.presentation.model.*;
 			import org.blindsideproject.views.general.Images;
 
 			import mx.collections.ArrayCollection;
@@ -40,11 +39,12 @@
 			[Bindable] private var sharingTooltip : String = "Share presentation";		
 			[Bindable] public var presenterIcon : Class = images.user_gray;
 			
-			[Bindable] public var model : PresentationModelLocator = PresentationModelLocator.getInstance(); 
+			[Bindable] public var model:PresentationFacade = PresentationFacade.getInstance(); 
+			public var log : ILogger = LoggerModelLocator.getInstance().log;
 						
-			[Bindable] private var deck : SlidesDeck = model.presentation.decks;
+			[Bindable] private var deck:SlidesDeck = model.presentation.decks;
 			
-			private var uploadWindow : FileUploadWindow;
+			public var uploadWindow : FileUploadWindow;
 
 			public function handleConnected(connected : Boolean) : void
 			{
@@ -81,6 +81,8 @@
 
 			public function handlePresenterName(name : String) : void
 			{
+				log.debug("handlePrsenerName: " + name);
+				
 				presenterName.label = name;
 			}
 
@@ -105,9 +107,9 @@
 				if (isPresenter) {
 					uploadPres.visible = true;
 				} else {
-					uploadPres.visible = false;
+					uploadPres.visible = true;
 				}
-			}	
+			}
 
 			public function dragEnterHandler(event:DragEvent):void
 	   		{
@@ -122,23 +124,23 @@
 	   			var presenterid : Number = Number(event.dragSource.dataForFormat('presenterUserid'));
 	   			var presentername : String = event.dragSource.dataForFormat('presenterUsername').toString();
 
-	   			BlindsideAppLocator.getInstance().presentationApp.assignPresenter(presenterid, presentername);		  		
-	   		}			
+	   			BlindsideAppLocator.getInstance().presentationFacade.presentationApp.assignPresenter(presenterid, presentername);		  		
+	   		}
 				
 		]]>
 	</mx:Script>
 	
 	<mx:Style source="presentation.css" />
      			
-	<thumb:ThumbnailView id="thumbnailView" width="100%" height="100%" visible="false"/>
+	<view:ThumbnailView id="thumbnailView" width="100%" height="100%" visible="false"/>
 
     <mx:ControlBar width="100%">
-    	  <mx:Button id="uploadPres" icon="{uploadIcon}" visible="false"
+    	  <mx:Button id="uploadPres" icon="{uploadIcon}" visible="true"
     	   			width="20" height="20"
-    	   			toolTip="Upload Powerpoint" click="dispatchEvent(new Event(PresentationViewerMediator.OPEN_UPLOAD))"/>    
+    	   			toolTip="Upload Powerpoint" click="dispatchEvent(new Event(PresentationPanelMediator.OPEN_UPLOAD))"/>    
     	  <mx:Button id="sharePres" icon="{sharingIcon}" visible="false"
     	   			width="20" height="20"
-    	   			toolTip="{sharingTooltip}" click="dispatchEvent(new Event(PresentationViewerMediator.SHARE))"/> 
+    	   			toolTip="{sharingTooltip}" click="dispatchEvent(new Event(PresentationPanelMediator.SHARE))"/> 
     	  <mx:Spacer width="100"/>
     	  <mx:Label id="presenterLbl" text="Presenter:" />
     	  <mx:Button id="presenterName" icon="{presenterIcon}" label="Presenter's Name"
@@ -147,7 +149,7 @@
     	   <mx:Spacer width="100%"/>						
     	  <mx:Button id="connect" icon="{connectIcon}" 
     	   			width="20" height="20" enabled="false"
-    	   			toolTip="{connectTooltip}" click="dispatchEvent(new Event(PresentationViewerMediator.CONNECT))"/>
+    	   			toolTip="{connectTooltip}" click="dispatchEvent(new Event(PresentationPanelMediator.CONNECT))"/>
     </mx:ControlBar>
 			
-</pres:SuperPanel>
+</mx:Panel>
