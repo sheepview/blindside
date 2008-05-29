@@ -3,13 +3,17 @@ package org.bigbluebutton.modules.chat.view
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
+	import org.bigbluebutton.modules.chat.model.business.ChatProxy;
+	import org.bigbluebutton.modules.chat.view.components.ChatWindow;
+	import org.bigbluebutton.modules.chat.ChatFacade;
+	import org.bigbluebutton.modules.chat.model.vo.*;
 
 	public class ChatWindowMediator extends Mediator implements IMediator
 	{
-		
+		public static const NAME:String = "ChatMediator";
 		public static const NEW_MESSAGE:String = "newMessage";
 		
-		public function ChatWindowMediator(mediatorName:String=null, viewComponent:ChatWindow)
+		public function ChatWindowMediator(viewComponent:ChatWindow)
 		{
 			super(mediatorName, viewComponent);
 			viewComponent.addEventListener(ChatWindowMediator.NEW_MESSAGE, sendNewMessage);
@@ -22,39 +26,21 @@ package org.bigbluebutton.modules.chat.view
 		
 		public function sendNewMessage():void
 		{
-			proxy.sendMessageToSharedObject(this.getViewComponent().newMessage);
+			proxy.sendMessageToSharedObject(this.getViewComponent().m);
 		}
 		
-		public function sendNotification(notificationName:String, body:Object=null, type:String=null):void
-		{
-		}
 		
-		public function initializeNotifier(key:String):void
-		{
-		}
 		
-		public function getMediatorName():String
-		{
-			return null;
-		}
 		
-		public function getViewComponent():Object
-		{
-			return null;
-		}
 		
-		public function setViewComponent(viewComponent:Object):void
-		{
-		}
-		
-		public function listNotificationInterests():Array
+		override public function listNotificationInterests():Array
 		{
 			return [
-					ChatFacade.UPDATE
+					ChatFacade.NEW_MESSAGE
 				   ];
 		}
 		
-		public function handleNotification(notification:INotification):void
+		override public function handleNotification(notification:INotification):void
 		{
 			switch(notification.getName())
 			{
@@ -68,13 +54,7 @@ package org.bigbluebutton.modules.chat.view
 			return facade.retrieveProxy(ChatProxy.NAME) as ChatProxy;
 		} 
 		
-		public function onRegister():void
-		{
-		}
 		
-		public function onRemove():void
-		{
-		}
 		
 	}
 }

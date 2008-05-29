@@ -3,10 +3,12 @@ package org.bigbluebutton.modules.chat.model.business
 	import flash.events.SyncEvent;
 	import flash.net.NetConnection;
 	import flash.net.SharedObject;
-	import org.bigbluebutton.modules.chat.model.vo.MessageVO;
 	
+	import org.bigbluebutton.modules.chat.ChatFacade;
+	import org.bigbluebutton.modules.chat.model.vo.*;
 	import org.puremvc.as3.multicore.interfaces.IProxy;
 	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
+	
 	
 	
 	/**
@@ -18,11 +20,11 @@ package org.bigbluebutton.modules.chat.model.business
 	{
 		public static const NAME:String = "Chat Proxy";
 		public static const uri:String = "rtmp://134.117.58.96/oflaDemo";
-		
-				
-		private var log : ILogger = model.log;
+		private var uri:String;		
+		private var conn:Connection;
+		private var nc:NetConnection;
 		private var chatSO : SharedObject;
-		private var connDelegate : NetConnectionDelegate;
+		
 		
 		
 		/**
@@ -30,9 +32,16 @@ package org.bigbluebutton.modules.chat.model.business
 		 * @param messageVO
 		 * 
 		 */
-		public function ChatProxy()
+		public function ChatProxy(messageVO:MessageVO)
 		{
-			connDelegate = new NetConnectionDelegate(this);
+			super(NAME, messageVO);
+			conn = new Connection;
+
+			conn.addEventListener(Connection.SUCCESS, handleSucessfulConnection);
+			conn.addEventListener(Connection.DISCONNECTED, handleDisconnection);
+			conn.setURI(this.uri);
+			conn.connect();
+			
 		}
 	
 		/**
@@ -44,41 +53,22 @@ package org.bigbluebutton.modules.chat.model.business
 			return this.data as MessageVO;
 		}
 		
-		public function connectionSuccess() : void
-		{
-			chat.connected = true;
-			
-			sendConnectedEvent();
-			
-			joinConference();
+		/**
+		 * Handles the event of successful connection
+		 * @param e:ConnectionEvent
+		 * 
+		 */		
+		public function handleSucessfulConnection(e:ConnectionEvent):void{
+			nc = conn.getConnection();
+			chatSO = SharedObject.getRemote("messageSO", uri, false);
+            chatSO.addEventListener(SyncEvent.SYNC, sharedObjectSyncHandler);
+            chatSO.client = this;
+            chatSO.connect(nc);
+            
 		}
+		public function handleDisconnection(e:ConnectionEvent):void {
 			
-		public function connectionFailed(message : String) : void 
-		{
-			if (chatSO != null) chatSO.close();
-			
-			chat.connected = false;
-			
-			sendDisconnectedEvent(message);
 		}		
-		
-		public function join(host : String, room : String) : void
-		{			
-			chat.host = host;			
-			connDelegate.connect(host, room);
-		}
-		
-		public function leave() : void
-		{
-			
-			removeListeners();
-			chatSO.close(); 
-			log.info("chatSO.close();");
-			connDelegate.disconnect();
-			model.chat.messageVO.message = "";	
-					
-		}
-		
 		/**
 		 * SyncHandler for Shared Object
 		 * @param e:SyncEvent
@@ -88,24 +78,15 @@ package org.bigbluebutton.modules.chat.model.business
 			
 		}
 		
-		/**
-		 * Handles disconnection
-		 * @param e:ConnectionEvent
-		 * 
-		 */
-		public function handleDisconnection(e:ConnectionEvent):void{
-			
-		}
+		
 		
 		/**
 		 * Sends the message to the shared object 
 		 * @param message of type MessageVO
 		 * 
 		 */
-		public function sendMessageToSharedObject(message:MessageVO):void{
-			
-			messageSO.send("receiveNewMessage", message.message, message.color);
-			
+		public function sendMessageToSharedObject(message:MessageObject):void{
+			chatSO.send("receiveNewMessage", message.getMessgae(), message.getColor());
 		}
 		
 		/**
@@ -116,16 +97,14 @@ package org.bigbluebutton.modules.chat.model.business
 		 * 
 		 */		
 		public function receiveNewMessage(message:String , color:uint):void{
-			var m:MessageVO = new MessageVO();
-			m.message = message;
-			m.color = color;
-			
+			var m:MessageObject = new MessageObject(message, color);
+			this.messageVO.message = m;
 			sendNotification(ChatFacade.NEW_MESSAGE, m);
 		   
 		}
 		
 		public function getSharedObject(): SharedObject {
-			return messageSO;
+			return chatSO;
 		}
 	}
 }

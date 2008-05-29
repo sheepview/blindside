@@ -86,7 +86,7 @@ package org.bigbluebutton.modules.chat.model.business
 			switch ( statusCode ) 
 			{
 				case "NetConnection.Connect.Success" :
-					_delegate.connectionSuccess();
+					_proxy.connectionSuccess();
 					
 					// find out if it's a secure (HTTPS/TLS) connection
 					if ( event.target.connectedProxyType == "HTTPS" || event.target.usingTLS ) {
@@ -98,31 +98,31 @@ package org.bigbluebutton.modules.chat.model.business
 			
 				case "NetConnection.Connect.Failed" :
 					
-					_delegate.connectionFailed(event.info.application);
+					_proxy.connectionFailed(event.info.application);
 					
-					_delegate.connectionFailed("Connection to server failed.");
+					_proxy.connectionFailed("Connection to server failed.");
 					
 					log.info("Connection to server failed");
 					break;
 					
 				case "NetConnection.Connect.Closed" :					
-					_delegate.connectionFailed("Connection to server closed.");					
+					_proxy.connectionFailed("Connection to server closed.");					
 					log.info("Connection to server closed");
 					break;
 					
 				case "NetConnection.Connect.InvalidApp" :				
-					_delegate.connectionFailed("Application not found on server")
+					_proxy.connectionFailed("Application not found on server")
 					log.info("Application not found on server");
 					break;
 					
 				case "NetConnection.Connect.AppShutDown" :
 				
-					_delegate.connectionFailed("Application has been shutdown");
+					_proxy.connectionFailed("Application has been shutdown");
 					log.info("Application has been shutdown");
 					break;
 					
 				case "NetConnection.Connect.Rejected" :
-					_delegate.connectionFailed(event.info.application);
+					_proxy.connectionFailed(event.info.application);
 					log.info("No permissions to connect to the application" );
 					break;
 					
@@ -153,7 +153,7 @@ package org.bigbluebutton.modules.chat.model.business
 	
 		public function handleFault(  event : Object  ) : void 
 		{			
-			_delegate.connectionFailed(event.text);
+			_proxy.connectionFailed(event.text);
 		}
 		
 		public function getConnection() : NetConnection
