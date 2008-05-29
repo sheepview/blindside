@@ -17,7 +17,6 @@
 
 		import com.adobe.cairngorm.control.CairngormEventDispatcher;    
 		import com.adobe.cairngorm.control.CairngormEvent;
-		import org.blindsideproject.core.apps.presentation.model.*;
 		
 		[Bindable]	
 		public var model:PresentationFacade = PresentationFacade.getInstance();

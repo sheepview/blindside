@@ -19,7 +19,6 @@
 			import org.blindsideproject.core.util.log.ILogger;
 			import org.blindsideproject.core.util.log.LoggerModelLocator;
 						
-			import org.blindsideproject.core.apps.presentation.model.*;
 			import org.blindsideproject.views.general.Images;
 
 			import mx.collections.ArrayCollection;
