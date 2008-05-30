@@ -14,8 +14,8 @@ package org.bigbluebutton.main
 		private var ENV : String = Constants.DEV_ENV;
 		// Notification constants 
 		public static const STARTUP:String = 'startup';
-		public static const ADD_WINDOW:String = 'addWindow';
-		public static const REMOVE_WINDOW:String = 'removeWindow';
+		public static const ADD_WINDOW1:String = 'addWindow';
+		public static const REMOVE_WINDOW1:String = 'removeWindow';
 				
 		public function MainApplicationFacade(key:String)
 		{

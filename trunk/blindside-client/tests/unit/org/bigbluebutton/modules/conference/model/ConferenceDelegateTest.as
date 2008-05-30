@@ -41,9 +41,6 @@ package org.bigbluebutton.modules.conference.model
    		}		
 
 		public function testJoinSuccess() : void {
-  			
-  						
-
    			mock.conference = 'mconf';
    			mock.viewPassword = 'mpass';
    			mock.userId = 200;

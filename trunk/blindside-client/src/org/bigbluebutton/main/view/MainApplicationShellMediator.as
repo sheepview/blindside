@@ -5,8 +5,10 @@ package org.bigbluebutton.main.view
 	import org.bigbluebutton.main.view.components.MainApplicationShell;
 	import org.bigbluebutton.main.view.events.AddWindowEvent;
 	import org.bigbluebutton.main.view.events.RemoveWindowEvent;
+	import org.bigbluebutton.modules.log.view.components.LogWindow;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
-
+	import org.bigbluebutton.main.view.components.LoginWindow;
+	
 	public class MainApplicationShellMediator extends Mediator
 	{
 		public static const NAME:String = 'MainApplicationShellMediator';
@@ -23,7 +25,13 @@ package org.bigbluebutton.main.view
 		 */
 		protected function onAddWindow( event:AddWindowEvent ):void
 		{
-			shell.mdiCanvas.windowManager.add( event.component as MDIWindow);
+		//	var window : MDIWindow = new LogWindow();
+		//	var window : MDIWindow = event.component as MDIWindow;
+		//	window.title = "Listeners";
+		//	window.showCloseButton = false;
+		//	shell.mdiCanvas.windowManager.add(window);
+		//	shell.mdiCanvas.windowManager.absPos(window, 20, 250);
+			shell.logWindow.title = event.component;
 		}	
 		
 		/**
