@@ -7,13 +7,21 @@ package org.bigbluebutton.modules.voiceconference.control.notifiers
 	 */	
 	public class MuteNotifier
 	{
-		public var _userid:Number;
-		public var _muteUser:Boolean;
+		private var _userid:Number;
+		private var _muteUser:Boolean;
 		
 		public function MuteNotifier(userid:Number, muteUser:Boolean)
 		{
 			this._userid = userid;
 			this._muteUser = muteUser;
+		}
+		
+		public function get userid():Number{
+			return _userid;
+		}
+		
+		public function get muteUser():Boolean{
+			return _muteUser;
 		}
 
 	}

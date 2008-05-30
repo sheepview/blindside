@@ -33,6 +33,7 @@
 <application path="meetme.mxml"/>
 <application path="blindside.mxml"/>
 <application path="BigBlueButton.mxml"/>
+<application path="VoiceUnitTests.mxml"/>
 <application path="LogApplication.mxml"/>
 </applications>
 <modules>

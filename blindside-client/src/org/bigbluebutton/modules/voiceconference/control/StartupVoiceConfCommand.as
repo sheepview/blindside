@@ -25,8 +25,8 @@ package org.bigbluebutton.modules.voiceconference.control
 		override public function execute(notification:INotification):void{
 			var app:ListenersWindow = notification.getBody() as ListenersWindow;
 			facade.registerMediator(new ListenersWindowMediator(app));
-			facade.registerProxy(new NetConnectionDelegate(VoiceConferenceFacade.getInstance().meetMeRoom));
-			facade.registerProxy(new VoiceConfConnectResponder(VoiceConferenceFacade.getInstance().meetMeRoom));
+			facade.registerProxy(new NetConnectionDelegate(VoiceConferenceFacade.getInstance().meetMeRoom.getUri()));
+			facade.registerMediator(new VoiceConfConnectResponder(VoiceConferenceFacade.getInstance().meetMeRoom));
 		}
 	}
 }

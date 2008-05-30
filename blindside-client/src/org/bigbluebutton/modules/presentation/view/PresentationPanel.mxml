@@ -12,13 +12,11 @@
 		<![CDATA[
 			import org.bigbluebutton.modules.presentation.model.vo.SlidesDeck;
 			import org.bigbluebutton.modules.presentation.PresentationFacade;
-			
 			import org.blindsideproject.main.BlindsideAppLocator;
 			import mx.binding.utils.BindingUtils;
 	
 			import org.blindsideproject.core.util.log.ILogger;
-			import org.blindsideproject.core.util.log.LoggerModelLocator;
-						
+			import org.blindsideproject.core.util.log.LoggerModelLocator;						
 			import org.blindsideproject.views.general.Images;
 
 			import mx.collections.ArrayCollection;
