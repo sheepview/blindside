@@ -2,8 +2,11 @@ package org.bigbluebutton.modules.voiceconference
 {
 	import com.adobe.cairngorm.*;
 	
+	import flash.net.NetConnection;
+	
 	import org.bigbluebutton.modules.voiceconference.control.StartupVoiceConfCommand;
 	import org.bigbluebutton.modules.voiceconference.model.VoiceConferenceRoom;
+	import org.bigbluebutton.modules.voiceconference.model.business.NetConnectionDelegate;
 	import org.bigbluebutton.modules.voiceconference.view.ListenersWindow;
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
@@ -67,8 +70,8 @@ package org.bigbluebutton.modules.voiceconference
 	   	 * @param app
 	   	 * 
 	   	 */	   	
-	   	public function startup(app:ListenersWindow):void{
-	   		meetMeRoom = new VoiceConferenceRoom();
+	   	public function startup(app:ListenersWindow, uri:String):void{
+	   		meetMeRoom = new VoiceConferenceRoom(uri);
 	   		sendNotification(STARTUP, app);
 	   		//meetMeRoom.getConnection().connect();
 	   	}
@@ -89,7 +92,8 @@ package org.bigbluebutton.modules.voiceconference
 		 */
 		public function connectToMeetMe() : void
 	   	{
-			meetMeRoom.getConnection().connect();		
+	   		var netProxy:NetConnectionDelegate = retrieveProxy(NetConnectionDelegate.NAME) as NetConnectionDelegate;
+			netProxy.connect(new NetConnection());		
 	   	}
 	   		   	
 	   	/**

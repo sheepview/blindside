@@ -22,15 +22,12 @@ package org.bigbluebutton.modules.voiceconference.model
 		
 		private var room : String;
 		private var uri : String;
-				
-		private var netConnection : NetConnectionDelegate;
 		
 		[Bindable]
 		public var userRole : String;
-	
-		public function VoiceConferenceRoom()
-		{
-							
+		
+		public function VoiceConferenceRoom(uri:String):void{
+			this.uri = uri;
 		}
 		
 		/**
@@ -51,25 +48,6 @@ package org.bigbluebutton.modules.voiceconference.model
 		public function getUri() : String
 		{
 			return uri;
-		}
-		
-		/**
-		 * Sets the NetCnnectionDelegate of this room 
-		 * @param connection
-		 * 
-		 */		
-		public function setConnectionDelegate(connection:NetConnectionDelegate) : void
-		{
-			netConnection = connection;
-		}
-		
-		/**
-		 *  
-		 * @return The NetConnectionDelegate of the MeetMe module
-		 * 
-		 */		
-		public function getConnection() : NetConnectionDelegate {
-			return VoiceConferenceFacade.getInstance().retrieveProxy(NetConnectionDelegate.NAME) as NetConnectionDelegate;
 		}
 	}
 }

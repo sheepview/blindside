@@ -4,7 +4,7 @@ package org.bigbluebutton.modules.voiceconference.model.business
 	import flash.net.NetConnection;
 	
 	import org.bigbluebutton.modules.voiceconference.VoiceConferenceFacade;
-	import org.bigbluebutton.modules.voiceconference.model.VoiceConferenceRoom;
+	import org.bigbluebutton.modules.voiceconference.control.notifiers.MuteNotifier;
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
 	import org.puremvc.as3.multicore.interfaces.IProxy;
@@ -21,11 +21,10 @@ package org.bigbluebutton.modules.voiceconference.model.business
 	{
 		public static const NAME:String = "NetConnectionDelegate";
 		
-		private var model:VoiceConferenceFacade = VoiceConferenceFacade.getInstance();
 		private var log : ILogger = LoggerModelLocator.getInstance().log;
 			
 		private var netConnection : NetConnection;	
-		private var meetmeRoom : VoiceConferenceRoom;
+		private var meetmeRoomURI:String;
 		private var roomNumber : String;
 					
 		/**
@@ -33,29 +32,19 @@ package org.bigbluebutton.modules.voiceconference.model.business
 		 * @param meetmeRoom - the MeetMeRoom this class uses
 		 * 
 		 */					
-		public function NetConnectionDelegate(meetmeRoom:VoiceConferenceRoom)
+		public function NetConnectionDelegate(meetmeRoomURI:String)
 		{
 			super(NAME);
-			this.meetmeRoom = meetmeRoom;
-			meetmeRoom.setConnectionDelegate(this);
-		}
-		
-		/**
-		 *  
-		 * @return - the MeetMeConnectResponder of this class
-		 * 
-		 */		
-		public function get responder():VoiceConfConnectResponder{
-			return facade.retrieveProxy(VoiceConfConnectResponder.NAME) as VoiceConfConnectResponder;
+			this.meetmeRoomURI = meetmeRoomURI;
 		}
 
 		/**
 		 * Attempts connect to the server 
 		 * 
 		 */
-		public function connect() : void
-		{		
-			netConnection = new NetConnection();
+		public function connect(nc:NetConnection) : void
+		{
+			netConnection = nc;
 			
 			netConnection.client = this;
 			
@@ -68,15 +57,15 @@ package org.bigbluebutton.modules.voiceconference.model.business
 			// connect to server
 			try {
 				
-				log.info( "Connecting to <b>" + meetmeRoom.getUri() + "</b>");
+				log.info( "Connecting to <b>" + meetmeRoomURI + "</b>");
 
-				netConnection.connect( meetmeRoom.getUri(), true );
+				netConnection.connect( meetmeRoomURI, true );
 			} catch( e : ArgumentError ) {
 				// Invalid parameters.
 				switch ( e.errorID ) 
 				{
 					case 2004 :						
-						log.error( "Invalid server location: <b>" + meetmeRoom.getUri() + "</b>");											   
+						log.error( "Invalid server location: <b>" + meetmeRoomURI + "</b>");											   
 						break;
 						
 					default :
@@ -93,7 +82,7 @@ package org.bigbluebutton.modules.voiceconference.model.business
 		public function close() : void
 		{
 			// Close the NetConnection.
-			responder.close();
+			sendNotification(VoiceConfConnectResponder.CLOSE);
 			netConnection.close();
 		}
 				
@@ -103,16 +92,17 @@ package org.bigbluebutton.modules.voiceconference.model.business
 		 */		
 		protected function netStatus( event : NetStatusEvent ) : void 
 		{
-			this.responder.result( event );
+			sendNotification(VoiceConfConnectResponder.RESULT, event);
 		}
 		
 		/**
 		 * This method gets called when a NET_SECURITY_ERROR is received from the server
 		 * @param event
-		 */		
+		 */	
 		protected function netSecurityError( event : SecurityErrorEvent ) : void 
 		{
-		    responder.fault( new SecurityErrorEvent ( SecurityErrorEvent.SECURITY_ERROR, false, true,
+			sendNotification(VoiceConfConnectResponder.FAULT, 
+			new SecurityErrorEvent(SecurityErrorEvent.SECURITY_ERROR, false, true,
 		    										  "Security error - " + event.text ) );
 		}
 		
@@ -122,7 +112,8 @@ package org.bigbluebutton.modules.voiceconference.model.business
 		 */		
 		protected function netIOError( event : IOErrorEvent ) : void 
 		{
-			responder.fault( new IOErrorEvent ( IOErrorEvent.IO_ERROR, false, true, 
+			sendNotification(VoiceConfConnectResponder.FAULT, 
+			new IOErrorEvent( IOErrorEvent.IO_ERROR, false, true, 
 							 "Input/output error - " + event.text ) );
 		}
 		
@@ -132,7 +123,8 @@ package org.bigbluebutton.modules.voiceconference.model.business
 		 */		
 		protected function netASyncError( event : AsyncErrorEvent ) : void 
 		{
-			responder.fault( new AsyncErrorEvent ( AsyncErrorEvent.ASYNC_ERROR, false, true,
+			sendNotification(VoiceConfConnectResponder.FAULT, 
+			new AsyncErrorEvent ( AsyncErrorEvent.ASYNC_ERROR, false, true,
 							 "Asynchronous code error - <i>" + event.error + "</i>" ) );
 		}
 		
@@ -145,7 +137,7 @@ package org.bigbluebutton.modules.voiceconference.model.business
 			roomNumber = room;
 			
 			return "Okay";
-		}	
+		}
 		
 		/**
 		 *  
@@ -153,7 +145,7 @@ package org.bigbluebutton.modules.voiceconference.model.business
 		 * 
 		 */		
 		public function getUri() : String{
-			return meetmeRoom.getUri();
+			return meetmeRoomURI;
 		}	
 		
 		/**
@@ -171,10 +163,9 @@ package org.bigbluebutton.modules.voiceconference.model.business
 		 * @param muteUSers
 		 * 
 		 */		
-		public function muteAllUsers(muteUSers : Boolean) : void 
+		public function muteAllUsers(muteUsers : Boolean) : void 
 		{
-			responder.muteAllUsers(muteUSers);
-			
+			sendNotification(VoiceConferenceFacade.MUTE_ALL_USERS_COMMAND, muteUsers);
 		}
 		
 		/**
@@ -186,8 +177,7 @@ package org.bigbluebutton.modules.voiceconference.model.business
 		public function muteUnmuteUser(userId : Number, muteUser : Boolean) : void
 		{
 			log.debug("NetConnectionDelegate::muteUnmuteUser : [" + userId + "," + muteUser + "]");
-			
-			responder.muteUnmuteUser(userId, muteUser);
+			sendNotification(VoiceConferenceFacade.MUTE_UNMUTE_USER_COMMAND, new MuteNotifier(userId, muteUser));
 		}
 
 		/**
@@ -198,8 +188,7 @@ package org.bigbluebutton.modules.voiceconference.model.business
 		public function ejectUser(userId : Number) : void
 		{
 			log.debug("NetConnectionDelegate::ejectUser : [" + userId + "]");
-			
-			responder.ejectUser(userId);
+			sendNotification(VoiceConferenceFacade.EJECT_USER_COMMAND, userId);
 		}
 	}
 }

@@ -1,6 +1,7 @@
 package org.bigbluebutton.modules.voiceconference.model.business
 {
 	import flash.events.AsyncErrorEvent;
+	import flash.events.Event;
 	import flash.events.NetStatusEvent;
 	import flash.events.SyncEvent;
 	import flash.net.Responder;
@@ -10,24 +11,29 @@ package org.bigbluebutton.modules.voiceconference.model.business
 	import mx.rpc.IResponder;
 	
 	import org.bigbluebutton.modules.voiceconference.VoiceConferenceFacade;
+	import org.bigbluebutton.modules.voiceconference.control.notifiers.MuteNotifier;
 	import org.bigbluebutton.modules.voiceconference.model.VoiceConferenceRoom;
 	import org.blindsideproject.core.util.log.ILogger;
 	import org.blindsideproject.core.util.log.LoggerModelLocator;
-	import org.puremvc.as3.multicore.interfaces.IProxy;
-	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
+	import org.puremvc.as3.multicore.interfaces.IMediator;
+	import org.puremvc.as3.multicore.interfaces.INotification;
+	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
 			
 	/**
-	 *  This class communicaties with the server and receives notifications of server events
+	 *  This class receives notifications of server events
 	 * <p>
-	 * This class extends the Proxy class of the PureMVC framework
+	 * This class extends the Mediator class of the PureMVC framework
 	 * <p>
 	 * This class implements the IResponder Interface
 	 * @author Richard Alam
 	 * 
 	 */			
-	public class VoiceConfConnectResponder extends Proxy implements IResponder, IProxy
+	public class VoiceConfConnectResponder extends Mediator implements IResponder, IMediator
 	{
 		public static const NAME:String = "MeetMeConnectResponder";
+		public static const CLOSE:String = "Close Connection";
+		public static const RESULT:String = "Got result";
+		public static const FAULT:String = "Got fault";
 		
 		private var model:VoiceConferenceFacade = VoiceConferenceFacade.getInstance();
 		private var log : ILogger = LoggerModelLocator.getInstance().log;
@@ -45,7 +51,66 @@ package org.bigbluebutton.modules.voiceconference.model.business
 		{
 			super(NAME);
 			this.meetMeRoom = meetMeRoom;
-		}		
+		}
+		
+		/**
+		 * 
+		 * @return The list of notifications this class is interested in
+		 * 	VoiceConfConnectResponder.CLOSE
+		 * 	VoiceConfConnectResponder.RESULT
+		 * 	VoiceConfConnectResponder.FAULT
+		 * 	VoiceConferenceFacade.MUTE_UNMUTE_USER_COMMAND
+		 * 	VoiceConferenceFacade.MUTE_ALL_USERS_COMMAND
+		 * 	VoiceConferenceFacade.EJECT_USER_COMMAND
+		 * 
+		 */		
+		override public function listNotificationInterests():Array{
+			return [
+					CLOSE,
+					RESULT,
+					FAULT,
+					VoiceConferenceFacade.MUTE_UNMUTE_USER_COMMAND,
+					VoiceConferenceFacade.MUTE_ALL_USERS_COMMAND,
+					VoiceConferenceFacade.EJECT_USER_COMMAND
+					];
+		}
+		
+		/**
+		 * Handles notifications received 
+		 * @param notification
+		 * 
+		 */		
+		override public function handleNotification(notification:INotification):void{
+			switch(notification.getName()){
+				case CLOSE:
+					close();
+					break;
+				case RESULT:
+					result(notification.getBody() as Event);
+					break;
+				case FAULT:
+					fault(notification.getBody() as Event);
+					break;
+				case VoiceConferenceFacade.MUTE_ALL_USERS_COMMAND:
+					muteAllUsers(notification.getBody() as Boolean);
+					break;
+				case VoiceConferenceFacade.MUTE_UNMUTE_USER_COMMAND:
+					muteUnmuteUser(notification.getBody() as MuteNotifier);
+					break;
+				case VoiceConferenceFacade.EJECT_USER_COMMAND:
+					ejectUser(notification.getBody() as Number);
+					break;
+			}
+		}
+		
+		/**
+		 *  
+		 * @return - The NetConnectionDelegate Proxy of the VoiceConference Module 
+		 * 
+		 */		
+		private function get proxy():NetConnectionDelegate{
+			return facade.retrieveProxy(NetConnectionDelegate.NAME) as NetConnectionDelegate;
+		}
 		
 		/**
 		 * 
@@ -81,7 +146,8 @@ package org.bigbluebutton.modules.voiceconference.model.business
 					nc_responder = new Responder(getMeetMeUsers, null);
 					
 					// call the server side method to get list of FLV's
-				    meetMeRoom.getConnection().getConnection().call("meetmeService.getMeetMeUsers", nc_responder);
+					proxy.getConnection().call("meetmeService.getMeetMeUsers", nc_responder);
+				    //meetMeRoom.getConnection().getConnection().call("meetmeService.getMeetMeUsers", nc_responder);
 					
 					break;
 			
@@ -156,13 +222,13 @@ package org.bigbluebutton.modules.voiceconference.model.business
 		 */		
 		private function joinMeetMeRoom() : void
 		{
-			participantsSO = SharedObject.getRemote("meetMeUsersSO", meetMeRoom.getConnection().getUri(), false);
+			participantsSO = SharedObject.getRemote("meetMeUsersSO", proxy.getUri(), false);
 			participantsSO.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);
 			participantsSO.addEventListener(AsyncErrorEvent.ASYNC_ERROR, asyncErrorHandler);
 			participantsSO.addEventListener(SyncEvent.SYNC, sharedObjectSyncHandler);
 			
 			participantsSO.client = this;
-			participantsSO.connect(meetMeRoom.getConnection().getConnection());			
+			participantsSO.connect(proxy.getConnection());			
 		}
 
 		/**
@@ -267,13 +333,13 @@ package org.bigbluebutton.modules.voiceconference.model.business
 		 * @param muteUser - mute/unmute?
 		 * 
 		 */		
-		public function muteUnmuteUser(userId : Number, muteUser : Boolean) : void
+		public function muteUnmuteUser(note:MuteNotifier) : void
 		{
 			var nc_responder : Responder;
 			nc_responder = new Responder(getMeetMeUsers, null);
 					
 			log.info("MeetMe: calling meetmeService.muteUnmuteUser");
-			meetMeRoom.getConnection().getConnection().call("meetmeService.muteUnmuteUser", nc_responder, userId, muteUser);			
+			proxy.getConnection().call("meetmeService.muteUnmuteUser", nc_responder, note.userid, note.muteUser);			
 		}
 
 		/**
@@ -284,7 +350,7 @@ package org.bigbluebutton.modules.voiceconference.model.business
 		public function muteAllUsers(mute : Boolean) : void
 		{	
 			log.info("MeetMe: calling meetmeService.muteAllUsers");
-			meetMeRoom.getConnection().getConnection().call("meetmeService.muteAllUsers", null, mute);			
+			proxy.getConnection().call("meetmeService.muteAllUsers", null, mute);			
 		}
 		
 		/**
@@ -295,7 +361,7 @@ package org.bigbluebutton.modules.voiceconference.model.business
 		public function ejectUser(userId : Number) : void
 		{
 			log.info("MeetMe: calling meetmeService.ejectUser");
-			meetMeRoom.getConnection().getConnection().call("meetmeService.ejectUser", null, userId);			
+			proxy.getConnection().call("meetmeService.ejectUser", null, userId);			
 		}
 		
 		/**
@@ -371,9 +437,6 @@ package org.bigbluebutton.modules.voiceconference.model.business
 		public function sendNewMeetMeEvent():void
 		{
 			log.debug("Got to sendMeetMeEvent");
-			//var event : NewMeetMeEvent = 
-			//		new NewMeetMeEvent(MeetMeEvents.USER_JOIN_EVENT);
-			//dispatcher.dispatchEvent(event);
 			sendNotification(VoiceConferenceFacade.USER_JOIN_EVENT);
 		}		
 	}
