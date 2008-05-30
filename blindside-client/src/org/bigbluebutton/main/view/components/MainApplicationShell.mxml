@@ -59,7 +59,7 @@
 				logWindow.title = component + "in Add Window";
 				var event:AddWindowEvent = new AddWindowEvent( component );
 				event.component = component;
-				this.dispatchEvent( event );
+				dispatchEvent( event );
 			}
 			
 			// Remove a MDIWindow from the MDICanvas
@@ -100,6 +100,6 @@
 	 	<mx:ControlBar width="100%" height="20" paddingTop="0">		
 		  <mx:Label text="(c) 2007, BigBlueButton Project" id="copyrightLabel2"/>
 		  <mx:Spacer width="100%"/>
-		  <!--mx:Button label="Log" click=""/-->  
+		  <mx:Button label="Log" click="dispatchEvent(new AddWindowEvent( 'Try this' ));"/>  
 		</mx:ControlBar>
 </mx:VBox>
