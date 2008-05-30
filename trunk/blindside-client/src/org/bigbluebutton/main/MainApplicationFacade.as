@@ -7,90 +7,47 @@ package org.bigbluebutton.main
 	import org.puremvc.as3.multicore.interfaces.IProxy;
 	import org.puremvc.as3.multicore.patterns.facade.Facade;
 
+	import org.bigbluebutton.main.controller.StartupCommand;
+	
 	public class MainApplicationFacade extends Facade implements IFacade
 	{
 		private var ENV : String = Constants.DEV_ENV;
-		
+		// Notification constants 
+		public static const STARTUP:String = 'startup';
+		public static const ADD_WINDOW:String = 'addWindow';
+		public static const REMOVE_WINDOW:String = 'removeWindow';
+				
 		public function MainApplicationFacade(key:String)
 		{
 			super(key);
 		}
 		
-		public function registerProxy(proxy:IProxy):void
-		{
-		}
-		
-		public function retrieveProxy(proxyName:String):IProxy
-		{
-			return null;
-		}
-		
-		public function sendNotification(notificationName:String, body:Object=null, type:String=null):void
-		{
-		}
-		
-		public function removeProxy(proxyName:String):IProxy
-		{
-			return null;
-		}
-		
-		public function initializeNotifier(key:String):void
-		{
-		}
-		
-		public function hasProxy(proxyName:String):Boolean
-		{
-			return false;
-		}
-		
-		public function registerCommand(noteName:String, commandClassRef:Class):void
-		{
-		}
-		
-		public function removeCommand(notificationName:String):void
-		{
-		}
-		
-		public function hasCommand(notificationName:String):Boolean
-		{
-			return false;
-		}
-		
-		public function registerMediator(mediator:IMediator):void
-		{
-		}
-		
-		public function retrieveMediator(mediatorName:String):IMediator
-		{
-			return null;
-		}
-		
-		public function removeMediator(mediatorName:String):IMediator
-		{
-			return null;
-		}
-		
-		public function hasMediator(mediatorName:String):Boolean
-		{
-			return false;
-		}
-		
-		public function notifyObservers(notification:INotification):void
-		{
-		}
-		
-		public function removeCore(key:String):void
-		{
-		}
-		
-		public function get runtimeEnvironment() : String
-		{
-			return ENV;
-		}
-		
-		public function set runtimeEnvironment(env : String)
-		{
-			ENV = env;
-		}
+        /**
+         * Singleton ApplicationFacade Factory Method
+         */
+        public static function getInstance( key:String ) : MainApplicationFacade 
+        {
+            if ( instanceMap[ key ] == null ) instanceMap[ key ] = new MainApplicationFacade( key );
+            return instanceMap[ key ] as MainApplicationFacade;
+        }
+        
+	    /**
+         * Register Commands with the Controller 
+         */
+        override protected function initializeController( ) : void 
+        {
+            super.initializeController();            
+            registerCommand( STARTUP, StartupCommand );
+        }
+        
+        /**
+         * Application startup
+         * 
+         * @param app a reference to the application component 
+         */  
+        public function startup( app:BigBlueButton ):void
+        {
+        	sendNotification( STARTUP, app );
+        }		
 	}
 }

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" 
+		xmlns:flexmdi="flexlib.mdi.containers.*"
+		width="100%" height="100%"
+		creationComplete="initializeShell()">
+		
+	<mx:Script>
+		<![CDATA[
+			import org.bigbluebutton.main.view.events.AddWindowEvent;
+			import org.bigbluebutton.main.view.events.RemoveWindowEvent;
+			import flexlib.mdi.containers.MDIWindow;
+			import org.bigbluebutton.core.interfaces.MessageBus;
+			import flexlib.mdi.effects.effectsLib.MDIVistaEffects;
+			import flexlib.mdi.events.MDIManagerEvent;		
+			import org.puremvc.as3.multicore.utilities.pipes.plumbing.PipeListener;
+			import org.puremvc.as3.multicore.utilities.pipes.interfaces.IPipeMessage;
+			
+			private var mbus : MessageBus = new MessageBus();
+			
+			protected function initializeShell():void
+			{
+				mbus.setPipeListener(new PipeListener(this, callback));
+//				w1.mbus = mbus;
+//				w2.mbus = mbus;
+				
+			}
+			
+			private function callback(message:IPipeMessage) : void
+			{
+				switch (message.getType()) {
+					case "AddWindow":
+						addWindow(message.getBody() as MDIWindow);
+						break;
+					case "RemoveWindow":
+						removeWindow(message.getBody() as MDIWindow);
+						break;
+				}
+			}
+			
+			// Add a MDIWindow to the MDICanvas
+			public function addWindow( component:MDIWindow ):void
+			{
+				var event:AddWindowEvent = new AddWindowEvent( component );
+				event.component = component;
+				this.dispatchEvent( event );
+			}
+			
+			// Remove a MDIWindow from the MDICanvas
+			public function removeWindow( component:MDIWindow ):void
+			{
+				var event:RemoveWindowEvent = new RemoveWindowEvent( component );
+				event.component = component;
+				this.dispatchEvent( event );
+			}
+		]]>
+	</mx:Script>
+		<!--main:MainToolbar id="toolbar" dock="true" width="100%" height="30" visible="false" verticalAlign="middle"/-->
+			
+		<flexmdi:MDICanvas id="mdiCanvas" horizontalScrollPolicy="off" verticalScrollPolicy="off"
+			effectsLib="{flexlib.mdi.effects.effectsLib.MDIVistaEffects}"
+			width="100%" height="100%">
+			
+		</flexmdi:MDICanvas>	
+	 	<mx:ControlBar width="100%" height="20" paddingTop="0">		
+		  <mx:Label text="(c) 2007, BigBlueButton Project" id="copyrightLabel2"/>
+		  <mx:Spacer width="100%"/>
+		  <!--mx:Button label="Log" click=""/-->  
+		</mx:ControlBar>
+</mx:VBox>
