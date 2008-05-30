@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<MDIWindow xmlns="flexlib.mdi.containers.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
-	       width="400" height="300" creationComplete="init()">
-	       
-	       <mx:Script>
-	       	<![CDATA[
-	       		import org.bigbluebutton.modules.log.LogFacade;
-	       		
-	       		public function init():void {
-	       			LogFacade.getInstance().startup(this);
-	       		}
-	       		
-	       		
-	       	]]>
-	       </mx:Script>
-	
+<MDIWindow xmlns="flexlib.mdi.containers.*" 
+		xmlns:mx="http://www.adobe.com/2006/mxml" 
+	    width="400" height="300">
+	       	
 </MDIWindow>

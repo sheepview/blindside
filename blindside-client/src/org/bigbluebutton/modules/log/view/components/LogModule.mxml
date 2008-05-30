@@ -1,4 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute">
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" 
+	implements="org.bigbluebutton.core.interfaces.IModule"
+	creationComplete="initializeModule( )"
+	layout="absolute">
 	
+	<mx:Script>
+		<![CDATA[
+			import org.bigbluebutton.core.interfaces.MessageBus;
+			import org.bigbluebutton.modules.log.LogApplicationFacade;
+			
+			// URI for this module. Must be unique
+			public static const MODULE_URI:String = "http://bigbluebutton.com/LogModule/";
+			
+			public var mbus:MessageBus;
+						
+			public function setMessageBus( bus : MessageBus ) : void
+			{
+				mbus = bus;
+			}
+			
+			// The unique key for this module instance
+			public function getModuleKey():String
+			{
+				return MODULE_URI+this.id
+			}
+			
+			/**
+			 * Startup the module using the multiton key passed in.
+			 */
+			public function initializeModule( ):void
+			{
+				LogApplicationFacade.getInstance( getModuleKey() ).startup(this);
+			}
+		]]>
+	</mx:Script>	
 </mx:Module>

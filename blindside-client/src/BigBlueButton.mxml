@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute">
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:mainView="org.bigbluebutton.main.view.components.*"
+	pageTitle="Big Blue Button"
+	layout="absolute"
+	creationComplete="facade.startup(this)">
+
+	<mx:Script>
+		<![CDATA[
+			import org.bigbluebutton.main.MainApplicationFacade;
+			public static const NAME:String = 'BigBlueButton';
+			protected var facade:MainApplicationFacade = MainApplicationFacade.getInstance( NAME );		
+		]]>
+	</mx:Script>
+		
+	<mainView:MainApplicationShell id="mainShell"/>	
 	
 </mx:Application>

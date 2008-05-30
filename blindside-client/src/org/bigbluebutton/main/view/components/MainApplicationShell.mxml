@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" 
 		xmlns:flexmdi="flexlib.mdi.containers.*"
+		xmlns:logModule="org.bigbluebutton.modules.log.view.components.*"
+		xmlns:login="org.bigbluebutton.main.view.components.*"
 		width="100%" height="100%"
-		creationComplete="initializeShell()">
-		
+		creationComplete="initializeShell()" xmlns:log="org.blindsideproject.views.log.*">
+
+	<mx:Metadata>
+		[Event('ADD_WINDOW', org.bigbluebutton.main.view.events.AddWindowEvent)]	
+		[Event('REMOVE_WINDOW', org.bigbluebutton.main.view.events.RemoveWindowEvent)]	
+	</mx:Metadata>
+			
 	<mx:Script>
 		<![CDATA[
+			import org.puremvc.as3.multicore.utilities.pipes.messages.Message;
+			import org.bigbluebutton.modules.log.LogApplicationFacade;
+			import org.bigbluebutton.modules.log.view.components.LogWindow;
 			import org.bigbluebutton.main.view.events.AddWindowEvent;
 			import org.bigbluebutton.main.view.events.RemoveWindowEvent;
 			import flexlib.mdi.containers.MDIWindow;
@@ -20,23 +30,46 @@
 			protected function initializeShell():void
 			{
 				mbus.setPipeListener(new PipeListener(this, callback));
-//				w1.mbus = mbus;
-//				w2.mbus = mbus;
+				log.mbus = mbus;
+				logWindow.title = "New Title";
+				var status:String = "This is a passed status";
+				var addWindowMsg : IPipeMessage = new Message(LogApplicationFacade.ADD_WINDOW, null, status);			
+				mbus.outputPipe().write(addWindowMsg);
 				
 			}
 			
 			private function callback(message:IPipeMessage) : void
 			{
 				switch (message.getType()) {
-					case "AddWindow":
-						addWindow(message.getBody() as MDIWindow);
+					case "ADD_WINDOW":
+					//logWindow.title = message.getBody() as String;
+						addWindow(message.getBody() as String);
+					//	addWindow(message.getBody() as MDIWindow);
+						
 						break;
-					case "RemoveWindow":
-						removeWindow(message.getBody() as MDIWindow);
+					case "REMOVE_WINDOW":
+//						removeWindow(message.getBody() as MDIWindow);
 						break;
 				}
 			}
+
+			// Add a MDIWindow to the MDICanvas
+			public function addWindow( component:String ):void
+			{
+				logWindow.title = component + "in Add Window";
+				var event:AddWindowEvent = new AddWindowEvent( component );
+				event.component = component;
+				this.dispatchEvent( event );
+			}
 			
+			// Remove a MDIWindow from the MDICanvas
+//			public function removeWindow( component:String ):void
+//			{
+//				var event:RemoveWindowEvent = new RemoveWindowEvent( component );
+//				event.component = component;
+//				this.dispatchEvent( event );
+//			}
+/*						
 			// Add a MDIWindow to the MDICanvas
 			public function addWindow( component:MDIWindow ):void
 			{
@@ -52,15 +85,18 @@
 				event.component = component;
 				this.dispatchEvent( event );
 			}
+*/
 		]]>
 	</mx:Script>
 		<!--main:MainToolbar id="toolbar" dock="true" width="100%" height="30" visible="false" verticalAlign="middle"/-->
-			
+		<logModule:LogModule id="log"/>	
 		<flexmdi:MDICanvas id="mdiCanvas" horizontalScrollPolicy="off" verticalScrollPolicy="off"
 			effectsLib="{flexlib.mdi.effects.effectsLib.MDIVistaEffects}"
-			width="100%" height="100%">
-			
+			width="100%" height="100%">			
 		</flexmdi:MDICanvas>	
+		
+		<login:LoginWindow id="logWindow" title="Old Title"/>
+		
 	 	<mx:ControlBar width="100%" height="20" paddingTop="0">		
 		  <mx:Label text="(c) 2007, BigBlueButton Project" id="copyrightLabel2"/>
 		  <mx:Spacer width="100%"/>

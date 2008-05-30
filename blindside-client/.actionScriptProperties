@@ -11,8 +11,8 @@
 <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/framework.swc" sourcepath="${PROJECT_FRAMEWORKS}/source" useDefaultLinkType="true"/>
 </modifiedEntries>
 <excludedEntries>
-<libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation.swc" useDefaultLinkType="false"/>
 <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_agent.swc" useDefaultLinkType="false"/>
+<libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation.swc" useDefaultLinkType="false"/>
 <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/qtp.swc" useDefaultLinkType="false"/>
 <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_dmv.swc" useDefaultLinkType="false"/>
 </excludedEntries>
@@ -33,7 +33,10 @@
 <application path="meetme.mxml"/>
 <application path="blindside.mxml"/>
 <application path="BigBlueButton.mxml"/>
+<application path="LogApplication.mxml"/>
 </applications>
-<modules/>
+<modules>
+<module destPath="org/bigbluebutton/modules/log/view/components/LogModule.swf" optimize="false" sourcePath="src/org/bigbluebutton/modules/log/view/components/LogModule.mxml"/>
+</modules>
 <buildCSSFiles/>
 </actionScriptProperties>
