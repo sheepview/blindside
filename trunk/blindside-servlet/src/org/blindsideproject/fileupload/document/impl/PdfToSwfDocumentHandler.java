@@ -11,33 +11,60 @@ import java.util.Iterator;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+/**
+ * Class to convert pdf slide presentation files to swf format slide.
+ * It invokes tools to do operations like pdfExtractor and swftoolConverter.
+ * [pdfExtractor: splits pdf presentation slide pages into single page pdf files]  
+ * [swftoolConverter: converts pdf to swf]
+ * 			  
+ * 
+ * @author ritzalam 
+ *
+ */
 public class PdfToSwfDocumentHandler {
 	private static final Log logger = LogFactory.getLog(PdfToSwfDocumentHandler.class);
-	
+	// message sender used to send messages to blindside server using ActiveMQ
 	private UpdatesMessageSender updatesMsgSender = null;
-
+	
+	// used to invoke the tools to do the operations
 	private String swftoolConverter;
 	private String pdfExtractor;
 	private Integer room;
-	
+	/**
+	 * Setter for message sender used to send messages to blindside server using ActiveMQ.
+	 * @param updatesMsgSender
+	 */
     public void setUpdatesMsgSender(UpdatesMessageSender updatesMsgSender) {
 		this.updatesMsgSender = updatesMsgSender;
 	}
-
+    /**
+     * Setter for swftoolConverter name to be used to generate command to invoke the tool.
+     * @param swftoolConverter
+     */
 	public void setSwftoolConverter(String swftoolConverter) {
 		this.swftoolConverter = swftoolConverter;
 	}
-
+	/**
+     * Setter for PdfExtractor name to be used to generate command to invoke the tool.
+     * @param pdfExtractor
+     */
 	public void setpdfExtractor(String pdfExtractor) {
 		this.pdfExtractor = pdfExtractor;
 	}
-	
+	/**
+	 * Convert all the presentation slide from source directory, to swf format(for the conference room given).
+	 * First by splitting it into single page pdf files and saving them in destination directory.
+	 * And then converting them to SWF files by invoking convertPDFtoSWF() on every pdf file in source directory.
+	 * 
+	 * @param room conference ID
+	 * @param fileSource source directory where pdf files are.
+	 * @param destDir destination directory
+	 */
     public synchronized void convert(Integer room, File fileSource, File destDir) {
     	this.room = room;
     	
         updatesMsgSender.sendMessage(room, ReturnCode.UPDATE, "Generating slides.");
-
+        //extract pages
         extractPages(fileSource, destDir);
         
 		ArrayList<File> files = getConvertedSlides(destDir.toString());

@@ -3,7 +3,11 @@ package org.blindsideproject.fileupload.manager;
 import java.util.ArrayList;
 
 import org.blindsideproject.fileupload.document.IProgressListener;
-
+/**
+ * 
+ * @author ritzalam 
+ *
+ */
 public class UploadListener implements IProgressListener{
 	private String roomNo;
 	private ArrayList <String> messages = new ArrayList <String> ();

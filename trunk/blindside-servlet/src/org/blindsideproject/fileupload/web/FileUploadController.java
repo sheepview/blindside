@@ -27,7 +27,7 @@ import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
  * 
  * This class uses FileSystemSlideManager.java and SlidePresentationDocument.java (keeping instances of those two classes).
  * Basically, this class is used as an adapter class which relays Http client requests to other classes. 
- * @author 
+ * @author ritzalam 
  *
  */
 public class FileUploadController extends MultiActionController {

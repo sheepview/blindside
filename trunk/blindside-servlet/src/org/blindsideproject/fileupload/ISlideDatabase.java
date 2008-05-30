@@ -6,7 +6,11 @@ import java.io.OutputStream;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
-
+/**
+ * 
+ * @author ritzalam 
+ *
+ */
 public interface ISlideDatabase {
 
 	public List<SlideDescriptor> getSlidesForRoom(Integer room);

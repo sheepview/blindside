@@ -8,7 +8,11 @@ import java.util.List;
 
 import org.blindsideproject.fileupload.SlideDescriptor;
 import org.springframework.web.multipart.MultipartFile;
-
+/**
+ * 
+ * @author ritzalam 
+ *
+ */
 public interface ISlideManager {
 	public List<SlideDescriptor> getImages(String sourceFolder);
 	
@@ -20,3 +24,4 @@ public interface ISlideManager {
 	
 	public void streamImage(String name, OutputStream os);
 }
+ 
