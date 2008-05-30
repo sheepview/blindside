@@ -1,5 +1,12 @@
 package org.blindsideproject.fileupload.document;
 
+/**
+ * Exception class used in servlet classes
+ * 
+ * @author ritzalam  
+ *
+ */
+
 public class BaseException extends java.lang.Exception
 {
 	private static final long serialVersionUID = 3608396488252900444L;

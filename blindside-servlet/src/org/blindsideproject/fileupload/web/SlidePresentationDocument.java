@@ -33,7 +33,7 @@ import javax.jms.Session;
 /**
  * This class is used to 
  * 
- * @author kthiruka
+ * @author ritzalam 
  *
  */
 
@@ -44,7 +44,10 @@ public class SlidePresentationDocument {
     private FileSystemSlideManager slideManager = null;
     private PptDocumentHandler pptDocumentHandler = null;
     private ZipDocumentHandler zipDocumentHandler = null;
+    // handler for converting ppt to swf
     private PptToSwfDocumentHandler pptToSwfHandler = null;
+    
+    // handler for converting pdf to swf
     private PdfToSwfDocumentHandler pdfToSwfHandler = null;
     
    
@@ -52,7 +55,7 @@ public class SlidePresentationDocument {
     // directory of the file to be uploaded to memory from file System
     private File destDir = null;
     private Integer room;
-    
+    // updatesMsgSender for sending updates to blindside server
     private UpdatesMessageSender updatesMsgSender = null;
 	
     public void load(File uploaded, Integer room) 
@@ -146,9 +149,9 @@ public class SlidePresentationDocument {
                     
                     return;
                 }
-        
+/*        
                 File currentFile;
-/***
+
  * Don't do this for now. Need to get slides as quickly as possible.
  * Let's do this when we can provide feedback to user through DWR.
                 // Create thumnails

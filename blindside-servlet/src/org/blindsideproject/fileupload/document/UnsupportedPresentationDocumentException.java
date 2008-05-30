@@ -1,5 +1,9 @@
 package org.blindsideproject.fileupload.document;
-
+/**
+ * Exception class used when unsupported presentation error occurs
+ * @author ritzalam 
+ *
+ */
 public class UnsupportedPresentationDocumentException extends BaseException {
 
 	private static final long serialVersionUID = 610367372614072528L;
@@ -24,3 +28,4 @@ public class UnsupportedPresentationDocumentException extends BaseException {
 		super(message, e);
 	}
 }
+  

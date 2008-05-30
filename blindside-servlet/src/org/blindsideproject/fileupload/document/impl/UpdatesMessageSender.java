@@ -7,7 +7,11 @@ import javax.jms.Session;
 
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
-
+/**
+ * 
+ * @author ritzalam 
+ *
+ */
 public class UpdatesMessageSender {
     private JmsTemplate template = null;
     private Destination destination = null;

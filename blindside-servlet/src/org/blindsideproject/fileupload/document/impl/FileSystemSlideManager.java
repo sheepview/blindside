@@ -33,17 +33,21 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
+ * This class is used as the BASE class which services client requests: fileUpload, getting Slides for viewing.... 
+ * The requests are received by FileUploadCintroller class and routed here.
+ *  
  * Some code from jGallery
- *
+ * 
+ * @author ritzalam 
  */
 public class FileSystemSlideManager implements ISlideDatabase {
 	private final Log logger = LogFactory.getLog(getClass());
-	
+	// destination directory of the slides
 	private String baseDirectory = null;
 	private String extractedFolder = null;
 	
 	private PrintWriter outputXML = null;
-
+	// used for generating slides XML 
 	private static final String HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 	private static final String PRESENTATIONS = "<presentations>";
 	private static final String PRESENTATIONS_END_TAG = "</presentations>";
@@ -63,20 +67,38 @@ public class FileSystemSlideManager implements ISlideDatabase {
 	private static final String ROOM_END_TAG = "</room>";
 	private static final String host = "http://localhost:8080";
 	
+	/**
+	 * Setter for destination directory
+	 * @param dest destination directory
+	 */
 	public void setBaseDirectory(String dest) {
 		this.baseDirectory = dest;
 	}
-	
+	/**
+	 * Setter for extracted folder directory
+	 * @param extractedFolder
+	 */
 	public void setExtractedFolder(String extractedFolder) {
 		this.extractedFolder = extractedFolder;
 	}
-			
+	
+	/**
+	 * This method create thumbImage of the image file given and save it in outFile. 
+	 * Compression quality is also given. thumbBounds is used for calculating the size of the thumb.
+	 * 
+	 * @param infile slide image to create thumb
+	 * @param outfile output thumb file
+	 * @param compressionQuality
+	 * @param thumbBounds
+	 * @throws IOException
+	 */
 	public void resizeImage(File infile, File outfile, float compressionQuality,
 			int thumbBounds) throws IOException
 	{
 		// Retrieve jpg image to be resized
 		Image image = ImageIO.read(infile);
-
+		
+		// get original image size for thumb size calculation
 		int imageWidth = image.getWidth(null);
 		int imageHeight = image.getHeight(null);
 
@@ -109,7 +131,7 @@ public class FileSystemSlideManager implements ISlideDatabase {
 		// Prepare output file
 		ImageOutputStream ios = ImageIO.createImageOutputStream(outfile);
 		writer.setOutput(ios);
-
+		// write to the thumb image 
 		writer.write(thumbImage);
 
 		// Cleanup
@@ -117,18 +139,27 @@ public class FileSystemSlideManager implements ISlideDatabase {
 		writer.dispose();
 		ios.close();
 	}
-
+	/**
+	 * This method is used to generate SlideDescriptor List slide thumbs of the given conference room.
+	 * 
+	 * @param room conference room ID
+	 * @return List of Slide (thumb) Descriptors of all the slides of the conference room
+	 * 
+	 */
 	public List<SlideDescriptor> getThumbnailsForRoom(Integer room) {
 		logger.info("getting thumbnails for = [" + room + "]");
-		
+		// pointing to extracted folder directory
 		File file = new File(baseDirectory + File.separator + room + File.separator + extractedFolder);
 		
+		// get all the files in the folder
 		File[] files = file.listFiles();
 			
 		ArrayList<SlideDescriptor> listOfFiles = new ArrayList<SlideDescriptor>();
+		// run through the File array
 		for (int i = 0; i < files.length; i++) {
 			if (!files [i].isDirectory()) {
 				String filename = (String)files[i].getName();
+				// get only the files that ends with ".jpg" and starts with "thumb-" in the directory
 				if ((filename.endsWith(".jpg")) && (filename.startsWith("thumb-"))) {
 					logger.info("getting slide = [" + filename + "]");
 					SlideDescriptor slide = new SlideDescriptor(filename, room);
@@ -142,17 +173,24 @@ public class FileSystemSlideManager implements ISlideDatabase {
 		return listOfFiles;
 	}	
 	
+	/**
+	 * This method returns the ArrayList of slideDescriptors belongs to the given conference room.
+	 * @param room conference room ID
+	 * @return List of SlideDescriptor
+	 */
 	public List<SlideDescriptor> getSlidesForRoom(Integer room) {
 		logger.info("getting slides for = [" + room + "]");
-		
+		// pointing to extracted folder directory
 		File file = new File(baseDirectory + File.separator + room + File.separator + extractedFolder);
-		
+		// get all the files in the folder
 		File[] files = file.listFiles();
 			
 		ArrayList<SlideDescriptor> listOfFiles = new ArrayList<SlideDescriptor>();
+		
 		for (int i = 0; i < files.length; i++) {
 			if (!files [i].isDirectory()) {
 				String filename = (String)files[i].getName();
+				// get only the files that end with ".jpg" and not start with "thumb-" in the directory
 				if ((filename.endsWith(".swf")) && (! filename.startsWith("thumb-"))){
 					logger.info("getting slide = [" + filename + "]");
 					SlideDescriptor slide = new SlideDescriptor(filename, room);
@@ -165,19 +203,24 @@ public class FileSystemSlideManager implements ISlideDatabase {
         
 		return listOfFiles;
 	}
-
+	/**
+	 * This method loads the slide .swf files in the folder and put it in an File[] and returns it.
+	 * @param sourceFolder directory of the source
+	 * @return ArrayList of slides
+	 */
 	public ArrayList<File> getExtractedSlides(String sourceFolder) {
 		logger.info("Slide folder = " + sourceFolder);
-		
+		// pointing to extracted folder directory
 		File file = new File(sourceFolder);
-		
+		// get all the files in the folder
 		File[] files = file.listFiles();
-		
+		// ArrayList to hold slide swf files
 		ArrayList<File> listOfFiles = new ArrayList<File>();
 		
 		for (int i= 0; i < files.length; i++) {
 			if (!files [i].isDirectory()) {
 				String filename = (String)files[i].getName();
+				// get only the files that end with ".swf" and not start with "thumb-" in the directory
 				if ((filename.toLowerCase().endsWith(".swf")) &&
 						!(filename.toLowerCase().startsWith("thumb"))) {
 					listOfFiles.add(files[i]);	
@@ -188,6 +231,15 @@ public class FileSystemSlideManager implements ISlideDatabase {
 		return listOfFiles;
 	}
 
+	
+	/**
+	 * This method basically saves the MultipartFile given as parameter( temporary stored file format)
+	 * And it also return instance of file which is saved in saveDir
+	 * 
+	 * @param multipartFile temporary storage of uploaded file
+	 * @param room conference room ID
+	 * @return file pointing to the new file stored
+	 */
 	public File saveUploadedFile(MultipartFile multipartFile, Integer room) throws IOException {
 		String filename = multipartFile.getOriginalFilename().replace(' ', '_');
 		
@@ -198,11 +250,22 @@ public class FileSystemSlideManager implements ISlideDatabase {
         }			
 		
 		File file = new File(saveDir.getAbsolutePath() + File.separator + filename);
+		// store multipartFile in permanent storage
 		multipartFile.transferTo(file);
 		
 		return file;
 	}
 
+	
+	/**
+	 * This method basically copies the contents of the file (in our case, slides) to the OutputStream given. 
+	 * OutputStream given here is the connection stream to the client. 
+	 * This tells us that this function streams the slides to the client.
+	 * 
+	 * @param room conference room ID
+	 * @param name name of the slide
+	 * @see FileCopyUtils   
+	 */
 	public void streamImage(Integer room, String name, OutputStream os) {
 		
 		File file = new File(baseDirectory + File.separator + room 
@@ -218,6 +281,7 @@ public class FileSystemSlideManager implements ISlideDatabase {
 		
 		try {
 			if (is != null) {
+				// streaming the contents(slide) in is to os which points to client connection
 				FileCopyUtils.copy(is, os);
 			}	
 		} catch (IOException e) {
@@ -225,6 +289,15 @@ public class FileSystemSlideManager implements ISlideDatabase {
 		}
 	}
 	
+	/**
+	 * This method basically copies the contents of the file (in our case, slide XML description) to the OutputStream given. 
+	 * OutputStream given here is the connection stream to the client. 
+	 * This tells us that this function streams the slides to the client.
+	 * 
+	 * @param room conference room ID
+	 * @param name name of the slide
+	 * @see FileCopyUtils
+	 */
 	public void getXml(Integer room, String name, OutputStream os) {
 		File file = new File(baseDirectory + File.separator + room 
 				+ File.separator + name);
@@ -239,6 +312,7 @@ public class FileSystemSlideManager implements ISlideDatabase {
 		
 		try {
 			if (is != null) {
+				// streaming the contents (slide XML) in is to os which points to client connection
 				FileCopyUtils.copy(is, os);
 			}	
 		} catch (IOException e) {
@@ -247,9 +321,9 @@ public class FileSystemSlideManager implements ISlideDatabase {
 	}
 
 	/**
-	 * Creates an xml formatted string that is returned to the client.
-	 * @param slides
-	 * @return
+	 * This method creates XML formatted string (slide description) that is ready to be sent to the client.
+	 * @param room conference room ID
+	 * 
 	 */
 	public void createDefaultXml(Integer room) {		
 		String slidesXml = HEADER + "\n";
@@ -275,15 +349,18 @@ public class FileSystemSlideManager implements ISlideDatabase {
 			}
 		}		
 	}
-	
+	/**
+	 * 
+	 * @see createXml
+	 */
 	public String getSlidesInXml(Integer room) {
 		return 	createXml(room);
 	}
 	
 	/**
-	 * Creates an xml formatted string that is returned to the client.
-	 * @param slides
-	 * @return
+	 * This method creates XML formatted string (slide description) that is ready to be sent to the client.
+	 * @param room conference room ID
+	 * @return slide description XML string
 	 */
 	public String createXml(Integer room) {
 		List<SlideDescriptor> slides = getSlidesForRoom(room);
@@ -325,16 +402,24 @@ public class FileSystemSlideManager implements ISlideDatabase {
 		
 		return slidesXml;
 	}
-
+	/**
+	 * TODO Auto-generated method stub
+	 */
 	public void clearDatabase() {
 		// TODO Auto-generated method stub
 		
 	}
-
+	/**
+	 * Getter for destination directory
+	 * @return dest destination directory
+	 */
 	public String getBaseDirectory() {
 		return baseDirectory;
 	}
-
+	/**
+	 * Getter for extracted folder directory
+	 * @return extractedFolder
+	 */
 	public String getExtractedFolder() {
 		return extractedFolder;
 	}
