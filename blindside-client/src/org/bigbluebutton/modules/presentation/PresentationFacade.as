@@ -101,11 +101,7 @@ package org.bigbluebutton.modules.presentation
 	   	 */	   	
 	   	public function get presentationDelegate():PresentationDelegate
 	   	{
-	   		if (_presentationDelegate == null) {
-	   			_presentationDelegate = new PresentationDelegate();
-	   		}
-	   		
-	   		return _presentationDelegate;
+	   		return retrieveProxy(PresentationDelegate.ID) as PresentationDelegate;
 	   	}
 	   	
 	   	/**

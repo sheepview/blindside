@@ -3,6 +3,7 @@ package org.bigbluebutton.modules.presentation.model.business
 	import flash.events.AsyncErrorEvent;
 	import flash.events.NetStatusEvent;
 	import flash.events.SyncEvent;
+	import flash.net.NetConnection;
 	import flash.net.SharedObject;
 	
 	import org.bigbluebutton.modules.presentation.PresentationFacade;
@@ -49,10 +50,11 @@ package org.bigbluebutton.modules.presentation.model.business
 		 * The default constructor. Creates a new NetConnectionDelegate
 		 * 
 		 */				
-		public function PresentationDelegate()
+		public function PresentationDelegate(nc:NetConnection)
 		{
 			super(ID);
 			connDelegate = new NetConnectionDelegate(this);
+			connDelegate.setNetConnection(nc);
 		}	
 				
 		/**

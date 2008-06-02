@@ -35,6 +35,10 @@ package org.bigbluebutton.modules.presentation.model.business
 		{
 			_delegate = delegate;
 		}
+		
+		public function setNetConnection(nc:NetConnection):void{
+			this.netConnection = nc;
+		}
 
 		/**
 		 * Connects to a server 
@@ -43,8 +47,7 @@ package org.bigbluebutton.modules.presentation.model.business
 		 * 
 		 */
 		public function connect(host : String , room : String) : void
-		{		
-			netConnection = new NetConnection();			
+		{					
 			netConnection.client = this;
 			
 			netConnection.addEventListener( NetStatusEvent.NET_STATUS, netStatus );
