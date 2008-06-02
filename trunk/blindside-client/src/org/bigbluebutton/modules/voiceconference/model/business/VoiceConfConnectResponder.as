@@ -108,7 +108,7 @@ package org.bigbluebutton.modules.voiceconference.model.business
 		 * @return - The NetConnectionDelegate Proxy of the VoiceConference Module 
 		 * 
 		 */		
-		private function get proxy():NetConnectionDelegate{
+		public function get proxy():NetConnectionDelegate{
 			return facade.retrieveProxy(NetConnectionDelegate.NAME) as NetConnectionDelegate;
 		}
 		

@@ -15,6 +15,8 @@ package org.bigbluebutton.modules.voiceconference
 		public var muteAllReceived:Boolean = false;
 		public var ejectReceived:Boolean = false;
 		public var muteUnmuteReceived:Boolean = false;
+		public var userJoin:Boolean = false;
+		public var muteReceived:Boolean = false;
 		
 		public function MockNotificationListener()
 		{
@@ -28,7 +30,9 @@ package org.bigbluebutton.modules.voiceconference
 					VoiceConfConnectResponder.FAULT,
 					VoiceConferenceFacade.MUTE_ALL_USERS_COMMAND,
 					VoiceConferenceFacade.EJECT_USER_COMMAND,
-					VoiceConferenceFacade.MUTE_UNMUTE_USER_COMMAND
+					VoiceConferenceFacade.MUTE_UNMUTE_USER_COMMAND,
+					VoiceConferenceFacade.USER_JOIN_EVENT,
+					VoiceConferenceFacade.MUTE_EVENT
 					];
 		}
 		
@@ -52,7 +56,17 @@ package org.bigbluebutton.modules.voiceconference
 			  	case VoiceConferenceFacade.MUTE_UNMUTE_USER_COMMAND:
 			  		this.muteUnmuteReceived = true;
 			  		break;
+			  	case VoiceConferenceFacade.USER_JOIN_EVENT:
+			  		this.userJoin = true;
+			  		break;
+			  	case VoiceConferenceFacade.MUTE_EVENT:
+			  		this.muteReceived = true;
+			  		break;
 			  }
+		}
+		
+		public function sendCustomNote(note:String):void{
+			sendNotification(note);
 		}
 
 	}

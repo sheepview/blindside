@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <view:ListenersClass xmlns:mx="http://www.adobe.com/2006/mxml" 
 			xmlns:view="org.bigbluebutton.modules.voiceconference.view.*" 
-			xmlns:controller="org.bigbluebutton.modules.voiceconference.control.*">
+			xmlns:controller="org.bigbluebutton.modules.voiceconference.control.*"
+			creationComplete="init()">
 
 	<mx:Script>
 		<![CDATA[
@@ -24,9 +25,17 @@
 			
 			[Bindable] private var muteAllIcon : Class = images.sound_mute;
 			[Bindable] private var unmuteAllIcon : Class = images.sound_none;
-			[Bindable] private var role : String = mainApp.conferenceApp.conference.me.role;
+			[Bindable] private var role : String;
 			
 			public var userid:Number;
+			
+			public function init():void{
+				if (mainApp.conferenceApp.conference.me.role !=null){
+					role  = mainApp.conferenceApp.conference.me.role;
+				} else{
+					role = "MODERATOR";
+				}
+			}
 			
 			public function dragEnterHandler(event:DragEvent):void
 	   		{

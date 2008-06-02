@@ -43,6 +43,11 @@ package org.bigbluebutton.modules.voiceconference
 			nc = new MockNetConnection();
 		}
 		
+		override public function tearDown():void{
+			facade.removeMediator(MockNotificationListener.NAME);
+			facade.removeProxy(NetConnectionDelegate.NAME);
+		}
+		
 		public function testConnectionDelegate():void{
 			assertTrue(test!= null);
 		}

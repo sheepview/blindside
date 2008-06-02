@@ -4,6 +4,11 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import org.bigbluebutton.modules.voiceconference.TestMeetMeUserItemMediator;
+			import org.bigbluebutton.modules.voiceconference.TestWindowMediator;
+			import org.bigbluebutton.modules.voiceconference.TestVoiceFacade;
+			import org.bigbluebutton.modules.voiceconference.TestVoiceConferenceRoom;
+			import org.bigbluebutton.modules.voiceconference.VoiceConferenceUserTest;
 			import org.bigbluebutton.modules.voiceconference.VoiceResponderTest;
 			import flexunit.framework.Test;
 			import org.bigbluebutton.modules.voiceconference.NetConnectionDelegateTest;
@@ -20,7 +25,13 @@
 				
 				ts.addTest(MuteNotifierTest.suite());
 				ts.addTest(NetConnectionDelegateTest.suite());
+				ts.addTest(VoiceConferenceUserTest.suite());
+				ts.addTest(TestVoiceConferenceRoom.suite());
+				ts.addTest(TestWindowMediator.suite());
+				ts.addTest(TestMeetMeUserItemMediator.suite());
 				ts.addTest(VoiceResponderTest.suite());
+				//The Facade Test must always be last because otherwise the singleton breaks everything!
+				ts.addTest(TestVoiceFacade.suite());
 				
 				return ts;
 			}

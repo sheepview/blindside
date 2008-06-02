@@ -1,5 +1,7 @@
 package org.bigbluebutton.modules.voiceconference.view
 {
+	import flash.events.Event;
+	
 	import org.bigbluebutton.modules.voiceconference.VoiceConferenceFacade;
 	import org.bigbluebutton.modules.voiceconference.control.notifiers.MuteNotifier;
 	import org.blindsideproject.core.util.log.ILogger;
@@ -74,7 +76,7 @@ package org.bigbluebutton.modules.voiceconference.view
 		 * Mutes or unmutes a user 
 		 * 
 		 */		
-		private function muteUnmuteUser() : void
+		private function muteUnmuteUser(e:Event) : void
    		{
    			if (! meetMeUserItem.isModerator) return;
    			
@@ -93,19 +95,6 @@ package org.bigbluebutton.modules.voiceconference.view
    			log.debug("Got newMeetMeEvent."); // comment out as generates too much noise
 
    			meetMeUserItem.displayStatusIcon();	
-   		}
-   		
-   		/**
-   		 * Sends out a notification to eject a user 
-   		 * 
-   		 */   		
-   		private function ejectUser() : void
-   		{
-   			if (! meetMeUserItem.isModerator) return;
-   			
-   			sendNotification(VoiceConferenceFacade.EJECT_USER_COMMAND, meetMeUserItem.data.userid);
-   			
-   			log.debug("MeetMeUserItem::ejectUser : [" + meetMeUserItem.data.userid + "]");
    		}
 
 	}
