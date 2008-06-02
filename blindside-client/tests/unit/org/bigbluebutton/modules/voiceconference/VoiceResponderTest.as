@@ -1,10 +1,23 @@
 package org.bigbluebutton.modules.voiceconference
 {
+	import flash.events.NetStatusEvent;
+	
 	import flexunit.framework.TestCase;
 	import flexunit.framework.TestSuite;
 	
+	import org.bigbluebutton.modules.voiceconference.model.VoiceConferenceRoom;
+	import org.bigbluebutton.modules.voiceconference.model.business.NetConnectionDelegate;
+	import org.bigbluebutton.modules.voiceconference.model.business.VoiceConfConnectResponder;
+	
 	public class VoiceResponderTest extends TestCase
 	{
+		private var test:VoiceConfConnectResponder;
+		private var facade:VoiceConferenceFacade;
+		private var listener:MockNotificationListener;
+		private var nc:MockNetConnection;
+		private var ncDelegate:NetConnectionDelegate;
+		private var room:VoiceConferenceRoom;
+		
 		public function VoiceResponderTest(methodName:String)
 		{
 			super(methodName);
@@ -13,95 +26,46 @@ package org.bigbluebutton.modules.voiceconference
 		public static function suite():TestSuite{
 			var ts:TestSuite = new TestSuite();
 			
+			ts.addTest(new VoiceResponderTest("testConstructor"));
+			ts.addTest(new VoiceResponderTest("testListNotifications"));
+			ts.addTest(new VoiceResponderTest("testSendMeetMeEvent"));
+			
 			return ts;
 		}
 		
 		override public function setUp():void{
-			
+			room = new VoiceConferenceRoom("hello");
+			test = new VoiceConfConnectResponder(room);
+			facade = VoiceConferenceFacade.getInstance();
+			facade.registerMediator(test);
+			listener = new MockNotificationListener();
+			facade.registerMediator(listener);
+			nc = new MockNetConnection();
+			ncDelegate = new NetConnectionDelegate("hello");
+			facade.registerProxy(ncDelegate);
 		}
 		
 		public function testConstructor():void{
-			fail("not yet implemented");
+			assertTrue(test != null);
 		}
 		
 		public function testListNotifications():void{
-			fail("not yet implemented");
-		}
-		
-		public function testHandleNotifications():void{
-			fail("not yet implemented");
+			var notes:Array = test.listNotificationInterests();
+			assertTrue(notes[0] == VoiceConfConnectResponder.CLOSE);
+			assertTrue(notes[1] == VoiceConfConnectResponder.RESULT);
+			assertTrue(notes[2] == VoiceConfConnectResponder.FAULT);
+			assertTrue(notes[3] == VoiceConferenceFacade.MUTE_UNMUTE_USER_COMMAND);
+			assertTrue(notes[4] == VoiceConferenceFacade.MUTE_ALL_USERS_COMMAND);
+			assertTrue(notes[5] == VoiceConferenceFacade.EJECT_USER_COMMAND);
 		}
 		
 		public function testProxy():void{
-			fail("not yet implemented");
+			assertTrue(test.proxy == ncDelegate);
 		}
 		
-		public function testResult():void{
-			fail("not yet implemented");
-		}
-		
-		public function testFault():void{
-			fail("not yet implemented");
-		}
-		
-		public function testDisconnect():void{
-			fail("not yet implemented");
-		}
-		
-		public function testCloseConnection():void{
-			fail("not yet implemented");
-		}
-		
-		public function testJoinRoom():void{
-			fail("not yet implemented");
-		}
-		
-		public function testUserJoin():void{
-			fail("not yet implemented");
-		}
-		
-		public function testMute():void{
-			fail("not yet implemented");
-		}
-		
-		public function testUserTalk():void{
-			fail("not yet implemented");
-		}
-		
-		public function testUserLeft():void{
-			fail("not yet implemented");
-		}
-		
-		public function testMuteUnmute():void{
-			fail("not yet implemented");
-		}
-		
-		public function testMuteAll():void{
-			fail("not yet implemented");
-		}
-		
-		public function testEject():void{
-			fail("not yet implemented");
-		}
-		
-		public function testGetUsers():void{
-			fail("not yet implemented");
-		}
-		
-		public function testSyncHandler():void{
-			fail("not yet implemented");
-		}
-		
-		public function testNetStatusHandler():void{
-			fail("not yet implemented");
-		}
-		
-		public function testAsyncErrorHandler():void{
-			fail("not yet implemented");
-		}
-		
-		public function sendMeetMeEvent():void{
-			fail("not yet implemented");
+		public function testSendMeetMeEvent():void{
+			test.sendNewMeetMeEvent();
+			assertTrue(listener.userJoin);
 		}
 
 	}
