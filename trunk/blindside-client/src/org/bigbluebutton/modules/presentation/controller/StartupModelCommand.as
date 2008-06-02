@@ -1,5 +1,7 @@
 package org.bigbluebutton.modules.presentation.controller
 {
+	import flash.net.NetConnection;
+	
 	import org.bigbluebutton.modules.presentation.model.business.PresentationDelegate;
 	import org.bigbluebutton.modules.presentation.view.PresentationWindow;
 	import org.puremvc.as3.multicore.interfaces.INotification;
@@ -15,7 +17,7 @@ package org.bigbluebutton.modules.presentation.controller
 	{
 		override public function execute(notification:INotification):void{
 			var app:PresentationWindow = notification.getBody() as PresentationWindow;
-			facade.registerProxy(new PresentationDelegate());
+			facade.registerProxy(new PresentationDelegate(new NetConnection()));
 		}
 
 	}

@@ -25,7 +25,7 @@ package org.bigbluebutton.modules.presentation.controller.notifiers
 		}
 		
 		public function get room():String{
-			return this.room;
+			return this._room;
 		}
 		
 		public function get uri():String{
