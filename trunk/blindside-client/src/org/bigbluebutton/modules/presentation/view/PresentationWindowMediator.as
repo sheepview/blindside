@@ -6,7 +6,7 @@ package org.bigbluebutton.modules.presentation.view
 	import mx.managers.PopUpManager;
 	
 	import org.bigbluebutton.modules.presentation.PresentationFacade;
-	import org.blindsideproject.main.BlindsideAppLocator;
+	import org.bigbluebutton.modules.presentation.model.PresentationApplication;
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
@@ -83,8 +83,6 @@ package org.bigbluebutton.modules.presentation.view
 		 */		
 		private function handleReadyEvent():void{
 			presentationWindow.thumbnailView.visible = false;
-				
-			BlindsideAppLocator.getInstance().presentationFacade.presentationApp.loadPresentation();	
 		}
 		
 		/**
@@ -104,9 +102,9 @@ package org.bigbluebutton.modules.presentation.view
 		 */		
 		private function connectToPresentation(e:Event) : void{
 			if (presentationWindow.model.presentation.isConnected) {
-				BlindsideAppLocator.getInstance().presentationFacade.presentationApp.leave();
+				sendNotification(PresentationApplication.LEAVE);
 			} else {
-				BlindsideAppLocator.getInstance().presentationFacade.presentationApp.join();					
+				sendNotification(PresentationApplication.JOIN);				
 			}
 		}
 		
@@ -117,10 +115,10 @@ package org.bigbluebutton.modules.presentation.view
 		 */		
 		private function sharePresentation(e:Event) : void{
 			if (presentationWindow.model.presentation.isSharing) {
-				BlindsideAppLocator.getInstance().presentationFacade.presentationApp.sharePresentation(false);
+				sendNotification(PresentationApplication.SHARE, false);
 				presentationWindow.uploadPres.enabled = true;	
 			} else {
-				BlindsideAppLocator.getInstance().presentationFacade.presentationApp.sharePresentation(true);
+				sendNotification(PresentationApplication.SHARE, true);
 				presentationWindow.uploadPres.enabled = false;				
 			}
 		}

@@ -3,13 +3,12 @@ package org.bigbluebutton.modules.presentation
 	import flexunit.framework.TestCase;
 	import flexunit.framework.TestSuite;
 	
-	import org.bigbluebutton.modules.presentation.model.PresentationApplication;
 	import org.bigbluebutton.modules.presentation.model.services.PresentationService;
 	
 	public class PresentationServiceTest extends TestCase
 	{
 		private var test:PresentationService;
-		private var application:PresentationApplication;
+		private var responder:MockResponder;
 		
 		public function PresentationServiceTest(methodName:String)
 		{
@@ -20,18 +19,26 @@ package org.bigbluebutton.modules.presentation
 			var ts:TestSuite = new TestSuite();
 			
 			ts.addTest(new PresentationServiceTest("testPresentationService"));
+			//ts.addTest(new PresentationServiceTest("testLoadMethod"));
 			
 			return ts;
 		}
 		
 		override public function setUp():void{
-			application = new PresentationApplication(5, "room", "host", "document");
-			test = new PresentationService("host", application);
+			responder = new MockResponder();
+			test = new PresentationService("host", responder);
 		}
 		
 		public function testPresentationService():void{
-			fail("Not yet implemented");
+			assertTrue(test != null);
 		}
+		
+		// Couldn't test this properly. Some problems with creating a mock HHTP connection
+		//public function testLoadMethod():void{
+		//	test.load("host");
+		//	assertTrue(responder.receivedResult);
+		//	assertTrue(responder.receivedFault);
+		//}
 
 	}
 }

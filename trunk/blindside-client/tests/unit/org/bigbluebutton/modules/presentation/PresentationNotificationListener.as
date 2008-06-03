@@ -1,5 +1,6 @@
 package org.bigbluebutton.modules.presentation
 {
+	import org.bigbluebutton.modules.presentation.model.PresentationApplication;
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
@@ -14,6 +15,12 @@ package org.bigbluebutton.modules.presentation
 		public var receivedIOError:Boolean = false;
 		public var receivedSecurityError:Boolean = false;
 		
+		public var receivedLeaveEvent:Boolean = false;
+		public var receivedJoinEvent:Boolean = false;
+		public var receivedShareEvent:Boolean = false;
+		public var receivedStartUpload:Boolean = false;
+
+		
 		public function PresentationNotificationListener()
 		{
 			super(NAME);
@@ -25,7 +32,11 @@ package org.bigbluebutton.modules.presentation
 					PresentationFacade.UPLOAD_PROGRESS_EVENT,
 					PresentationFacade.UPLOAD_COMPLETED_EVENT,
 					PresentationFacade.UPLOAD_IO_ERROR_EVENT,
-					PresentationFacade.UPLOAD_SECURITY_ERROR_EVENT
+					PresentationFacade.UPLOAD_SECURITY_ERROR_EVENT,
+					PresentationApplication.LEAVE,
+					PresentationApplication.JOIN,
+					PresentationApplication.SHARE,
+					PresentationFacade.STARTUPLOADWINDOW
 					];
 		}
 		
@@ -45,6 +56,18 @@ package org.bigbluebutton.modules.presentation
 					break;
 				case PresentationFacade.UPLOAD_SECURITY_ERROR_EVENT:
 					this.receivedSecurityError = true;
+					break;
+				case PresentationApplication.JOIN:
+					this.receivedJoinEvent = true;
+					break;
+				case PresentationApplication.LEAVE:
+					this.receivedLeaveEvent = true;
+					break;
+				case PresentationApplication.SHARE:
+					this.receivedShareEvent = true;
+					break;
+				case PresentationFacade.STARTUPLOADWINDOW:
+					this.receivedStartUpload = true;
 					break;
 			}
 		}
