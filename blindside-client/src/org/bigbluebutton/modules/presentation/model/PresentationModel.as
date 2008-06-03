@@ -3,15 +3,18 @@ package org.bigbluebutton.modules.presentation.model
 	import mx.collections.ArrayCollection;
 	
 	import org.bigbluebutton.modules.presentation.model.vo.SlidesDeck;
-	import org.blindsideproject.core.IApplication;
+	import org.puremvc.as3.multicore.interfaces.IMediator;
+	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
 	
 	/**
 	 * The PresentationModel class holds the properties of the presentation 
 	 * @author dzgonjan
 	 * 
 	 */	
-	public class PresentationModel implements IApplication
+	public class PresentationModel extends Mediator implements IMediator
 	{
+		public static const NAME:String = "PresentationModel";
+		
 		/**
 		 * The userid of this participant.
 		 */
@@ -53,7 +56,9 @@ package org.bigbluebutton.modules.presentation.model
 		 */
 		[Bindable] public var decks:SlidesDeck;
 		
-		public function PresentationModel() : void {}
+		public function PresentationModel() : void {
+			super(NAME);
+		}
 				
 		public function displayDefaultSlide() : void
 		{
@@ -83,11 +88,6 @@ package org.bigbluebutton.modules.presentation.model
 		public function open(userid:Number):void
 		{
 			this.userid = userid;
-		}
-		
-		public function getApplicationId():String
-		{
-			return null;
 		}
 		
 		public function close():void

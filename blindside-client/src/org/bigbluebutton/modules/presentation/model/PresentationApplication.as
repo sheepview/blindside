@@ -28,8 +28,11 @@ package org.bigbluebutton.modules.presentation.model
 	 */						
 	public class PresentationApplication extends Mediator implements IMediator, IResponder
 	{
-		public var model:PresentationModel; 
 		public static const NAME:String = "PresentationApplication";
+		
+		public static const LEAVE:String = "Leave Presentation";
+		public static const JOIN:String = "Join Presentation";
+		public static const SHARE:String = "Share Presentation";
 
 		private var _url : String;
 		private var _userid : Number;
@@ -52,9 +55,45 @@ package org.bigbluebutton.modules.presentation.model
 			_userid = userid;
 			_room = room;
 			_docServiceAddress = docServiceAddress;
-			
-			// Initialize the model
-			model = PresentationFacade.getInstance().presentation;
+		}
+		
+		private function get model():PresentationModel{
+			return facade.retrieveMediator(PresentationModel.NAME) as PresentationModel;
+		}
+				
+		/**
+		 * returns the Presentation Proxy class, which it retrieves from the facade 
+		 * @return 
+		 * 
+		 */		
+		public function get presentationProxy():PresentationDelegate{
+			return facade.retrieveProxy(PresentationDelegate.ID) as PresentationDelegate;
+		}
+		
+		override public function listNotificationInterests():Array{
+			return [
+					LEAVE,
+					JOIN,
+					SHARE,
+					PresentationFacade.READY_EVENT
+					];
+		}
+		
+		override public function handleNotification(notification:INotification):void{
+			switch(notification.getName()){
+				case LEAVE:
+					leave();
+					break;
+				case JOIN:
+					join();
+					break;
+				case SHARE:
+					sharePresentation(notification.getBody() as Boolean);
+					break;
+				case PresentationFacade.READY_EVENT:
+					loadPresentation();
+					break;
+			}
 		}
 		
 		/**
@@ -64,15 +103,6 @@ package org.bigbluebutton.modules.presentation.model
 		public function join() : void
 		{	
 			presentationProxy.join(_userid, _url, _room);		
-		}
-		
-		/**
-		 * returns the Presentation Proxy class, which it retrieves from the facade 
-		 * @return 
-		 * 
-		 */		
-		public function get presentationProxy():PresentationDelegate{
-			return facade.retrieveProxy(PresentationDelegate.ID) as PresentationDelegate;
 		}
 		
 		/**
