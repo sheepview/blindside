@@ -87,6 +87,7 @@ package org.bigbluebutton.modules.presentation.view
 		{
 			if (okState) {
 				sendNotification(PresentationFacade.READY_EVENT);
+				log.debug("FileUploadMediator::Ready Event Sent");
 			}
 			enableControls();
 			PopUpManager.removePopUp(fileUploadWindow);
@@ -147,13 +148,16 @@ package org.bigbluebutton.modules.presentation.view
 		 */		
 		override public function handleNotification(notification:INotification):void{
 			log.debug("Upload Mediator: notification : " + notification.getName());
-			if (isListening == false) return;
+			//if (isListening == false) return;
 			switch(notification.getName()){
 				case PresentationFacade.UPLOAD_COMPLETED_EVENT:
 					handleUploadCompleteEvent(notification);
 					break;
 				case PresentationFacade.UPLOAD_PROGRESS_EVENT:
 					handleUploadProgressEvent(notification);
+					break;
+				case PresentationFacade.CONVERT_SUCCESS_EVENT:
+					handleConvertSuccessEvent(notification);
 					break;
 				case PresentationFacade.UPLOAD_IO_ERROR_EVENT:
 					handleUploadIOErrorEvent(notification);
@@ -169,9 +173,6 @@ package org.bigbluebutton.modules.presentation.view
 					break;
 				case PresentationFacade.UPDATE_PROGRESS_EVENT:
 					handleUpdateProgressEvent(notification);
-					break;
-				case PresentationFacade.CONVERT_SUCCESS_EVENT:
-					handleConvertSuccessEvent(notification);
 					break;
 			}
 		}
@@ -281,6 +282,7 @@ package org.bigbluebutton.modules.presentation.view
 		 */		
 		private function enableControls() : void
 		{
+			log.debug("FileUploadMediator::Controls disabled");
 			//First, remove this class from listening
 			this.isListening = false;
 			fileUploadWindow.okCancelBtn.visible = false;

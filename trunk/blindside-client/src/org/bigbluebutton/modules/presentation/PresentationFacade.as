@@ -56,9 +56,8 @@ package org.bigbluebutton.modules.presentation
 		
 		private var _log : ILogger = LoggerModelLocator.getInstance().log;		
 		private var _presentationDelegate : PresentationDelegate = null;	
-		[Bindable]
-		public var presentation:PresentationModel = new PresentationModel();
 		public var presApp:PresentationApplication;
+		public var presentation:PresentationModel = new PresentationModel();
 		
 		/**
 		 * The default constructor. Should never be called directly as this class is a singleton, however
@@ -111,6 +110,7 @@ package org.bigbluebutton.modules.presentation
 	   	 */	   	
 	   	public function startup(app:PresentationWindow):void{
 	 		  sendNotification(STARTUP, app);
+	 		  registerMediator(presentation);
 	   	}
 	   	
 	   	/**
