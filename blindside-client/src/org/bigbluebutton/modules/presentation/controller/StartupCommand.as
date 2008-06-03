@@ -11,8 +11,8 @@ package org.bigbluebutton.modules.presentation.controller
 	public class StartupCommand extends MacroCommand
 	{
 		override protected function initializeMacroCommand():void{
-			addSubCommand(StartupViewCommand);
 			addSubCommand(StartupModelCommand);
+			addSubCommand(StartupViewCommand);
 		}
 
 	}
