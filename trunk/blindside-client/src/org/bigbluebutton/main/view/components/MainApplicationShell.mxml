@@ -2,9 +2,9 @@
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" 
 		xmlns:flexmdi="flexlib.mdi.containers.*"
 		xmlns:logModule="org.bigbluebutton.modules.log.view.components.*"
-		xmlns:login="org.bigbluebutton.main.view.components.*"
+		xmlns:main="org.bigbluebutton.main.view.components.*"
 		width="100%" height="100%"
-		creationComplete="initializeShell()" xmlns:log="org.blindsideproject.views.log.*">
+		creationComplete="initializeShell()">
 
 	<mx:Metadata>
 		[Event('ADD_WINDOW', org.bigbluebutton.main.view.events.AddWindowEvent)]	
@@ -13,6 +13,7 @@
 			
 	<mx:Script>
 		<![CDATA[
+			import org.bigbluebutton.modules.log.view.components.LogModule;
 			import org.puremvc.as3.multicore.utilities.pipes.messages.Message;
 			import org.bigbluebutton.modules.log.LogApplicationFacade;
 			import org.bigbluebutton.modules.log.view.components.LogWindow;
@@ -26,25 +27,30 @@
 			import org.puremvc.as3.multicore.utilities.pipes.interfaces.IPipeMessage;
 			
 			private var mbus : MessageBus = new MessageBus();
+			private var log : LogModule;
 			
 			protected function initializeShell():void
 			{
 				mbus.setPipeListener(new PipeListener(this, callback));
-				log.mbus = mbus;
-				logWindow.title = "New Title";
-				var status:String = "This is a passed status";
-				var addWindowMsg : IPipeMessage = new Message(LogApplicationFacade.ADD_WINDOW, null, status);			
-				mbus.outputPipe().write(addWindowMsg);
-				
+				logM.mbus = mbus;				
+				logWindow.title = "in initializeShell ";
 			}
+
+			private function createLogModule() : void
+			{
+				logWindow.title = "in createLogModule ";
+				log = new LogModule();
+				log.mbus = mbus;
+			}			
 			
 			private function callback(message:IPipeMessage) : void
 			{
+				logWindow.title += " in callback";
 				switch (message.getType()) {
 					case "ADD_WINDOW":
-					//logWindow.title = message.getBody() as String;
-						addWindow(message.getBody() as String);
-					//	addWindow(message.getBody() as MDIWindow);
+					logWindow.title += " in callback2";
+//						addWindow(message.getBody() as String);
+						addWindow(message.getBody() as MDIWindow);
 						
 						break;
 					case "REMOVE_WINDOW":
@@ -53,13 +59,13 @@
 				}
 			}
 
-			// Add a MDIWindow to the MDICanvas
+/*			// Add a MDIWindow to the MDICanvas
 			public function addWindow( component:String ):void
 			{
 				logWindow.title = component + "in Add Window";
 				var event:AddWindowEvent = new AddWindowEvent( component );
 				event.component = component;
-				dispatchEvent( event );
+				this.dispatchEvent( event );
 			}
 			
 			// Remove a MDIWindow from the MDICanvas
@@ -69,10 +75,11 @@
 //				event.component = component;
 //				this.dispatchEvent( event );
 //			}
-/*						
+*/						
 			// Add a MDIWindow to the MDICanvas
 			public function addWindow( component:MDIWindow ):void
 			{
+				logWindow.title += " in Add Window";
 				var event:AddWindowEvent = new AddWindowEvent( component );
 				event.component = component;
 				this.dispatchEvent( event );
@@ -85,21 +92,21 @@
 				event.component = component;
 				this.dispatchEvent( event );
 			}
-*/
+
 		]]>
 	</mx:Script>
-		<!--main:MainToolbar id="toolbar" dock="true" width="100%" height="30" visible="false" verticalAlign="middle"/-->
-		<logModule:LogModule id="log"/>	
+		<main:MainToolbar id="toolbar" dock="true" width="100%" height="30" visible="true" verticalAlign="middle"/>
+		<logModule:LogModule id="logM"/>	
 		<flexmdi:MDICanvas id="mdiCanvas" horizontalScrollPolicy="off" verticalScrollPolicy="off"
 			effectsLib="{flexlib.mdi.effects.effectsLib.MDIVistaEffects}"
 			width="100%" height="100%">			
 		</flexmdi:MDICanvas>	
 		
-		<login:LoginWindow id="logWindow" title="Old Title"/>
+		<main:LoginWindow id="logWindow" title="Old Title"/>
 		
 	 	<mx:ControlBar width="100%" height="20" paddingTop="0">		
 		  <mx:Label text="(c) 2007, BigBlueButton Project" id="copyrightLabel2"/>
 		  <mx:Spacer width="100%"/>
-		  <mx:Button label="Log" click="dispatchEvent(new AddWindowEvent( 'Try this' ));"/>  
+		  <mx:Button label="Log" click="createLogModule();"/>  
 		</mx:ControlBar>
 </mx:VBox>

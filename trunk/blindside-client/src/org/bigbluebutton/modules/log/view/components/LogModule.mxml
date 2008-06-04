@@ -6,6 +6,7 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import org.puremvc.as3.multicore.utilities.pipes.interfaces.IPipeMessage;
 			import org.bigbluebutton.core.interfaces.MessageBus;
 			import org.bigbluebutton.modules.log.LogApplicationFacade;
 			
@@ -17,6 +18,12 @@
 			public function setMessageBus( bus : MessageBus ) : void
 			{
 				mbus = bus;
+			}
+			
+			public function sendMessage(msg : IPipeMessage) : void
+			{		
+				swidget.label = "sendMessage";
+				mbus.outputPipe().write(msg);
 			}
 			
 			// The unique key for this module instance
@@ -34,4 +41,5 @@
 			}
 		]]>
 	</mx:Script>	
+	<mx:Button label="SuperWidget" id="swidget" click=""/>
 </mx:Module>

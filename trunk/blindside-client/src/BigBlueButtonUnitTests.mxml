@@ -7,6 +7,9 @@
 
 	<mx:Script>
 		<![CDATA[
+			import org.bigbluebutton.common.RouterTest;
+			import org.bigbluebutton.common.InputPipeTest;
+			import org.bigbluebutton.common.OutputPipeTest;
 			import org.bigbluebutton.modules.conference.model.ConferenceDelegateTest;
 			import org.bigbluebutton.modules.conference.model.ConnectionServiceMockTest;
 			import flexunit.framework.TestSuite;		
@@ -33,6 +36,9 @@
  				ts.addTest( ConferenceVOTest.suite() );
  				ts.addTest( ConnectionServiceMockTest.suite() );
  				ts.addTest( ConferenceDelegateTest.suite() );
+ 				ts.addTest( OutputPipeTest.suite() );
+ 				ts.addTest( InputPipeTest.suite() );
+ 				ts.addTest( RouterTest.suite() );
  				//Tests for chat module
  				/*ts.addTest( MessageVOTest.suite() );
 //                ts.addTest( ChatProxyTest.suite() );

@@ -26,12 +26,12 @@ package org.bigbluebutton.main.view
 		protected function onAddWindow( event:AddWindowEvent ):void
 		{
 		//	var window : MDIWindow = new LogWindow();
-		//	var window : MDIWindow = event.component as MDIWindow;
-		//	window.title = "Listeners";
-		//	window.showCloseButton = false;
-		//	shell.mdiCanvas.windowManager.add(window);
-		//	shell.mdiCanvas.windowManager.absPos(window, 20, 250);
-			shell.logWindow.title = event.component;
+			var window : MDIWindow = event.component as MDIWindow;
+			window.title = "Listeners";
+			window.showCloseButton = false;
+			shell.mdiCanvas.windowManager.add(window);
+			shell.mdiCanvas.windowManager.absPos(window, 20, 250);
+//			shell.logWindow.title = event.component;
 		}	
 		
 		/**

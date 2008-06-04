@@ -27,6 +27,7 @@ package org.bigbluebutton.modules.log.view
 		
 		override public function listNotificationInterests():Array
 		{
+			logModule.swidget.label = "listNotificationInterests";
 			return [ LogApplicationFacade.MODULE_STARTED, 
 					 LogApplicationFacade.REMOVE_WINDOW
 			       ];
@@ -37,10 +38,12 @@ package org.bigbluebutton.modules.log.view
 			switch ( note.getName() )
 			{
 				case LogApplicationFacade.MODULE_STARTED:
+					logModule.swidget.label = "handleNotif";
 					logWindow.width = 210;
 					logWindow.height = 200;
-					var addWindowMsg : IPipeMessage = new Message(LogApplicationFacade.ADD_WINDOW, null, logWindow);			
-					logModule.mbus.outputPipe().write(addWindowMsg);
+					var addWindowMsg : IPipeMessage = new Message(LogApplicationFacade.ADD_WINDOW, null, logWindow);
+					logModule.sendMessage(addWindowMsg);		
+//					logModule.mbus.outputPipe().write(addWindowMsg);
 					break;
 					
 				case LogApplicationFacade.REMOVE_WINDOW:
