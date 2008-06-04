@@ -8,14 +8,14 @@ package org.bigbluebutton.main.view.events
 	public class AddWindowEvent extends Event
 	{
 		// The View Component to be added
-//		public var component:MDIWindow;
-		public var component:String;
+		public var component:MDIWindow;
+//		public var component:String;
 		// The type of event
 		public static const NAME:String = 'ADD_WINDOW';
 			
 		// Constructor
-//		public function AddWindowEvent( component:MDIWindow )
-		public function AddWindowEvent( component:String )
+		public function AddWindowEvent( component:MDIWindow )
+//		public function AddWindowEvent( component:String )
 		{
 			super( NAME, true );
 			this.component = component;	
