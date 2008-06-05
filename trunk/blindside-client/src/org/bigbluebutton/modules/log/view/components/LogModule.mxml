@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" 
-	implements="org.bigbluebutton.core.interfaces.IModule"
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%"
+	implements="org.bigbluebutton.core.interfaces.IRouterAware"
 	creationComplete="initializeModule( )"
 	layout="absolute">
-	
+	<!--implements="org.bigbluebutton.core.interfaces.IModule"-->
 	<mx:Script>
 		<![CDATA[
+			import org.puremvc.as3.multicore.utilities.pipes.messages.Message;
+			import org.puremvc.as3.multicore.utilities.pipes.plumbing.PipeListener;
+			import org.puremvc.as3.multicore.utilities.pipes.plumbing.Junction;
+			import org.bigbluebutton.core.interfaces.Router;
 			import org.puremvc.as3.multicore.utilities.pipes.interfaces.IPipeMessage;
 			import org.bigbluebutton.core.interfaces.MessageBus;
 			import org.bigbluebutton.modules.log.LogApplicationFacade;
+			import org.bigbluebutton.core.interfaces.InputPipe;
 			
 			// URI for this module. Must be unique
 			public static const MODULE_URI:String = "http://bigbluebutton.com/LogModule/";
+			private var router : Router;
+			private var inputPipe : InputPipe = new InputPipe("log");
 			
-			public var mbus:MessageBus;
-						
-			public function setMessageBus( bus : MessageBus ) : void
+			public function acceptRouter(r:Router):void
 			{
-				mbus = bus;
-			}
-			
-			public function sendMessage(msg : IPipeMessage) : void
-			{		
-				swidget.label = "sendMessage";
-				mbus.outputPipe().write(msg);
+				router = r;
 			}
 			
 			// The unique key for this module instance
@@ -38,8 +37,17 @@
 			public function initializeModule( ):void
 			{
 				LogApplicationFacade.getInstance( getModuleKey() ).startup(this);
+				router.registerInputPipe("log",inputPipe);
+				inputPipe.connect(new PipeListener(this, callback));
+			}
+			
+			private function callback(message:IPipeMessage) : void
+			{
+				txt.htmlText = message.getBody() as String;
 			}
 		]]>
 	</mx:Script>	
-	<mx:Button label="SuperWidget" id="swidget" click=""/>
+	<mx:Button label="SuperWidget" id="swidget"/>
+	<mx:TextArea id="txt" width="100" height="100"/>
+	
 </mx:Module>

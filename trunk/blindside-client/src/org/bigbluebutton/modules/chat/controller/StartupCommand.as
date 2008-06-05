@@ -6,6 +6,7 @@ package org.bigbluebutton.modules.chat.controller
 	import org.bigbluebutton.modules.chat.view.ApplicationMediator;
 	import org.bigbluebutton.modules.chat.view.components.ChatWindow;
 	import org.bigbluebutton.modules.chat.model.business.ChatProxy;
+	import org.bigbluebutton.main.view.components.MainApplicationShell;
 
 	public class StartupCommand extends SimpleCommand implements ICommand
 	{
@@ -16,7 +17,7 @@ package org.bigbluebutton.modules.chat.controller
 		 * 
 		 */		
 		override public function execute(notification:INotification):void {
-			var app:BigBlueButton = notification.getBody() as BigBlueButton;
+			var app:MainApplicationShell = notification.getBody() as MainApplicationShell;
 			facade.registerMediator(new ApplicationMediator(app));
 			facade.registerProxy(new ChatProxy(app.chatWindow.messageVO));
 		}

@@ -1,4 +1,3 @@
-
 package org.bigbluebutton.main.view.events
 {
 

@@ -31,7 +31,7 @@ package org.bigbluebutton.main.view
 			window.showCloseButton = false;
 			shell.mdiCanvas.windowManager.add(window);
 			shell.mdiCanvas.windowManager.absPos(window, 20, 250);
-//			shell.logWindow.title = event.component;
+//		    shell.logWindow.title = event.component;
 		}	
 		
 		/**
