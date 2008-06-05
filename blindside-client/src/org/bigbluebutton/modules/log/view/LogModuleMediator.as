@@ -42,13 +42,13 @@ package org.bigbluebutton.modules.log.view
 					logWindow.width = 210;
 					logWindow.height = 200;
 					var addWindowMsg : IPipeMessage = new Message(LogApplicationFacade.ADD_WINDOW, null, logWindow);
-					logModule.sendMessage(addWindowMsg);		
+					//logModule.sendMessage(addWindowMsg);		
 //					logModule.mbus.outputPipe().write(addWindowMsg);
 					break;
 					
 				case LogApplicationFacade.REMOVE_WINDOW:
 					var removeWindowMsg : IPipeMessage = new Message(LogApplicationFacade.REMOVE_WINDOW, null, logWindow);			
-					logModule.mbus.outputPipe().write(removeWindowMsg);
+					//logModule.mbus.outputPipe().write(removeWindowMsg);
 					break;
 			}
 		}

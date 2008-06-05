@@ -6,7 +6,7 @@ package org.bigbluebutton.modules.chat
 	import org.puremvc.as3.multicore.interfaces.IProxy;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.bigbluebutton.modules.chat.view.components.ChatWindow;
-	
+	import org.bigbluebutton.main.view.components.MainApplicationShell;
 	import org.bigbluebutton.modules.chat.controller.StartupCommand;
 
 	public class ChatFacade extends Facade implements IFacade
@@ -42,7 +42,7 @@ package org.bigbluebutton.modules.chat
 			
 		}
 		
-		public function startup(app:BigBlueButton):void {
+		public function startup(app:MainApplicationShell):void {
 			
 			sendNotification(ChatFacade.STARTUP, app);
 		}

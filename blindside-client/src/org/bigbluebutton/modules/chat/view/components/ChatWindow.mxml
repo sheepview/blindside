@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" width="400" height="300">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml"
+	      implements="org.bigbluebutton.core.interfaces.IRouterAware"
+	      width="400" height="300">
 <!--MDIWindow xmlns="flexlib.mdi.containers.*"-->
 	<mx:Script>
 		<![CDATA[
+			import org.bigbluebutton.core.interfaces.Router;
 			import mx.utils.ColorUtil;
 			import org.bigbluebutton.modules.chat.model.vo.MessageVO;
 			import org.bigbluebutton.modules.chat.view.ChatWindowMediator;
@@ -13,8 +16,12 @@
 			public var m:MessageObject;
 			[Bindable]
 			public var messageVO:MessageVO = new MessageVO();
+			public var router : Router;
 			
-			
+			public function acceptRouter (r:Router) : void
+			{
+				router = r;
+			}
 		
 			public function showNewMessage(rm : MessageObject):void{
 			var newMessage:String;

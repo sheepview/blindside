@@ -2,12 +2,13 @@ package org.bigbluebutton.modules.chat.view
 {
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
+	import org.bigbluebutton.main.view.components.MainApplicationShell;
 
 	public class ApplicationMediator extends Mediator implements IMediator
 	{
 		public static const NAME:String = "ApplicationMediator";
 		
-		public function ApplicationMediator(viewComponent:BigBlueButton)
+		public function ApplicationMediator(viewComponent:MainApplicationShell)
 		{
 			super(NAME, viewComponent);
 		}
@@ -26,9 +27,9 @@ package org.bigbluebutton.modules.chat.view
 		 * @return the main mxml application
 		 * 
 		 */		
-		protected function get app():BigBlueButton
+		protected function get app():MainApplicationShell
 		{
-            return viewComponent as BigBlueButton;
+            return viewComponent as MainApplicationShell;
         }
 	}
 }

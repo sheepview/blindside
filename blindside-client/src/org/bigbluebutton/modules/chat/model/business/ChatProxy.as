@@ -60,7 +60,7 @@ package org.bigbluebutton.modules.chat.model.business
 		 */		
 		public function handleSucessfulConnection(e:ConnectionEvent):void{
 			nc = conn.getConnection();
-			chatSO = SharedObject.getRemote("messageSO", uri, false);
+			chatSO = SharedObject.getRemote("chatSO", uri, false);
             chatSO.addEventListener(SyncEvent.SYNC, sharedObjectSyncHandler);
             chatSO.client = this;
             chatSO.connect(nc);

@@ -13,6 +13,10 @@
 			
 	<mx:Script>
 		<![CDATA[
+			import org.bigbluebutton.modules.chat.view.components.ChatWindow;
+			import org.bigbluebutton.core.interfaces.InputPipe;
+			import org.bigbluebutton.core.interfaces.OutputPipe;
+			import org.bigbluebutton.core.interfaces.Router;
 			import org.bigbluebutton.modules.log.view.components.LogModule;
 			import org.puremvc.as3.multicore.utilities.pipes.messages.Message;
 			import org.bigbluebutton.modules.log.LogApplicationFacade;
@@ -25,22 +29,46 @@
 			import flexlib.mdi.events.MDIManagerEvent;		
 			import org.puremvc.as3.multicore.utilities.pipes.plumbing.PipeListener;
 			import org.puremvc.as3.multicore.utilities.pipes.interfaces.IPipeMessage;
+			import org.bigbluebutton.modules.chat.ChatFacade;
 			
-			private var mbus : MessageBus = new MessageBus();
+			//private var mbus : MessageBus = new MessageBus();
+			
+			
+			private var router :Router = new Router();
+			private var outputPipe : OutputPipe = new OutputPipe("shell");
 			private var log : LogModule;
+			public var chatWindow : ChatWindow;
+			
 			
 			protected function initializeShell():void
 			{
-				mbus.setPipeListener(new PipeListener(this, callback));
-				logM.mbus = mbus;				
-				logWindow.title = "in initializeShell ";
+				//var facade:ChatFacade = ChatFacade.getInstance( )
+				//facade.startup(this)
+				//mbus.setPipeListener(new PipeListener(this, callback));
+				//router.
+				//logM.mbus = mbus;				
+				//logWindow.title = "in initializeShell ";
+					
 			}
 
 			private function createLogModule() : void
 			{
-				logWindow.title = "in createLogModule ";
+				//logWindow.title = "in createLogModule ";
+				
+				
+				//chatWindow = new ChatWindow();
+				//this.addChild(chatWindow);
 				log = new LogModule();
-				log.mbus = mbus;
+				log.acceptRouter(router);
+				router.registerOutputPipe("shell",outputPipe);
+				var messageToSend:IPipeMessage = new Message( Message.NORMAL, 
+   		 											      { SRC:'shell', TO: 'log' },
+   		 												  new String("Hello") ,
+   		 											      Message.PRIORITY_HIGH );
+   		 		outputPipe.write(messageToSend);	
+   		 		
+   		 		
+   		 		this.addChild(log);						      
 			}			
 			
 			private function callback(message:IPipeMessage) : void
@@ -96,7 +124,7 @@
 		]]>
 	</mx:Script>
 		<main:MainToolbar id="toolbar" dock="true" width="100%" height="30" visible="true" verticalAlign="middle"/>
-		<logModule:LogModule id="logM"/>	
+		<!--<logModule:LogModule id="logM"/>-->	
 		<flexmdi:MDICanvas id="mdiCanvas" horizontalScrollPolicy="off" verticalScrollPolicy="off"
 			effectsLib="{flexlib.mdi.effects.effectsLib.MDIVistaEffects}"
 			width="100%" height="100%">			
