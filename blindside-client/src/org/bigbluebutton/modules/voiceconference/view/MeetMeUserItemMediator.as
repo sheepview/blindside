@@ -5,7 +5,7 @@ package org.bigbluebutton.modules.voiceconference.view
 	import org.bigbluebutton.modules.voiceconference.VoiceConferenceFacade;
 	import org.bigbluebutton.modules.voiceconference.control.notifiers.MuteNotifier;
 	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerModelLocator;
+	import org.blindsideproject.core.util.log.LoggerFacade;
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
@@ -22,8 +22,6 @@ package org.bigbluebutton.modules.voiceconference.view
 		public static const NAME:String = "MeetMeUserItemMediator";
 		public static const MUTE_UNMUTE_USER:String = "Mute-Unmute User";
 		
-		private var log : ILogger = LoggerModelLocator.getInstance().log;
-		
 		/**
 		 * The defualt constructor 
 		 * @param view - The gui component which this class mediates
@@ -31,7 +29,6 @@ package org.bigbluebutton.modules.voiceconference.view
 		 */		
 		public function MeetMeUserItemMediator(view:MeetMeUserItem)
 		{
-			log.debug("MeetMeUserMediator");
 			super(NAME, view);
 			view.addEventListener(MUTE_UNMUTE_USER, muteUnmuteUser);
 		}
@@ -82,7 +79,7 @@ package org.bigbluebutton.modules.voiceconference.view
    			
    			sendNotification(VoiceConferenceFacade.MUTE_EVENT, new MuteNotifier(meetMeUserItem.data.userid, !meetMeUserItem.data.isMuted));
    			
-   			log.debug("MeetMeUserItem::muteUnmuteUser : [" + meetMeUserItem.data.userid + "," + !meetMeUserItem.data.isMuted + "]");
+   			//log.debug("MeetMeUserItem::muteUnmuteUser : [" + meetMeUserItem.data.userid + "," + !meetMeUserItem.data.isMuted + "]");
    		}
    		
    		/**
@@ -92,7 +89,7 @@ package org.bigbluebutton.modules.voiceconference.view
    		 */   		
    		private function onNewMeetMeEvent(note:INotification) : void
    		{
-   			log.debug("Got newMeetMeEvent."); // comment out as generates too much noise
+   			//log.debug("Got newMeetMeEvent."); // comment out as generates too much noise
 
    			meetMeUserItem.displayStatusIcon();	
    		}

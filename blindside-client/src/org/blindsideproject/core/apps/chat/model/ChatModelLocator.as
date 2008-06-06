@@ -14,8 +14,7 @@ package org.blindsideproject.core.apps.chat.model
 	public class ChatModelLocator implements IModelLocator
 	{
 		public static const ID : String = "org.blindsideproject.core.apps.chat.model.ChatModelLocator";
-		
-		private var _log : ILogger = LoggerModelLocator.getInstance().log;		
+
 		private var _dispatcher : CairngormEventDispatcher = CairngormEventDispatcher.getInstance();
 		private var _controller : FrontController = null;
 		
@@ -51,11 +50,6 @@ package org.blindsideproject.core.apps.chat.model
 	    public function get dispatcher() : CairngormEventDispatcher
 	    	{
 	   		return _dispatcher;
-	   	}
-	   	
-	   	public function get log() : ILogger
-	   	{
-	   		return _log;
 	   	}
 	   	
 	   	public function get chatDelegate() : ChatDelegate

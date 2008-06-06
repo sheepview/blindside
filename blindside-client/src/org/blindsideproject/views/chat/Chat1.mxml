@@ -14,10 +14,10 @@
 			import org.blindsideproject.core.apps.chat.controller.commands.JoinCommand;
 			import org.blindsideproject.core.apps.chat.controller.commands.LeaveCommand;
 			import org.blindsideproject.core.util.log.ILogger;
-	        import org.blindsideproject.core.util.log.LoggerModelLocator;
+	        import org.blindsideproject.core.util.log.LoggerFacade;
 			import org.blindsideproject.views.general.Images;
 						
-			private var log : ILogger = LoggerModelLocator.getInstance().log;
+			private var log : ILogger = LoggerFacade.getInstance().log;
 
 			private var images : Images = new Images();
 

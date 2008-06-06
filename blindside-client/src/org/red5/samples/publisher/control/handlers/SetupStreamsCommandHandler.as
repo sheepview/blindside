@@ -4,7 +4,7 @@ package org.red5.samples.publisher.control.handlers
 	import com.adobe.cairngorm.control.CairngormEvent;
 
 	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerModelLocator;
+	import org.blindsideproject.core.util.log.LoggerFacade;
 		
 	import flash.events.*;
 	import flash.media.*;
@@ -23,7 +23,6 @@ package org.red5.samples.publisher.control.handlers
 	public class SetupStreamsCommandHandler implements ICommand
 	{		
 		private var modelLoc : PublisherModelLocator = PublisherModelLocator.getInstance();	 	
-	 	private var log : ILogger = LoggerModelLocator.getInstance().log;
 	 		
 	 	public function execute( cgEvent : CairngormEvent ) : void
 	    { 

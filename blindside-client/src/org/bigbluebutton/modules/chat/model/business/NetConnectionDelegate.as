@@ -6,14 +6,14 @@ package org.bigbluebutton.modules.chat.model.business
 		
 	
 	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerModelLocator;
+	import org.blindsideproject.core.util.log.LoggerFacade;
 		
 	public class NetConnectionDelegate
 	{
 		public static const ID : String = "Chat.NetConnectionDelegate";
 		
 		
-		private var log : ILogger = LoggerModelLocator.getInstance().log;
+		private var log : ILogger = LoggerFacade.getInstance().log;
 		
 		private var _proxy : ChatProxy;
 				

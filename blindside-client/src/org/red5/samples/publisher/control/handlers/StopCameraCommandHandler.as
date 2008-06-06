@@ -4,7 +4,7 @@ package org.red5.samples.publisher.control.handlers
 	import com.adobe.cairngorm.commands.ICommand;
 	import com.adobe.cairngorm.control.CairngormEvent;
 	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerModelLocator;
+	import org.blindsideproject.core.util.log.LoggerFacade;
 		
 	import flash.events.*;
 	import flash.media.Camera;
@@ -16,20 +16,18 @@ package org.red5.samples.publisher.control.handlers
 	public class StopCameraCommandHandler implements ICommand 
 	{		
 		private var model : PublisherModel = PublisherModelLocator.getInstance().model;
-		private var log : ILogger = LoggerModelLocator.getInstance().log;
-		
  	
 	 	public function execute( cgEvent : CairngormEvent ) : void
 	    { 			
 	    	var cmd : StopCameraCommand = StopCameraCommand(cgEvent);
 	    	var media : BroadcastMedia = model.getBroadcastMedia(cmd.stream) as BroadcastMedia;
 	    	
-			log.debug( "StopCameraCommand::Disabled video device" );
+			//log.debug( "StopCameraCommand::Disabled video device" );
 
-			log.debug("Stopping camera[" + cmd.stream + "]");
+			//log.debug("Stopping camera[" + cmd.stream + "]");
 
 			if (media == null) {
-				log.debug("Stopping camera[" + cmd.stream + "] with media NULL");
+				//log.debug("Stopping camera[" + cmd.stream + "] with media NULL");
 			}
 			
 			if (media.video.localVideo != null) {

@@ -3,7 +3,7 @@ package org.red5.samples.publisher.control.handlers
 	import com.adobe.cairngorm.commands.ICommand;
 	import com.adobe.cairngorm.control.CairngormEvent;
 	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerModelLocator;
+	import org.blindsideproject.core.util.log.LoggerFacade;
 		
 	import flash.events.*;
 	import flash.media.*;
@@ -16,7 +16,6 @@ package org.red5.samples.publisher.control.handlers
 	public class StartMicrophoneCommandHandler implements ICommand 
 	{			
 		private var model : PublisherModel = PublisherModelLocator.getInstance().model;
-	 	private var log : ILogger = LoggerModelLocator.getInstance().log;
 	 		 		 	
 	 	private var microphone : Microphone;
 	 		
@@ -59,7 +58,7 @@ package org.red5.samples.publisher.control.handlers
 			}
 			
 			 
-			log.debug( "StartMicrophoneCommand::Started audio device <b>" + microphone.name + "</b>" );
+			//log.debug( "StartMicrophoneCommand::Started audio device <b>" + microphone.name + "</b>" );
 		}
 			
 		private function activityEventHandler( event : ActivityEvent ) : void 

@@ -11,11 +11,7 @@
 			import org.blindsideproject.main.BlindsideAppLocator;
 			import org.blindsideproject.core.apps.chat.controller.commands.JoinCommand;
 			import org.blindsideproject.core.apps.chat.controller.commands.LeaveCommand;
-			import org.blindsideproject.core.util.log.ILogger;
-	        import org.blindsideproject.core.util.log.LoggerModelLocator;
 			import org.blindsideproject.views.general.Images;
-						
-			private var log : ILogger = LoggerModelLocator.getInstance().log;
 
 			private var images : Images = new Images();
 
@@ -47,7 +43,7 @@
 						username + "]</b> " + msg + "</font>";
 					
 				sendMessage(formatMsg);
-				txtMsg.text = "";
+				//txtMsg.text = "";
 			}
 			
 			private function chatConnect() : void
@@ -59,8 +55,8 @@
 			{
 				BlindsideAppLocator.getInstance().chatApp.leave();
 				
-				log.info("Clearing the chat...");
-				txtChatBox.htmlText = "";
+				//log.info("Clearing the chat...");
+				//txtChatBox.htmlText = "";
 				cmpColorPicker.selectedColor = 0x000000;				
 			}
 			

@@ -6,7 +6,7 @@
 			import org.red5.samples.publisher.view.SettingsWindow;
 			import com.adobe.cairngorm.control.CairngormEventDispatcher;
 			import org.blindsideproject.core.util.log.ILogger;
-			import org.blindsideproject.core.util.log.LoggerModelLocator;	
+			import org.blindsideproject.core.util.log.LoggerFacade;	
 		
 			import flash.events.*;
 			import mx.managers.PopUpManager;
@@ -18,7 +18,7 @@
 			import org.blindsideproject.main.*;
 			import org.red5.samples.publisher.vo.BroadcastMedia;
 			
-			private var log : ILogger = LoggerModelLocator.getInstance().log;
+			private var log : ILogger = LoggerFacade.getInstance().log;
 			
 			[Bindable]public var media : BroadcastMedia;
 			private var settingsWindow : SettingsWindow;

@@ -5,13 +5,11 @@ package org.blindsideproject.core.apps.conference.business
 	import flash.net.NetConnection;
 	import flash.events.*;
 	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerModelLocator;
+	import org.blindsideproject.core.util.log.LoggerFacade;
 		
 	public class NetConnectionDelegate
 	{
 		public static const ID : String = "CONFERENCE::NetConnectionDelegate";
-		
-		private var log : ILogger = LoggerModelLocator.getInstance().log;
 		
 		private var _confDelegate : SharedObjectConferenceDelegate;
 				
@@ -34,7 +32,7 @@ package org.blindsideproject.core.apps.conference.business
 			_netConnection.addEventListener( IOErrorEvent.IO_ERROR, netIOError );
 			
 			try {
-				log.info( "Connecting to <b>" + host + "</b>");
+				//log.info( "Connecting to <b>" + host + "</b>");
 				
 				_netConnection.connect(host, room, username, password );
 				
@@ -43,7 +41,7 @@ package org.blindsideproject.core.apps.conference.business
 				switch ( e.errorID ) 
 				{
 					case 2004 :						
-						log.error( "Invalid server location: <b>" + host + "</b>");											   
+						//log.error( "Invalid server location: <b>" + host + "</b>");											   
 						break;						
 					default :
 					   break;
@@ -72,36 +70,36 @@ package org.blindsideproject.core.apps.conference.business
 					
 					// find out if it's a secure (HTTPS/TLS) connection
 					if ( event.target.connectedProxyType == "HTTPS" || event.target.usingTLS ) {
-						log.info( 	"Connected to secure server");
+						//log.info( 	"Connected to secure server");
 					} else {
-						log.info(	"Connected to server");
+						//log.info(	"Connected to server");
 					}
 					break;
 			
 				case "NetConnection.Connect.Failed" :
 					_confDelegate.disconnected("The connection to the server failed.");
 					
-					log.info("Connection to server failed");
+					//log.info("Connection to server failed");
 					break;
 					
 				case "NetConnection.Connect.Closed" :					
 					_confDelegate.disconnected("The connection to the server closed.");					
-					log.info("Connection to server closed");
+					//log.info("Connection to server closed");
 					break;
 					
 				case "NetConnection.Connect.InvalidApp" :				
 					_confDelegate.disconnected("The application was not found on the server.")
-					log.info("Application not found on server");
+					//log.info("Application not found on server");
 					break;
 					
 				case "NetConnection.Connect.AppShutDown" :				
 					_confDelegate.disconnected("The application has been shutdown.");
-					log.info("Application has been shutdown");
+					//log.info("Application has been shutdown");
 					break;
 					
 				case "NetConnection.Connect.Rejected" :
 					_confDelegate.disconnected("No permission to connect to the application.");
-					log.info("No permissions to connect to the application" );
+					//log.info("No permissions to connect to the application" );
 					break;
 					
 				default :

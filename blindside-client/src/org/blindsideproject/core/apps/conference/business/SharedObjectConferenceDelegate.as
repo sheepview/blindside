@@ -1,7 +1,7 @@
 package org.blindsideproject.core.apps.conference.business
 {
 	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerModelLocator;
+	import org.blindsideproject.core.util.log.LoggerFacade;
 	
 	import org.blindsideproject.core.apps.conference.model.Conference;
 	import org.blindsideproject.core.apps.conference.controller.events.DisconnectedEvent;
@@ -19,8 +19,6 @@ package org.blindsideproject.core.apps.conference.business
 	
 	public class SharedObjectConferenceDelegate implements IConferenceDelegate
 	{
-		private var log : ILogger = LoggerModelLocator.getInstance().log;
-		
 		private var _conference : Conference;
 		private var _connection : NetConnection;
 		private var _participantsSO : SharedObject;
@@ -57,8 +55,8 @@ package org.blindsideproject.core.apps.conference.business
 				_participantsSO.setProperty(id.toString(), aUser);
 				_participantsSO.setDirty(id.toString());
 				
-				log.debug( "Conference::sendBroadcastStream::found =[" + id + "," 
-						+ aUser.hasStream + "," + aUser.streamName + "]");				
+				//log.debug( "Conference::sendBroadcastStream::found =[" + id + "," 
+				//		+ aUser.hasStream + "," + aUser.streamName + "]");				
 			}
 		}
 
@@ -138,11 +136,11 @@ package org.blindsideproject.core.apps.conference.business
 
 		private function sharedObjectSyncHandler( event : SyncEvent) : void
 		{
-			log.debug( "Conference::sharedObjectSyncHandler " + event.changeList.length);
+			//log.debug( "Conference::sharedObjectSyncHandler " + event.changeList.length);
 			
 			for (var i : uint = 0; i < event.changeList.length; i++) 
 			{
-				log.debug( "Conference::handlingChanges[" + event.changeList[i].name + "][" + i + "]");
+				//log.debug( "Conference::handlingChanges[" + event.changeList[i].name + "][" + i + "]");
 				handleChangesToSharedObject(event.changeList[i].code, 
 						event.changeList[i].name, event.changeList[i].oldValue);
 			}
@@ -177,10 +175,10 @@ package org.blindsideproject.core.apps.conference.business
 					 */
 					
 					// do nothing... just log it 
-					log.debug( "Conference::success =[" + name + "," 
-							+ _participantsSO.data[name].status + ","
-							+ _participantsSO.data[name].hasStream
-							+ "]");	
+					//log.debug( "Conference::success =[" + name + "," 
+					//		+ _participantsSO.data[name].status + ","
+					//		+ _participantsSO.data[name].hasStream
+					//		+ "]");	
 					break;
 
 				case "reject":
@@ -192,7 +190,7 @@ package org.blindsideproject.core.apps.conference.business
 					// do nothing... just log it 
 					// Or...maybe we should check if the value is the same as what we wanted it
 					// to be..if not...change it?
-					log.debug( "Conference::reject =[" + code + "," + name + "," + oldValue + "]");	
+					//log.debug( "Conference::reject =[" + code + "," + name + "," + oldValue + "]");	
 					break;
 
 				case "change":
@@ -208,8 +206,8 @@ package org.blindsideproject.core.apps.conference.business
 							changedUser.hasStream = _participantsSO.data[name].hasStream;
 							changedUser.streamName = _participantsSO.data[name].streamName;	
 
-							log.debug( "Conference::change =[" + 
-								name + "," + changedUser.name + "," + changedUser.hasStream + "]");
+							//log.debug( "Conference::change =[" + 
+							//	name + "," + changedUser.name + "," + changedUser.hasStream + "]");
 																					
 						} else {
 							// The server sent us a new user.
@@ -221,14 +219,14 @@ package org.blindsideproject.core.apps.conference.business
 							user.streamName = _participantsSO.data[name].streamName;							
 							user.role = _participantsSO.data[name].role;						
 							
-							log.debug( "Conference::change::newuser =[" + 
-								name + "," + user.name + "," + user.hasStream + "]");
+							//log.debug( "Conference::change::newuser =[" + 
+							//	name + "," + user.name + "," + user.hasStream + "]");
 							
 							_conference.addUser(user);
 						}
 						
 					} else {
-						log.warn( "Conference::SO::change is null");
+						//log.warn( "Conference::SO::change is null");
 					}
 																	
 					break;
@@ -238,27 +236,27 @@ package org.blindsideproject.core.apps.conference.business
 					 * 	A value of "delete" means the attribute was deleted.  		
 					 */
 					
-					log.debug( "Conference::delete =[" + code + "," + name + "," + oldValue + "]");	
+					//log.debug( "Conference::delete =[" + code + "," + name + "," + oldValue + "]");	
 					
 					// The participant has left. Cast name (string) into a Number.
 					_conference.removeParticipant(Number(name));
 					break;
 										
 				default:	
-					log.debug( "Conference::default[" + _participantsSO.data[name].userid
-									+ "," + _participantsSO.data[name].name + "]");		 
+					//log.debug( "Conference::default[" + _participantsSO.data[name].userid
+					//				+ "," + _participantsSO.data[name].name + "]");		 
 					break;
 			}
 		}
 		
 		private function netStatusHandler ( event : NetStatusEvent ) : void
 		{
-			log.debug( "Conference::netStatusHandler " + event.info.code );
+			//log.debug( "Conference::netStatusHandler " + event.info.code );
 		}
 		
 		private function asyncErrorHandler ( event : AsyncErrorEvent ) : void
 		{
-			log.debug( "Conference::asyncErrorHandler " + event.error);
+			//log.debug( "Conference::asyncErrorHandler " + event.error);
 		}
 
 		public function sendNewUserStatusEvent(userid : Number, newStatus : String):void
@@ -273,7 +271,7 @@ package org.blindsideproject.core.apps.conference.business
 	 	*/
 		public function setUserIdAndRole(id : Number, role : String ) : String
 		{
-			log.debug( "SOConferenceDelegate::setConnectionId: id=[" + id + "]");
+			//log.debug( "SOConferenceDelegate::setConnectionId: id=[" + id + "]");
 			if( isNaN( id ) ) return "FAILED";
 			
 			_conference.me.userid = id;

@@ -13,7 +13,7 @@ package org.blindsideproject.core.apps.conference.business
 	import org.blindsideproject.core.apps.conference.model.ConferenceModelLocator;
 	import org.blindsideproject.core.apps.conference.model.ConferenceModel;
 	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerModelLocator;
+	import org.blindsideproject.core.util.log.LoggerFacade;
 	import org.blindsideproject.core.apps.conference.controller.events.DisconnectedEvent;
 	import org.blindsideproject.core.apps.conference.controller.events.StatusChangeEvent;
 	import org.blindsideproject.core.apps.conference.controller.events.ConferenceEvents;
@@ -26,7 +26,7 @@ package org.blindsideproject.core.apps.conference.business
 		public static const ID : String = "ConferenceDelegate";
 		
 		private var model : ConferenceModelLocator = ConferenceModelLocator.getInstance();
-		private var log : ILogger = LoggerModelLocator.getInstance().log;
+		private var log : ILogger = LoggerFacade.getInstance().log;
 		private var dispatcher : CairngormEventDispatcher = CairngormEventDispatcher.getInstance();
 		
 		private static const PARTICIPANTS : String = "PARTICIPANTS";

@@ -10,7 +10,7 @@ package org.bigbluebutton.modules.presentation
 	import org.bigbluebutton.modules.presentation.model.business.PresentationDelegate;
 	import org.bigbluebutton.modules.presentation.view.PresentationWindow;
 	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerModelLocator;
+	import org.blindsideproject.core.util.log.LoggerFacade;
 	import org.puremvc.as3.multicore.interfaces.IFacade;
 	import org.puremvc.as3.multicore.patterns.facade.Facade;
 	
@@ -54,7 +54,6 @@ package org.bigbluebutton.modules.presentation
 		public static const UPLOAD_IO_ERROR_EVENT : String = "PRESENTATION_UPLOAD_IO_ERROR_EVENT";
 		public static const UPLOAD_SECURITY_ERROR_EVENT : String = "PRESENTATION_UPLOAD_SECURITY_ERROR_EVENT";
 		
-		private var _log : ILogger = LoggerModelLocator.getInstance().log;		
 		private var _presentationDelegate : PresentationDelegate = null;	
 		public var presApp:PresentationApplication;
 		public var presentation:PresentationModel = new PresentationModel();

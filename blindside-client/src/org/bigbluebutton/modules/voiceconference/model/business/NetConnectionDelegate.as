@@ -6,7 +6,7 @@ package org.bigbluebutton.modules.voiceconference.model.business
 	import org.bigbluebutton.modules.voiceconference.VoiceConferenceFacade;
 	import org.bigbluebutton.modules.voiceconference.control.notifiers.MuteNotifier;
 	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerModelLocator;
+	import org.blindsideproject.core.util.log.LoggerFacade;
 	import org.puremvc.as3.multicore.interfaces.IProxy;
 	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
 		
@@ -20,8 +20,6 @@ package org.bigbluebutton.modules.voiceconference.model.business
 	public class NetConnectionDelegate extends Proxy implements IProxy
 	{
 		public static const NAME:String = "NetConnectionDelegate";
-		
-		private var log : ILogger = LoggerModelLocator.getInstance().log;
 			
 		private var netConnection : NetConnection;	
 		private var meetmeRoomURI:String;
@@ -56,16 +54,14 @@ package org.bigbluebutton.modules.voiceconference.model.business
 			
 			// connect to server
 			try {
-				
-				log.info( "Connecting to <b>" + meetmeRoomURI + "</b>");
-
+				//log.info( "Connecting to <b>" + meetmeRoomURI + "</b>");
 				netConnection.connect( meetmeRoomURI, true );
 			} catch( e : ArgumentError ) {
 				// Invalid parameters.
 				switch ( e.errorID ) 
 				{
 					case 2004 :						
-						log.error( "Invalid server location: <b>" + meetmeRoomURI + "</b>");											   
+						//log.error( "Invalid server location: <b>" + meetmeRoomURI + "</b>");											   
 						break;
 						
 					default :
@@ -133,7 +129,7 @@ package org.bigbluebutton.modules.voiceconference.model.business
 	 	*/
 		public function setRoomNumber( room : String ):*
 		{
-			log.debug( "NetconnectionDelegate::setRoomNumber:room = " + room );
+			//log.debug( "NetconnectionDelegate::setRoomNumber:room = " + room );
 			roomNumber = room;
 			
 			return "Okay";
@@ -176,7 +172,7 @@ package org.bigbluebutton.modules.voiceconference.model.business
 		 */		
 		public function muteUnmuteUser(userId : Number, muteUser : Boolean) : void
 		{
-			log.debug("NetConnectionDelegate::muteUnmuteUser : [" + userId + "," + muteUser + "]");
+			//log.debug("NetConnectionDelegate::muteUnmuteUser : [" + userId + "," + muteUser + "]");
 			sendNotification(VoiceConferenceFacade.MUTE_UNMUTE_USER_COMMAND, new MuteNotifier(userId, muteUser));
 		}
 
@@ -187,7 +183,7 @@ package org.bigbluebutton.modules.voiceconference.model.business
 		 */
 		public function ejectUser(userId : Number) : void
 		{
-			log.debug("NetConnectionDelegate::ejectUser : [" + userId + "]");
+			//log.debug("NetConnectionDelegate::ejectUser : [" + userId + "]");
 			sendNotification(VoiceConferenceFacade.EJECT_USER_COMMAND, userId);
 		}
 	}

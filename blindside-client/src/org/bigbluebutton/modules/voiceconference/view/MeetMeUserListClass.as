@@ -8,7 +8,7 @@ package org.bigbluebutton.modules.voiceconference.view
 
 	import com.adobe.cairngorm.control.CairngormEventDispatcher;
 	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerModelLocator;
+	import org.blindsideproject.core.util.log.LoggerFacade;
     import superpanel.nl.wv.extenders.panel.SuperPanel;
 	import mx.controls.TileList;
 
@@ -21,7 +21,7 @@ package org.bigbluebutton.modules.voiceconference.view
 	{
 		private var model : MeetMeFacade = MeetMeFacade.getInstance();
 		private var dispatcher : CairngormEventDispatcher = model.getDispatcher();
-		private var log : ILogger = LoggerModelLocator.getInstance().log;
+		private var log : ILogger = LoggerFacade.getInstance().log;
 		
 		
 		[Bindable]

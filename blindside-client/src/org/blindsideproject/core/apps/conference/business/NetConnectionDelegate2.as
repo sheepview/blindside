@@ -5,14 +5,14 @@ package org.blindsideproject.core.apps.conference.business
 	import flash.net.NetConnection;
 	import flash.events.*;
 	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerModelLocator;
+	import org.blindsideproject.core.util.log.LoggerFacade;
 		
 	public class NetConnectionDelegate2
 	{
 		public static const ID : String = "CONFERENCE.NetConnectionDelegate";
 		
 		private var model : ConferenceModelLocator = ConferenceModelLocator.getInstance();
-		private var log : ILogger = LoggerModelLocator.getInstance().log;
+		private var log : ILogger = LoggerFacade.getInstance().log;
 		
 		private var responder : ConferenceDelegate;
 				

@@ -5,7 +5,7 @@ package org.bigbluebutton.modules.presentation.model.business
 	
 	import org.bigbluebutton.modules.presentation.PresentationFacade;
 	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerModelLocator;
+	import org.blindsideproject.core.util.log.LoggerFacade;
 		
 	/**
 	 * The NetConnectionDelegate is a class that connects and listens to the server 
@@ -17,7 +17,6 @@ package org.bigbluebutton.modules.presentation.model.business
 		public static const ID : String = "Presentation.NetConnectionDelegate";
 		
 		private var model:PresentationFacade = PresentationFacade.getInstance();
-		private var log : ILogger = LoggerModelLocator.getInstance().log;
 		
 		private var _delegate : PresentationDelegate;
 				
@@ -58,8 +57,6 @@ package org.bigbluebutton.modules.presentation.model.business
 			try {
 				_connUri = host + "/presentation/" + room;
 				
-				log.info( "Connecting to <b>" + _connUri + "</b>");
-				
 				netConnection.connect(_connUri );
 				
 			} catch( e : ArgumentError ) {
@@ -67,7 +64,7 @@ package org.bigbluebutton.modules.presentation.model.business
 				switch ( e.errorID ) 
 				{
 					case 2004 :						
-						log.error( "Invalid server location: <b>" + _connUri + "</b>");											   
+						//log.error( "Invalid server location: <b>" + _connUri + "</b>");											   
 						break;						
 					default :
 					   break;
@@ -120,9 +117,9 @@ package org.bigbluebutton.modules.presentation.model.business
 					
 					// find out if it's a secure (HTTPS/TLS) connection
 					if ( event.target.connectedProxyType == "HTTPS" || event.target.usingTLS ) {
-						log.info( 	"Connected to secure server");
+						//log.info( 	"Connected to secure server");
 					} else {
-						log.info(	"Connected to server");
+						//log.info(	"Connected to server");
 					}
 					break;
 			
@@ -132,28 +129,28 @@ package org.bigbluebutton.modules.presentation.model.business
 					
 					_delegate.connectionFailed("Connection to server failed.");
 					
-					log.info("Connection to server failed");
+					//log.info("Connection to server failed");
 					break;
 					
 				case "NetConnection.Connect.Closed" :					
 					_delegate.connectionFailed("Connection to server closed.");					
-					log.info("Connection to server closed");
+					//log.info("Connection to server closed");
 					break;
 					
 				case "NetConnection.Connect.InvalidApp" :				
 					_delegate.connectionFailed("Application not found on server")
-					log.info("Application not found on server");
+					//log.info("Application not found on server");
 					break;
 					
 				case "NetConnection.Connect.AppShutDown" :
 				
 					_delegate.connectionFailed("Application has been shutdown");
-					log.info("Application has been shutdown");
+					//log.info("Application has been shutdown");
 					break;
 					
 				case "NetConnection.Connect.Rejected" :
 					_delegate.connectionFailed(event.info.application);
-					log.info("No permissions to connect to the application" );
+					//log.info("No permissions to connect to the application" );
 					break;
 					
 				default :

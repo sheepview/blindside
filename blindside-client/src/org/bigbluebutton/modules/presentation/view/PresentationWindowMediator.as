@@ -8,7 +8,7 @@ package org.bigbluebutton.modules.presentation.view
 	import org.bigbluebutton.modules.presentation.PresentationFacade;
 	import org.bigbluebutton.modules.presentation.model.PresentationApplication;
 	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerModelLocator;
+	import org.blindsideproject.core.util.log.LoggerFacade;
 	import org.blindsideproject.main.BlindsideAppLocator;
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
@@ -26,8 +26,6 @@ package org.bigbluebutton.modules.presentation.view
 		public static const CONNECT:String = "Connect to Presentation";
 		public static const SHARE:String = "Share Presentation";
 		public static const OPEN_UPLOAD:String = "Open File Upload Window"
-		
-		private var log:ILogger = LoggerModelLocator.getInstance().log;
 		
 		/**
 		 * The constructor. Registers the view component with this mediator 
@@ -74,7 +72,6 @@ package org.bigbluebutton.modules.presentation.view
 		override public function handleNotification(notification:INotification):void{
 			switch(notification.getName()){
 				case PresentationFacade.READY_EVENT:
-					log.debug("PresentationMediator::ReadyEvent Received");
 					handleReadyEvent();
 					break;
 				case PresentationFacade.VIEW_EVENT:
@@ -96,9 +93,7 @@ package org.bigbluebutton.modules.presentation.view
 		 * Handles a received View notification 
 		 * 
 		 */		
-		private function handleViewEvent():void{
-			presentationWindow.log.debug("Received viewEvent....");
-				
+		private function handleViewEvent():void{			
 			presentationWindow.thumbnailView.visible = true;
 		}
 		

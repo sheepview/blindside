@@ -3,7 +3,7 @@ package org.red5.samples.publisher
 	import org.red5.samples.publisher.control.commands.*;
 	import org.red5.samples.publisher.model.*;	
 	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerModelLocator;	
+	import org.blindsideproject.core.util.log.LoggerFacade;	
 	import org.red5.samples.publisher.vo.settings.*;
 			
 	import flash.net.ObjectEncoding;
@@ -14,7 +14,6 @@ package org.red5.samples.publisher
 	public class PublisherApplication
 	{
 		private var modelLoc : PublisherModelLocator = PublisherModelLocator.getInstance();
-		private var log : ILogger = LoggerModelLocator.getInstance().log;
 
 		private var model : PublisherModel = PublisherModelLocator.getInstance().model;
 						
@@ -51,7 +50,7 @@ package org.red5.samples.publisher
 														encodingType,
 														0 /*"none"*/ );
 			
-			log.debug("Publisher connecting to <b>" + host + "</b>");
+			//log.debug("Publisher connecting to <b>" + host + "</b>");
 			
 			var startConnectionCommand : StartConnectionCommand 
 					= new StartConnectionCommand( host,
@@ -121,7 +120,7 @@ package org.red5.samples.publisher
 		 */		
 		public function startBroadcasting(publishMode : String, streamName : String) : void
 		{
-			log.debug("Start broadcasting[" + publishMode + "," + streamName + "]");
+			//log.debug("Start broadcasting[" + publishMode + "," + streamName + "]");
 			
 			var publishStreamCmd : PublishStreamCommand = new PublishStreamCommand( publishMode, streamName );
 			publishStreamCmd.dispatch();			

@@ -9,9 +9,7 @@ package org.bigbluebutton.modules.presentation.model.vo
 	 */	        
 	[Bindable]
 	public class Slide
-	{
-		private var log : ILogger = LoggerModelLocator.getInstance().log;
-		    
+	{	    
 		public var name : String;
 		public var title : String;
 		public var source : String;
@@ -23,7 +21,7 @@ package org.bigbluebutton.modules.presentation.model.vo
 				this.name = slide.name;
 //				this.title = slide.description;
 				this.source = slide.source;
-				log.debug("Slide [" + name + "][" + source + "]");				
+				//log.debug("Slide [" + name + "][" + source + "]");				
 			}
 		}
 	}

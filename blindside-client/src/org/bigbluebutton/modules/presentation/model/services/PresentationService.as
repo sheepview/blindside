@@ -21,8 +21,6 @@ package org.bigbluebutton.modules.presentation.model.services
 	public class PresentationService extends Proxy implements IProxy
 	{
 		public static const ID:String = "PresentationService";
-	
-		private var log : ILogger = LoggerModelLocator.getInstance().log;
 		    
 		private var service : HTTPService;
 		
@@ -50,8 +48,6 @@ package org.bigbluebutton.modules.presentation.model.services
 		public function load(url : String) : void
 		{
 			service.url = url;
-
-			log.debug("getting slides from [" + service.url + "]");
 			
 			var call : Object = service.send();
 			call.addResponder(responder);

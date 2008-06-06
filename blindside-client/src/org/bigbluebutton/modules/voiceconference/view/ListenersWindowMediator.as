@@ -4,7 +4,7 @@ package org.bigbluebutton.modules.voiceconference.view
 	
 	import org.bigbluebutton.modules.voiceconference.VoiceConferenceFacade;
 	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerModelLocator;
+	import org.blindsideproject.core.util.log.LoggerFacade;
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
@@ -22,8 +22,6 @@ package org.bigbluebutton.modules.voiceconference.view
 		public static const UNMUTE_ALL:String = "Unmute All Users";
 		public static const MUTE_ALL:String = "Mute All Users";
 		public static const EJECT_USER:String = "Eject User";
-		
-		private var log : ILogger = LoggerModelLocator.getInstance().log;
 		
 		/**
 		 * The default constructor. Assigns this class to a certain GUI component 
@@ -70,7 +68,7 @@ package org.bigbluebutton.modules.voiceconference.view
 			switch(notification.getName()){
 				case VoiceConferenceFacade.USER_JOIN_EVENT:
 					listenersWindow.participantsList.dataProvider = VoiceConferenceFacade.getInstance().meetMeRoom.dpParticipants;
-					log.debug("Participants: " + VoiceConferenceFacade.getInstance().meetMeRoom.dpParticipants.length);
+					//log.debug("Participants: " + VoiceConferenceFacade.getInstance().meetMeRoom.dpParticipants.length);
 					break;
 			}
 		}

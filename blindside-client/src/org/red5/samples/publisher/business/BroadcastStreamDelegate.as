@@ -4,7 +4,7 @@ package org.red5.samples.publisher.business
 	import com.adobe.cairngorm.control.CairngormEventDispatcher;
 
 	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerModelLocator;
+	import org.blindsideproject.core.util.log.LoggerFacade;
 		
 	import flash.events.*;
 	import flash.media.*;
@@ -19,8 +19,6 @@ package org.red5.samples.publisher.business
 	
 	public class BroadcastStreamDelegate
 	{	
-		private var log : ILogger = LoggerModelLocator.getInstance().log;
-		
 		private var modelLoc : PublisherModelLocator = 	PublisherModelLocator.getInstance();
 		private var model : PublisherModel = modelLoc.model;	
 		
@@ -76,7 +74,7 @@ package org.red5.samples.publisher.business
 				} 
 				else 
 				{
-					log.warn( "StreamDelegate::Can't publish stream, no input device(s) selected" );
+					//log.warn( "StreamDelegate::Can't publish stream, no input device(s) selected" );
 					
 					media.broadcasting = false;
 				}
@@ -91,12 +89,12 @@ package org.red5.samples.publisher.business
 					// NetStream object must be connected.
 					case 2126 :
 						//
-						log.error( "StreamDelegate::Can't publish stream, not connected to server" );
+						//log.error( "StreamDelegate::Can't publish stream, not connected to server" );
 						break;
 					//
 					default :
 					   //
-					   log.error( "StreamDelegate::" + e.toString());
+					   //log.error( "StreamDelegate::" + e.toString());
 					   break;
 				}
 			}
@@ -160,70 +158,70 @@ package org.red5.samples.publisher.business
 			switch ( statusCode ) {
 				case "NetStream.Play.Start" :
 					// Shouldn't be getting this playback since we are broadcasting
-					log.warn("NetStream.Play.Start for broadcast stream [" + media.streamName + "]");
+					//log.warn("NetStream.Play.Start for broadcast stream [" + media.streamName + "]");
 					break;
 					
 				case "NetStream.Play.Stop":	
 					// Shouldn't be getting this playback since we are broadcasting
-					log.warn("NetStream.Play.Stop for broadcast stream [" + media.streamName + "]");		
+					//log.warn("NetStream.Play.Stop for broadcast stream [" + media.streamName + "]");		
 					break;
 				
 				case "NetStream.Buffer.Empty":	
 					// Shouldn't be getting this playback since we are broadcasting
-					log.warn("NetStream.Buffer.Empty for broadcast stream [" + media.streamName + "]");	
+					//log.warn("NetStream.Buffer.Empty for broadcast stream [" + media.streamName + "]");	
 					break;
 				
 				case "NetStream.Play.UnpublishNotify":
 					// Shouldn't be getting this playback since we are broadcasting
-					log.warn("NetStream.Play.UnpublishNotify for broadcast stream [" + media.streamName + "]");
+					//log.warn("NetStream.Play.UnpublishNotify for broadcast stream [" + media.streamName + "]");
 					break;
 					
 				case "NetStream.Play.StreamNotFound":
 					// Shouldn't be getting this playback since we are broadcasting
-					log.warn("NetStream.Play.StreamNotFound for broadcast stream [" + media.streamName + "]");
+					//log.warn("NetStream.Play.StreamNotFound for broadcast stream [" + media.streamName + "]");
 					break;
 				
 				case "NetStream.Pause.Notify":
 					// Shouldn't be getting this playback since we are broadcasting
-					log.warn("NetStream.Pause.Notify for broadcast stream [" + media.streamName + "]");				
+					//log.warn("NetStream.Pause.Notify for broadcast stream [" + media.streamName + "]");				
 					break;
 					
 				case "NetStream.Unpause.Notify":
 					// Shouldn't be getting this playback since we are broadcasting
-					log.warn("NetStream.Unpause.Notify for broadcast stream [" + media.streamName + "]");
+					//log.warn("NetStream.Unpause.Notify for broadcast stream [" + media.streamName + "]");
 					break;
 					
 				case "NetStream.Publish.Start":
 					media.broadcasting = true;
-					log.info("NetStream.Publish.Start for broadcast stream [" + media.streamName + "]");
+					//log.info("NetStream.Publish.Start for broadcast stream [" + media.streamName + "]");
 					break;
 					
 				case "NetStream.Publish.Idle":
-					log.info("NetStream.Publish.Idle for broadcast stream [" + media.streamName + "]");
+					//log.info("NetStream.Publish.Idle for broadcast stream [" + media.streamName + "]");
 					break;
 					
 				case "NetStream.Record.Failed":
-					log.info("NetStream.Record.Failed for broadcast stream [" + media.streamName + "]");
+					//log.info("NetStream.Record.Failed for broadcast stream [" + media.streamName + "]");
 					publishStopped();
 					break;
 					
 				case "NetStream.Record.Stop":
-					log.info("NetStream.Record.Stop for broadcast stream [" + media.streamName + "]");
+					//log.info("NetStream.Record.Stop for broadcast stream [" + media.streamName + "]");
 					publishStopped();
 					break;
 					
 				case "NetStream.Record.Start":
-					log.info("NetStream.Record.Start for broadcast stream [" + media.streamName + "]");
+					//log.info("NetStream.Record.Start for broadcast stream [" + media.streamName + "]");
 					media.broadcasting = true;
 					break;
 					
 				case "NetStream.Unpublish.Success":
-					log.info("NetStream.Unpublish.Success for broadcast stream [" + media.streamName + "]");
+					//log.info("NetStream.Unpublish.Success for broadcast stream [" + media.streamName + "]");
 					publishStopped();
 					break;
 					
 				case "NetStream.Publish.BadName":
-					log.info("NetStream.Publish.BadName for broadcast stream [" + media.streamName + "]");
+					//log.info("NetStream.Publish.BadName for broadcast stream [" + media.streamName + "]");
 					publishStopped();
 					break;
 			}
@@ -237,20 +235,20 @@ package org.red5.samples.publisher.business
 				
 		public function handleFault(  event : Object  ) : void
 		{			
-			log.error("BroadcastStreamDelegate::" + event.text );
+			//log.error("BroadcastStreamDelegate::" + event.text );
 			stopPublish();
 		}
 			
 		public function onPlayStatus( info : Object ) : void 
 		{	
-			log.debug("BroadcastStreamDelegate::Playback - " + info.code  );
+			//log.debug("BroadcastStreamDelegate::Playback - " + info.code  );
 		}
 			
 		public function onMetaData ( info : Object ) : void 
 		{
 			for ( var d : String in info ) 
 			{
-				log.info( "Metadata - " + d + ": " + info[ d ]);
+			//log.info( "Metadata - " + d + ": " + info[ d ]);
 			}
 		}
 					
@@ -258,7 +256,7 @@ package org.red5.samples.publisher.business
 		{
 			for ( var d : String in info ) 
 			{
-				log.info( "Cuepoint - " + d + ": " + info[ d ] );
+				//log.info( "Cuepoint - " + d + ": " + info[ d ] );
 			}
 		}
 		
