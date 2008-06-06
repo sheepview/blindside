@@ -6,6 +6,7 @@ package org.bigbluebutton.modules.chat.model.business
 	
 	import org.bigbluebutton.modules.chat.ChatFacade;
 	import org.bigbluebutton.modules.chat.model.vo.*;
+	import org.bigbluebutton.modules.chat.view.ChatWindowMediator;
 	import org.puremvc.as3.multicore.interfaces.IProxy;
 	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
 	
@@ -19,7 +20,7 @@ package org.bigbluebutton.modules.chat.model.business
 	public class ChatProxy extends Proxy implements IProxy
 	{
 		public static const NAME:String = "Chat Proxy";
-		public static const uri:String = "rtmp://134.117.58.96/oflaDemo";
+		public static const DEFAULT_RED5:String = "rtmp://134.117.58.96/oflaDemo";
 		private var uri:String;		
 		private var conn:Connection;
 		private var nc:NetConnection;
@@ -34,13 +35,15 @@ package org.bigbluebutton.modules.chat.model.business
 		 */
 		public function ChatProxy(messageVO:MessageVO)
 		{
+			
 			super(NAME, messageVO);
 			conn = new Connection;
-
+			this.uri = ChatProxy.DEFAULT_RED5;
 			conn.addEventListener(Connection.SUCCESS, handleSucessfulConnection);
 			conn.addEventListener(Connection.DISCONNECTED, handleDisconnection);
 			conn.setURI(this.uri);
 			conn.connect();
+			
 			
 		}
 	
@@ -86,7 +89,9 @@ package org.bigbluebutton.modules.chat.model.business
 		 * 
 		 */
 		public function sendMessageToSharedObject(message:MessageObject):void{
-			chatSO.send("receiveNewMessage", message.getMessgae(), message.getColor());
+			//sendNotification(ChatFacade.NEW_MESSAGE, message);
+			
+			chatSO.send("receiveNewMessage", message.getMessage(), message.getColor());
 		}
 		
 		/**

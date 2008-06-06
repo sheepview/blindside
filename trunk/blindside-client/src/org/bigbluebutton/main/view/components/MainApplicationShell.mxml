@@ -13,6 +13,7 @@
 			
 	<mx:Script>
 		<![CDATA[
+			import org.blindsideproject.views.chat.Chat;
 			import org.bigbluebutton.modules.chat.view.components.ChatWindow;
 			import org.bigbluebutton.core.interfaces.InputPipe;
 			import org.bigbluebutton.core.interfaces.OutputPipe;
@@ -38,6 +39,7 @@
 			private var outputPipe : OutputPipe = new OutputPipe("shell");
 			private var log : LogModule;
 			public var chatWindow : ChatWindow;
+			public var chatFacade : ChatFacade;// = ChatFacade.getInstance();
 			
 			
 			protected function initializeShell():void
@@ -48,6 +50,8 @@
 				//router.
 				//logM.mbus = mbus;				
 				//logWindow.title = "in initializeShell ";
+			
+				
 					
 			}
 
@@ -55,9 +59,7 @@
 			{
 				//logWindow.title = "in createLogModule ";
 				
-				
-				//chatWindow = new ChatWindow();
-				//this.addChild(chatWindow);
+			
 				log = new LogModule();
 				log.acceptRouter(router);
 				router.registerOutputPipe("shell",outputPipe);
@@ -69,7 +71,25 @@
    		 		
    		 		
    		 		this.addChild(log);						      
-			}			
+			}	
+			
+			private function createChatModule(): void
+			{
+				chatWindow  = new ChatWindow();
+				chatFacade = ChatFacade.getInstance();
+				chatFacade.startup(this.chatWindow);
+				chatWindow.acceptRouter(router);
+				router.registerOutputPipe("shell",outputPipe);
+				var messageToSend:IPipeMessage = new Message( Message.NORMAL, 
+   		 										 { SRC:'shell', TO: 'chat' },
+   		 										 new String("Welcome to Big Blue Button public chat room"),
+   		 										 Message.PRIORITY_HIGH );
+   		 		outputPipe.write(messageToSend);		
+				this.addChild(chatWindow);
+				
+				
+			}		
+			
 			
 			private function callback(message:IPipeMessage) : void
 			{
@@ -135,6 +155,7 @@
 	 	<mx:ControlBar width="100%" height="20" paddingTop="0">		
 		  <mx:Label text="(c) 2007, BigBlueButton Project" id="copyrightLabel2"/>
 		  <mx:Spacer width="100%"/>
-		  <mx:Button label="Log" click="createLogModule();"/>  
+		  <mx:Button label="Log" click="createLogModule();"/>
+		  <mx:Button label="Chat" click="createChatModule();"/>    
 		</mx:ControlBar>
 </mx:VBox>

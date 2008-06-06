@@ -42,8 +42,7 @@ package org.bigbluebutton.modules.chat
 			
 		}
 		
-		public function startup(app:MainApplicationShell):void {
-			
+		public function startup(app:ChatWindow):void {
 			sendNotification(ChatFacade.STARTUP, app);
 		}
 		

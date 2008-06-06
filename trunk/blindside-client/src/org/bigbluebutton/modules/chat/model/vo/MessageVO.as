@@ -21,6 +21,7 @@ package org.bigbluebutton.modules.chat.model.vo
 		
 		public function MessageVO()
 		{
+			message = new MessageObject("",0xffff);
 		}
 
 	}
