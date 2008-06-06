@@ -9,7 +9,7 @@ package org.bigbluebutton.modules.voiceconference
 	import org.bigbluebutton.modules.voiceconference.model.business.NetConnectionDelegate;
 	import org.bigbluebutton.modules.voiceconference.view.ListenersWindow;
 	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerModelLocator;
+	import org.blindsideproject.core.util.log.LoggerFacade;
 	import org.puremvc.as3.multicore.interfaces.IFacade;
 	import org.puremvc.as3.multicore.patterns.facade.Facade;
 		
@@ -30,8 +30,6 @@ package org.bigbluebutton.modules.voiceconference
 		public static const MUTE_ALL_USERS_COMMAND : String = "MEETME_MUTE_ALL_USER";
 		public static const USER_JOIN_EVENT:String = "User Join Event";
 		public static const MUTE_EVENT:String = "mute event";
-		
-		private var log : ILogger = LoggerModelLocator.getInstance().log;
 		
 		public var meetMeRoom:VoiceConferenceRoom;
 				

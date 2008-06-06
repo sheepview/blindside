@@ -21,7 +21,7 @@
         import org.blindsideproject.core.apps.chat.controller.events.*;
    		import org.blindsideproject.core.apps.conference.model.*;
 		import org.blindsideproject.core.util.log.ILogger;
-		import org.blindsideproject.core.util.log.LoggerModelLocator;
+		import org.blindsideproject.core.util.log.LoggerFacade;
 		import org.blindsideproject.core.apps.conference.controller.events.ConferenceEvents;
 		import org.blindsideproject.core.apps.conference.vo.Role;
 		import org.blindsideproject.core.apps.conference.vo.User;
@@ -37,7 +37,7 @@
 		private var modelC : ChatModelLocator = ChatModelLocator.getInstance();
 		private var chat : ChatModel = modelC.chat;
 		private var dispatcher : CairngormEventDispatcher = CairngormEventDispatcher.getInstance();
-		private var log : ILogger = LoggerModelLocator.getInstance().log;
+		private var log : ILogger = LoggerFacade.getInstance().log;
 	   	private var images : Images = new Images();
    		private var windowOpen : Boolean = false;
         private var response : Boolean = false;

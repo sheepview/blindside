@@ -11,6 +11,7 @@ import mx.core.Application;
 import mx.events.CloseEvent;
 import mx.managers.PopUpManager;
 
+import org.bigbluebutton.modules.log.view.components.LogWindow;
 import org.bigbluebutton.modules.presentation.model.PresentationApplication;
 import org.bigbluebutton.modules.presentation.view.PresentationPanel;
 import org.bigbluebutton.modules.presentation.view.PresentationWindow;
@@ -19,14 +20,11 @@ import org.bigbluebutton.modules.voiceconference.view.ListenersWindow;
 import org.blindsideproject.core.apps.chat.ChatApplication;
 import org.blindsideproject.core.apps.conference.ConferenceApplication;
 import org.blindsideproject.core.apps.conference.model.*;
-import org.blindsideproject.core.util.log.ILogger;
-import org.blindsideproject.core.util.log.LoggerModelLocator;
 import org.blindsideproject.main.*;
 import org.blindsideproject.views.chat.ChatWindow;
 import org.blindsideproject.views.conference.ViewersWindow;
 import org.blindsideproject.views.control.events.OpenWindowEvent;
 import org.blindsideproject.views.control.events.ViewEvents;
-import org.blindsideproject.views.log.LogWindow;
 import org.red5.samples.publisher.PublisherApplication;
 			
 private var eventMonitor:TextArea;
@@ -39,12 +37,11 @@ private var effectsList:Array;
 	private var presentationWindow:PresentationWindow;
 	private var presentationPanel:PresentationPanel;
 	private var viewersWindow : ViewersWindow;
-	private var logWindow : LogWindow;
+	private var logWindow:LogWindow;
 
 	
 	private var model : ConferenceModelLocator = ConferenceModelLocator.getInstance();
 	private var dispatcher : CairngormEventDispatcher = CairngormEventDispatcher.getInstance();
-	private var log : ILogger = LoggerModelLocator.getInstance().log;
 	private var meetMeModel:VoiceConferenceFacade = VoiceConferenceFacade.getInstance();
 	private var mainApp : BlindsideAppLocator = BlindsideAppLocator.getInstance();
 		
@@ -60,10 +57,6 @@ private var effectsList:Array;
 		//red5Host = mx.core.Application.application.parameters.red5Host;			
 		//presentationHost = mx.core.Application.application.parameters.presentationHost;
 		asteriskHost = mx.core.Application.application.parameters.asteriskHost;
-		
-		log.debug("red5Host = [" + red5Host + "]");
-		log.debug("presentationHost = [" + presentationHost + "]");
-		log.debug("asteriskHost = [" + asteriskHost + "]");
 		
 		mdiCanvas.effectsLib = flexlib.mdi.effects.effectsLib.MDIVistaEffects;
 		
@@ -128,9 +121,7 @@ private var effectsList:Array;
     }
 
 	private function initializeConferenceRoom() : void
-	{	
-		log.debug("Logged in. Initializing conference.");
-	
+	{
 		listenersWindow = new ListenersWindow();
 		listenersWindow.width = 210;
 		listenersWindow.height = 200;

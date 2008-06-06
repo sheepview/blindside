@@ -6,14 +6,13 @@ package org.blindsideproject.core.apps.chat.business
 		
 	import org.blindsideproject.core.apps.chat.model.ChatModelLocator;
 	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerModelLocator;
+	import org.blindsideproject.core.util.log.LoggerFacade;
 		
 	public class NetConnectionDelegate
 	{
 		public static const ID : String = "Chat.NetConnectionDelegate";
 		
 		private var model : ChatModelLocator = ChatModelLocator.getInstance();
-		private var log : ILogger = LoggerModelLocator.getInstance().log;
 		
 		private var _delegate : ChatDelegate;
 				
@@ -46,8 +45,6 @@ package org.blindsideproject.core.apps.chat.business
 //				}	
 				
 				_connUri = host + "/fitcDemo/" + room;
-				
-				log.info( "Connecting to <b>" + _connUri + "</b>");
 								
 				netConnection.connect(_connUri );
 				
@@ -56,7 +53,7 @@ package org.blindsideproject.core.apps.chat.business
 				switch ( e.errorID ) 
 				{
 					case 2004 :						
-						log.error( "Invalid server location: <b>" + _connUri + "</b>");											   
+						//log.error( "Invalid server location: <b>" + _connUri + "</b>");											   
 						break;						
 					default :
 					   break;
@@ -90,9 +87,9 @@ package org.blindsideproject.core.apps.chat.business
 					
 					// find out if it's a secure (HTTPS/TLS) connection
 					if ( event.target.connectedProxyType == "HTTPS" || event.target.usingTLS ) {
-						log.info( 	"Connected to secure server");
+						//log.info( 	"Connected to secure server");
 					} else {
-						log.info(	"Connected to server");
+						//log.info(	"Connected to server");
 					}
 					break;
 			
@@ -102,28 +99,28 @@ package org.blindsideproject.core.apps.chat.business
 					
 					_delegate.connectionFailed("Connection to server failed.");
 					
-					log.info("Connection to server failed");
+					//log.info("Connection to server failed");
 					break;
 					
 				case "NetConnection.Connect.Closed" :					
 					_delegate.connectionFailed("Connection to server closed.");					
-					log.info("Connection to server closed");
+					//log.info("Connection to server closed");
 					break;
 					
 				case "NetConnection.Connect.InvalidApp" :				
 					_delegate.connectionFailed("Application not found on server")
-					log.info("Application not found on server");
+					//log.info("Application not found on server");
 					break;
 					
 				case "NetConnection.Connect.AppShutDown" :
 				
 					_delegate.connectionFailed("Application has been shutdown");
-					log.info("Application has been shutdown");
+					//log.info("Application has been shutdown");
 					break;
 					
 				case "NetConnection.Connect.Rejected" :
 					_delegate.connectionFailed(event.info.application);
-					log.info("No permissions to connect to the application" );
+					//log.info("No permissions to connect to the application" );
 					break;
 					
 				default :
@@ -163,7 +160,7 @@ package org.blindsideproject.core.apps.chat.business
 
 		public function setId(id:Number ) : *
 		{
-			log.debug( ID + "::setConnectionId: id=[" + id + "]");
+			//log.debug( ID + "::setConnectionId: id=[" + id + "]");
 			if( isNaN( id ) ) return "FAILED";
 			
 			return "OK";			

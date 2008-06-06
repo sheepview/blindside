@@ -6,11 +6,10 @@ package org.blindsideproject.core.apps.conference.model
 	import org.blindsideproject.core.apps.conference.vo.Properties;
 	import org.blindsideproject.core.apps.conference.business.ConferenceDelegate;
 	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerModelLocator;
+	import org.blindsideproject.core.util.log.LoggerFacade;
 	
 	public class Conference
 	{
-		private var log : ILogger = LoggerModelLocator.getInstance().log;
 		
 		private var _myUserid : Number;
 		
@@ -67,10 +66,10 @@ package org.blindsideproject.core.apps.conference.model
 		{
 			var index : int = getParticipantIndex(userid);
 			
-			log.debug( "removing user[" + userid + " at index=" + index + "]")
+			//log.debug( "removing user[" + userid + " at index=" + index + "]")
 			
 			if (index > -1) {
-				log.debug( "remove user[" + userid + " at index=" + index + "]");
+				//log.debug( "remove user[" + userid + " at index=" + index + "]");
 				
 				users.removeItemAt(index);
 				sort();

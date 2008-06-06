@@ -2,7 +2,7 @@ package org.red5.samples.publisher.business
 {
 	import com.adobe.cairngorm.business.ServiceLocator;
 	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerModelLocator;
+	import org.blindsideproject.core.util.log.LoggerFacade;
 		
 	import flash.events.*;
 	import flash.net.*;
@@ -16,7 +16,6 @@ package org.red5.samples.publisher.business
 	{	
 		[Bindable]
 		public var model : PublisherModel = PublisherModelLocator.getInstance().model;				
-		private var log : ILogger = LoggerModelLocator.getInstance().log;
 			
 		private var netConnection : NetConnection;
 			
@@ -42,7 +41,7 @@ package org.red5.samples.publisher.business
 			netConnection.addEventListener( IOErrorEvent.IO_ERROR, netIOError );
 			
 			try {				
-				log.debug("NetConnection::Connecting to <b>" + uri + "</b>");
+				//log.debug("NetConnection::Connecting to <b>" + uri + "</b>");
 				netConnection.connect( uri );
 			}
 			catch( e : ArgumentError ) 
@@ -51,7 +50,7 @@ package org.red5.samples.publisher.business
 				switch ( e.errorID ) 
 				{
 					case 2004 :
-						log.error( "NetConnection::Invalid server location: <b>" + uri + "</b>");
+						//log.error( "NetConnection::Invalid server location: <b>" + uri + "</b>");
 						break;
 						
 					default :
@@ -93,7 +92,7 @@ package org.red5.samples.publisher.business
 			var info : Object = event.info;
 			var statusCode : String = info.code;
 			
-			log.debug( "NetworkConnectionDelegate::" + statusCode );
+			//log.debug( "NetworkConnectionDelegate::" + statusCode );
 			
 			model.connected = false;
 			
@@ -105,9 +104,9 @@ package org.red5.samples.publisher.business
 					
 					// find out if it's a secure (HTTPS/TLS) connection
 					if ( event.target.connectedProxyType == "HTTPS" || event.target.usingTLS ) {
-						log.info( "NetworkConnectionDelegate::Connected to secure server");
+						//log.info( "NetworkConnectionDelegate::Connected to secure server");
 					} else {
-						log.info("NetworkConnectionDelegate::Connected to server");
+						//log.info("NetworkConnectionDelegate::Connected to server");
 					}
 					break;
 			
@@ -115,26 +114,26 @@ package org.red5.samples.publisher.business
 					
 					serverDisconnect();
 					
-					log.warn("NetworkConnectionDelegate::Connection to server failed" );
+					//log.warn("NetworkConnectionDelegate::Connection to server failed" );
 					break;
 					
 				case "NetConnection.Connect.Closed" :
 					
 					serverDisconnect();
 					
-					log.warn("NetworkConnectionDelegate::Connection to server closed");
+					//log.warn("NetworkConnectionDelegate::Connection to server closed");
 					break;
 					
 				case "NetConnection.Connect.InvalidApp" :
-					log.warn("NetworkConnectionDelegate::Application not found on server" );
+					//log.warn("NetworkConnectionDelegate::Application not found on server" );
 					break;
 					
 				case "NetConnection.Connect.AppShutDown" :
-					log.warn("NetworkConnectionDelegate::Application has been shutdown");
+					//log.warn("NetworkConnectionDelegate::Application has been shutdown");
 					break;
 					
 				case "NetConnection.Connect.Rejected" :
-					log.warn("NetworkConnectionDelegate::No permissions to connect to the application" );
+					//log.warn("NetworkConnectionDelegate::No permissions to connect to the application" );
 					break;
 					
 				default :
@@ -144,7 +143,7 @@ package org.red5.samples.publisher.business
 		}
 			
 		public function handleFault(  event : Object  ) : void {
-			log.warn("NetworkConnectionDelegate::" + event.text );
+			//log.warn("NetworkConnectionDelegate::" + event.text );
 		}
 		
 		/**

@@ -7,7 +7,7 @@ package org.bigbluebutton.modules.voiceconference.view
 	import org.bigbluebutton.modules.voiceconference.VoiceConferenceFacade;
 	import org.bigbluebutton.modules.voiceconference.model.VoiceConferenceRoom;
 	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerModelLocator;
+	import org.blindsideproject.core.util.log.LoggerFacade;
 
 	/**
 	 * This is a convinience class extended by the Listeners Window. It holds some variables
@@ -17,8 +17,6 @@ package org.bigbluebutton.modules.voiceconference.view
 	public class ListenersClass extends MDIWindow
 	{
 		private var model:VoiceConferenceFacade = VoiceConferenceFacade.getInstance();
-		private var log : ILogger = LoggerModelLocator.getInstance().log;
-		
 		
 		[Bindable]
 		public var meetMeRoom:VoiceConferenceRoom = model.meetMeRoom;;

@@ -12,8 +12,6 @@ package org.blindsideproject.core.apps.chat.controller.handlers
 		public function execute(cgCommand : CairngormEvent):void
 		{
 			var command : LeaveCommand = LeaveCommand(cgCommand);
-
-			model.log.info("LeaveCommandHandler::execute()");
 			
 			model.chatDelegate.leave();
 		}		

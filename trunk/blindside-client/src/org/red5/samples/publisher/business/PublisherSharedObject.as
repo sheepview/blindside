@@ -1,14 +1,14 @@
 package org.red5.samples.publisher.business
 {
 	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerModelLocator;
+	import org.blindsideproject.core.util.log.LoggerFacade;
 			
 	import mx.rpc.IResponder;
 	import mx.collections.ArrayCollection;
 	
 	public class PublisherSharedObject implements IResponder
 	{
-		private var log : ILogger = LoggerModelLocator.getInstance().log;
+		private var log : ILogger = LoggerFacade.getInstance().log;
 		
 		private var streams : ArrayCollection;		
 		

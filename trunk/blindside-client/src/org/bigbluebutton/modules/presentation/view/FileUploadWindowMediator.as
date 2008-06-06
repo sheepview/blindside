@@ -10,7 +10,7 @@ package org.bigbluebutton.modules.presentation.view
 	import org.bigbluebutton.modules.presentation.PresentationFacade;
 	import org.bigbluebutton.modules.presentation.controller.notifiers.ProgressNotifier;
 	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerModelLocator;
+	import org.blindsideproject.core.util.log.LoggerFacade;
 	import org.blindsideproject.main.BlindsideAppLocator;
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
@@ -31,7 +31,6 @@ package org.bigbluebutton.modules.presentation.view
 		public static const CLOSE_UPLOAD_WINDOW:String = "Close File Upload Window";
 		public static const SELECT_FILE:String = "Select File";
 		
-		private var log:ILogger = LoggerModelLocator.getInstance().log;
 		private var fileToUpload:FileReference = new FileReference();
 		// Var to determine how to handle okCancelBtn click
 		private var okState : Boolean = false;
@@ -49,7 +48,6 @@ package org.bigbluebutton.modules.presentation.view
 			fileUploadWindow.addEventListener(START_UPLOAD, startUpload);
 			fileUploadWindow.addEventListener(CLOSE_UPLOAD_WINDOW, closeFileUploadWindow);
 			fileUploadWindow.addEventListener(SELECT_FILE, selectFile);
-			log.debug("FileUploadMediator Created");
 		}
 		
 		/**
@@ -87,7 +85,6 @@ package org.bigbluebutton.modules.presentation.view
 		{
 			if (okState) {
 				sendNotification(PresentationFacade.READY_EVENT);
-				log.debug("FileUploadMediator::Ready Event Sent");
 			}
 			enableControls();
 			PopUpManager.removePopUp(fileUploadWindow);
@@ -147,7 +144,6 @@ package org.bigbluebutton.modules.presentation.view
 		 * 
 		 */		
 		override public function handleNotification(notification:INotification):void{
-			log.debug("Upload Mediator: notification : " + notification.getName());
 			//if (isListening == false) return;
 			switch(notification.getName()){
 				case PresentationFacade.UPLOAD_COMPLETED_EVENT:
@@ -270,7 +266,6 @@ package org.bigbluebutton.modules.presentation.view
 		 * 
 		 */		
 		private function handleConvertSuccessEvent(note:INotification):void{
-			log.debug("UploadMediator:: Convert Success " + note.getBody() as String);
 			fileUploadWindow.okCancelBtn.label = "Ok";
 			fileUploadWindow.okCancelBtn.visible = true;
 			okState = true;
@@ -282,7 +277,6 @@ package org.bigbluebutton.modules.presentation.view
 		 */		
 		private function enableControls() : void
 		{
-			log.debug("FileUploadMediator::Controls disabled");
 			//First, remove this class from listening
 			this.isListening = false;
 			fileUploadWindow.okCancelBtn.visible = false;

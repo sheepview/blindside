@@ -10,9 +10,7 @@
 		import org.red5.samples.publisher.model.*;
 		import mx.managers.PopUpManager;
 		import org.blindsideproject.core.util.log.ILogger;
-		import org.blindsideproject.core.util.log.LoggerModelLocator;
-	
-		private var log : ILogger = LoggerModelLocator.getInstance().log;
+		import org.blindsideproject.core.util.log.LoggerFacade;
 		
 		[Bindable] private var model : PublisherModel = PublisherModelLocator.getInstance().model;
 		[Bindable] public var media : BroadcastMedia;

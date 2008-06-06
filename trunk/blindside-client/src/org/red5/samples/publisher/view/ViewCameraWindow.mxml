@@ -23,13 +23,12 @@
 			import org.red5.samples.publisher.vo.PlaybackState;
 			import org.blindsideproject.main.BlindsideAppLocator;
 
-			import org.blindsideproject.core.util.log.LoggerModelLocator;
+			import org.blindsideproject.core.util.log.LoggerFacade;
 			import org.blindsideproject.core.util.log.ILogger;
 		
 			import org.red5.samples.publisher.vo.IMedia;
 			import org.red5.samples.publisher.view.general.Images;
-			
-			private var log : ILogger = LoggerModelLocator.getInstance().log;
+
 			private var mainApp : BlindsideAppLocator = BlindsideAppLocator.getInstance();
 			
 			private var images : Images = new Images();	

@@ -14,7 +14,7 @@ package org.bigbluebutton.modules.presentation.model
 	import org.bigbluebutton.modules.presentation.model.services.PresentationService;
 	import org.bigbluebutton.modules.presentation.model.vo.SlidesDeck;
 	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerModelLocator;
+	import org.blindsideproject.core.util.log.LoggerFacade;
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
@@ -40,8 +40,6 @@ package org.bigbluebutton.modules.presentation.model
 		private var _userid : Number;
 		private var _room : String;
 		private var _docServiceAddress : String = "http://localhost:8080";
-		
-		private var log:ILogger = LoggerModelLocator.getInstance().log;
 		
 		/**
 		 * The default constructor 
@@ -138,7 +136,6 @@ package org.bigbluebutton.modules.presentation.model
 		 */		
 		public function loadPresentation() : void
 		{
-			log.debug("PresentationApplication::loadPresentation()");
 			var fullUri : String = _docServiceAddress + "/blindside/file/xmlslides?room=" + _room;	
 			model.presentationLoaded = false;
 			
@@ -152,7 +149,6 @@ package org.bigbluebutton.modules.presentation.model
 		 */		
 		public function sharePresentation(share : Boolean) : void
 		{
-			log.debug("PresentationApplication::Share");
 			if (share) {	
 				presentationProxy.share(true);		
 			} else {

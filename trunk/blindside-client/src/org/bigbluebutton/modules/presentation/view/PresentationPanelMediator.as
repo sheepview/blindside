@@ -63,8 +63,6 @@ package org.bigbluebutton.modules.presentation.view
 		}
 		
 		private function handleViewEvent():void{
-			presentationPanel.log.debug("Received viewEvent....");
-				
 			presentationPanel.thumbnailView.visible = true;
 		}
 		

@@ -16,7 +16,7 @@
 			import mx.binding.utils.BindingUtils;
 	
 			import org.blindsideproject.core.util.log.ILogger;
-			import org.blindsideproject.core.util.log.LoggerModelLocator;						
+			import org.blindsideproject.core.util.log.LoggerFacade;						
 			import org.blindsideproject.views.general.Images;
 
 			import mx.collections.ArrayCollection;
@@ -38,7 +38,6 @@
 			[Bindable] public var presenterIcon : Class = images.user_gray;
 			
 			[Bindable] public var model:PresentationFacade = PresentationFacade.getInstance(); 
-			public var log : ILogger = LoggerModelLocator.getInstance().log;
 						
 			[Bindable] private var deck:SlidesDeck = model.presentation.decks;
 			
@@ -79,8 +78,6 @@
 
 			public function handlePresenterName(name : String) : void
 			{
-				log.debug("handlePrsenerName: " + name);
-				
 				presenterName.label = name;
 			}
 

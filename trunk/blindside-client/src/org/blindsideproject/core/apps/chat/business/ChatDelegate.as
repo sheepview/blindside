@@ -22,7 +22,6 @@ package org.blindsideproject.core.apps.chat.business
 		private var model : ChatModelLocator = ChatModelLocator.getInstance();
 		private var cModel : ConferenceModelLocator = ConferenceModelLocator.getInstance();
 		private var dispatcher : CairngormEventDispatcher = model.dispatcher;	
-		private var log : ILogger = model.log;
 		private var chat : ChatModel = model.chat;
 //		private var conference : ConferenceModel = cModel.conference;
 		private var chatSO : SharedObject;
@@ -65,7 +64,7 @@ package org.blindsideproject.core.apps.chat.business
 			
 			removeListeners();
 			chatSO.close(); 
-			log.info("chatSO.close();");
+			//log.info("chatSO.close();");
 			connDelegate.disconnect();
 			model.chat.messageVO.message = "";	
 					
@@ -88,7 +87,7 @@ package org.blindsideproject.core.apps.chat.business
 		
 		private function removeListeners() : void
 		{
-			log.info("Removing Listeners...");
+			//log.info("Removing Listeners...");
 			chatSO.removeEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);
 			chatSO.removeEventListener(AsyncErrorEvent.ASYNC_ERROR, asyncErrorHandler);
 			chatSO.removeEventListener(SyncEvent.SYNC, sharedObjectSyncHandler);
@@ -97,17 +96,17 @@ package org.blindsideproject.core.apps.chat.business
 		
 		private function sharedObjectSyncHandler( event:SyncEvent ):void
 		{		
-            log.debug( "CHAT::sharedObjectSyncHandler " + event.changeList);
+            //log.debug( "CHAT::sharedObjectSyncHandler " + event.changeList);
 		}
 
 		private function netStatusHandler( event:NetStatusEvent ):void
 		{
-			log.debug( "CHAT::netStatusHandler:code: " + event.info.code );
+			//log.debug( "CHAT::netStatusHandler:code: " + event.info.code );
 		}
 			
 		private function asyncErrorHandler( event:AsyncErrorEvent ):void
 		{
-			log.debug( "CHAT::asyncErrorHandler:code: " + event.error );
+			//log.debug( "CHAT::asyncErrorHandler:code: " + event.error );
 		}			
 
 

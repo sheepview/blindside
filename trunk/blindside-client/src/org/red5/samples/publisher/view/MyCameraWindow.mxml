@@ -8,7 +8,7 @@
 			import org.red5.samples.publisher.view.SettingsWindow;
 			import com.adobe.cairngorm.control.CairngormEventDispatcher;
 			import org.blindsideproject.core.util.log.ILogger;
-			import org.blindsideproject.core.util.log.LoggerModelLocator;	
+			import org.blindsideproject.core.util.log.LoggerFacade;	
 		
 			import flash.events.*;
 			import mx.managers.PopUpManager;
@@ -23,7 +23,6 @@
 			import org.red5.samples.publisher.view.general.Images;
 			
 			private var model : PublisherModel = PublisherModelLocator.getInstance().model;
-			private var log : ILogger = LoggerModelLocator.getInstance().log;
 			
 			private var images : Images = new Images();
 			private var settingsWindow : SettingsWindow;
@@ -53,7 +52,7 @@
 			
 			public function recordStream() : void
 			{
-				log.debug("broadcast stream[" + media.streamName + "] is connected? " + media.connected);
+				//log.debug("broadcast stream[" + media.streamName + "] is connected? " + media.connected);
 			
 				if ( ! media.broadcasting ) 
 				{
@@ -124,7 +123,7 @@
 			
 			public function callThis() : void
 			{
-				log.warn("Settings window closing");
+				//log.warn("Settings window closing");
 			}    
 		]]>
 	</mx:Script>

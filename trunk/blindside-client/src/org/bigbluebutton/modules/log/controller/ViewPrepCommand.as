@@ -1,10 +1,11 @@
 package org.bigbluebutton.modules.log.controller
 {
+	import flash.events.Event;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
-	import org.bigbluebutton.modules.log.view.LogModuleMediator;
 	import org.bigbluebutton.modules.log.LogApplicationFacade;
+	import org.bigbluebutton.modules.log.view.LogModuleMediator;
 	import org.bigbluebutton.modules.log.view.components.LogModule;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.command.SimpleCommand;
@@ -30,7 +31,7 @@ package org.bigbluebutton.modules.log.controller
 			
 		}				
 
-        protected function onCompletion() :void {
+        protected function onCompletion(e:Event) :void {
 			sendNotification( LogApplicationFacade.MODULE_STARTED );
         }
 

@@ -10,7 +10,7 @@ package org.blindsideproject.views.chat
 	import mx.core.UIComponent;
 	import org.blindsideproject.core.apps.conference.model.*;
 	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerModelLocator;
+	import org.blindsideproject.core.util.log.LoggerFacade;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import mx.events.FlexEvent;
@@ -46,7 +46,7 @@ package org.blindsideproject.views.chat
 		private var model : ConferenceModelLocator = ConferenceModelLocator.getInstance();
 		private var modelc : ChatModelLocator = ChatModelLocator.getInstance();
 		private var dispatcher : CairngormEventDispatcher = modelc.dispatcher;
-		private var log : ILogger = LoggerModelLocator.getInstance().log;
+		private var log : ILogger = LoggerFacade.getInstance().log;
 		private var tempid : Number;
 		
 		public function PrivateChatPanel(userid : Number , toUserid : Number ,

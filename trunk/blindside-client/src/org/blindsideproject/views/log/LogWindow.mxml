@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<view:LogWindowClass xmlns:mx="http://www.adobe.com/2006/mxml"
-                  xmlns:view="org.blindsideproject.views.log.*">
-	<view:LogDisplay width="100%" height="100%"/>
-	
-	<view:LogControlBar width="100%" height="55" dock="true"
-					   paddingTop="-2" paddingBottom="0" shadowDistance="1"/>
-</view:LogWindowClass>

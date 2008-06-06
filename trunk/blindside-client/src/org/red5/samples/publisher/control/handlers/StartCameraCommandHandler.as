@@ -4,7 +4,7 @@ package org.red5.samples.publisher.control.handlers
 	import com.adobe.cairngorm.commands.ICommand;
 	import com.adobe.cairngorm.control.CairngormEvent;
 	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerModelLocator;
+	import org.blindsideproject.core.util.log.LoggerFacade;
 		
 	import flash.events.*;
 	import flash.media.*;
@@ -18,8 +18,6 @@ package org.red5.samples.publisher.control.handlers
 	{		
 		private var modelLoc : PublisherModelLocator = PublisherModelLocator.getInstance();
 		private var model : PublisherModel = modelLoc.model;
-		
-	 	private var log : ILogger = LoggerModelLocator.getInstance().log;
 	 	
 	 	private var camera : Camera; 	
 	 	private var videoLocal : Video;
@@ -56,7 +54,7 @@ package org.red5.samples.publisher.control.handlers
 				media.broadcastStreamDelegate.nsPublish.attachCamera( camera );
 			}
 			
-			log.debug( "StartCameraCommand::Started video device <b>" + camera.name + "</b>");
+			//log.debug( "StartCameraCommand::Started video device <b>" + camera.name + "</b>");
 			
 			media.video.localVideo = new Video( 320, 240 );
 			media.video.localVideo.attachCamera( camera );
