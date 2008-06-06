@@ -1,12 +1,12 @@
 package org.bigbluebutton.modules.chat.controller
 {
-	import org.puremvc.as3.multicore.interfaces.ICommand;
-	import org.puremvc.as3.multicore.patterns.command.SimpleCommand;
-	import org.puremvc.as3.multicore.interfaces.INotification;
-	import org.bigbluebutton.modules.chat.view.ApplicationMediator;
-	import org.bigbluebutton.modules.chat.view.components.ChatWindow;
 	import org.bigbluebutton.modules.chat.model.business.ChatProxy;
-	import org.bigbluebutton.main.view.components.MainApplicationShell;
+	import org.bigbluebutton.modules.chat.view.ApplicationMediator;
+	import org.bigbluebutton.modules.chat.view.ChatWindowMediator;
+	import org.bigbluebutton.modules.chat.view.components.ChatWindow;
+	import org.puremvc.as3.multicore.interfaces.ICommand;
+	import org.puremvc.as3.multicore.interfaces.INotification;
+	import org.puremvc.as3.multicore.patterns.command.SimpleCommand;
 
 	public class StartupCommand extends SimpleCommand implements ICommand
 	{
@@ -17,9 +17,10 @@ package org.bigbluebutton.modules.chat.controller
 		 * 
 		 */		
 		override public function execute(notification:INotification):void {
-			var app:MainApplicationShell = notification.getBody() as MainApplicationShell;
-			facade.registerMediator(new ApplicationMediator(app));
-			facade.registerProxy(new ChatProxy(app.chatWindow.messageVO));
+			var app:ChatWindow = notification.getBody() as ChatWindow;
+			//facade.registerMediator(new ApplicationMediator(app));
+			facade.registerMediator( new ChatWindowMediator( app ) );
+			facade.registerProxy(new ChatProxy(app.messageVO));
 		}
 	}
 }

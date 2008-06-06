@@ -8,7 +8,7 @@ package org.bigbluebutton.modules.chat.model.business
 	import flash.net.ObjectEncoding;
 	import flash.events.NetStatusEvent;
 	import flash.events.SecurityErrorEvent;
-	import org.bigbluebutton.modules.chat.model.business.ConnectionEvent;
+	
 	import mx.controls.Alert;
 	
 	public class Connection extends EventDispatcher

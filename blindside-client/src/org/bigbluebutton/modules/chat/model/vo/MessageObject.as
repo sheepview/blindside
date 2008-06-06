@@ -28,7 +28,7 @@ package org.bigbluebutton.modules.chat.model.vo
 		 * @return a string containing the last message
 		 * 
 		 */		
-		public function getMessgae (): String {
+		public function getMessage (): String {
 			return this.message;
 		}
 

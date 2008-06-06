@@ -1,12 +1,14 @@
 package org.bigbluebutton.modules.chat.view
 {
+	import flash.events.Event;
+	
+	import org.bigbluebutton.modules.chat.ChatFacade;
+	import org.bigbluebutton.modules.chat.model.business.ChatProxy;
+	import org.bigbluebutton.modules.chat.model.vo.*;
+	import org.bigbluebutton.modules.chat.view.components.ChatWindow;
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
-	import org.bigbluebutton.modules.chat.model.business.ChatProxy;
-	import org.bigbluebutton.modules.chat.view.components.ChatWindow;
-	import org.bigbluebutton.modules.chat.ChatFacade;
-	import org.bigbluebutton.modules.chat.model.vo.*;
 
 	public class ChatWindowMediator extends Mediator implements IMediator
 	{
@@ -15,7 +17,7 @@ package org.bigbluebutton.modules.chat.view
 		
 		public function ChatWindowMediator(viewComponent:ChatWindow)
 		{
-			super(mediatorName, viewComponent);
+			super(NAME, viewComponent);
 			viewComponent.addEventListener(ChatWindowMediator.NEW_MESSAGE, sendNewMessage);
 		}
 		
@@ -24,9 +26,10 @@ package org.bigbluebutton.modules.chat.view
 			return viewComponent as ChatWindow;
 		}
 		
-		public function sendNewMessage():void
+		public function sendNewMessage(e:Event):void
 		{
-			proxy.sendMessageToSharedObject(this.getViewComponent().m);
+			proxy.sendMessageToSharedObject(chatWindow.m);
+			
 		}
 		
 		
@@ -45,7 +48,7 @@ package org.bigbluebutton.modules.chat.view
 			switch(notification.getName())
 			{
 				case ChatFacade.NEW_MESSAGE:
-					this.getViewComponent().showNewMessage(notification.getBody() as MessageObject);
+					this.chatWindow.showNewMessage(notification.getBody() as MessageObject);
 					break;	
 			}
 		}
@@ -53,6 +56,7 @@ package org.bigbluebutton.modules.chat.view
 		public function get proxy():ChatProxy{
 			return facade.retrieveProxy(ChatProxy.NAME) as ChatProxy;
 		} 
+		
 		
 		
 		
