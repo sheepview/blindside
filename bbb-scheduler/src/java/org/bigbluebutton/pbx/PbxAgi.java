@@ -9,6 +9,8 @@ import groovy.util.ScriptException;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.sql.DataSource;
+
 import org.asteriskjava.fastagi.AgiChannel;
 import org.asteriskjava.fastagi.AgiException;
 import org.asteriskjava.fastagi.AgiRequest;
@@ -17,8 +19,17 @@ import org.asteriskjava.fastagi.AgiScript;
 public class PbxAgi implements AgiScript {
     private GroovyScriptEngine gse;
     private Sql db;
+    private DataSource dataSource;
+
+    private String scriptsLocation = null;
     
-    public PbxAgi(String url, String username, String password, String driver) throws IOException
+    public PbxAgi() throws IOException
+    {
+    	
+    }
+    
+    public PbxAgi(String url, String username, String password, 
+    	   String driver, String scriptsLocation) throws IOException
     {
     	System.out.println("INITIALIZING PBX-AGI");
     	try {
@@ -32,11 +43,29 @@ public class PbxAgi implements AgiScript {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-                
-    	String[] roots = new String[] { "agi/scripts/" };
+        
+		System.out.println("blank");
+    	String[] roots = new String[] { scriptsLocation };
         this.gse = new GroovyScriptEngine(roots);
     }
 
+    public void setDataSource(DataSource source)
+    {
+    	dataSource = source;
+    	db = new Sql(dataSource);
+    }
+    
+    public void setScriptsLocation(String location)
+    {
+    	scriptsLocation = location;
+    	try {
+			this.gse = new GroovyScriptEngine(scriptsLocation);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    
     public void service(AgiRequest request, AgiChannel channel)
             throws AgiException
     {
@@ -63,4 +92,8 @@ public class PbxAgi implements AgiScript {
                     script + "'", e);
         }
     }
+    
+//    public void setScriptsLocation(String location) {
+//    	scriptsLocation = location;
+//    }
 }

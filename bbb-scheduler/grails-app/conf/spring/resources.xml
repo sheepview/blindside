@@ -28,15 +28,26 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 	<bean id="mappingStrategy" class="org.asteriskjava.fastagi.SimpleMappingStrategy">
 		<property name="mappings">
 			<map>
-				<entry key="meetme.groovy" value-ref="pbxAgi" />
+				<entry key="meetme.groovy" value-ref="asteriskAgi" />
 			</map>
 		</property>
 	</bean>
 		
-	<bean id="pbxAgi" class="org.bigbluebutton.pbx.PbxAgi" >
+	<!--bean id="pbxAgi" class="org.bigbluebutton.pbx.PbxAgi" >
 		<constructor-arg index="0" value="jdbc:mysql://localhost:3306/bigbluebutton_dev"/>
 		<constructor-arg index="1" value="ralam"/>
-		<constructor-arg index="2" value=""/>
+		<constructor-arg index="2" value="secret"/>
 		<constructor-arg index="3" value="com.mysql.jdbc.Driver"/>
+		<constructor-arg index="4" value="d:/ralam/source/bigbluebutton/agi/scripts/" />
 	</bean>
+
+	<bean id="pbxAgi" class="org.bigbluebutton.pbx.PbxAgi" >
+      <property name="dataSource" ref="dataSource"/>
+      <property name="scriptsLocation" value="d:/ralam/source/bigbluebutton/agi/scripts/" />
+	</bean-->
+	
+	<bean id="asteriskAgi" class="org.bigbluebutton.pbx.asterisk.AsteriskAgi" >
+      <property name="dataSource" ref="dataSource"/>
+      <property name="scriptsLocation" value="${scriptsLocation}" />
+	</bean>	
 </beans>

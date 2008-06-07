@@ -2,12 +2,12 @@
 println "meetme begin"
 
 
-number = channel.getData("conf-getconfno", 5000, 10)
-conf = db.firstRow("SELECT * FROM Conference WHERE number=$number")
+number = channel.getData("conf-getconfno", 10000, 10)
+conf = db.firstRow("SELECT * FROM conference WHERE number=$number")
 if (conf) println "found one! " + conf.name
 
 if (conf) { 
-	pin = channel.getData("conf-getpin", 5000)
+	pin = channel.getData("conf-getpin", 10000)
 	println pin
 	println conf.pin
 	if (pin.toInteger() == conf.pin) {
@@ -16,6 +16,8 @@ if (conf) {
 	} else {
 		channel.streamFile("conf-invalidpin")
 	}
+} else {
+	channel.streamFile("conf-invalid")
 }
 
 /*
