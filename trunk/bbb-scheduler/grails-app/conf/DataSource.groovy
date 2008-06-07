@@ -15,9 +15,6 @@ environments {
 		dataSource {
 			pooled = true
 			dbCreate = "update" // one of 'create', 'create-drop','update'
-			url = "jdbc:mysql://localhost/bigbluebutton_dev"
-			username = "ralam"
-			password = ""
 		}
 	}
 	test {
@@ -28,8 +25,8 @@ environments {
 	}
 	production {
 		dataSource {
-			dbCreate = "update"
-			url = "jdbc:hsqldb:file:prodDb;shutdown=true"
+			pooled = true
+			dbCreate = "update" // one of 'create', 'create-drop','update'
 		}
 	}
 }

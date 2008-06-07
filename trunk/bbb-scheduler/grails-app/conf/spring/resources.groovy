@@ -8,5 +8,4 @@ beans = {
 			   
 //		   asteriskServer(org.asteriskjava.live.DefaultAsteriskServer,
 //					"192.168.0.101", "ralam", "secure") {}  		
-    
 }
