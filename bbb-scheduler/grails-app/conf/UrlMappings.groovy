@@ -6,5 +6,7 @@ class UrlMappings {
 		  }
 	  }
 	  "500"(view:'/error')
+	  
+	  "/" (controller: 'conference', action: 'list')
 	}
 }

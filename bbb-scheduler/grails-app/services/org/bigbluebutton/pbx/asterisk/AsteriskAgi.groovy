@@ -15,6 +15,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import javax.sql.DataSource;
 
+import org.bigbluebutton.domain.CallDetailRecord;
+import Conference;
+
 class AsteriskAgi implements AgiScript {
 
     private GroovyScriptEngine gse
@@ -42,6 +45,32 @@ class AsteriskAgi implements AgiScript {
     
     def void service(AgiRequest request, AgiChannel channel)
             throws AgiException {
+            
+		def number = channel.getData("conf-getconfno", 10000, 10)
+		println "you entered "
+		println "$number"
+		
+	 	//def conf = db.firstRow("SELECT * FROM conference WHERE number=$number")
+		
+		def conf = Conference.findByNumber(number)
+		
+		if (conf) println "found one! " + conf.name
+
+		if (conf) { 
+			def pin = channel.getData("conf-getpin", 10000)
+			println pin
+			println conf.pin
+			if (pin.toInteger() == conf.pin) {
+				channel.streamFile("conf-placeintoconf")
+				channel.exec("Meetme", "$number|dMq")
+			} else {
+				channel.streamFile("conf-invalidpin")
+			}
+		} else {
+			channel.streamFile("conf-invalid")
+		}
+
+/*
         String script;
         Binding binding;
 
@@ -64,6 +93,7 @@ class AsteriskAgi implements AgiScript {
             throw new AgiException("Exception while running groovy script '" +
                     script + "'", e);
         }
+*/
     } 
 
 }

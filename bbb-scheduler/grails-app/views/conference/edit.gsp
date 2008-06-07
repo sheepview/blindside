@@ -87,14 +87,7 @@
                                     <label for="attendees">Attendees:</label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean:conference,field:'attendees','errors')}">
-                                    
-<ul>
-<g:each var="a" in="${conference?.attendees?}">
-    <li><g:link controller="attendee" action="show" id="${a.id}">${a}</g:link></li>
-</g:each>
-</ul>
-<g:link controller="attendee" params="["conference.id":conference?.id]" action="create">Add Attendee</g:link>
-
+                                    <input type="text" id="attendees" name="attendees" value="${fieldValue(bean:conference,field:'attendees')}"/>
                                 </td>
                             </tr> 
                         
@@ -102,8 +95,8 @@
                                 <td valign="top" class="name">
                                     <label for="dateCreated">Date Created:</label>
                                 </td>
-                                <td valign="top" class="value">
-                                    ${conference?.dateCreated}
+                                <td valign="top" class="value ${hasErrors(bean:conference,field:'dateCreated','errors')}">
+                                    <g:datePicker name="dateCreated" value="${conference?.dateCreated}" ></g:datePicker>
                                 </td>
                             </tr> 
                         
@@ -111,8 +104,8 @@
                                 <td valign="top" class="name">
                                     <label for="lastUpdated">Last Updated:</label>
                                 </td>
-                                <td valign="top" class="value">
-                                    ${conference?.lastUpdated}
+                                <td valign="top" class="value ${hasErrors(bean:conference,field:'lastUpdated','errors')}">
+                                    <g:datePicker name="lastUpdated" value="${conference?.lastUpdated}" ></g:datePicker>
                                 </td>
                             </tr> 
                         

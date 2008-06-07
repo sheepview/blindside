@@ -7,6 +7,10 @@
         <title>Create Conference</title>         
     </head>
     <body>
+        <div class="nav">
+        	<div class="nav">
+        		<g:render template="/adminmenubar" />
+        	</div>
             <span class="menuButton"><a class="home" href="${createLinkTo(dir:'')}">Home</a></span>
             <span class="menuButton"><g:link class="list" action="list">Conference List</g:link></span>
         </div>
@@ -76,6 +80,17 @@
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean:conference,field:'numberOfAttendees','errors')}">
                                     <input type="text" id="numberOfAttendees" name="numberOfAttendees" value="${fieldValue(bean:conference,field:'numberOfAttendees')}" />
+                                </td>
+                            </tr> 
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="attendees">Attendees:</label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean:conference,field:'attendees','errors')}">
+                                	<g:textArea id="attendees" name="attendees" value="${fieldValue(bean:conference,field:'attendees')}" rows="5" cols="40"/>
+                                	
+                                    <!--input type="text" id="attendees" name="attendees" value="${fieldValue(bean:conference,field:'attendees')}"/-->
                                 </td>
                             </tr> 
                         
