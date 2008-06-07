@@ -3,7 +3,6 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <g:javascript library="conference" />
         <meta name="layout" content="main" />
         <title>Show Conference</title>
     </head>
@@ -22,6 +21,14 @@
                 <table>
                     <tbody>
 
+                    
+                        <tr class="prop">
+                            <td valign="top" class="name">Id:</td>
+                            
+                            <td valign="top" class="value">${conference.id}</td>
+                            
+                        </tr>
+                    
                         <tr class="prop">
                             <td valign="top" class="name">Name:</td>
                             
@@ -67,13 +74,7 @@
                         <tr class="prop">
                             <td valign="top" class="name">Attendees:</td>
                             
-                            <td  valign="top" style="text-align:left;" class="value">
-                                <ul>
-                                <g:each var="a" in="${conference.attendees}">
-                                    <li><g:link controller="attendee" action="show" id="${a.id}">${a}</g:link></li>
-                                </g:each>
-                                </ul>
-                            </td>
+                            <td valign="top" class="value">${conference.attendees}</td>
                             
                         </tr>
                     
@@ -98,7 +99,7 @@
                 <g:form>
                     <input type="hidden" name="id" value="${conference?.id}" />
                     <span class="button"><g:actionSubmit class="edit" value="Edit" /></span>
-                    <span class="button"><g:actionSubmit class="delete" onclick="return warnBeforeConferenceDelete();" value="Delete" /></span>
+                    <span class="button"><g:actionSubmit class="delete" onclick="return confirm('Are you sure?');" value="Delete" /></span>
                 </g:form>
             </div>
         </div>

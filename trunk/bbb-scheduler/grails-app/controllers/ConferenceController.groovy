@@ -1,6 +1,6 @@
             
 class ConferenceController extends BaseController {
-    def beforeInterceptor = [action:this.&auth, except:[]]
+    def beforeInterceptor = [action:this.&auth]
     
     def index = { redirect(action:list,params:params) }
 
