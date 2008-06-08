@@ -15,8 +15,6 @@
 			import org.blindsideproject.main.BlindsideAppLocator;
 			import mx.binding.utils.BindingUtils;
 	
-			import org.blindsideproject.core.util.log.ILogger;
-			import org.blindsideproject.core.util.log.LoggerFacade;
 						
 			import org.blindsideproject.views.general.Images;
 

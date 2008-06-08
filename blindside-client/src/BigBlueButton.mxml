@@ -2,8 +2,7 @@
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
 	xmlns:mainView="org.bigbluebutton.main.view.components.*"
 	pageTitle="Big Blue Button"
-	layout="absolute"
-	creationComplete="facade.startup(this)">
+	layout="absolute">
 
 	<mx:Script>
 		<![CDATA[

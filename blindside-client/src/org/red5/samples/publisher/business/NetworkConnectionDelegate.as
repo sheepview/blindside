@@ -1,8 +1,6 @@
 package org.red5.samples.publisher.business
 {
 	import com.adobe.cairngorm.business.ServiceLocator;
-	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerFacade;
 		
 	import flash.events.*;
 	import flash.net.*;

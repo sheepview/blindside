@@ -6,7 +6,6 @@ package org.blindsideproject.core.apps.conference.controller.handlers
 	import org.blindsideproject.core.apps.conference.model.ConferenceModelLocator;
 	import org.blindsideproject.core.apps.conference.model.ConferenceModel;
 	import org.blindsideproject.core.apps.conference.controller.commands.JoinCommand;
-	import org.blindsideproject.core.util.log.ILogger;
 	
 	import mx.rpc.IResponder;
 

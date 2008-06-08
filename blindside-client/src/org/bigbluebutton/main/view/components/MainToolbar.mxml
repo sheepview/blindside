@@ -7,11 +7,11 @@
 		]]>
 	</mx:Script>
 	
-	<mx:Button id="webcamBtn" visible="true"
-    	   					width="20" height="20" click=""
+	<mx:Button id="chatBtn" label="Chat" visible="true"
+    	   					 click=""
     	   					toolTip="Click to open monitor"/>    
-	<mx:Button id="phoneBtn" visible="true"
-    	   					width="20" height="20" click=""
+	<mx:Button id="LogBtn" label="Log" visible="true"
+    	   					click=""
     	   					toolTip="Click to start phone"/> 						
 	<mx:Spacer width="100%"/>
 	<mx:Button label="Logout" id="btnLogout" right="10" click="" enabled="true"/>		

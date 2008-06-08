@@ -9,8 +9,6 @@ package org.bigbluebutton.modules.presentation
 	import org.bigbluebutton.modules.presentation.model.PresentationModel;
 	import org.bigbluebutton.modules.presentation.model.business.PresentationDelegate;
 	import org.bigbluebutton.modules.presentation.view.PresentationWindow;
-	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerFacade;
 	import org.puremvc.as3.multicore.interfaces.IFacade;
 	import org.puremvc.as3.multicore.patterns.facade.Facade;
 	

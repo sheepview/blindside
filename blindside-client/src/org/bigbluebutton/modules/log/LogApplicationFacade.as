@@ -1,7 +1,7 @@
 package org.bigbluebutton.modules.log
 {
 	import org.bigbluebutton.modules.log.controller.StartupCommand;
-	import org.bigbluebutton.modules.log.view.components.LogModule;
+	import org.bigbluebutton.modules.log.LogModule;
 	import org.puremvc.as3.multicore.interfaces.IFacade;
 	import org.puremvc.as3.multicore.patterns.facade.Facade;
 

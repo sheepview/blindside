@@ -1,7 +1,6 @@
 package org.blindsideproject.core.apps.conference.model
 {
 	import com.adobe.cairngorm.model.IModelLocator;
-	import org.blindsideproject.core.util.log.*;
 
 	import org.blindsideproject.core.apps.conference.business.ConferenceDelegate;
 		

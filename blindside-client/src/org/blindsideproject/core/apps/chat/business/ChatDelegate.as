@@ -9,7 +9,6 @@ package org.blindsideproject.core.apps.chat.business
 	import com.adobe.cairngorm.control.CairngormEventDispatcher;
 	import org.blindsideproject.core.apps.chat.model.*;
 	import org.blindsideproject.core.apps.chat.vo.MessageVO;
-	import org.blindsideproject.core.util.log.*;
 	import org.blindsideproject.core.apps.conference.model.ConferenceModelLocator;
 	import org.blindsideproject.core.apps.conference.model.ConferenceModel;
 	import org.blindsideproject.core.apps.chat.controller.events.*;

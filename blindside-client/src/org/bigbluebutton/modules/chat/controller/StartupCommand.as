@@ -1,7 +1,6 @@
 package org.bigbluebutton.modules.chat.controller
 {
 	import org.bigbluebutton.modules.chat.model.business.ChatProxy;
-	import org.bigbluebutton.modules.chat.view.ApplicationMediator;
 	import org.bigbluebutton.modules.chat.view.ChatWindowMediator;
 	import org.bigbluebutton.modules.chat.view.components.ChatWindow;
 	import org.puremvc.as3.multicore.interfaces.ICommand;

@@ -5,8 +5,6 @@ package org.bigbluebutton.modules.voiceconference.model.business
 	
 	import org.bigbluebutton.modules.voiceconference.VoiceConferenceFacade;
 	import org.bigbluebutton.modules.voiceconference.control.notifiers.MuteNotifier;
-	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerFacade;
 	import org.puremvc.as3.multicore.interfaces.IProxy;
 	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
 		

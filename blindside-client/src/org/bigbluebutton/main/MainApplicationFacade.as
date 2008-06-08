@@ -1,13 +1,10 @@
 package org.bigbluebutton.main
 {
 	import org.bigbluebutton.core.Constants;
-	import org.puremvc.as3.multicore.interfaces.IFacade;
-	import org.puremvc.as3.multicore.interfaces.IMediator;
-	import org.puremvc.as3.multicore.interfaces.INotification;
-	import org.puremvc.as3.multicore.interfaces.IProxy;
-	import org.puremvc.as3.multicore.patterns.facade.Facade;
-
 	import org.bigbluebutton.main.controller.StartupCommand;
+	import org.bigbluebutton.main.view.components.MainApplicationShell;
+	import org.puremvc.as3.multicore.interfaces.IFacade;
+	import org.puremvc.as3.multicore.patterns.facade.Facade;
 	
 	public class MainApplicationFacade extends Facade implements IFacade
 	{
@@ -45,7 +42,7 @@ package org.bigbluebutton.main
          * 
          * @param app a reference to the application component 
          */  
-        public function startup( app:BigBlueButton ):void
+        public function startup( app:MainApplicationShell ):void
         {
         	sendNotification( STARTUP, app );
         }		

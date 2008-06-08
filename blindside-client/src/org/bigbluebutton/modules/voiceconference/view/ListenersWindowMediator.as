@@ -3,8 +3,6 @@ package org.bigbluebutton.modules.voiceconference.view
 	import flash.events.Event;
 	
 	import org.bigbluebutton.modules.voiceconference.VoiceConferenceFacade;
-	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerFacade;
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;

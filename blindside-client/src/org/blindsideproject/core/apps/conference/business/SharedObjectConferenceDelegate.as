@@ -1,7 +1,5 @@
 package org.blindsideproject.core.apps.conference.business
 {
-	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerFacade;
 	
 	import org.blindsideproject.core.apps.conference.model.Conference;
 	import org.blindsideproject.core.apps.conference.controller.events.DisconnectedEvent;

@@ -14,9 +14,7 @@
 			import org.bigbluebutton.modules.presentation.PresentationFacade;
 			import org.blindsideproject.main.BlindsideAppLocator;
 			import mx.binding.utils.BindingUtils;
-	
-			import org.blindsideproject.core.util.log.ILogger;
-			import org.blindsideproject.core.util.log.LoggerFacade;						
+					
 			import org.blindsideproject.views.general.Images;
 
 			import mx.collections.ArrayCollection;

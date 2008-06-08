@@ -37,8 +37,6 @@
 <application path="LogApplication.mxml"/>
 <application path="PresentationUnitTests.mxml"/>
 </applications>
-<modules>
-<module destPath="org/bigbluebutton/modules/log/view/components/LogModule.swf" optimize="false" sourcePath="src/org/bigbluebutton/modules/log/view/components/LogModule.mxml"/>
-</modules>
+<modules/>
 <buildCSSFiles/>
 </actionScriptProperties>
