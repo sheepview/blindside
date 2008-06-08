@@ -3,8 +3,10 @@ package org.bigbluebutton.modules.log.view
 	import org.bigbluebutton.core.interfaces.InputPipe;
 	import org.bigbluebutton.core.interfaces.OutputPipe;
 	import org.bigbluebutton.core.interfaces.Router;
-	import org.bigbluebutton.modules.log.LogApplicationFacade;
+	import org.bigbluebutton.main.MainApplicationConstants;
+	import org.bigbluebutton.modules.log.LogModuleFacade;
 	import org.bigbluebutton.modules.log.LogModule;
+	import org.bigbluebutton.modules.log.LogModuleConstants;
 	import org.bigbluebutton.modules.log.view.components.LogWindow;
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
@@ -17,9 +19,7 @@ package org.bigbluebutton.modules.log.view
 	public class LogModuleMediator extends Mediator implements IMediator
 	{
 		public static const NAME:String = 'LogModuleMediator';
-		public static const LOG_OUTPIPE:String = 'LOG_OUTPIPE';
-		public static const LOG_INPIPE:String = 'LOG_INPIPE';
-		
+
 		private var outpipe : OutputPipe;
 		private var inpipe : InputPipe;
 		private var router : Router;
@@ -33,8 +33,8 @@ package org.bigbluebutton.modules.log.view
 			viewComponent.mshell.debugLog.text = "in logmodule mediator";
 			
 			router = viewComponent.router;
-			inpipe = new InputPipe(LOG_INPIPE);
-			outpipe = new OutputPipe(LOG_OUTPIPE);
+			inpipe = new InputPipe(LogModuleConstants.TO_LOG_MODULE);
+			outpipe = new OutputPipe(LogModuleConstants.FROM_LOG_MODULE);
 			inpipeListener = new PipeListener(this, messageReceiver);
 			router.registerOutputPipe(outpipe.name, outpipe);
 			router.registerInputPipe(inpipe.name, inpipe);
@@ -49,8 +49,8 @@ package org.bigbluebutton.modules.log.view
 		
 		override public function listNotificationInterests():Array
 		{
-			return [ LogApplicationFacade.MODULE_STARTED, 
-					 LogApplicationFacade.REMOVE_WINDOW
+			return [ LogModuleFacade.MODULE_STARTED, 
+					 LogModuleFacade.REMOVE_WINDOW
 			       ];
 		}
 		
@@ -58,16 +58,16 @@ package org.bigbluebutton.modules.log.view
 		{
 			switch ( note.getName() )
 			{
-				case LogApplicationFacade.MODULE_STARTED:
+				case LogModuleFacade.MODULE_STARTED:
 					logWindow.width = 210;
 					logWindow.height = 200;
-					var addWindowMsg : IPipeMessage = new Message(LogApplicationFacade.ADD_WINDOW, null, logWindow);
+					var addWindowMsg : IPipeMessage = new Message(LogModuleFacade.ADD_WINDOW, null, logWindow);
 					//logModule.sendMessage(addWindowMsg);		
 //					logModule.mbus.outputPipe().write(addWindowMsg);
 					break;
 					
-				case LogApplicationFacade.REMOVE_WINDOW:
-					var removeWindowMsg : IPipeMessage = new Message(LogApplicationFacade.REMOVE_WINDOW, null, logWindow);			
+				case LogModuleFacade.REMOVE_WINDOW:
+					var removeWindowMsg : IPipeMessage = new Message(LogModuleFacade.REMOVE_WINDOW, null, logWindow);			
 					//logModule.mbus.outputPipe().write(removeWindowMsg);
 					break;
 			}
@@ -77,7 +77,8 @@ package org.bigbluebutton.modules.log.view
 		{
 			// create a message
    			var msg:IPipeMessage = new Message(Message.NORMAL);
-   			msg.setHeader( {MSG:'ADD_WINDOW', SRC:LOG_OUTPIPE, TO: 'SHELL_INPIPE' });
+   			msg.setHeader( {MSG:MainApplicationConstants.ADD_WINDOW_MSG, SRC: LogModuleConstants.FROM_LOG_MODULE,
+   						TO: MainApplicationConstants.TO_MAIN });
    			msg.setPriority(Message.PRIORITY_HIGH );
    			
 			logWindow.width = 210;

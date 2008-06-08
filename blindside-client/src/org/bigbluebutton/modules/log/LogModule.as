@@ -10,14 +10,14 @@ package org.bigbluebutton.modules.log
 	{
 		public static const NAME:String = 'LogModule';
 		
-		private var facade : LogApplicationFacade;		
+		private var facade : LogModuleFacade;		
 		private var _router : Router;
 		public var mshell : MainApplicationShell;
 		
 		public function LogModule()
 		{
 			super();
-			facade = LogApplicationFacade.getInstance(NAME);			
+			facade = LogModuleFacade.getInstance(NAME);			
 		}
 
 		public function acceptRouter(router : Router, shell : MainApplicationShell) : void
@@ -26,7 +26,7 @@ package org.bigbluebutton.modules.log
 			shell.debugLog.text = 'In LogModule';
 			_router = router;
 			shell.debugLog.text = 'In LogModule 2';
-			LogApplicationFacade(facade).startup(this);			
+			LogModuleFacade(facade).startup(this);			
 			shell.debugLog.text = 'In LogModule 3';
 		}
 		

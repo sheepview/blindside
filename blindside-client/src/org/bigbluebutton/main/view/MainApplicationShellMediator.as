@@ -2,10 +2,10 @@ package org.bigbluebutton.main.view
 {
 	import flexlib.mdi.containers.MDIWindow;
 	
-	import org.bigbluebutton.core.Messages;
 	import org.bigbluebutton.core.interfaces.InputPipe;
 	import org.bigbluebutton.core.interfaces.OutputPipe;
 	import org.bigbluebutton.core.interfaces.Router;
+	import org.bigbluebutton.main.MainApplicationConstants;
 	import org.bigbluebutton.main.view.components.MainApplicationShell;
 	import org.bigbluebutton.modules.log.LogModule;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
@@ -15,8 +15,7 @@ package org.bigbluebutton.main.view
 	public class MainApplicationShellMediator extends Mediator
 	{
 		public static const NAME:String = 'MainApplicationShellMediator';
-		public static const OUTPIPE_NAME:String = 'SHELL_OUTPIPE';
-		public static const INPIPE_NAME:String = 'SHELL_INPIPE';
+
 		
 		private var outpipe : OutputPipe;
 		private var inpipe : InputPipe;
@@ -29,8 +28,8 @@ package org.bigbluebutton.main.view
 			super( NAME, viewComponent );
 			router = new Router(viewComponent);
 			viewComponent.debugLog.text = "Log Module inited 1";
-			inpipe = new InputPipe(INPIPE_NAME);
-			outpipe = new OutputPipe(OUTPIPE_NAME);
+			inpipe = new InputPipe(MainApplicationConstants.TO_MAIN);
+			outpipe = new OutputPipe(MainApplicationConstants.FROM_MAIN);
 			inpipeListener = new PipeListener(this, messageReceiver);
 			inpipe.connect(inpipeListener);
 			router.registerOutputPipe(outpipe.name, outpipe);
@@ -51,12 +50,12 @@ package org.bigbluebutton.main.view
 			
 			switch (msg)
 			{
-				case Messages.ADD_WINDOW:
+				case MainApplicationConstants.ADD_WINDOW_MSG:
 					window = message.getBody() as MDIWindow;
 					shell.mdiCanvas.windowManager.add(window);
 					shell.mdiCanvas.windowManager.absPos(window, 20, 250);	
 					break;
-				case Messages.REMOVE_WINDOW:
+				case MainApplicationConstants.REMOVE_WINDOW_MSG:
 					window = message.getBody() as MDIWindow;
 					shell.mdiCanvas.windowManager.remove(window);
 					break;									

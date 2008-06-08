@@ -28,8 +28,6 @@
 			width="100%" height="100%">			
 		</flexmdi:MDICanvas>	
 		
-		<!--main:LoginWindow id="loginWindow" title="Old Title"/-->
-		
 	 	<mx:ControlBar width="100%" height="20" paddingTop="0">		
 		  <mx:Label text="(c) 2007, BigBlueButton Project" id="copyrightLabel2"/>
 		  <mx:Spacer width="20"/>
