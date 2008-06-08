@@ -28,26 +28,26 @@ package org.bigbluebutton.main.view
 		{
 			super( NAME, viewComponent );
 			router = new Router(viewComponent);
-			viewComponent.loginWindow.title = "Log Module inited 1";
+			viewComponent.debugLog.text = "Log Module inited 1";
 			inpipe = new InputPipe(INPIPE_NAME);
 			outpipe = new OutputPipe(OUTPIPE_NAME);
 			inpipeListener = new PipeListener(this, messageReceiver);
 			inpipe.connect(inpipeListener);
 			router.registerOutputPipe(outpipe.name, outpipe);
 			router.registerInputPipe(inpipe.name, inpipe);
-			viewComponent.loginWindow.title = "Log Module inited 1.5";
+			viewComponent.debugLog.text = "Log Module inited 1.5";
 			
 			logModule = new LogModule();
-			viewComponent.loginWindow.title = "Log Module inited 1.65";
+			viewComponent.debugLog.text = "Log Module inited 1.65";
 			logModule.acceptRouter(router, viewComponent);
-			viewComponent.loginWindow.title = "Log Module inited 2";
+			viewComponent.debugLog.text = "Log Module inited 2";
 		}
 		
 		private function messageReceiver(message : IPipeMessage) : void
 		{
 			var msg : String = message.getHeader().MSG as String;
 			var window : MDIWindow;
-			shell.loginWindow.title = "Got message: " + msg;
+			shell.debugLog.text = "Got message: " + msg;
 			
 			switch (msg)
 			{

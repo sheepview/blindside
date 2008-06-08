@@ -16,9 +16,9 @@
 						
 			protected function initializeShell():void
 			{
-				loginWindow.title = "before startup in initShell";
+				debugLog.text = "before startup in initShell";
 				facade.startup(this);
-				loginWindow.title = "After startup in initShell";
+				debugLog.text = "After startup in initShell";
 			}
 		]]>
 	</mx:Script>
@@ -28,12 +28,11 @@
 			width="100%" height="100%">			
 		</flexmdi:MDICanvas>	
 		
-		<main:LoginWindow id="loginWindow" title="Old Title"/>
+		<!--main:LoginWindow id="loginWindow" title="Old Title"/-->
 		
 	 	<mx:ControlBar width="100%" height="20" paddingTop="0">		
 		  <mx:Label text="(c) 2007, BigBlueButton Project" id="copyrightLabel2"/>
-		  <mx:Spacer width="100%"/>
-		  <!--mx:Button label="Log" click="createLogModule();"/>
-		  <mx:Button label="Chat" click="createChatModule();"/-->    
+		  <mx:Spacer width="20"/>
+		  <mx:Label id="debugLog" text="Log" />  
 		</mx:ControlBar>
 </mx:VBox>
