@@ -30,7 +30,7 @@ package org.bigbluebutton.modules.log.view
 		public function LogModuleMediator( viewComponent:LogModule )
 		{
 			super( NAME, viewComponent );	
-			viewComponent.mshell.loginWindow.title = "in logmodule mediator";
+			viewComponent.mshell.debugLog.text = "in logmodule mediator";
 			
 			router = viewComponent.router;
 			inpipe = new InputPipe(LOG_INPIPE);
@@ -38,7 +38,7 @@ package org.bigbluebutton.modules.log.view
 			inpipeListener = new PipeListener(this, messageReceiver);
 			router.registerOutputPipe(outpipe.name, outpipe);
 			router.registerInputPipe(inpipe.name, inpipe);
-			viewComponent.mshell.loginWindow.title = "in logmodule mediator 2";
+			viewComponent.mshell.debugLog.text = "in logmodule mediator 2";
 			addWindow();
 		}
 
@@ -83,7 +83,7 @@ package org.bigbluebutton.modules.log.view
 			logWindow.width = 210;
 			logWindow.height = 200;
 			msg.setBody(logWindow);
-			viewComponent.mshell.loginWindow.title = "in logmodule mediator addwindow";
+			viewComponent.mshell.debugLog.text = "in logmodule mediator addwindow";
 			outpipe.write(msg);			
 		}
 		
