@@ -6,8 +6,7 @@
    		import mx.controls.Image;
    		import org.blindsideproject.views.general.Images;
    		import com.adobe.cairngorm.control.CairngormEventDispatcher;
-		import org.blindsideproject.core.util.log.ILogger;
-		import org.blindsideproject.core.util.log.LoggerFacade;
+
 
 		import mx.events.DragEvent;
 	    import flash.events.MouseEvent;

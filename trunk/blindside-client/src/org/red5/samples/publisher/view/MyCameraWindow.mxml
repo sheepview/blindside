@@ -7,8 +7,6 @@
 		<![CDATA[
 			import org.red5.samples.publisher.view.SettingsWindow;
 			import com.adobe.cairngorm.control.CairngormEventDispatcher;
-			import org.blindsideproject.core.util.log.ILogger;
-			import org.blindsideproject.core.util.log.LoggerFacade;	
 		
 			import flash.events.*;
 			import mx.managers.PopUpManager;

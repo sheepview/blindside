@@ -1,5 +1,6 @@
 package org.bigbluebutton.core.interfaces
 {
+	import org.bigbluebutton.main.view.components.MainApplicationShell;
 	import org.puremvc.as3.multicore.utilities.pipes.interfaces.IPipeFitting;
 	import org.puremvc.as3.multicore.utilities.pipes.interfaces.IPipeMessage;
 	import org.puremvc.as3.multicore.utilities.pipes.plumbing.Junction;
@@ -23,13 +24,17 @@ package org.bigbluebutton.core.interfaces
 		//    outpipe --->|
 		//    outpipe --->|---> listener ---> inputpipe
 		//    outpipe --->|
+		//
 		private var teeMerge:TeeMerge = new TeeMerge( );
 		
 		// Stores all our INPUT and OUTPUT Pipes
 		private var junction : Junction = new Junction();
 		
-		public function Router()
+		private var rshell : MainApplicationShell;
+		
+		public function Router(shell : MainApplicationShell = null)
 		{
+			rshell = shell;
 			inputMessageRouter = new PipeListener(this, routeMessage);
 			teeMerge.connect(inputMessageRouter);
 		}
@@ -61,8 +66,13 @@ package org.bigbluebutton.core.interfaces
 		 */
 		private function routeMessage(message:IPipeMessage):void
 		{
+			rshell.loginWindow.title = 'routing message to ' + message.getHeader().TO;
+			
 			var TO : String = message.getHeader().TO;
-			junction.sendMessage(TO, message);
+			var haspipe : Boolean = junction.hasOutputPipe(TO);
+			rshell.loginWindow.title = 'There is a pipe with name ' + message.getHeader().TO + haspipe;
+			var success: Boolean = junction.sendMessage(TO, message);
+			rshell.loginWindow.title = 'routing message to ' + message.getHeader().TO + success;
 		}
 	}
 }

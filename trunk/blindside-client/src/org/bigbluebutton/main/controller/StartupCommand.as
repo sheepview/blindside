@@ -1,6 +1,7 @@
 package org.bigbluebutton.main.controller
 {
 	import org.bigbluebutton.main.view.MainApplicationShellMediator;
+	import org.bigbluebutton.main.view.components.MainApplicationShell;
 	import org.puremvc.as3.multicore.interfaces.ICommand;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.command.SimpleCommand;
@@ -9,8 +10,8 @@ package org.bigbluebutton.main.controller
 	{	
 		override public function execute(note:INotification):void
 		{
-			var app:BigBlueButton = note.getBody() as BigBlueButton;
-			facade.registerMediator( new MainApplicationShellMediator( app.mainShell ) );			
+			var app:MainApplicationShell = note.getBody() as MainApplicationShell;
+			facade.registerMediator( new MainApplicationShellMediator( app ) );			
 		}		
 	}
 }

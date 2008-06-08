@@ -6,7 +6,7 @@ package org.bigbluebutton.modules.log.controller
 	
 	import org.bigbluebutton.modules.log.LogApplicationFacade;
 	import org.bigbluebutton.modules.log.view.LogModuleMediator;
-	import org.bigbluebutton.modules.log.view.components.LogModule;
+	import org.bigbluebutton.modules.log.LogModule;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.command.SimpleCommand;
 	
@@ -20,20 +20,7 @@ package org.bigbluebutton.modules.log.controller
 		override public function execute(note:INotification):void
 		{
 			var app:LogModule = note.getBody() as LogModule;
-			facade.registerMediator( new LogModuleMediator( app ) );
-			
-//			onCompletion();
-			var timer :Timer = new Timer( 50, 1 );
-            timer.addEventListener( TimerEvent.TIMER, onCompletion );
-            timer.start();
-
-
-			
+			facade.registerMediator( new LogModuleMediator( app ) );			
 		}				
-
-        protected function onCompletion(e:Event) :void {
-			sendNotification( LogApplicationFacade.MODULE_STARTED );
-        }
-
 	}
 }

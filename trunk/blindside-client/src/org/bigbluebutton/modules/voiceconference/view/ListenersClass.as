@@ -6,8 +6,6 @@ package org.bigbluebutton.modules.voiceconference.view
 	
 	import org.bigbluebutton.modules.voiceconference.VoiceConferenceFacade;
 	import org.bigbluebutton.modules.voiceconference.model.VoiceConferenceRoom;
-	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerFacade;
 
 	/**
 	 * This is a convinience class extended by the Listeners Window. It holds some variables

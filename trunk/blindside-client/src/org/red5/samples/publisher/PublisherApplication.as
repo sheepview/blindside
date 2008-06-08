@@ -2,8 +2,6 @@ package org.red5.samples.publisher
 {
 	import org.red5.samples.publisher.control.commands.*;
 	import org.red5.samples.publisher.model.*;	
-	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerFacade;	
 	import org.red5.samples.publisher.vo.settings.*;
 			
 	import flash.net.ObjectEncoding;

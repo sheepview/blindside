@@ -5,8 +5,6 @@ package org.blindsideproject.core.apps.chat.business
 	import flash.events.*;
 		
 	import org.blindsideproject.core.apps.chat.model.ChatModelLocator;
-	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerFacade;
 		
 	public class NetConnectionDelegate
 	{

@@ -5,157 +5,35 @@
 		xmlns:main="org.bigbluebutton.main.view.components.*"
 		width="100%" height="100%"
 		creationComplete="initializeShell()">
-
-	<mx:Metadata>
-		[Event('ADD_WINDOW', org.bigbluebutton.main.view.events.AddWindowEvent)]	
-		[Event('REMOVE_WINDOW', org.bigbluebutton.main.view.events.RemoveWindowEvent)]	
-	</mx:Metadata>
-			
+		
 	<mx:Script>
 		<![CDATA[
-			import org.blindsideproject.views.chat.Chat;
-			import org.bigbluebutton.modules.chat.view.components.ChatWindow;
-			import org.bigbluebutton.core.interfaces.InputPipe;
-			import org.bigbluebutton.core.interfaces.OutputPipe;
-			import org.bigbluebutton.core.interfaces.Router;
-			import org.bigbluebutton.modules.log.view.components.LogModule;
-			import org.puremvc.as3.multicore.utilities.pipes.messages.Message;
-			import org.bigbluebutton.modules.log.LogApplicationFacade;
-			import org.bigbluebutton.modules.log.view.components.LogWindow;
-			import org.bigbluebutton.main.view.events.AddWindowEvent;
-			import org.bigbluebutton.main.view.events.RemoveWindowEvent;
-			import flexlib.mdi.containers.MDIWindow;
-			import org.bigbluebutton.core.interfaces.MessageBus;
 			import flexlib.mdi.effects.effectsLib.MDIVistaEffects;
-			import flexlib.mdi.events.MDIManagerEvent;		
-			import org.puremvc.as3.multicore.utilities.pipes.plumbing.PipeListener;
-			import org.puremvc.as3.multicore.utilities.pipes.interfaces.IPipeMessage;
-			import org.bigbluebutton.modules.chat.ChatFacade;
+			import org.bigbluebutton.main.MainApplicationFacade;
 			
-			//private var mbus : MessageBus = new MessageBus();
-			
-			
-			private var router :Router = new Router();
-			private var outputPipe : OutputPipe = new OutputPipe("shell");
-			private var log : LogModule;
-			public var chatWindow : ChatWindow;
-			public var chatFacade : ChatFacade;// = ChatFacade.getInstance();
-			
-			
+			public static const NAME:String = 'MainApplicationShell';
+			protected var facade:MainApplicationFacade = MainApplicationFacade.getInstance( NAME );	
+						
 			protected function initializeShell():void
 			{
-				//var facade:ChatFacade = ChatFacade.getInstance( )
-				//facade.startup(this)
-				//mbus.setPipeListener(new PipeListener(this, callback));
-				//router.
-				//logM.mbus = mbus;				
-				//logWindow.title = "in initializeShell ";
-			
-				
-					
+				loginWindow.title = "before startup in initShell";
+				facade.startup(this);
+				loginWindow.title = "After startup in initShell";
 			}
-
-			private function createLogModule() : void
-			{
-				//logWindow.title = "in createLogModule ";
-				
-			
-				log = new LogModule();
-				log.acceptRouter(router);
-				router.registerOutputPipe("shell",outputPipe);
-				var messageToSend:IPipeMessage = new Message( Message.NORMAL, 
-   		 											      { SRC:'shell', TO: 'log' },
-   		 												  new String("Hello") ,
-   		 											      Message.PRIORITY_HIGH );
-   		 		outputPipe.write(messageToSend);	
-   		 		
-   		 		
-   		 		this.addChild(log);						      
-			}	
-			
-			private function createChatModule(): void
-			{
-				chatWindow  = new ChatWindow();
-				chatFacade = ChatFacade.getInstance();
-				chatFacade.startup(this.chatWindow);
-				chatWindow.acceptRouter(router);
-				router.registerOutputPipe("shell",outputPipe);
-				var messageToSend:IPipeMessage = new Message( Message.NORMAL, 
-   		 										 { SRC:'shell', TO: 'chat' },
-   		 										 new String("Welcome to Big Blue Button public chat room"),
-   		 										 Message.PRIORITY_HIGH );
-   		 		outputPipe.write(messageToSend);		
-				this.addChild(chatWindow);
-				
-				
-			}		
-			
-			
-			private function callback(message:IPipeMessage) : void
-			{
-				logWindow.title += " in callback";
-				switch (message.getType()) {
-					case "ADD_WINDOW":
-					logWindow.title += " in callback2";
-//						addWindow(message.getBody() as String);
-						addWindow(message.getBody() as MDIWindow);
-						
-						break;
-					case "REMOVE_WINDOW":
-//						removeWindow(message.getBody() as MDIWindow);
-						break;
-				}
-			}
-
-/*			// Add a MDIWindow to the MDICanvas
-			public function addWindow( component:String ):void
-			{
-				logWindow.title = component + "in Add Window";
-				var event:AddWindowEvent = new AddWindowEvent( component );
-				event.component = component;
-				this.dispatchEvent( event );
-			}
-			
-			// Remove a MDIWindow from the MDICanvas
-//			public function removeWindow( component:String ):void
-//			{
-//				var event:RemoveWindowEvent = new RemoveWindowEvent( component );
-//				event.component = component;
-//				this.dispatchEvent( event );
-//			}
-*/						
-			// Add a MDIWindow to the MDICanvas
-			public function addWindow( component:MDIWindow ):void
-			{
-				logWindow.title += " in Add Window";
-				var event:AddWindowEvent = new AddWindowEvent( component );
-				event.component = component;
-				this.dispatchEvent( event );
-			}
-			
-			// Remove a MDIWindow from the MDICanvas
-			public function removeWindow( component:MDIWindow ):void
-			{
-				var event:RemoveWindowEvent = new RemoveWindowEvent( component );
-				event.component = component;
-				this.dispatchEvent( event );
-			}
-
 		]]>
 	</mx:Script>
 		<main:MainToolbar id="toolbar" dock="true" width="100%" height="30" visible="true" verticalAlign="middle"/>
-		<!--<logModule:LogModule id="logM"/>-->	
 		<flexmdi:MDICanvas id="mdiCanvas" horizontalScrollPolicy="off" verticalScrollPolicy="off"
 			effectsLib="{flexlib.mdi.effects.effectsLib.MDIVistaEffects}"
 			width="100%" height="100%">			
 		</flexmdi:MDICanvas>	
 		
-		<main:LoginWindow id="logWindow" title="Old Title"/>
+		<main:LoginWindow id="loginWindow" title="Old Title"/>
 		
 	 	<mx:ControlBar width="100%" height="20" paddingTop="0">		
 		  <mx:Label text="(c) 2007, BigBlueButton Project" id="copyrightLabel2"/>
 		  <mx:Spacer width="100%"/>
-		  <mx:Button label="Log" click="createLogModule();"/>
-		  <mx:Button label="Chat" click="createChatModule();"/>    
+		  <!--mx:Button label="Log" click="createLogModule();"/>
+		  <mx:Button label="Chat" click="createChatModule();"/-->    
 		</mx:ControlBar>
 </mx:VBox>

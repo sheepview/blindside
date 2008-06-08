@@ -7,8 +7,6 @@ package org.red5.samples.publisher.control.handlers
 	import org.red5.samples.publisher.control.commands.UnpublishStreamCommand;
 	import org.red5.samples.publisher.model.*;
 	import org.red5.samples.publisher.vo.BroadcastMedia;
-	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerFacade;
 	
 	public class UnpublishStreamCommandHandler implements ICommand 
 	{		

@@ -8,7 +8,6 @@ package org.blindsideproject.core.apps.chat.model
 	import com.adobe.cairngorm.control.CairngormEventDispatcher;
 	import org.blindsideproject.core.apps.chat.business.ChatDelegate;
 	import org.blindsideproject.core.apps.chat.controller.ChatController;	
-	import org.blindsideproject.core.util.log.*;
 	
 
 	public class ChatModelLocator implements IModelLocator

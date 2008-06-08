@@ -5,8 +5,6 @@ package org.blindsideproject.core.apps.conference.model
 	import org.blindsideproject.core.apps.conference.vo.User;
 	import org.blindsideproject.core.apps.conference.vo.Properties;
 	import org.blindsideproject.core.apps.conference.business.ConferenceDelegate;
-	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerFacade;
 	
 	public class Conference
 	{

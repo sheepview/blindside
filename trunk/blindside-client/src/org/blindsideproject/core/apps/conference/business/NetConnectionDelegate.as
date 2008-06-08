@@ -4,8 +4,6 @@ package org.blindsideproject.core.apps.conference.business
 	import mx.rpc.IResponder;
 	import flash.net.NetConnection;
 	import flash.events.*;
-	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerFacade;
 		
 	public class NetConnectionDelegate
 	{

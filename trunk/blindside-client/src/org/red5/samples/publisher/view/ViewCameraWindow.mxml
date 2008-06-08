@@ -22,9 +22,6 @@
 			import org.red5.samples.publisher.vo.PlayMedia;
 			import org.red5.samples.publisher.vo.PlaybackState;
 			import org.blindsideproject.main.BlindsideAppLocator;
-
-			import org.blindsideproject.core.util.log.LoggerFacade;
-			import org.blindsideproject.core.util.log.ILogger;
 		
 			import org.red5.samples.publisher.vo.IMedia;
 			import org.red5.samples.publisher.view.general.Images;

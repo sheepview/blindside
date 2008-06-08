@@ -1,6 +1,5 @@
 package org.bigbluebutton.modules.presentation.model.vo
 {
-	import org.blindsideproject.core.util.log.*;
 	
 	import mx.collections.ICollectionView;
 	import mx.collections.ArrayCollection;

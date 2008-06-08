@@ -7,8 +7,7 @@ package org.bigbluebutton.modules.presentation.view
 	
 	import org.bigbluebutton.modules.presentation.PresentationFacade;
 	import org.bigbluebutton.modules.presentation.model.PresentationApplication;
-	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerFacade;
+
 	import org.blindsideproject.main.BlindsideAppLocator;
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;

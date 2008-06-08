@@ -4,9 +4,7 @@ package org.bigbluebutton.modules.presentation.model.business
 	import flash.net.NetConnection;
 	
 	import org.bigbluebutton.modules.presentation.PresentationFacade;
-	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerFacade;
-		
+
 	/**
 	 * The NetConnectionDelegate is a class that connects and listens to the server 
 	 * @author Richard Alam

@@ -13,8 +13,6 @@ package org.bigbluebutton.modules.presentation.model
 	import org.bigbluebutton.modules.presentation.model.services.FileUploadService;
 	import org.bigbluebutton.modules.presentation.model.services.PresentationService;
 	import org.bigbluebutton.modules.presentation.model.vo.SlidesDeck;
-	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerFacade;
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
