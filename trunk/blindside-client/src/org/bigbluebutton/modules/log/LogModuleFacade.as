@@ -5,7 +5,7 @@ package org.bigbluebutton.modules.log
 	import org.puremvc.as3.multicore.interfaces.IFacade;
 	import org.puremvc.as3.multicore.patterns.facade.Facade;
 
-	public class LogApplicationFacade extends Facade implements IFacade
+	public class LogModuleFacade extends Facade implements IFacade
 	{
 		public static const MODULE_STARTED:String        = "moduleStarted";
 		public static const ADD_WINDOW:String        = "ADD_WINDOW";
@@ -17,7 +17,7 @@ package org.bigbluebutton.modules.log
 		public static const INFO:String	          = "info";
 		public static const ERROR:String	      = "error";
 		
-		public function LogApplicationFacade( key:String )
+		public function LogModuleFacade( key:String )
 		{
 			super(key);	
 		}
@@ -25,10 +25,10 @@ package org.bigbluebutton.modules.log
         /**
          * Singleton ApplicationFacade Factory Method
          */
-        public static function getInstance( key:String ) : LogApplicationFacade 
+        public static function getInstance( key:String ) : LogModuleFacade 
         {
-            if ( instanceMap[ key ] == null ) instanceMap[ key ]  = new LogApplicationFacade( key );
-            return instanceMap[ key ] as LogApplicationFacade;
+            if ( instanceMap[ key ] == null ) instanceMap[ key ]  = new LogModuleFacade( key );
+            return instanceMap[ key ] as LogModuleFacade;
         }
         
 	    /**

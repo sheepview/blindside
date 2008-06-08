@@ -4,7 +4,7 @@ package org.bigbluebutton.modules.log.controller
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
-	import org.bigbluebutton.modules.log.LogApplicationFacade;
+	import org.bigbluebutton.modules.log.LogModuleFacade;
 	import org.bigbluebutton.modules.log.view.LogModuleMediator;
 	import org.bigbluebutton.modules.log.LogModule;
 	import org.puremvc.as3.multicore.interfaces.INotification;
