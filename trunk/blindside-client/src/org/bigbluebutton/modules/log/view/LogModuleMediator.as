@@ -47,28 +47,23 @@ package org.bigbluebutton.modules.log.view
 			super.initializeNotifier(key);
 		} 
 		
-		override public function listNotificationInterests():Array
-		{
-			return [ LogModuleFacade.MODULE_STARTED, 
-					 LogModuleFacade.REMOVE_WINDOW
-			       ];
-		}
+//		override public function listNotificationInterests():Array
+//		{
+//			return [ LogModuleFacade., 
+//					 LogModuleFacade.REMOVE_WINDOW
+//			       ];
+//		}
 		
 		override public function handleNotification(note:INotification):void
 		{
 			switch ( note.getName() )
 			{
-				case LogModuleFacade.MODULE_STARTED:
-					logWindow.width = 210;
-					logWindow.height = 200;
-					var addWindowMsg : IPipeMessage = new Message(LogModuleFacade.ADD_WINDOW, null, logWindow);
-					//logModule.sendMessage(addWindowMsg);		
-//					logModule.mbus.outputPipe().write(addWindowMsg);
+				case 1:
+
 					break;
 					
-				case LogModuleFacade.REMOVE_WINDOW:
-					var removeWindowMsg : IPipeMessage = new Message(LogModuleFacade.REMOVE_WINDOW, null, logWindow);			
-					//logModule.mbus.outputPipe().write(removeWindowMsg);
+				case 2:
+
 					break;
 			}
 		}

@@ -1,22 +1,18 @@
 package org.bigbluebutton.modules.log
 {
+	import org.bigbluebutton.modules.log.controller.ClearCommand;
+	import org.bigbluebutton.modules.log.controller.SetLevelCommand;
 	import org.bigbluebutton.modules.log.controller.StartupCommand;
-	import org.bigbluebutton.modules.log.LogModule;
 	import org.puremvc.as3.multicore.interfaces.IFacade;
 	import org.puremvc.as3.multicore.patterns.facade.Facade;
 
 	public class LogModuleFacade extends Facade implements IFacade
 	{
-		public static const MODULE_STARTED:String        = "moduleStarted";
-		public static const ADD_WINDOW:String        = "ADD_WINDOW";
-		public static const REMOVE_WINDOW:String     = "REMOVE_WINDOW";
-		public static const STARTUP:String        = "startup";
-		public static const CLEAR:String          = "clear";
-		public static const DEBUG:String	      = "debug";
-		public static const WARN:String	          = "warn";
-		public static const INFO:String	          = "info";
-		public static const ERROR:String	      = "error";
-		
+		public static const STARTUP:String        = 'STARTUP';
+		// NO_LOG = 0; ERROR = 1; WARN = 2; INFO = 3; DEBUG = 4;
+		public static const SET_LEVEL:String	  = 'SET_LEVEL'; 
+		public static const CLEAR:String   		  = 'CLEAR';
+				
 		public function LogModuleFacade( key:String )
 		{
 			super(key);	
@@ -38,6 +34,8 @@ package org.bigbluebutton.modules.log
         {
             super.initializeController();            
             registerCommand( STARTUP, StartupCommand );
+            registerCommand( SET_LEVEL, SetLevelCommand );
+            registerCommand( CLEAR, ClearCommand );
         }
         
         /**

@@ -2,7 +2,7 @@ package org.bigbluebutton.modules.log.model.vo
 {
 	import flash.system.Capabilities;
 	
-	public class Logger implements ILogger
+	public class Logger
 	{
 		[Bindable]
 		/**
