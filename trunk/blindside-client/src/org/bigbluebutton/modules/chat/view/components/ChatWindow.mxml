@@ -1,60 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml"
-	      implements="org.bigbluebutton.core.interfaces.IRouterAware"
-	      width="400" height="300"
-	      creationComplete="initializeChat()">
-<!--MDIWindow xmlns="flexlib.mdi.containers.*"-->
+<MDIWindow xmlns="flexlib.mdi.containers.*" 
+	       xmlns:mx="http://www.adobe.com/2006/mxml" 
+	       width="400" height="300">
+
 	<mx:Script>
 		<![CDATA[
-			import org.bigbluebutton.core.interfaces.Router;
 			import mx.utils.ColorUtil;
 			import org.bigbluebutton.modules.chat.model.vo.MessageVO;
 			import org.bigbluebutton.modules.chat.view.ChatWindowMediator;
 			import org.bigbluebutton.modules.chat.model.vo.*;
-			import org.bigbluebutton.core.interfaces.InputPipe;
-			import org.puremvc.as3.multicore.utilities.pipes.interfaces.IPipeMessage;
-			import org.bigbluebutton.modules.chat.ChatFacade;
-			import org.puremvc.as3.multicore.utilities.pipes.plumbing.PipeListener;
-			
 		
-			public static const MODULE_URI:String = "http://bigbluebutton.com/ChatModule/";
 			public var m:MessageObject;
 			[Bindable]
 			public var messageVO:MessageVO = new MessageVO();
-			private var router : Router;
-			private var inputPipe : InputPipe = new InputPipe("chat");
-			
-			public function acceptRouter (r:Router) : void
-			{
-				router = r;
-			}
-			
-			public function getModuleKey():String
-			{
-				return MODULE_URI+this.id
-			}
-			
-			public function initializeChat( ):void
-			{
-				//ChatFacade.getInstance().startup(this);
-				router.registerInputPipe("chat",inputPipe);
-				inputPipe.connect(new PipeListener(this, callback));
-			}
-			
-			private function callback(message:IPipeMessage) : void
-			{
-				txtChatBox.htmlText = message.getBody() as String;
-			}
 		
-			public function showNewMessage(rm : MessageObject):void{
+			
+			public function showNewMessage(rm : MessageObject):void
+			{
 			var newMessage:String;
 			newMessage = "<font color=\"#" + rm.color.toString(16) + "\">" + rm.message + "</font>";
 			txtChatBox.htmlText += newMessage + "\n";
 			txtMsg.text = "";
 			}
-			
-		    
-		    public function sendMessages():void{
+
+		    public function sendMessages():void
+		    {
 		   	this.m = new MessageObject(txtMsg.text, cmpColorPicker.selectedColor);
 		   	dispatchEvent(new Event(ChatWindowMediator.NEW_MESSAGE));
 		    }
@@ -69,4 +39,4 @@
 		<mx:Button label="Send" id="send" click="sendMessages()"/>
 	    
 	</mx:ApplicationControlBar>
-</mx:Panel>
+</MDIWindow>

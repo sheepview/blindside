@@ -19,6 +19,10 @@ package org.bigbluebutton.modules.chat.model.vo
 		public var bold : Boolean;
 		public var italic : Boolean;
 		
+		/**
+		 * Constructor 
+		 * 
+		 */		
 		public function MessageVO()
 		{
 			message = new MessageObject("",0xffff);
