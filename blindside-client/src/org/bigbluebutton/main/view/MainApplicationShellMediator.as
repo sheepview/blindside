@@ -1,5 +1,7 @@
 package org.bigbluebutton.main.view
 {
+	import flash.events.Event;
+	
 	import flexlib.mdi.containers.MDIWindow;
 	
 	import org.bigbluebutton.common.InputPipe;
@@ -7,6 +9,7 @@ package org.bigbluebutton.main.view
 	import org.bigbluebutton.common.Router;
 	import org.bigbluebutton.main.MainApplicationConstants;
 	import org.bigbluebutton.main.view.components.MainApplicationShell;
+	import org.bigbluebutton.modules.chat.ChatModule;
 	import org.bigbluebutton.modules.log.LogModule;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
 	import org.puremvc.as3.multicore.utilities.pipes.interfaces.IPipeMessage;
@@ -15,6 +18,7 @@ package org.bigbluebutton.main.view
 	public class MainApplicationShellMediator extends Mediator
 	{
 		public static const NAME:String = 'MainApplicationShellMediator';
+		public static const OPEN_CHAT_MODULE:String = 'openChatModule';
 
 		
 		private var outpipe : OutputPipe;
@@ -22,12 +26,14 @@ package org.bigbluebutton.main.view
 		public var router : Router;
 		private var inpipeListener : PipeListener;
 		private var logModule : LogModule;
+		private var chatModule : ChatModule;
 		
 		public function MainApplicationShellMediator( viewComponent:MainApplicationShell )
 		{
 			super( NAME, viewComponent );
 			router = new Router(viewComponent);
 			viewComponent.debugLog.text = "Log Module inited 1";
+			viewComponent.addEventListener(OPEN_CHAT_MODULE , runChatModule);
 			inpipe = new InputPipe(MainApplicationConstants.TO_MAIN);
 			outpipe = new OutputPipe(MainApplicationConstants.FROM_MAIN);
 			inpipeListener = new PipeListener(this, messageReceiver);
@@ -37,10 +43,21 @@ package org.bigbluebutton.main.view
 			viewComponent.debugLog.text = "Log Module inited 1.5";
 			
 			logModule = new LogModule();
+						
 			viewComponent.debugLog.text = "Log Module inited 1.65";
 			logModule.acceptRouter(router, viewComponent);
 			viewComponent.debugLog.text = "Log Module inited 2";
+			
+			//runChatModule();
+					
 		}
+		
+		public function runChatModule(event:Event) : void
+		{
+			chatModule = new ChatModule();
+			chatModule.acceptRouter(router, shell);
+		}
+		
 		
 		private function messageReceiver(message : IPipeMessage) : void
 		{

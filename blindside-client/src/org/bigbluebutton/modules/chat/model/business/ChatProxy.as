@@ -107,7 +107,11 @@ package org.bigbluebutton.modules.chat.model.business
 			sendNotification(ChatFacade.NEW_MESSAGE, m);
 		   
 		}
-		
+		/**
+		 * 
+		 * @return SharedObject
+		 * 
+		 */		
 		public function getSharedObject(): SharedObject {
 			return chatSO;
 		}

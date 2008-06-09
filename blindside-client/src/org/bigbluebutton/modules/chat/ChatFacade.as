@@ -9,6 +9,11 @@ package org.bigbluebutton.modules.chat
 	import org.bigbluebutton.main.view.components.MainApplicationShell;
 	import org.bigbluebutton.modules.chat.controller.StartupCommand;
 
+	/**
+	 * 
+	 * Class ChatFacade
+	 * 
+	 */	
 	public class ChatFacade extends Facade implements IFacade
 	{
 		
@@ -41,8 +46,12 @@ package org.bigbluebutton.modules.chat
 			registerCommand(STARTUP, StartupCommand);
 			
 		}
-		
-		public function startup(app:ChatWindow):void {
+		/**
+		 * 
+		 * @param app:ChatModule
+		 * 
+		 */		
+		public function startup(app:ChatModule):void {
 			sendNotification(ChatFacade.STARTUP, app);
 		}
 		
