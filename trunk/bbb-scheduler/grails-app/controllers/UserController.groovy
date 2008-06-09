@@ -85,26 +85,21 @@ class UserController extends BaseController {
     
     def login = {
     	if (request.method == "GET") {
-    		session.userId = null
+    		session.email = null
     		def user = new User()
     	} else {
-    		def user = User.findByUserIdAndPassword(params.userId, params.password)
+    		def user = User.findByEmailAndPassword(params.email, params.password)
     		if (user) {
-    			session.userId = user.userId
-    			
-    			def redirectParams =
-    				session.originalRequestParams ?
-    				session.originalRequestParams :
-    				[controller:'conference']
-    			redirect(redirectParams)
+    			session.email = user.email
+    			redirect(controller:'conference')
     		} else {
-    			flash['message'] = 'Please enter a valid user ID and password'
+    			flash['message'] = 'Please enter a valid email and password'
     		}
     	}
     }
     
     def logout = {
-    	session.userId = null
+    	session.email = null
     	flash['message'] = 'Successfully logged out'
     	redirect(controller:'user', action:'login')
     }

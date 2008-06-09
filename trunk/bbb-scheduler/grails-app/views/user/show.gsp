@@ -30,9 +30,9 @@
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name">User Id:</td>
+                            <td valign="top" class="name">Email:</td>
                             
-                            <td valign="top" class="value">${user.userId}</td>
+                            <td valign="top" class="value">${user.email}</td>
                             
                         </tr>
                     
@@ -40,6 +40,33 @@
                             <td valign="top" class="name">Password:</td>
                             
                             <td valign="top" class="value">${user.password}</td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td valign="top" class="name">First Name:</td>
+                            
+                            <td valign="top" class="value">${user.firstName}</td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td valign="top" class="name">Last Name:</td>
+                            
+                            <td valign="top" class="value">${user.lastName}</td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td valign="top" class="name">Conferences:</td>
+                            
+                            <td  valign="top" style="text-align:left;" class="value">
+                                <ul>
+                                <g:each var="c" in="${user.conferences}">
+                                    <li><g:link controller="conference" action="show" id="${c.id}">${c}</g:link></li>
+                                </g:each>
+                                </ul>
+                            </td>
                             
                         </tr>
                     

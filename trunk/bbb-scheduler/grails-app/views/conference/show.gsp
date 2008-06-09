@@ -30,16 +30,16 @@
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name">Name:</td>
+                            <td valign="top" class="name">Conference Name:</td>
                             
-                            <td valign="top" class="value">${conference.name}</td>
+                            <td valign="top" class="value">${conference.conferenceName}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name">Number:</td>
+                            <td valign="top" class="name">Conference Number:</td>
                             
-                            <td valign="top" class="value">${conference.number}</td>
+                            <td valign="top" class="value">${conference.conferenceNumber}</td>
                             
                         </tr>
                     
@@ -89,6 +89,13 @@
                             <td valign="top" class="name">Last Updated:</td>
                             
                             <td valign="top" class="value">${conference.lastUpdated}</td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td valign="top" class="name">User:</td>
+                            
+                            <td valign="top" class="value"><g:link controller="user" action="show" id="${conference?.user?.id}">${conference?.user}</g:link></td>
                             
                         </tr>
                     

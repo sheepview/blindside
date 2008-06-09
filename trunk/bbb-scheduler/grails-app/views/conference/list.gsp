@@ -23,9 +23,9 @@
                         
                    	        <g:sortableColumn property="id" title="Id" />
                         
-                   	        <g:sortableColumn property="name" title="Name" />
+                   	        <g:sortableColumn property="conferenceName" title="Conference Name" />
                         
-                   	        <g:sortableColumn property="number" title="Number" />
+                   	        <g:sortableColumn property="conferenceNumber" title="Conference Number" />
                         
                    	        <g:sortableColumn property="pin" title="Pin" />
                         
@@ -41,9 +41,9 @@
                         
                             <td><g:link action="show" id="${conference.id}">${conference.id?.encodeAsHTML()}</g:link></td>
                         
-                            <td>${conference.name?.encodeAsHTML()}</td>
+                            <td>${conference.conferenceName?.encodeAsHTML()}</td>
                         
-                            <td>${conference.number?.encodeAsHTML()}</td>
+                            <td>${conference.conferenceNumber?.encodeAsHTML()}</td>
                         
                             <td>${conference.pin?.encodeAsHTML()}</td>
                         

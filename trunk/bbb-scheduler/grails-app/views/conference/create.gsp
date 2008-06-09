@@ -31,19 +31,19 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="name">Name:</label>
+                                    <label for="conferenceName">Conference Name:</label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean:conference,field:'name','errors')}">
-                                    <input type="text" id="name" name="name" value="${fieldValue(bean:conference,field:'name')}"/>
+                                <td valign="top" class="value ${hasErrors(bean:conference,field:'conferenceName','errors')}">
+                                    <input type="text" id="conferenceName" name="conferenceName" value="${fieldValue(bean:conference,field:'conferenceName')}"/>
                                 </td>
                             </tr> 
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="number">Number:</label>
+                                    <label for="conferenceNumber">Conference Number:</label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean:conference,field:'number','errors')}">
-                                    <input type="text" id="number" name="number" value="${fieldValue(bean:conference,field:'number')}" />
+                                <td valign="top" class="value ${hasErrors(bean:conference,field:'conferenceNumber','errors')}">
+                                    <input type="text" id="conferenceNumber" name="conferenceNumber" value="${fieldValue(bean:conference,field:'conferenceNumber')}" />
                                 </td>
                             </tr> 
                         
@@ -88,12 +88,18 @@
                                     <label for="attendees">Attendees:</label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean:conference,field:'attendees','errors')}">
-                                	<g:textArea id="attendees" name="attendees" value="${fieldValue(bean:conference,field:'attendees')}" rows="5" cols="40"/>
-                                	
-                                    <!--input type="text" id="attendees" name="attendees" value="${fieldValue(bean:conference,field:'attendees')}"/-->
+                                    <g:textArea id="attendees" name="attendees" value="${fieldValue(bean:conference,field:'attendees')}" rows="5" cols="40"/>
+                                </td>
+                            </tr>                         
+
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="user">User:</label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean:conference,field:'user','errors')}">
+                                    <g:select optionKey="id" from="${User.list()}" name="user.id" value="${conference?.user?.id}" ></g:select>
                                 </td>
                             </tr> 
-                        
                         </tbody>
                     </table>
                 </div>

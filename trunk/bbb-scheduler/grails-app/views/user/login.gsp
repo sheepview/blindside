@@ -20,11 +20,11 @@
 			<table>
 				<tr class='prop'>
 					<td valign='top' class='name'>
-						<label for='userId'>User ID:</label>
+						<label for='email'>Email:</label>
 					</td>
 					<td valign='top' class='value'>
-						<input type="text" maxlength='8' name='userId' 
-							value='${user?.userId}'>
+						<input type="text" maxlength='50' name='email' 
+							value='${user?.email}'>
 						</input>
 					</td>
 				</tr>
@@ -33,7 +33,7 @@
 						<label for='password'>Password:</label>
 					</td>
 					<td valign='top' class='value'>
-						<input type="password" maxlength='8' name='password'
+						<input type="password" maxlength='12' name='password'
 							value='${user?.password}'>
 						</input>
 					</td>

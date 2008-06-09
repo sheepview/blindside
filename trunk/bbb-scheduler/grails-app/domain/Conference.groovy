@@ -1,6 +1,7 @@
-class Conference {
-	String name
-	Integer number
+class Conference implements Comparable {
+	User owner
+	String conferenceName
+	Integer conferenceNumber
 	Integer pin
 	Integer numberOfAttendees
 	String attendees
@@ -8,14 +9,17 @@ class Conference {
 	Date endDateTime = new Date()
 	Date dateCreated
 	Date lastUpdated
-	
-//	static hasMany = [attendees:Attendee]
+	User createdBy
+	User modifiedBy
+		
 	static optionals = [ 'attendees' ]
 	
+	static belongsTo = [owner:User]
+	
 	static constraints = {
-		name(maxLength:50, blank:false)
-		number(maxLength:10,blank:false)
-		pin(maxLength:20,blank:false)
+		conferenceName(maxLength:50, blank:false)
+		conferenceNumber(maxLength:10, blank:false)
+		pin(maxLength:20, blank:false)
 		startDateTime(validator: {return it > new Date()})
 		endDateTime(validator: {return it > new Date()})
 		numberOfAttendees()
@@ -27,4 +31,9 @@ class Conference {
     }
     	
 	String toString() {"${this.name}"}
+
+    int compareTo(obj) {
+        obj.id.compareTo(id)
+    }
+
 }
