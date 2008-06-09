@@ -23,10 +23,16 @@
                         
                    	        <g:sortableColumn property="id" title="Id" />
                         
-                   	        <g:sortableColumn property="userId" title="User Id" />
+                   	        <g:sortableColumn property="email" title="Email" />
                         
                    	        <g:sortableColumn property="password" title="Password" />
                         
+                   	        <g:sortableColumn property="firstName" title="First Name" />
+                        
+                   	        <g:sortableColumn property="lastName" title="Last Name" />
+                        
+                   	        <th>Conferences</th>
+                   	    
                         </tr>
                     </thead>
                     <tbody>
@@ -35,9 +41,15 @@
                         
                             <td><g:link action="show" id="${user.id}">${user.id?.encodeAsHTML()}</g:link></td>
                         
-                            <td>${user.userId?.encodeAsHTML()}</td>
+                            <td>${user.email?.encodeAsHTML()}</td>
                         
                             <td>${user.password?.encodeAsHTML()}</td>
+                        
+                            <td>${user.firstName?.encodeAsHTML()}</td>
+                        
+                            <td>${user.lastName?.encodeAsHTML()}</td>
+                        
+                            <td>${user.conferences?.encodeAsHTML()}</td>
                         
                         </tr>
                     </g:each>

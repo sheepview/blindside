@@ -1,7 +1,7 @@
 
 abstract class BaseController {
 	def auth() {
-		if (!session.userId) {
+		if (!session.email) {
 			def originalRequestParams =
 				[controller:controllerName,
 					action:actionName]

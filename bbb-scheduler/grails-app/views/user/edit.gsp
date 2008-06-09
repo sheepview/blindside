@@ -30,10 +30,10 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="userId">User Id:</label>
+                                    <label for="email">Email:</label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean:user,field:'userId','errors')}">
-                                    <input type="text" id="userId" name="userId" value="${fieldValue(bean:user,field:'userId')}"/>
+                                <td valign="top" class="value ${hasErrors(bean:user,field:'email','errors')}">
+                                    <input type="text" id="email" name="email" value="${fieldValue(bean:user,field:'email')}"/>
                                 </td>
                             </tr> 
                         
@@ -43,6 +43,40 @@
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean:user,field:'password','errors')}">
                                     <input type="text" id="password" name="password" value="${fieldValue(bean:user,field:'password')}"/>
+                                </td>
+                            </tr> 
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="firstName">First Name:</label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean:user,field:'firstName','errors')}">
+                                    <input type="text" id="firstName" name="firstName" value="${fieldValue(bean:user,field:'firstName')}"/>
+                                </td>
+                            </tr> 
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="lastName">Last Name:</label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean:user,field:'lastName','errors')}">
+                                    <input type="text" id="lastName" name="lastName" value="${fieldValue(bean:user,field:'lastName')}"/>
+                                </td>
+                            </tr> 
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="conferences">Conferences:</label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean:user,field:'conferences','errors')}">
+                                    
+<ul>
+<g:each var="c" in="${user?.conferences?}">
+    <li><g:link controller="conference" action="show" id="${c.id}">${c}</g:link></li>
+</g:each>
+</ul>
+<g:link controller="conference" params="["user.id":user?.id]" action="create">Add Conference</g:link>
+
                                 </td>
                             </tr> 
                         

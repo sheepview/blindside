@@ -1,4 +1,4 @@
-<g:if test="${!session.userId}">
+<g:if test="${!session.email}">
 	<span class="menuButton">
 		<g:link controller="user" action="login">Log in</g:link>
 	</span>
