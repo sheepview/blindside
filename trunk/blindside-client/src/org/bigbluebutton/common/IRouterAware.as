@@ -1,4 +1,4 @@
-package org.bigbluebutton.core.interfaces
+package org.bigbluebutton.common
 {
 	import org.bigbluebutton.main.view.components.MainApplicationShell;
 	

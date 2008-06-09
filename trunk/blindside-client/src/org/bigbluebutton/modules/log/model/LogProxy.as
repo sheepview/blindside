@@ -1,5 +1,6 @@
 package org.bigbluebutton.modules.log.model
 {
+	import org.bigbluebutton.modules.log.model.vo.Logger;
 	import org.puremvc.as3.multicore.interfaces.IProxy;
 	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
 
@@ -9,7 +10,7 @@ package org.bigbluebutton.modules.log.model
 		
 		public function LogProxy()
 		{
-			super(NAME);
+			super(NAME, new Logger());
 		}
 		
 		public function sendClearLog () {

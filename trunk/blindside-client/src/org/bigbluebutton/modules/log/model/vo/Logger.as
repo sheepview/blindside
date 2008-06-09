@@ -3,65 +3,14 @@ package org.bigbluebutton.modules.log.model.vo
 	import flash.system.Capabilities;
 	
 	public class Logger
-	{
-		[Bindable]
-		/**
-		 * Flash Player version number inc. debugger flag.
-		*/		
-		public var flashVersion : String;
+	{		
+		/** Flash Player version number inc. debugger flag. */		
+		[Bindable] public var flashVersion : String;
+				
+		/** Log text displayed in the TextArea. */		
+		[Bindable] public var messages : String = "";
 		
-		[Bindable]
-		/**
-		 * Log text displayed in the TextArea.
-		*/		
-		public var statusText : String = "";
-		
-		[Bindable]
-		/**
-		 * Enable/disable DEBUG messages
-		 * 
-		 * @default true
-		*/		
-		public var debugEnabled : Boolean = true;
-		
-		[Bindable]
-		/**
-		 * Enable/disable INFO messages
-		 * 
-		 * @default true
-		*/		
-		public var infoEnabled : Boolean = true;
-		
-		[Bindable]
-		/**
-		 * Enable/disable WARN messages
-		 * 
-		 * @default true
-		*/		
-		public var warnEnabled : Boolean = true;
-		
-		[Bindable]
-		/**
-		 * Enable/disable ERROR messages
-		 * 
-		 * @default true
-		*/		
-		public var errorEnabled : Boolean = true;
-		
-		[Bindable]
-		public var debugMessage : String = "Debug";
-		[Bindable]
-		public var infoMessage : String = "Info";
-		[Bindable]
-		public var warnMessage : String = "Warn";
-		[Bindable]
-		public var errorMessage : String = "Error";
-		
-		/**
-		 * 
-		 * @param env
-		 * @return 
-		 */			
+
 		public function Logger()
 		{
 			var platformVersion : String = Capabilities.version.substr( String( Capabilities.version ).lastIndexOf(" ") + 1 );

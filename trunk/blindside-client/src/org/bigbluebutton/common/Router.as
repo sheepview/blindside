@@ -1,4 +1,4 @@
-package org.bigbluebutton.core.interfaces
+package org.bigbluebutton.common
 {
 	import org.bigbluebutton.main.view.components.MainApplicationShell;
 	import org.puremvc.as3.multicore.utilities.pipes.interfaces.IPipeFitting;

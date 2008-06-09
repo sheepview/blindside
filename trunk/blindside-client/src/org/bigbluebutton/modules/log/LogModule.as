@@ -2,8 +2,8 @@ package org.bigbluebutton.modules.log
 {
 	import mx.modules.ModuleBase;
 	
-	import org.bigbluebutton.core.interfaces.IRouterAware;
-	import org.bigbluebutton.core.interfaces.Router;
+	import org.bigbluebutton.common.IRouterAware;
+	import org.bigbluebutton.common.Router;
 	import org.bigbluebutton.main.view.components.MainApplicationShell;
 	
 	public class LogModule extends ModuleBase implements IRouterAware
