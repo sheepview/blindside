@@ -1,6 +1,5 @@
 package org.bigbluebutton.main
 {
-	import org.bigbluebutton.core.Constants;
 	import org.bigbluebutton.main.controller.StartupCommand;
 	import org.bigbluebutton.main.view.components.MainApplicationShell;
 	import org.puremvc.as3.multicore.interfaces.IFacade;
@@ -8,7 +7,6 @@ package org.bigbluebutton.main
 	
 	public class MainApplicationFacade extends Facade implements IFacade
 	{
-		private var ENV : String = Constants.DEV_ENV;
 		// Notification constants 
 		public static const STARTUP:String = 'startup';
 		public static const ADD_WINDOW1:String = 'addWindow';

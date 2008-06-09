@@ -7,5 +7,10 @@ package org.bigbluebutton.modules.log
 
 		public static const OPEN_WINDOW_MSG:String = 'OPEN_WINDOW_MSG';
 		public static const CLOSE_WINDOW_MSG:String = 'CLOSE_WINDOW_MSG';
+		
+		public static const ERROR:int = 1;
+		public static const WARN:int  = 2;
+		public static const INFO:int  = 3;
+		public static const DEBUG:int = 4;
 	}
 }

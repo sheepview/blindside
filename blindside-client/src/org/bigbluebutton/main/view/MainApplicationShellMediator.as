@@ -2,9 +2,9 @@ package org.bigbluebutton.main.view
 {
 	import flexlib.mdi.containers.MDIWindow;
 	
-	import org.bigbluebutton.core.interfaces.InputPipe;
-	import org.bigbluebutton.core.interfaces.OutputPipe;
-	import org.bigbluebutton.core.interfaces.Router;
+	import org.bigbluebutton.common.InputPipe;
+	import org.bigbluebutton.common.OutputPipe;
+	import org.bigbluebutton.common.Router;
 	import org.bigbluebutton.main.MainApplicationConstants;
 	import org.bigbluebutton.main.view.components.MainApplicationShell;
 	import org.bigbluebutton.modules.log.LogModule;

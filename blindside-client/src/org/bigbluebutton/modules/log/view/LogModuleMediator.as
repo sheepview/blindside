@@ -1,8 +1,8 @@
 package org.bigbluebutton.modules.log.view
 {
-	import org.bigbluebutton.core.interfaces.InputPipe;
-	import org.bigbluebutton.core.interfaces.OutputPipe;
-	import org.bigbluebutton.core.interfaces.Router;
+	import org.bigbluebutton.common.InputPipe;
+	import org.bigbluebutton.common.OutputPipe;
+	import org.bigbluebutton.common.Router;
 	import org.bigbluebutton.main.MainApplicationConstants;
 	import org.bigbluebutton.modules.log.LogModuleFacade;
 	import org.bigbluebutton.modules.log.LogModule;
@@ -78,6 +78,7 @@ package org.bigbluebutton.modules.log.view
    			
 			logWindow.width = 210;
 			logWindow.height = 200;
+			logWindow.title = "Log";
 			msg.setBody(logWindow);
 			viewComponent.mshell.debugLog.text = "in logmodule mediator addwindow";
 			outpipe.write(msg);			
