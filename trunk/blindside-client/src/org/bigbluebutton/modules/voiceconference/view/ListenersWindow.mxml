@@ -19,22 +19,17 @@
 			import org.blindsideproject.views.general.Images;
 				
 			private var images : Images = new Images();
-			private var mainApp : BlindsideAppLocator = BlindsideAppLocator.getInstance();
 			
 			[Bindable] public var dropTargetIcon : Object = images.door_in;
 			
 			[Bindable] private var muteAllIcon : Class = images.sound_mute;
 			[Bindable] private var unmuteAllIcon : Class = images.sound_none;
-			[Bindable] private var role : String;
+			[Bindable] private var role : String = "MODERATOR";
 			
 			public var userid:Number;
 			
 			public function init():void{
-				if (mainApp.conferenceApp.conference.me.role !=null){
-					role  = mainApp.conferenceApp.conference.me.role;
-				} else{
-					role = "MODERATOR";
-				}
+				role = "MODERATOR";
 			}
 			
 			public function dragEnterHandler(event:DragEvent):void

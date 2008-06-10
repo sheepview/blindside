@@ -3,8 +3,6 @@ package org.bigbluebutton.modules.voiceconference
 	import flexunit.framework.TestCase;
 	import flexunit.framework.TestSuite;
 	
-	import org.bigbluebutton.modules.voiceconference.view.ListenersWindow;
-	
 	public class TestVoiceFacade extends TestCase
 	{
 		private var test:VoiceConferenceFacade;
@@ -33,7 +31,7 @@ package org.bigbluebutton.modules.voiceconference
 		}
 		
 		public function testStartup():void{
-			test.startup(new ListenersWindow(), "hello");	
+			test.startup(new VoiceModule, "hello");	
 		}
 		
 		//Note that if this test passes it means the singleton is also working properly
