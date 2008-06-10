@@ -129,8 +129,8 @@ private var effectsList:Array;
 		listenersWindow.showCloseButton = false;
 		mdiCanvas.windowManager.add(listenersWindow);
 		mdiCanvas.windowManager.absPos(listenersWindow, 20, 250);
-		meetMeModel.startup(listenersWindow, "rtmp://" + red5Host + "/astmeetme/" + model.conference.room);
-	   	meetMeModel.setupMeetMeRoom(model.conference.me.role);	   		
+		//meetMeModel.startup(listenersWindow, "rtmp://" + red5Host + "/astmeetme/" + model.conference.room);
+	   	//meetMeModel.setupMeetMeRoom(model.conference.me.role);	   		
 		meetMeModel.connectToMeetMe();
 		
 		presentationWindow = new PresentationWindow();

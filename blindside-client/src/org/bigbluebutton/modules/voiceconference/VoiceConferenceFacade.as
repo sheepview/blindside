@@ -7,7 +7,6 @@ package org.bigbluebutton.modules.voiceconference
 	import org.bigbluebutton.modules.voiceconference.control.StartupVoiceConfCommand;
 	import org.bigbluebutton.modules.voiceconference.model.VoiceConferenceRoom;
 	import org.bigbluebutton.modules.voiceconference.model.business.NetConnectionDelegate;
-	import org.bigbluebutton.modules.voiceconference.view.ListenersWindow;
 	import org.puremvc.as3.multicore.interfaces.IFacade;
 	import org.puremvc.as3.multicore.patterns.facade.Facade;
 		
@@ -66,7 +65,7 @@ package org.bigbluebutton.modules.voiceconference
 	   	 * @param app
 	   	 * 
 	   	 */	   	
-	   	public function startup(app:ListenersWindow, uri:String):void{
+	   	public function startup(app:VoiceModule, uri:String):void{
 	   		meetMeRoom = new VoiceConferenceRoom(uri);
 	   		sendNotification(STARTUP, app);
 	   		//meetMeRoom.getConnection().connect();

@@ -12,6 +12,7 @@ package org.bigbluebutton.main.view
 	import org.bigbluebutton.modules.chat.ChatModule;
 	import org.bigbluebutton.modules.log.LogModule;
 	import org.bigbluebutton.modules.presentation.PresentationModule;
+	import org.bigbluebutton.modules.voiceconference.VoiceModule;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
 	import org.puremvc.as3.multicore.utilities.pipes.interfaces.IPipeMessage;
 	import org.puremvc.as3.multicore.utilities.pipes.plumbing.PipeListener;
@@ -31,6 +32,7 @@ package org.bigbluebutton.main.view
 		private var chatModule : ChatModule;
 		
 		private var presentationModule:PresentationModule;
+		private var voiceModule:VoiceModule;
 		
 		public function MainApplicationShellMediator( viewComponent:MainApplicationShell )
 		{
@@ -54,6 +56,9 @@ package org.bigbluebutton.main.view
 			
 			presentationModule = new PresentationModule();
 			presentationModule.acceptRouter(router, viewComponent);
+			
+			voiceModule = new VoiceModule();
+			voiceModule.acceptRouter(router, viewComponent);
 		
 		}
 		
