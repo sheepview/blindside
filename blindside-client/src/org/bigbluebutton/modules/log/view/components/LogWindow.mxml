@@ -12,6 +12,6 @@
 	<mx:Box direction="horizontal" height="35" 
 			paddingLeft="5" paddingRight="5" paddingTop="5"
 			horizontalAlign="right" verticalAlign="top">
-		<mx:Button label="Clear" click=""/>
+		<mx:Button id="clear_Btn" label="Clear" click=""/>
 	</mx:Box>	       	
 </MDIWindow>

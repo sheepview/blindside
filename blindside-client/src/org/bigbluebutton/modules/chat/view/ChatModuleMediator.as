@@ -8,6 +8,7 @@ package org.bigbluebutton.modules.chat.view
 	import org.bigbluebutton.modules.chat.ChatModule;
 	import org.bigbluebutton.modules.chat.ChatModuleConstants;
 	import org.bigbluebutton.modules.chat.view.components.ChatWindow;
+	import org.bigbluebutton.modules.log.LogModuleConstants;
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
@@ -23,6 +24,8 @@ package org.bigbluebutton.modules.chat.view
 	public class ChatModuleMediator extends Mediator implements IMediator
 	{
 		public static const NAME:String = 'LogModuleMediator';
+		public static const DEBUG:String = 'debug';
+		
 
 		private var outpipe : OutputPipe;
 		private var inpipe : InputPipe;
@@ -50,6 +53,7 @@ package org.bigbluebutton.modules.chat.view
 			viewComponent.mshell.debugLog.text = "in ChatModuleMediator 2";
 			chatWindow = viewComponent.chatWindow;
 			addWindow();
+			//debug("Hahahaha");
 		}
 		
 		override public function initializeNotifier(key:String):void
@@ -59,6 +63,12 @@ package org.bigbluebutton.modules.chat.view
 		
 		override public function handleNotification(note:INotification):void
 		{
+			switch(note.getName())
+			{
+				case ChatFacade.DEBUG:
+					debug("Some message");
+					break;	
+			}
 		}
 		
 		/**
@@ -100,6 +110,28 @@ package org.bigbluebutton.modules.chat.view
 		{
 			var msg : String = message.getHeader().MSG;
 		}
+		
+		
+		override public function listNotificationInterests():Array
+		{
+			return [
+					ChatFacade.DEBUG
+				   ];
+		}
+		
+		
+		private function debug(message:String) : void 
+		{
+		 	
+		 	var msg:IPipeMessage = new Message(Message.NORMAL);
+   			msg.setHeader( {MSG: LogModuleConstants.DEBUG , SRC: ChatModuleConstants.FROM_CHAT_MODULE,
+   						TO: LogModuleConstants.TO_LOG_MODULE });
+   	
+			msg.setBody(message);
+			
+			outpipe.write(msg);			
+		}
+
 
 	}
 }

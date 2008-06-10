@@ -9,9 +9,12 @@ package org.bigbluebutton.modules.log
 	public class LogModuleFacade extends Facade implements IFacade
 	{
 		public static const STARTUP:String        = 'STARTUP';
-		// NO_LOG = 0; ERROR = 1; WARN = 2; INFO = 3; DEBUG = 4;
 		public static const SET_LEVEL:String	  = 'SET_LEVEL'; 
 		public static const CLEAR:String   		  = 'CLEAR';
+		public static const DEBUG:String          = 'DEBUG';
+		public static const WARNING:String        = 'WARNING';
+		public static const ERROR:String          = 'ERROR';
+		public static const INFO:String           = 'INFO';
 				
 		public function LogModuleFacade( key:String )
 		{
@@ -47,6 +50,27 @@ package org.bigbluebutton.modules.log
         {
         	sendNotification( STARTUP, app );
         }
+        
+        
+        
+        public function debug(message:String):void
+        {
+        	sendNotification(DEBUG , message);
+        }
+        public function warning(message:String):void
+        {
+        	sendNotification(WARNING , message);
+        }
+        public function info(message:String):void
+        {
+        	sendNotification(INFO , message);
+        }
+        public function error(message:String):void
+        {
+        	sendNotification(ERROR , message);
+        }
+        
+        
 		
 	}
 }

@@ -20,6 +20,7 @@ package org.bigbluebutton.modules.chat
 		public static const NAME:String = "ChatFacade";
 		public static const STARTUP:String          = "startup";
 		public static const NEW_MESSAGE:String      = "newMessage";
+		public static const DEBUG:String = 'debug';
 		
 		public function ChatFacade()
 		{
