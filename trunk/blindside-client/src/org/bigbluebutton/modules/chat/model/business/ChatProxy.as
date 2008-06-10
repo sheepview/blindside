@@ -6,9 +6,10 @@ package org.bigbluebutton.modules.chat.model.business
 	
 	import org.bigbluebutton.modules.chat.ChatFacade;
 	import org.bigbluebutton.modules.chat.model.vo.*;
-	import org.bigbluebutton.modules.chat.view.ChatWindowMediator;
 	import org.puremvc.as3.multicore.interfaces.IProxy;
 	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
+	import org.bigbluebutton.modules.log.LogModuleFacade;
+	
 	
 	
 	
@@ -25,7 +26,8 @@ package org.bigbluebutton.modules.chat.model.business
 		private var conn:Connection;
 		private var nc:NetConnection;
 		private var chatSO : SharedObject;
-		
+		private var log : LogModuleFacade = LogModuleFacade.getInstance("LogModule");
+		//private var mediator : IMediator = facade.retrieveMediator("ChatModuleMediator");
 		
 		
 		/**
@@ -43,6 +45,7 @@ package org.bigbluebutton.modules.chat.model.business
 			conn.addEventListener(Connection.DISCONNECTED, handleDisconnection);
 			conn.setURI(this.uri);
 			conn.connect();
+			log.debug("Chat Connected");
 			
 			
 		}
@@ -67,6 +70,9 @@ package org.bigbluebutton.modules.chat.model.business
             chatSO.addEventListener(SyncEvent.SYNC, sharedObjectSyncHandler);
             chatSO.client = this;
             chatSO.connect(nc);
+            log.debug("Chat is connected to Shared object");
+            
+            //sendNotification(ChatFacade.DEBUG ,"Message Body",null);
             
 		}
 		public function handleDisconnection(e:ConnectionEvent):void {

@@ -15,6 +15,7 @@ package org.bigbluebutton.modules.log.model
 		
 		public function sendClearLog () {
 			sendNotification(LogFacade.CLEAR);
+			
 		}
 		
 		
