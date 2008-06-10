@@ -10,11 +10,7 @@
 			import org.bigbluebutton.common.RouterTest;
 			import org.bigbluebutton.common.InputPipeTest;
 			import org.bigbluebutton.common.OutputPipeTest;
-			import org.bigbluebutton.modules.conference.model.ConferenceDelegateTest;
-			import org.bigbluebutton.modules.conference.model.ConnectionServiceMockTest;
 			import flexunit.framework.TestSuite;		
-			import org.bigbluebutton.modules.conference.model.ConferenceVOTest;
-			import org.bigbluebutton.modules.conference.model.ConferenceProxyTest;
 			//import org.bigbluebutton.modules.chat.test.*;
 			
 			// After everything is built, configure the test
@@ -32,10 +28,6 @@
  				
  				// TODO: Add more tests here to test more classes
  				// by calling addTest as often as necessary
- 				ts.addTest( ConferenceProxyTest.suite() );
- 				ts.addTest( ConferenceVOTest.suite() );
- 				ts.addTest( ConnectionServiceMockTest.suite() );
- 				ts.addTest( ConferenceDelegateTest.suite() );
  				ts.addTest( OutputPipeTest.suite() );
  				ts.addTest( InputPipeTest.suite() );
  				ts.addTest( RouterTest.suite() );
