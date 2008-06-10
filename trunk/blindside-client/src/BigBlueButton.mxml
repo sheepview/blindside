@@ -3,14 +3,6 @@
 	xmlns:mainView="org.bigbluebutton.main.view.components.*"
 	pageTitle="Big Blue Button"
 	layout="absolute">
-
-	<mx:Script>
-		<![CDATA[
-			import org.bigbluebutton.main.MainApplicationFacade;
-			public static const NAME:String = 'BigBlueButton';
-			protected var facade:MainApplicationFacade = MainApplicationFacade.getInstance( NAME );		
-		]]>
-	</mx:Script>
 		
 	<mainView:MainApplicationShell id="mainShell"/>	
 	

@@ -18,7 +18,6 @@ package org.bigbluebutton.modules.presentation.controller
 	public class StartupModelCommand extends SimpleCommand
 	{
 		override public function execute(notification:INotification):void{
-			var app:PresentationWindow = notification.getBody() as PresentationWindow;
 			facade.registerProxy(new PresentationDelegate(new NetConnection()));
 			facade.registerMediator(new PresentationModel());
 		}

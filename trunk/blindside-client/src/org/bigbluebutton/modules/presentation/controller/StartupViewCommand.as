@@ -1,5 +1,7 @@
 package org.bigbluebutton.modules.presentation.controller
 {
+	import org.bigbluebutton.modules.presentation.PresentationModule;
+	import org.bigbluebutton.modules.presentation.PresentationModuleMediator;
 	import org.bigbluebutton.modules.presentation.view.PresentationWindow;
 	import org.bigbluebutton.modules.presentation.view.PresentationWindowMediator;
 	import org.bigbluebutton.modules.presentation.view.ThumbnailViewMediator;
@@ -15,10 +17,12 @@ package org.bigbluebutton.modules.presentation.controller
 	public class StartupViewCommand extends SimpleCommand
 	{
 		override public function execute(notification:INotification):void{
-			var app:PresentationWindow = notification.getBody() as PresentationWindow;
-			facade.registerMediator(new PresentationWindowMediator(app));
-			facade.registerMediator(new ThumbnailViewMediator(app.thumbnailView));
-			//facade.registerMediator(new FileUploadWindowMediator(app.uploadWindow));
+			//var presentationWindow:PresentationWindow = new PresentationWindow();
+			//facade.registerMediator(new PresentationWindowMediator(presentationWindow));
+			//facade.registerMediator(new ThumbnailViewMediator(presentationWindow.thumbnailView));
+			
+			var app:PresentationModule = notification.getBody() as PresentationModule;
+			facade.registerMediator(new PresentationModuleMediator(app));
 		}
 
 	}

@@ -68,7 +68,7 @@
 						
 			private function init():void 
 			{		
-				PresentationFacade.getInstance().startup(this);			
+				//PresentationFacade.getInstance().startup(this);			
 				BindingUtils.bindSetter(handleConnected, model.presentation, "isConnected");
 				BindingUtils.bindSetter(handleSharing, model.presentation, "isSharing");
 				BindingUtils.bindSetter(handlePresenterControl, model.presentation, "isPresenter");
