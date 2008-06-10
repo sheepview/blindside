@@ -11,6 +11,7 @@ package org.bigbluebutton.main.view
 	import org.bigbluebutton.main.view.components.MainApplicationShell;
 	import org.bigbluebutton.modules.chat.ChatModule;
 	import org.bigbluebutton.modules.log.LogModule;
+	import org.bigbluebutton.modules.presentation.PresentationModule;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
 	import org.puremvc.as3.multicore.utilities.pipes.interfaces.IPipeMessage;
 	import org.puremvc.as3.multicore.utilities.pipes.plumbing.PipeListener;
@@ -25,8 +26,11 @@ package org.bigbluebutton.main.view
 		private var inpipe : InputPipe;
 		public var router : Router;
 		private var inpipeListener : PipeListener;
+		
 		private var logModule : LogModule;
 		private var chatModule : ChatModule;
+		
+		private var presentationModule:PresentationModule;
 		
 		public function MainApplicationShellMediator( viewComponent:MainApplicationShell )
 		{
@@ -48,8 +52,9 @@ package org.bigbluebutton.main.view
 			logModule.acceptRouter(router, viewComponent);
 			viewComponent.debugLog.text = "Log Module inited 2";
 			
-			//runChatModule();
-					
+			presentationModule = new PresentationModule();
+			presentationModule.acceptRouter(router, viewComponent);
+		
 		}
 		
 		public function runChatModule(event:Event) : void

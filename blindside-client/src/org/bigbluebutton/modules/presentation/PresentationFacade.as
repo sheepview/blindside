@@ -8,7 +8,6 @@ package org.bigbluebutton.modules.presentation
 	import org.bigbluebutton.modules.presentation.model.PresentationApplication;
 	import org.bigbluebutton.modules.presentation.model.PresentationModel;
 	import org.bigbluebutton.modules.presentation.model.business.PresentationDelegate;
-	import org.bigbluebutton.modules.presentation.view.PresentationWindow;
 	import org.puremvc.as3.multicore.interfaces.IFacade;
 	import org.puremvc.as3.multicore.patterns.facade.Facade;
 	
@@ -105,7 +104,7 @@ package org.bigbluebutton.modules.presentation
 	   	 * @param app
 	   	 * 
 	   	 */	   	
-	   	public function startup(app:PresentationWindow):void{
+	   	public function startup(app:PresentationModule):void{
 	 		  sendNotification(STARTUP, app);
 	 		  registerMediator(presentation);
 	   	}
