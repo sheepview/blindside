@@ -11,8 +11,8 @@
 <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/framework.swc" sourcepath="${PROJECT_FRAMEWORKS}/source" useDefaultLinkType="true"/>
 </modifiedEntries>
 <excludedEntries>
-<libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_agent.swc" useDefaultLinkType="false"/>
 <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation.swc" useDefaultLinkType="false"/>
+<libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_agent.swc" useDefaultLinkType="false"/>
 <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/qtp.swc" useDefaultLinkType="false"/>
 <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_dmv.swc" useDefaultLinkType="false"/>
 </excludedEntries>
@@ -26,16 +26,15 @@
 </sourceAttachmentPath>
 </compiler>
 <applications>
-<application path="BigBlueButtonUnitTests.mxml"/>
 <application path="src/main.mxml"/>
-<application path="main.mxml"/>
+<application path="BigBlueButtonUnitTests.mxml"/>
+<application path="VoiceUnitTests.mxml"/>
 <application path="src/TestRunners.mxml"/>
 <application path="meetme.mxml"/>
 <application path="blindside.mxml"/>
-<application path="BigBlueButton.mxml"/>
-<application path="VoiceUnitTests.mxml"/>
-<application path="LogApplication.mxml"/>
 <application path="PresentationUnitTests.mxml"/>
+<application path="LogApplication.mxml"/>
+<application path="BigBlueButton.mxml"/>
 </applications>
 <modules/>
 <buildCSSFiles/>

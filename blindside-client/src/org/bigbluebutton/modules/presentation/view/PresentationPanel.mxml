@@ -10,12 +10,10 @@
 
 	<mx:Script>
 		<![CDATA[
+			import org.bigbluebutton.common.Images;
 			import org.bigbluebutton.modules.presentation.model.vo.SlidesDeck;
 			import org.bigbluebutton.modules.presentation.PresentationFacade;
-			import org.blindsideproject.main.BlindsideAppLocator;
 			import mx.binding.utils.BindingUtils;
-					
-			import org.blindsideproject.views.general.Images;
 
 			import mx.collections.ArrayCollection;
 			import mx.rpc.events.*;
@@ -26,7 +24,7 @@
             import mx.containers.TitleWindow;
             import flash.geom.Point;
              			
-			private var images : Images = new Images();
+			private var images:Images = new Images();
 
 			[Bindable] private var uploadIcon : Class = images.powerpoint;
 			[Bindable] private var connectIcon : Class = images.disconnect;
@@ -117,7 +115,7 @@
 	   			var presenterid : Number = Number(event.dragSource.dataForFormat('presenterUserid'));
 	   			var presentername : String = event.dragSource.dataForFormat('presenterUsername').toString();
 
-	   			BlindsideAppLocator.getInstance().presentationFacade.presentationApp.assignPresenter(presenterid, presentername);		  		
+	   			PresentationFacade.getInstance().presentationApp.assignPresenter(presenterid, presentername);		  		
 	   		}
 				
 		]]>
