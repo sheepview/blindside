@@ -56,12 +56,8 @@ package org.bigbluebutton.modules.log.view
 			router.registerInputPipe(inpipe.name, inpipe);
 			viewComponent.mshell.debugLog.text = "in logmodule mediator 2";
 			addWindow();
-			// Listeners
-			logWindow.clear_Btn.addEventListener(MouseEvent.CLICK , clear);
-			logWindow.debug_box.addEventListener(Event.CHANGE,changeLevel);
-			logWindow.info_box.addEventListener(Event.CHANGE,changeLevel);
-			logWindow.warn_box.addEventListener(Event.CHANGE,changeLevel);
-			logWindow.error_box.addEventListener(Event.CHANGE,changeLevel);
+			
+			
 		}
 		/**
 		 * initializing notifiers 
@@ -146,9 +142,44 @@ package org.bigbluebutton.modules.log.view
 			logWindow.width = 400;
 			logWindow.height = 220;
 			logWindow.title = "Log";
+			
 			msg.setBody(logWindow);
-			viewComponent.mshell.debugLog.text = "in logmodule mediator addwindow";
-			outpipe.write(msg);			
+			viewComponent.mshell.debugLog.text = "in logmodule mediator: addWindow()";
+			outpipe.write(msg);
+			
+			// Adding listeners
+			logWindow.clear_Btn.addEventListener(MouseEvent.CLICK , clear);
+			logWindow.debug_box.addEventListener(Event.CHANGE,changeLevel);
+			logWindow.info_box.addEventListener(Event.CHANGE,changeLevel);
+			logWindow.warn_box.addEventListener(Event.CHANGE,changeLevel);
+			logWindow.error_box.addEventListener(Event.CHANGE,changeLevel);
+			logWindow.closeBtn.addEventListener(MouseEvent.CLICK, removeWindow);
+			
+					
+		}
+		
+		/**
+		 * Preparing a message to remove the window and sending it through pipes to shell
+		 * @param event:Event
+		 * 
+		 */		
+		private function removeWindow(event:Event) : void
+		{
+			var msg:IPipeMessage = new Message(Message.NORMAL);
+   			msg.setHeader( {MSG:MainApplicationConstants.REMOVE_WINDOW_MSG, SRC: LogModuleConstants.FROM_LOG_MODULE,
+   						TO: MainApplicationConstants.TO_MAIN });
+   			msg.setPriority(Message.PRIORITY_HIGH );
+   			
+   			//Removing listeners
+   			logWindow.clear_Btn.removeEventListener(MouseEvent.CLICK , clear);
+			logWindow.debug_box.removeEventListener(Event.CHANGE,changeLevel);
+			logWindow.info_box.removeEventListener(Event.CHANGE,changeLevel);
+			logWindow.warn_box.removeEventListener(Event.CHANGE,changeLevel);
+			logWindow.error_box.removeEventListener(Event.CHANGE,changeLevel);
+			logWindow.closeBtn.removeEventListener(MouseEvent.CLICK, removeWindow);
+   			
+   			msg.setBody(logWindow);
+   			outpipe.write(msg);
 		}
 		/**
 		 * getting logModule 

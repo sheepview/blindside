@@ -1,16 +1,16 @@
 package org.bigbluebutton.modules.chat.view
 {
+	import flash.events.Event;
+	import flash.events.MouseEvent;
+	
 	import org.bigbluebutton.common.InputPipe;
 	import org.bigbluebutton.common.OutputPipe;
 	import org.bigbluebutton.common.Router;
 	import org.bigbluebutton.main.MainApplicationConstants;
-	import org.bigbluebutton.modules.chat.ChatFacade;
 	import org.bigbluebutton.modules.chat.ChatModule;
 	import org.bigbluebutton.modules.chat.ChatModuleConstants;
 	import org.bigbluebutton.modules.chat.view.components.ChatWindow;
-	import org.bigbluebutton.modules.log.LogModuleConstants;
 	import org.puremvc.as3.multicore.interfaces.IMediator;
-	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
 	import org.puremvc.as3.multicore.utilities.pipes.interfaces.IPipeMessage;
 	import org.puremvc.as3.multicore.utilities.pipes.messages.Message;
@@ -24,7 +24,7 @@ package org.bigbluebutton.modules.chat.view
 	public class ChatModuleMediator extends Mediator implements IMediator
 	{
 		public static const NAME:String = 'LogModuleMediator';
-		public static const DEBUG:String = 'debug';
+		//public static const DEBUG:String = 'debug';
 		
 
 		private var outpipe : OutputPipe;
@@ -53,7 +53,7 @@ package org.bigbluebutton.modules.chat.view
 			viewComponent.mshell.debugLog.text = "in ChatModuleMediator 2";
 			chatWindow = viewComponent.chatWindow;
 			addWindow();
-			//debug("Hahahaha");
+			
 		}
 		
 		override public function initializeNotifier(key:String):void
@@ -61,15 +61,14 @@ package org.bigbluebutton.modules.chat.view
 			super.initializeNotifier(key);
 		} 
 		
-		override public function handleNotification(note:INotification):void
-		{
-			switch(note.getName())
-			{
-				case ChatFacade.DEBUG:
-					debug("Some message");
-					break;	
-			}
-		}
+		//override public function handleNotification(note:INotification):void
+		//{
+		//	switch(note.getName())
+		//	{
+				//case ChatFacade.DEBUG:
+				//break;	
+		//	}
+		//}
 		
 		/**
 		 * prepares the chat window to be sent as a message through pipes to Shell 
@@ -88,9 +87,24 @@ package org.bigbluebutton.modules.chat.view
 			chatWindow.title = "Public Chat";
 			msg.setBody(chatWindow);
 			viewComponent.mshell.debugLog.text = "in ChatModuleMediator:addwindow()";
-			outpipe.write(msg);			
+			outpipe.write(msg);
+			chatWindow.closeBtn.addEventListener(MouseEvent.CLICK, removeWindow);			
 		}
-		
+		/**
+		 * preparing the remove window event to send through pipes to shell
+		 * @param event:Event
+		 * 
+		 */		
+		private function removeWindow(event:Event) : void
+		{
+			var msg:IPipeMessage = new Message(Message.NORMAL);
+   			msg.setHeader( {MSG:MainApplicationConstants.REMOVE_WINDOW_MSG, SRC: ChatModuleConstants.FROM_CHAT_MODULE,
+   						TO: MainApplicationConstants.TO_MAIN });
+   			msg.setPriority(Message.PRIORITY_HIGH );
+   			chatWindow.closeBtn.removeEventListener(MouseEvent.CLICK, removeWindow);
+   			msg.setBody(chatWindow);
+			outpipe.write(msg);
+		}
 		/**
 		 * 
 		 * @return view component chatModule
@@ -112,14 +126,14 @@ package org.bigbluebutton.modules.chat.view
 		}
 		
 		
-		override public function listNotificationInterests():Array
-		{
-			return [
-					ChatFacade.DEBUG
-				   ];
-		}
+	//	override public function listNotificationInterests():Array
+	//	{
+		//	return [
+					//ChatFacade.DEBUG
+	//			   ];
+		//}
 		
-		
+		/*
 		private function debug(message:String) : void 
 		{
 		 	
@@ -131,7 +145,7 @@ package org.bigbluebutton.modules.chat.view
 			
 			outpipe.write(msg);			
 		}
-
+      */
 
 	}
 }

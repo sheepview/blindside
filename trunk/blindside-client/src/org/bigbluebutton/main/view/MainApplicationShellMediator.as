@@ -21,6 +21,7 @@ package org.bigbluebutton.main.view
 	{
 		public static const NAME:String = 'MainApplicationShellMediator';
 		public static const OPEN_CHAT_MODULE:String = 'openChatModule';
+		public static const OPEN_LOG_MODULE:String = 'openLogModule';
 
 		
 		private var outpipe : OutputPipe;
@@ -38,21 +39,22 @@ package org.bigbluebutton.main.view
 		{
 			super( NAME, viewComponent );
 			router = new Router(viewComponent);
-			viewComponent.debugLog.text = "Log Module inited 1";
+			///viewComponent.debugLog.text = "Log Module inited 1";
 			viewComponent.addEventListener(OPEN_CHAT_MODULE , runChatModule);
+			viewComponent.addEventListener(OPEN_LOG_MODULE , runLogModule);
 			inpipe = new InputPipe(MainApplicationConstants.TO_MAIN);
 			outpipe = new OutputPipe(MainApplicationConstants.FROM_MAIN);
 			inpipeListener = new PipeListener(this, messageReceiver);
 			inpipe.connect(inpipeListener);
 			router.registerOutputPipe(outpipe.name, outpipe);
 			router.registerInputPipe(inpipe.name, inpipe);
-			viewComponent.debugLog.text = "Log Module inited 1.5";
+			//viewComponent.debugLog.text = "Log Module inited 1.5";
 			
-			logModule = new LogModule();
+			//logModule = new LogModule();
 						
-			viewComponent.debugLog.text = "Log Module inited 1.65";
-			logModule.acceptRouter(router, viewComponent);
-			viewComponent.debugLog.text = "Log Module inited 2";
+			//viewComponent.debugLog.text = "Log Module inited 1.65";
+			//logModule.acceptRouter(router, viewComponent);
+			//viewComponent.debugLog.text = "Log Module inited 2";
 			
 			presentationModule = new PresentationModule();
 			presentationModule.acceptRouter(router, viewComponent);
@@ -68,7 +70,11 @@ package org.bigbluebutton.main.view
 			chatModule.acceptRouter(router, shell);
 		}
 		
-		
+		public function runLogModule(event:Event) : void
+		{
+			logModule = new LogModule();
+			logModule.acceptRouter(router, shell);
+		}
 		private function messageReceiver(message : IPipeMessage) : void
 		{
 			var msg : String = message.getHeader().MSG as String;
@@ -80,11 +86,16 @@ package org.bigbluebutton.main.view
 				case MainApplicationConstants.ADD_WINDOW_MSG:
 					window = message.getBody() as MDIWindow;
 					shell.mdiCanvas.windowManager.add(window);
-					shell.mdiCanvas.windowManager.absPos(window, 20, 250);	
+					shell.mdiCanvas.windowManager.absPos(window, 20, 250);
+					if(window.title == "Log") shell.toolbar.LogBtn.enabled = false;
+					if(window.title == "Public Chat") shell.toolbar.chatBtn.enabled = false;
 					break;
 				case MainApplicationConstants.REMOVE_WINDOW_MSG:
 					window = message.getBody() as MDIWindow;
+					if(window.title == "Log") shell.toolbar.LogBtn.enabled = true;
+					if(window.title == "Public Chat") shell.toolbar.chatBtn.enabled = true;
 					shell.mdiCanvas.windowManager.remove(window);
+					
 					break;									
 			}
 		}
