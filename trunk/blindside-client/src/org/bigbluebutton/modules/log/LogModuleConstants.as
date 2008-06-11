@@ -1,5 +1,10 @@
 package org.bigbluebutton.modules.log
 {
+	/**
+	 * 
+	 * Class containing the constants required
+	 * 
+	 */	
 	public class LogModuleConstants
 	{
 		public static const FROM_LOG_MODULE:String = 'FROM_LOG_MODULE';

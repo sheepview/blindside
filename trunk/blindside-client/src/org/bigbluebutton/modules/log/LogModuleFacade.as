@@ -52,19 +52,38 @@ package org.bigbluebutton.modules.log
         }
         
         
-        
+        /**
+         * sends debug notification 
+         * @param message
+         * 
+         */        
         public function debug(message:String):void
         {
         	sendNotification(DEBUG , message);
         }
+        /**
+         * sends warning notification 
+         * @param message
+         * 
+         */        
         public function warning(message:String):void
         {
         	sendNotification(WARNING , message);
         }
+        /**
+         * sends info notification 
+         * @param message
+         * 
+         */        
         public function info(message:String):void
         {
         	sendNotification(INFO , message);
         }
+        /**
+         * sends error notification 
+         * @param message
+         * 
+         */        
         public function error(message:String):void
         {
         	sendNotification(ERROR , message);

@@ -1,5 +1,6 @@
 package org.bigbluebutton.modules.log.view
 {
+	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
 	import org.bigbluebutton.common.InputPipe;
@@ -19,17 +20,30 @@ package org.bigbluebutton.modules.log.view
 	
 	
 
-
+	/**
+	 * 
+	 * Mediator for LogModule and LogWindow
+	 * 
+	 */    
 	public class LogModuleMediator extends Mediator implements IMediator
 	{
 		public static const NAME:String = 'LogModuleMediator';
 
+		private var debug : Boolean;
+		private var warn : Boolean;
+		private var error : Boolean;
+		private var info : Boolean;
 		private var outpipe : OutputPipe;
 		private var inpipe : InputPipe;
 		private var router : Router;
 		private var inpipeListener : PipeListener;
 		private var logWindow : LogWindow = new LogWindow();
 		
+		/**
+		 * Constructor, initializing the router, pipes, and listeners 
+		 * @param viewComponent
+		 * 
+		 */		
 		public function LogModuleMediator( viewComponent:LogModule )
 		{
 			super( NAME, viewComponent );	
@@ -42,10 +56,18 @@ package org.bigbluebutton.modules.log.view
 			router.registerInputPipe(inpipe.name, inpipe);
 			viewComponent.mshell.debugLog.text = "in logmodule mediator 2";
 			addWindow();
-			//
+			// Listeners
 			logWindow.clear_Btn.addEventListener(MouseEvent.CLICK , clear);
+			logWindow.debug_box.addEventListener(Event.CHANGE,changeLevel);
+			logWindow.info_box.addEventListener(Event.CHANGE,changeLevel);
+			logWindow.warn_box.addEventListener(Event.CHANGE,changeLevel);
+			logWindow.error_box.addEventListener(Event.CHANGE,changeLevel);
 		}
-
+		/**
+		 * initializing notifiers 
+		 * @param key
+		 * 
+		 */
 		override public function initializeNotifier(key:String):void
 		{
 			super.initializeNotifier(key);
@@ -66,7 +88,11 @@ package org.bigbluebutton.modules.log.view
 					LogModuleFacade.CLEAR
 				   ];
 		}
-		
+		/**
+		 * handlers for the notifiers this mediator is listening to 
+		 * @param note
+		 * 
+		 */		
 		override public function handleNotification(note:INotification):void
 		{
 			
@@ -74,26 +100,30 @@ package org.bigbluebutton.modules.log.view
 			{
 				case LogModuleFacade.DEBUG:
 				{
-				this.logWindow.status_txt.text += "\n" +
-				"[DEBUG @ " + time() + "] " + note.getBody() as String;
+			    if (debug)
+				this.logWindow.status_txt.text += 
+				"[DEBUG @ " + time() + "] " + (note.getBody() as String) + "\n";
 				}
 				break;
 				case LogModuleFacade.ERROR:
 				{
-				this.logWindow.status_txt.text += "\n" +
-				"[ERROR @ " + time() + "] " + note.getBody() as String;	
+				if(error)
+				this.logWindow.status_txt.text +=
+				"[ERROR @ " + time() + "] " + (note.getBody() as String) + "\n";	
 				}
 				break;
 				case LogModuleFacade.WARNING:
 				{
-				this.logWindow.status_txt.text += "\n" +
-				"[WARNING @ " + time() + "] " + note.getBody() as String;	
+				if(warn)
+				this.logWindow.status_txt.text +=
+				"[WARNING @ " + time() + "] " + (note.getBody() as String) + "\n";	
 				}
 				break;
 				case LogModuleFacade.INFO:
 				{
-				this.logWindow.status_txt.text += "\n" +
-				"[INFO @ " + time() + "] " + note.getBody() as String;	
+				if(info)
+				this.logWindow.status_txt.text +=
+				"[INFO @ " + time() + "] " + (note.getBody() as String) + "\n";	
 				}
 				break;
 				case LogModuleFacade.CLEAR:
@@ -101,7 +131,10 @@ package org.bigbluebutton.modules.log.view
 				break;
 			}
 		}
-		
+		/**
+		 * prepare Log window and send it through pipes to Shell 
+		 * 
+		 */		
 		private function addWindow() : void
 		{
 			// create a message
@@ -110,39 +143,36 @@ package org.bigbluebutton.modules.log.view
    						TO: MainApplicationConstants.TO_MAIN });
    			msg.setPriority(Message.PRIORITY_HIGH );
    			
-			logWindow.width = 210;
-			logWindow.height = 200;
+			logWindow.width = 400;
+			logWindow.height = 220;
 			logWindow.title = "Log";
 			msg.setBody(logWindow);
 			viewComponent.mshell.debugLog.text = "in logmodule mediator addwindow";
 			outpipe.write(msg);			
 		}
-		
+		/**
+		 * getting logModule 
+		 * @return LogModule
+		 * 
+		 */		
 		protected function get logModule():LogModule
 		{
 			return viewComponent as LogModule;
 		}
-
+		/**
+		 * Handles incoming messages through pipes  
+		 * @param message
+		 * 
+		 */
 		private function messageReceiver(message : IPipeMessage) : void
 		{
 			var msg : String = message.getHeader().MSG;
-		
-			//var window : MDIWindow;
-			
-			//			switch (msg)
-			//			{
-			//				case Messages.ADD_WINDOW:
-			//					window = message.getBody() as MDIWindow;
-			//					shell.mdiCanvas.windowManager.add(window);
-			//					shell.mdiCanvas.windowManager.absPos(window, 20, 250);	
-			//					break;
-			//				case Messages.REMOVE_WINDOW:
-			//					window = message.getBody() as MDIWindow;
-			//					shell.mdiCanvas.windowManager.remove(window);
-			//					break;									
-			//			}
 		}
-		
+		/**
+		 * Getting current date and time 
+		 * @return Date + Time as String
+		 * 
+		 */		
 		private function time() : String
 		{
 			var date:Date = new Date();
@@ -150,9 +180,26 @@ package org.bigbluebutton.modules.log.view
 			var d:String = date.toLocaleDateString();
 			return (t + ", " + d) as String;
 		}
+		/**
+		 * clears Log dispaly 
+		 * @param e:Event
+		 * 
+		 */		
 		private function clear(e:MouseEvent)  : void
 		{
 			this.logWindow.status_txt.text = "";
+		}
+		/**
+		 * Handler for logWindow checkboxes
+		 * @param e:Event
+		 * 
+		 */		
+		private function changeLevel(e:Event) : void
+		{
+			if( logWindow.debug_box.selected) debug = true else debug = false;
+			if( logWindow.warn_box.selected) warn = true else warn = false;
+			if( logWindow.info_box.selected) info = true else info = false;
+			if( logWindow.error_box.selected) error = true else error = false;
 		}
 	}
 }
