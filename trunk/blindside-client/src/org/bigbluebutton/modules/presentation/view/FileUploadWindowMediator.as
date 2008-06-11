@@ -9,8 +9,6 @@ package org.bigbluebutton.modules.presentation.view
 	
 	import org.bigbluebutton.modules.presentation.PresentationFacade;
 	import org.bigbluebutton.modules.presentation.controller.notifiers.ProgressNotifier;
-
-	import org.blindsideproject.main.BlindsideAppLocator;
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
@@ -64,8 +62,7 @@ package org.bigbluebutton.modules.presentation.view
 		 * 
 		 */		
 		private function startUpload(e:Event):void{
-			BlindsideAppLocator.getInstance().presentationFacade.presentationApp.uploadPresentation(fileToUpload);
-							
+			PresentationFacade.getInstance().presentationApp.uploadPresentation(fileToUpload);
 			fileUploadWindow.progBarLbl.visible = true;
 			fileUploadWindow.progressBar.visible = true;
 			

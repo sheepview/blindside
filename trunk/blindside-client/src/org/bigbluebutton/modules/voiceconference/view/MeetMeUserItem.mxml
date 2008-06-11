@@ -2,9 +2,10 @@
 <mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" creationComplete="initParticipantItem()">
    <mx:Script>
    	<![CDATA[
+   		import org.bigbluebutton.common.Role;
+   		import org.bigbluebutton.common.Images;
    		import org.bigbluebutton.modules.voiceconference.VoiceConferenceFacade;
    		import mx.controls.Image;
-   		import org.blindsideproject.views.general.Images;
    		import com.adobe.cairngorm.control.CairngormEventDispatcher;
 
 
@@ -16,16 +17,15 @@
 	    import mx.collections.ArrayCollection;
 	    import mx.controls.TileList;
 
-		import org.blindsideproject.core.apps.conference.vo.Role;
 		import org.blindsideproject.core.apps.conference.model.*;
 			
-		private var confModel : ConferenceModelLocator = ConferenceModelLocator.getInstance();
+		//private var confModel:ConferenceFacade = ConferenceFacade.getInstance();
 			
-		private var userRole : String = confModel.conference.me.role;
+		private var userRole : String = Role.MODERATOR;
 					
 		private var model:VoiceConferenceFacade = VoiceConferenceFacade.getInstance();
    		
-   		private var images : Images = new Images();
+   		private var images:Images = new Images();
    		
    		[Bindable] private var muteIcon : Object = images.sound_mute;
    		[Bindable] private var talkIcon : Object = images.sound;   		

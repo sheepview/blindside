@@ -1,4 +1,4 @@
-package org.blindsideproject.views.general
+package org.bigbluebutton.common
 {
 	[Bindable]
 	public class Images

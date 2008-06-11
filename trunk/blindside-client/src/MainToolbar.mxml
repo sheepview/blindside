@@ -8,7 +8,6 @@
 			import org.red5.samples.publisher.vo.BroadcastMedia;
 			import org.blindsideproject.views.control.events.OpenWindowEvent;
 			import org.red5.samples.publisher.view.MyCameraWindow;
-		import org.blindsideproject.core.apps.conference.controller.commands.LeaveCommand;
 
 		import org.blindsideproject.views.general.Images;		
 		import mx.managers.PopUpManager;
@@ -25,8 +24,8 @@
 		
 		public function doLogout():void
 		{			
-			var command : LeaveCommand = new LeaveCommand();
-			command.dispatch();				
+			//var command : LeaveCommand = new LeaveCommand();
+			//command.dispatch();				
 		}
 		
 		private function popVideoMonitorWindow() : void

@@ -1,4 +1,4 @@
-package org.blindsideproject.core.apps.conference.vo
+package org.bigbluebutton.common
 {
 	public class Role
 	{
