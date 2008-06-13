@@ -115,12 +115,12 @@ package org.bigbluebutton.main.view
 				case MainApplicationConstants.ADD_WINDOW_MSG:
 					window = message.getBody() as MDIWindow;
 					
-					if(window.title == "Log"){
-						shell.toolbar.LogBtn.enabled = false;
-						shell.mdiCanvas.windowManager.absPos(window, 20, 450);
+					//if(window.title == "Log"){
+					//	shell.toolbar.LogBtn.enabled = false;
+						shell.mdiCanvas.windowManager.absPos(window, 20, 200);
 						shell.mdiCanvas.windowManager.add(window);
 						//window.visible = true;	
-					} 
+				/*	} 
 					else if(window.title == "Public Chat"){
 						shell.toolbar.chatBtn.enabled = false;
 						shell.mdiCanvas.windowManager.absPos(window, 800, 20);
@@ -133,7 +133,11 @@ package org.bigbluebutton.main.view
 					else if(window.title == "Listeners"){
 						shell.mdiCanvas.windowManager.absPos(window, 20, 20);
 						shell.mdiCanvas.windowManager.add(window);
-					} 
+					}
+					else if(window.title == "Join Conference"){
+						shell.mdiCanvas.windowManager.absPos(window, 20, 20);
+						shell.mdiCanvas.windowManager.add(window);
+					}  */
 					break;
 				case MainApplicationConstants.REMOVE_WINDOW_MSG:
 					window = message.getBody() as MDIWindow;
