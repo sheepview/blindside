@@ -45,7 +45,7 @@ package org.bigbluebutton.modules.chat.model.business
 			conn.addEventListener(Connection.DISCONNECTED, handleDisconnection);
 			conn.setURI(this.uri);
 			conn.connect();
-			log.debug("Chat Connected");
+			
 			
 			
 		}

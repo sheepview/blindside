@@ -6,6 +6,7 @@ package org.bigbluebutton.modules.chat
 	import org.bigbluebutton.common.Router;
 	import org.bigbluebutton.main.view.components.MainApplicationShell;
 	import org.bigbluebutton.modules.chat.view.components.ChatWindow;
+	import org.bigbluebutton.modules.log.LogModuleFacade;
 
 	/**
 	 * 
@@ -19,6 +20,7 @@ package org.bigbluebutton.modules.chat
 		public var chatWindow : ChatWindow;
 		private var facade : ChatFacade;		
 		private var _router : Router;
+		private var log : LogModuleFacade = LogModuleFacade.getInstance("LogModule");
 		
 		
 		/**
@@ -28,7 +30,9 @@ package org.bigbluebutton.modules.chat
 		public function ChatModule()
 		{
 			super();
+			log.debug("Creating new ChatWindow...");
 			chatWindow = new ChatWindow;
+			log.debug("Getting an instance of Chat Facade...");
 			facade = ChatFacade.getInstance();
 			
 		}
@@ -41,11 +45,13 @@ package org.bigbluebutton.modules.chat
 		public function acceptRouter(router : Router, shell : MainApplicationShell) : void
 		{
 			mshell = shell;
-			shell.debugLog.text = 'In ChatModule';
+			//shell.debugLog.text = 'In ChatModule';
+			log.debug("Setting Router for Chat Module...");
 			_router = router;
-			shell.debugLog.text = 'In ChatModule 2';
+			//shell.debugLog.text = 'In ChatModule 2';
 			ChatFacade(facade).startup(this);			
-			shell.debugLog.text = 'In ChatModule 3';
+			//shell.debugLog.text = 'In ChatModule 3';
+			
 		}
 		/**
 		 * 

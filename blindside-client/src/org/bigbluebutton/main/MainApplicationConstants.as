@@ -1,5 +1,8 @@
 package org.bigbluebutton.main
-{
+/**
+*    Contains the shell constants being used in application 
+*/
+{   
 	public class MainApplicationConstants
 	{
 		public static const FROM_MAIN:String = 'MAIN_SRC_ADDR';

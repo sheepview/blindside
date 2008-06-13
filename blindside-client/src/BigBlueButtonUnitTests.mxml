@@ -31,14 +31,7 @@
  				ts.addTest( OutputPipeTest.suite() );
  				ts.addTest( InputPipeTest.suite() );
  				ts.addTest( RouterTest.suite() );
- 				//Tests for chat module
- 				/*ts.addTest( MessageVOTest.suite() );
-//                ts.addTest( ChatProxyTest.suite() );
-//                ts.addTest( ApplicationMediatorTest.suite() );
-//                ts.addTest( ChatWindowMediatorTest.suite() );
-//                ts.addTest( StartupCommandTest.suite() );
-//                ts.addTest( ChatFacadeTest.suite() );     
- 				*/
+ 				
  				return ts;
  			}
 			

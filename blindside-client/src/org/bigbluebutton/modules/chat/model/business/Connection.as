@@ -8,7 +8,7 @@ package org.bigbluebutton.modules.chat.model.business
 	import flash.net.ObjectEncoding;
 	import flash.events.NetStatusEvent;
 	import flash.events.SecurityErrorEvent;
-	
+	import org.bigbluebutton.modules.log.LogModuleFacade;
 	import mx.controls.Alert;
 	
 	public class Connection extends EventDispatcher
@@ -21,13 +21,14 @@ package org.bigbluebutton.modules.chat.model.business
 		public static var APPSHUTDOWN:String = "appShutdown";
 		public static var SECURITYERROR:String = "securityError";
 		public static var DISCONNECTED:String = "disconnected";
-		
+		private var log : LogModuleFacade = LogModuleFacade.getInstance("LogModule");
 		private var nc:NetConnection;
 		private var uri:String;
 		
 		public function Connection()
 		{
 			//  create the netConnection
+			log.info("Creating NetConnection...");
 			nc = new NetConnection();
 			
 			// set the encoding to AMF0 - still waiting for AMF3 to be implemented on Red5
@@ -37,7 +38,9 @@ package org.bigbluebutton.modules.chat.model.business
 			nc.client = this;
 			
 			// add listeners for netstatus and security issues
+			log.info("Listening to NetStatusEvent.NET_STATUS ...");
 			nc.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);
+			log.info("Listening to SecurityErrorEvent.SECURITY_ERROR ...");
 			nc.addEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler);
 		}
 		
@@ -94,31 +97,37 @@ package org.bigbluebutton.modules.chat.model.business
 				case "NetConnection.Connect.Failed":
 					e = new ConnectionEvent(Connection.FAILED, false, false, event.info.code);
 					dispatchEvent(e);
+					log.error("Connection Failed " + event.info.code);
 				break;
 				
 				case "NetConnection.Connect.Success":
 					e = new ConnectionEvent(Connection.SUCCESS, false, false, event.info.code);
 					dispatchEvent(e);
+					log.info("Connected to server Susccesfully " + event.info.code);
 				break;
 				
 				case "NetConnection.Connect.Rejected":
 					e = new ConnectionEvent(Connection.REJECTED, false, false, event.info.code);
 					dispatchEvent(e);
+					log.error("NetConnection.Connect.Rejected " + event.info.code);
 				break;
 				
 				case "NetConnection.Connect.Closed":
 					e = new ConnectionEvent(Connection.CLOSED, false, false, event.info.code);
 					dispatchEvent(e);
+					log.warning("NetConnection.Connect.Closed " + event.info.code);
 				break;
 				
 				case "NetConnection.Connect.InvalidApp":
 					e = new ConnectionEvent(Connection.INVALIDAPP, false, false, event.info.code);
 					dispatchEvent(e);
+					log.error("NetConnection.Connect.InvalidApp " + event.info.code);
 				break;
 				
 				case "NetConnection.Connect.AppShutdown":
 					e = new ConnectionEvent(Connection.APPSHUTDOWN, false, false, event.info.code);
 					dispatchEvent(e);
+					log.warning("NetConnection.Connect.AppShutDown " + event.info.code);
 				break;
 			}
 			
@@ -128,6 +137,7 @@ package org.bigbluebutton.modules.chat.model.business
 				// rather than having to subscribe to the events individually
 				e = new ConnectionEvent(Connection.DISCONNECTED, false, false, event.info.code);
 				dispatchEvent(e);
+				log.error("Module not Connected " + event.info.code);
 			}
 		}
 		
