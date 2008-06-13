@@ -3,7 +3,7 @@
 	xmlns:mainView="org.bigbluebutton.main.view.components.*"
 	pageTitle="Big Blue Button"
 	layout="absolute">
-		
-	<mainView:MainApplicationShell id="mainShell"/>	
+	
+		<mainView:MainApplicationShell id="mainShell"/>	
 	
 </mx:Application>
