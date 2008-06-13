@@ -16,8 +16,6 @@
 	    import mx.controls.Label;
 	    import mx.collections.ArrayCollection;
 	    import mx.controls.TileList;
-
-		//import org.blindsideproject.core.apps.conference.model.*;
 			
 		//private var confModel:ConferenceFacade = ConferenceFacade.getInstance();
 			
