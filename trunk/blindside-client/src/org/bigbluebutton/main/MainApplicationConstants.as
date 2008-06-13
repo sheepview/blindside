@@ -10,5 +10,7 @@ package org.bigbluebutton.main
 
 		public static const ADD_WINDOW_MSG:String = 'ADD_WINDOW_MSG';
 		public static const REMOVE_WINDOW_MSG:String = 'REMOVE_WINDOW_MSG';
+		
+		public static const LOGIN_COMPLETE:String = "LOGIN_COMPLETE";
 	}
 }
