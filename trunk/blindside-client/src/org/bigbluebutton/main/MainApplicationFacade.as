@@ -4,7 +4,11 @@ package org.bigbluebutton.main
 	import org.bigbluebutton.main.view.components.MainApplicationShell;
 	import org.puremvc.as3.multicore.interfaces.IFacade;
 	import org.puremvc.as3.multicore.patterns.facade.Facade;
-	
+	/**
+	 * 
+	 * Facade for the Shell
+	 * 
+	 */	
 	public class MainApplicationFacade extends Facade implements IFacade
 	{
 		// Notification constants 

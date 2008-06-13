@@ -96,28 +96,28 @@ package org.bigbluebutton.modules.log.view
 			{
 				case LogModuleFacade.DEBUG:
 				{
-			    if (debug)
+			    //if (debug)
 				this.logWindow.status_txt.text += 
 				"[DEBUG @ " + time() + "] " + (note.getBody() as String) + "\n";
 				}
 				break;
 				case LogModuleFacade.ERROR:
 				{
-				if(error)
+				//if(error)
 				this.logWindow.status_txt.text +=
 				"[ERROR @ " + time() + "] " + (note.getBody() as String) + "\n";	
 				}
 				break;
 				case LogModuleFacade.WARNING:
 				{
-				if(warn)
+				//if(warn)
 				this.logWindow.status_txt.text +=
 				"[WARNING @ " + time() + "] " + (note.getBody() as String) + "\n";	
 				}
 				break;
 				case LogModuleFacade.INFO:
 				{
-				if(info)
+				//if(info)
 				this.logWindow.status_txt.text +=
 				"[INFO @ " + time() + "] " + (note.getBody() as String) + "\n";	
 				}
@@ -139,21 +139,29 @@ package org.bigbluebutton.modules.log.view
    						TO: MainApplicationConstants.TO_MAIN });
    			msg.setPriority(Message.PRIORITY_HIGH );
    			
-			logWindow.width = 400;
+			logWindow.width = 500;
 			logWindow.height = 220;
 			logWindow.title = "Log";
+			
+			//logWindow.visible = false;
+			
 			
 			msg.setBody(logWindow);
 			viewComponent.mshell.debugLog.text = "in logmodule mediator: addWindow()";
 			outpipe.write(msg);
 			
 			// Adding listeners
-			logWindow.clear_Btn.addEventListener(MouseEvent.CLICK , clear);
-			logWindow.debug_box.addEventListener(Event.CHANGE,changeLevel);
-			logWindow.info_box.addEventListener(Event.CHANGE,changeLevel);
-			logWindow.warn_box.addEventListener(Event.CHANGE,changeLevel);
-			logWindow.error_box.addEventListener(Event.CHANGE,changeLevel);
-			logWindow.closeBtn.addEventListener(MouseEvent.CLICK, removeWindow);
+			//logWindow.clear_Btn.addEventListener(MouseEvent.CLICK , clear);
+			//logWindow.debug_box.addEventListener(Event.CHANGE,changeLevel);
+			//logWindow.info_box.addEventListener(Event.CHANGE,changeLevel);
+			//logWindow.warn_box.addEventListener(Event.CHANGE,changeLevel);
+			//logWindow.error_box.addEventListener(Event.CHANGE,changeLevel);
+			//logWindow.closeBtn.addEventListener(MouseEvent.CLICK, removeWindow);
+			//logWindow.debug_box.selected = true;
+			//logWindow.error_box.selected = true;
+			//logWindow.info_box.selected = true;
+			//logWindow.warn_box.selected = true;
+			//logWindow.visible = false;
 			
 					
 		}

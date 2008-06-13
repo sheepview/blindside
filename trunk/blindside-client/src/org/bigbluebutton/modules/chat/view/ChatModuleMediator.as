@@ -15,6 +15,7 @@ package org.bigbluebutton.modules.chat.view
 	import org.puremvc.as3.multicore.utilities.pipes.interfaces.IPipeMessage;
 	import org.puremvc.as3.multicore.utilities.pipes.messages.Message;
 	import org.puremvc.as3.multicore.utilities.pipes.plumbing.PipeListener;
+	import org.bigbluebutton.modules.log.LogModuleFacade;
 	
 	/**
 	 * This class is a mediator for the ChatModule viewComponent
@@ -32,6 +33,7 @@ package org.bigbluebutton.modules.chat.view
 		private var router : Router;
 		private var inpipeListener : PipeListener;
 		private var chatWindow : ChatWindow;
+		private var log : LogModuleFacade = LogModuleFacade.getInstance("LogModule");
 		
 		/**
 		 * Constructor
@@ -42,17 +44,21 @@ package org.bigbluebutton.modules.chat.view
 		public function ChatModuleMediator( viewComponent:ChatModule )
 		{
 			super( NAME, viewComponent );	
-			viewComponent.mshell.debugLog.text = "in ChatModuleMediator";
+			//viewComponent.mshell.debugLog.text = "in ChatModuleMediator";
 			
 			router = viewComponent.router;
+			log.debug("initializing input pipes for chat module...");
 			inpipe = new InputPipe(ChatModuleConstants.TO_CHAT_MODULE);
+			log.debug("initializing output pipes for chat module...");
 			outpipe = new OutputPipe(ChatModuleConstants.FROM_CHAT_MODULE);
+			log.debug("initializing pipe listener for chat module...");
 			inpipeListener = new PipeListener(this, messageReceiver);
 			router.registerOutputPipe(outpipe.name, outpipe);
 			router.registerInputPipe(inpipe.name, inpipe);
-			viewComponent.mshell.debugLog.text = "in ChatModuleMediator 2";
+			//viewComponent.mshell.debugLog.text = "in ChatModuleMediator 2";
 			chatWindow = viewComponent.chatWindow;
 			addWindow();
+			
 			
 		}
 		
@@ -86,9 +92,10 @@ package org.bigbluebutton.modules.chat.view
 			chatWindow.height = 200;
 			chatWindow.title = "Public Chat";
 			msg.setBody(chatWindow);
-			viewComponent.mshell.debugLog.text = "in ChatModuleMediator:addwindow()";
+			//viewComponent.mshell.debugLog.text = "in ChatModuleMediator:addwindow()";
 			outpipe.write(msg);
-			chatWindow.closeBtn.addEventListener(MouseEvent.CLICK, removeWindow);			
+			chatWindow.closeBtn.addEventListener(MouseEvent.CLICK, removeWindow);
+			log.debug("A message has been sent to show the chat window.");			
 		}
 		/**
 		 * preparing the remove window event to send through pipes to shell
@@ -104,6 +111,7 @@ package org.bigbluebutton.modules.chat.view
    			chatWindow.closeBtn.removeEventListener(MouseEvent.CLICK, removeWindow);
    			msg.setBody(chatWindow);
 			outpipe.write(msg);
+			log.debug("A message has been sent to remove the chat window.");
 		}
 		/**
 		 * 
