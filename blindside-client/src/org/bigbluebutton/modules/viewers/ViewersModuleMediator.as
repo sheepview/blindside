@@ -84,6 +84,15 @@ package org.bigbluebutton.modules.viewers
    			outpipe.write(msg);
 		}
 		
+		private function sendLoginCompleteNotice():void{
+			var msg:IPipeMessage = new Message(Message.NORMAL);
+			msg.setHeader({MSG:MainApplicationConstants.LOGIN_COMPLETE, SRC: ViewersConstants.FROM_VIEWERS_MODULE,
+   						TO: MainApplicationConstants.TO_MAIN });
+   			msg.setPriority(Message.PRIORITY_HIGH);
+   			
+   			outpipe.write(msg);
+		}
+		
 		override public function initializeNotifier(key:String):void{
 			super.initializeNotifier(key);
 			//facade.registerMediator(new JoinWindowMediator(joinWindow));
@@ -102,6 +111,7 @@ package org.bigbluebutton.modules.viewers
 				case ViewersFacade.CONNECT_SUCCESS:
 					removeJoinWindow();
 					addViewersWindow();
+					sendLoginCompleteNotice();
 					break;
 				case ViewersFacade.DEBUG:
 					log.debug(notification.getBody() as String);

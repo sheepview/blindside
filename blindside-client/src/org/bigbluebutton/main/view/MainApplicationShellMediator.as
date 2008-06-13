@@ -1,6 +1,7 @@
 package org.bigbluebutton.main.view
 {
 	import flash.events.Event;
+	import flash.system.Capabilities;
 	
 	import flexlib.mdi.containers.MDIWindow;
 	
@@ -17,6 +18,7 @@ package org.bigbluebutton.main.view
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
 	import org.puremvc.as3.multicore.utilities.pipes.interfaces.IPipeMessage;
 	import org.puremvc.as3.multicore.utilities.pipes.plumbing.PipeListener;
+	
 /**
 *   This is the Mediator class for MainApplicationShell view compom\nent
 */	
@@ -26,6 +28,8 @@ package org.bigbluebutton.main.view
 		public static const OPEN_CHAT_MODULE:String = 'openChatModule';
 		public static const OPEN_LOG_MODULE:String = 'openLogModule';
 
+		private var xPos:Number;
+		private var yPos:Number;
 		
 		private var outpipe : OutputPipe;
 		private var inpipe : InputPipe;
@@ -76,6 +80,7 @@ package org.bigbluebutton.main.view
 			voiceModule = new VoiceModule();
 			voiceModule.acceptRouter(router, shell);
 		}
+		
 		/**
 		 * Runs the Chat Module 
 		 * @param event
@@ -98,6 +103,14 @@ package org.bigbluebutton.main.view
 			//logModule.acceptRouter(router, shell);
 			
 		}
+		
+		private function setLayout(window:MDIWindow):void{
+			var screenX:Number = Capabilities.screenResolutionX;
+			var screenY:Number = Capabilities.screenResolutionY;
+			
+			//var 
+		}
+		
 		/**
 		 * Handles the incoming messages through pipes to shell 
 		 * @param message:IPipeMessage
@@ -114,47 +127,24 @@ package org.bigbluebutton.main.view
 			{
 				case MainApplicationConstants.ADD_WINDOW_MSG:
 					window = message.getBody() as MDIWindow;
-					
-					//if(window.title == "Log"){
-					//	shell.toolbar.LogBtn.enabled = false;
-						shell.mdiCanvas.windowManager.absPos(window, 20, 200);
-						shell.mdiCanvas.windowManager.add(window);
-						//window.visible = true;	
-				/*	} 
-					else if(window.title == "Public Chat"){
-						shell.toolbar.chatBtn.enabled = false;
-						shell.mdiCanvas.windowManager.absPos(window, 800, 20);
-						shell.mdiCanvas.windowManager.add(window);
-					} 
-					else if(window.title == "Presentation"){
-						shell.mdiCanvas.windowManager.absPos(window, 300, 20);
-						shell.mdiCanvas.windowManager.add(window);
-					} 
-					else if(window.title == "Listeners"){
-						shell.mdiCanvas.windowManager.absPos(window, 20, 20);
-						shell.mdiCanvas.windowManager.add(window);
-					}
-					else if(window.title == "Join Conference"){
-						shell.mdiCanvas.windowManager.absPos(window, 20, 20);
-						shell.mdiCanvas.windowManager.add(window);
-					}  */
+					//shell.mdiCanvas.windowManager.absPos(window, this.xPos, this.yPos);
+					shell.mdiCanvas.windowManager.add(window);
+					shell.mdiCanvas.windowManager.tile();
 					break;
 				case MainApplicationConstants.REMOVE_WINDOW_MSG:
 					window = message.getBody() as MDIWindow;
-					
 					if(window.title == "Log") {
 						shell.toolbar.LogBtn.enabled = true;
-						window.visible = false
-					}
-					
-					else if(window.title == "Public Chat"){
+						window.visible = false;
+					} else if(window.title == "Public Chat"){
 						shell.toolbar.chatBtn.enabled = true;
 						shell.mdiCanvas.windowManager.remove(window);
-					} 
-					
-					else shell.mdiCanvas.windowManager.remove(window);
-					
-					break;									
+					} else shell.mdiCanvas.windowManager.remove(window);
+					break;					
+				case MainApplicationConstants.LOGIN_COMPLETE:
+					runPresentationModule();
+					runVoiceModule();
+					break;				
 			}
 		}
 		/**
