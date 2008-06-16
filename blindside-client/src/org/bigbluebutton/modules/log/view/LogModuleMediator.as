@@ -141,7 +141,7 @@ package org.bigbluebutton.modules.log.view
    			
 			logWindow.width = 500;
 			logWindow.height = 220;
-			logWindow.title = "Log";
+			logWindow.title = LogWindow.TITLE;
 			
 			//logWindow.visible = false;
 			

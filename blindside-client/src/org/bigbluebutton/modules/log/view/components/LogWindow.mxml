@@ -2,6 +2,11 @@
 <MDIWindow xmlns="flexlib.mdi.containers.*" 
 		xmlns:mx="http://www.adobe.com/2006/mxml" 
 	    width="400" height="300">
+	    <mx:Script>
+	    	<![CDATA[
+	    		public static const TITLE:String = "Log";
+	    	]]>
+	    </mx:Script>
 	<mx:Box width="100%" height="100%">
 		<mx:TextArea id="status_txt" updateComplete=""
 					 borderColor="0xD0D0D0"

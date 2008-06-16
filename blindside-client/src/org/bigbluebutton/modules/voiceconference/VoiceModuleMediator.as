@@ -47,7 +47,7 @@ package org.bigbluebutton.modules.voiceconference
    			
    			voiceWindow.height = 200;
    			voiceWindow.width = 210;
-   			voiceWindow.title = "Listeners";
+   			voiceWindow.title = ListenersWindow.TITLE;
    			voiceWindow.showCloseButton = false;
    			msg.setBody(voiceWindow);
    			outpipe.write(msg);

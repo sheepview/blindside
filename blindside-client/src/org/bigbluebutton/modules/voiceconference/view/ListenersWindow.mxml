@@ -15,7 +15,8 @@
 			import mx.controls.Label;
 			import mx.collections.ArrayCollection;
 			import mx.controls.Image;	
-				
+			
+			public static const TITLE:String = "Listeners";	
 			private var images:Images = new Images();
 			
 			[Bindable] public var dropTargetIcon : Object = images.door_in;
