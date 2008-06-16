@@ -8,6 +8,7 @@ package org.bigbluebutton.modules.presentation.model
 	import mx.rpc.IResponder;
 	import mx.utils.ArrayUtil;
 	
+	import org.bigbluebutton.common.Constants;
 	import org.bigbluebutton.modules.presentation.PresentationFacade;
 	import org.bigbluebutton.modules.presentation.model.business.PresentationDelegate;
 	import org.bigbluebutton.modules.presentation.model.services.FileUploadService;
@@ -121,7 +122,7 @@ package org.bigbluebutton.modules.presentation.model
 		 */		
 		public function uploadPresentation(fileToUpload : FileReference) : void
 		{
-			var fullUri : String = _docServiceAddress + "/bigbluebutton/file/upload";
+			var fullUri : String = _docServiceAddress + Constants.OLD_RELATIVE_FILE_UPLOAD + "/upload";
 						
 			var service:FileUploadService = new FileUploadService(fullUri, _room);
 			facade.registerProxy(service);
@@ -134,7 +135,7 @@ package org.bigbluebutton.modules.presentation.model
 		 */		
 		public function loadPresentation() : void
 		{
-			var fullUri : String = _docServiceAddress + "/blindside/file/xmlslides?room=" + _room;	
+			var fullUri : String = _docServiceAddress + Constants.OLD_RELATIVE_FILE_UPLOAD + "/xmlslides?room=" + _room;	
 			model.presentationLoaded = false;
 			
 			var service:PresentationService = new PresentationService(fullUri, this);
