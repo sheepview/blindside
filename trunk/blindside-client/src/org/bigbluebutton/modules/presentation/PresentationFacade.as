@@ -121,7 +121,6 @@ package org.bigbluebutton.modules.presentation
 				url : String, docServiceAddress : String):void{
 			presApp = new PresentationApplication(userid, room, url, docServiceAddress);
 	   		sendNotification(START_PRESENTATION_APPLICATION, presApp);
-	   		presApp.join();
 	   	}
 	   	
 	   	/**
