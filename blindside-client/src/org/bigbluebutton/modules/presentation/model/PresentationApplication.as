@@ -121,7 +121,7 @@ package org.bigbluebutton.modules.presentation.model
 		 */		
 		public function uploadPresentation(fileToUpload : FileReference) : void
 		{
-			var fullUri : String = _docServiceAddress + "/blindside/file/upload";
+			var fullUri : String = _docServiceAddress + "/bigbluebutton/file/upload";
 						
 			var service:FileUploadService = new FileUploadService(fullUri, _room);
 			facade.registerProxy(service);
