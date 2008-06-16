@@ -6,6 +6,8 @@ package org.bigbluebutton.modules.presentation
 	import org.bigbluebutton.common.IRouterAware;
 	import org.bigbluebutton.common.Router;
 	import org.bigbluebutton.main.view.components.MainApplicationShell;
+	import org.bigbluebutton.modules.viewers.ViewersFacade;
+	import org.bigbluebutton.modules.viewers.model.business.Conference;
 	
 	public class PresentationModule extends ModuleBase implements IRouterAware
 	{
@@ -30,7 +32,8 @@ package org.bigbluebutton.modules.presentation
 			mshell = shell;
 			_router = router;
 			facade.startup(this);
-			facade.setPresentationApp(DEFAULT_ID, DEFUALT_ROOM, DEFAULT_RED5_URL, DEFAULT_PRES_URL);
+			var conf:Conference = ViewersFacade.getInstance().retrieveMediator(Conference.NAME) as Conference;
+			facade.setPresentationApp(conf.me.userid, conf.room, DEFAULT_RED5_URL, DEFAULT_PRES_URL);
 			facade.presApp.join();
 		}
 		
