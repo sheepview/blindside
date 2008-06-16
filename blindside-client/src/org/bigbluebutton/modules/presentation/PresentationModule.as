@@ -13,8 +13,6 @@ package org.bigbluebutton.modules.presentation
 	{
 		public static const NAME:String = "Presentation Module";
 		
-		public static const DEFAULT_ID:Number = 1;
-		public static const DEFUALT_ROOM:String = "85115";
 		public static const DEFAULT_RED5_URL:String = "rtmp://" + Constants.RED5_HOST;
 		public static const DEFAULT_PRES_URL:String = "http://" + Constants.PRESENTATION_HOST;
 		

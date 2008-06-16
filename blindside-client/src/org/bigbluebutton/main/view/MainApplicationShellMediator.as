@@ -17,6 +17,7 @@ package org.bigbluebutton.main.view
 	import org.bigbluebutton.modules.log.view.components.LogWindow;
 	import org.bigbluebutton.modules.presentation.PresentationModule;
 	import org.bigbluebutton.modules.presentation.view.PresentationWindow;
+	import org.bigbluebutton.modules.video.VideoModule;
 	import org.bigbluebutton.modules.viewers.ViewersModule;
 	import org.bigbluebutton.modules.viewers.view.JoinWindow;
 	import org.bigbluebutton.modules.viewers.view.ViewersWindow;
@@ -51,6 +52,7 @@ package org.bigbluebutton.main.view
 		private var presentationModule:PresentationModule;
 		private var voiceModule:VoiceModule;
 		private var viewersModule:ViewersModule;
+		private var videoModule:VideoModule;
 
 		/**
 		 *  
@@ -87,6 +89,11 @@ package org.bigbluebutton.main.view
 		public function runVoiceModule():void{
 			voiceModule = new VoiceModule();
 			voiceModule.acceptRouter(router, shell);
+		}
+		
+		public function runVideoModule():void{
+			videoModule = new VideoModule();
+			videoModule.acceptRouter(router, shell);
 		}
 		
 		/**

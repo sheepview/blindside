@@ -5,9 +5,6 @@
 	<mx:Script>
 		<![CDATA[
 			import org.bigbluebutton.common.Images;
-   		import org.red5.samples.publisher.MediaType;
-   		import org.red5.samples.publisher.vo.PlayMedia;
-   		import org.red5.samples.publisher.view.ViewCameraWindow;
 		
 		private var images:Images = new Images();
 		
