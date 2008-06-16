@@ -10,12 +10,12 @@ package org.bigbluebutton.modules.chat.view
 	import org.bigbluebutton.modules.chat.ChatModule;
 	import org.bigbluebutton.modules.chat.ChatModuleConstants;
 	import org.bigbluebutton.modules.chat.view.components.ChatWindow;
+	import org.bigbluebutton.modules.log.LogModuleFacade;
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
 	import org.puremvc.as3.multicore.utilities.pipes.interfaces.IPipeMessage;
 	import org.puremvc.as3.multicore.utilities.pipes.messages.Message;
 	import org.puremvc.as3.multicore.utilities.pipes.plumbing.PipeListener;
-	import org.bigbluebutton.modules.log.LogModuleFacade;
 	
 	/**
 	 * This class is a mediator for the ChatModule viewComponent
@@ -90,7 +90,7 @@ package org.bigbluebutton.modules.chat.view
    			
 			chatWindow.width = 210;
 			chatWindow.height = 200;
-			chatWindow.title = "Public Chat";
+			chatWindow.title = ChatWindow.TITLE;
 			msg.setBody(chatWindow);
 			//viewComponent.mshell.debugLog.text = "in ChatModuleMediator:addwindow()";
 			outpipe.write(msg);

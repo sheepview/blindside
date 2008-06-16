@@ -8,7 +8,6 @@ package org.bigbluebutton.modules.viewers
 	import org.bigbluebutton.modules.log.LogModuleFacade;
 	import org.bigbluebutton.modules.viewers.view.JoinWindow;
 	import org.bigbluebutton.modules.viewers.view.ViewersWindow;
-	import org.bigbluebutton.modules.viewers.view.mediators.JoinWindowMediator;
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
@@ -54,6 +53,7 @@ package org.bigbluebutton.modules.viewers
    			
    			joinWindow = new JoinWindow();
    			joinWindow.showCloseButton = false;
+   			joinWindow.title = JoinWindow.TITLE;
    			msg.setBody(joinWindow);
    			outpipe.write(msg);
 		}
@@ -67,7 +67,7 @@ package org.bigbluebutton.modules.viewers
    			viewersWindow = new ViewersWindow();
    			viewersWindow.width = 210;
    			viewersWindow.height = 220;
-   			viewersWindow.title = "Viewers";
+   			viewersWindow.title = ViewersWindow.TITLE;
    			viewersWindow.showCloseButton = false;
    			msg.setBody(viewersWindow);
    			outpipe.write(msg);

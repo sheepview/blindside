@@ -51,7 +51,7 @@ package org.bigbluebutton.modules.presentation
    			
    			presentationWindow.height = 378;
    			presentationWindow.width = 464;
-   			presentationWindow.title = "Presentation";
+   			presentationWindow.title = PresentationWindow.TITLE;
    			presentationWindow.showCloseButton = false;
    			msg.setBody(presentationWindow);
    			outpipe.write(msg);

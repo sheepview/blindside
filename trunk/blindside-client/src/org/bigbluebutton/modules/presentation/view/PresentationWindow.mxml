@@ -24,6 +24,7 @@
             import mx.containers.TitleWindow;
             import flash.geom.Point;
              			
+            public static const TITLE:String = "Presentation";
 			private var images:Images = new Images();
 
 			[Bindable] private var uploadIcon : Class = images.powerpoint;

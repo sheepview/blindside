@@ -2,6 +2,7 @@ package org.bigbluebutton.modules.presentation
 {
 	import mx.modules.ModuleBase;
 	
+	import org.bigbluebutton.common.Constants;
 	import org.bigbluebutton.common.IRouterAware;
 	import org.bigbluebutton.common.Router;
 	import org.bigbluebutton.main.view.components.MainApplicationShell;
@@ -12,8 +13,8 @@ package org.bigbluebutton.modules.presentation
 		
 		public static const DEFAULT_ID:Number = 1;
 		public static const DEFUALT_ROOM:String = "85115";
-		public static const DEFAULT_RED5_URL:String = "rtmp://present.carleton.ca" 
-		public static const DEFAULT_PRES_URL:String = "http://present.carleton.ca";
+		public static const DEFAULT_RED5_URL:String = "rtmp://" + Constants.RED5_HOST;
+		public static const DEFAULT_PRES_URL:String = "http://" + Constants.PRESENTATION_HOST;
 		
 		private var facade:PresentationFacade;
 		private var _router:Router;

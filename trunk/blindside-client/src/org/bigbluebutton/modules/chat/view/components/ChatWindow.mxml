@@ -10,11 +10,12 @@
 			import org.bigbluebutton.modules.chat.view.ChatWindowMediator;
 			import org.bigbluebutton.modules.chat.model.vo.*;
 		
+			public static const TITLE:String = "Public Chat";
+					
 			public var m:MessageObject;
 			[Bindable]
 			public var messageVO:MessageVO = new MessageVO();
 		
-			
 			public function showNewMessage(rm : MessageObject):void
 			{
 			var newMessage:String;

@@ -4,11 +4,12 @@ package org.bigbluebutton.modules.chat.model.business
 	import flash.net.NetConnection;
 	import flash.net.SharedObject;
 	
+	import org.bigbluebutton.common.Constants;
 	import org.bigbluebutton.modules.chat.ChatFacade;
 	import org.bigbluebutton.modules.chat.model.vo.*;
+	import org.bigbluebutton.modules.log.LogModuleFacade;
 	import org.puremvc.as3.multicore.interfaces.IProxy;
 	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
-	import org.bigbluebutton.modules.log.LogModuleFacade;
 	
 	
 	
@@ -40,7 +41,7 @@ package org.bigbluebutton.modules.chat.model.business
 			
 			super(NAME, messageVO);
 			conn = new Connection;
-			this.uri = ChatProxy.DEFAULT_RED5;
+			this.uri = "rtmp://" + Constants.RED5_HOST + "/oflaDemo";
 			conn.addEventListener(Connection.SUCCESS, handleSucessfulConnection);
 			conn.addEventListener(Connection.DISCONNECTED, handleDisconnection);
 			conn.setURI(this.uri);

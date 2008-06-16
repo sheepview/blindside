@@ -21,14 +21,9 @@
 				debugLog.text = "before startup in initShell";
 				facade.startup(this);
 				debugLog.text = "After startup in initShell";
-				toolbar.chatBtn.addEventListener(MouseEvent.CLICK , openChatModule);
 				toolbar.LogBtn.addEventListener(MouseEvent.CLICK , openLogModule);
 			}
 			
-			public function openChatModule(event:MouseEvent) : void 
-			{
-				dispatchEvent(new Event(MainApplicationShellMediator.OPEN_CHAT_MODULE));
-			}
 			public function openLogModule(event:MouseEvent) : void
 			{
 				dispatchEvent(new Event(MainApplicationShellMediator.OPEN_LOG_MODULE));
