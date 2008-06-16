@@ -1,13 +1,8 @@
 package org.bigbluebutton.modules.chat
 {
+	import org.bigbluebutton.modules.chat.controller.StartupCommand;
 	import org.puremvc.as3.multicore.interfaces.IFacade;
 	import org.puremvc.as3.multicore.patterns.facade.Facade;
-	import org.puremvc.as3.multicore.interfaces.IMediator;
-	import org.puremvc.as3.multicore.interfaces.IProxy;
-	import org.puremvc.as3.multicore.interfaces.INotification;
-	import org.bigbluebutton.modules.chat.view.components.ChatWindow;
-	import org.bigbluebutton.main.view.components.MainApplicationShell;
-	import org.bigbluebutton.modules.chat.controller.StartupCommand;
 
 	/**
 	 * 
@@ -20,7 +15,8 @@ package org.bigbluebutton.modules.chat
 		public static const NAME:String = "ChatFacade";
 		public static const STARTUP:String          = "startup";
 		public static const NEW_MESSAGE:String      = "newMessage";
-		//public static const DEBUG:String = 'debug';
+		public static const CLOSE_CHAT:String       = "closeChat";
+		
 		
 		public function ChatFacade()
 		{

@@ -33,8 +33,7 @@ package org.bigbluebutton.modules.chat
 			log.debug("Creating new ChatWindow...");
 			chatWindow = new ChatWindow;
 			log.debug("Getting an instance of Chat Facade...");
-			facade = ChatFacade.getInstance();
-			
+			facade = ChatFacade.getInstance();			
 		}
 		/**
 		 * 
@@ -45,13 +44,9 @@ package org.bigbluebutton.modules.chat
 		public function acceptRouter(router : Router, shell : MainApplicationShell) : void
 		{
 			mshell = shell;
-			//shell.debugLog.text = 'In ChatModule';
 			log.debug("Setting Router for Chat Module...");
 			_router = router;
-			//shell.debugLog.text = 'In ChatModule 2';
-			ChatFacade(facade).startup(this);			
-			//shell.debugLog.text = 'In ChatModule 3';
-			
+			ChatFacade(facade).startup(this);						
 		}
 		/**
 		 * 
