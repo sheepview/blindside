@@ -8,6 +8,7 @@ package org.bigbluebutton.modules.chat.view
 	import org.bigbluebutton.common.Router;
 	import org.bigbluebutton.main.MainApplicationConstants;
 	import org.bigbluebutton.modules.chat.ChatModule;
+	import org.bigbluebutton.modules.chat.model.business.ChatProxy;
 	import org.bigbluebutton.modules.chat.ChatModuleConstants;
 	import org.bigbluebutton.modules.chat.view.components.ChatWindow;
 	import org.bigbluebutton.modules.log.LogModuleFacade;
@@ -25,8 +26,7 @@ package org.bigbluebutton.modules.chat.view
 	public class ChatModuleMediator extends Mediator implements IMediator
 	{
 		public static const NAME:String = 'LogModuleMediator';
-		//public static const DEBUG:String = 'debug';
-		
+			
 
 		private var outpipe : OutputPipe;
 		private var inpipe : InputPipe;
@@ -44,8 +44,6 @@ package org.bigbluebutton.modules.chat.view
 		public function ChatModuleMediator( viewComponent:ChatModule )
 		{
 			super( NAME, viewComponent );	
-			//viewComponent.mshell.debugLog.text = "in ChatModuleMediator";
-			
 			router = viewComponent.router;
 			log.debug("initializing input pipes for chat module...");
 			inpipe = new InputPipe(ChatModuleConstants.TO_CHAT_MODULE);
@@ -55,7 +53,6 @@ package org.bigbluebutton.modules.chat.view
 			inpipeListener = new PipeListener(this, messageReceiver);
 			router.registerOutputPipe(outpipe.name, outpipe);
 			router.registerInputPipe(inpipe.name, inpipe);
-			//viewComponent.mshell.debugLog.text = "in ChatModuleMediator 2";
 			chatWindow = viewComponent.chatWindow;
 			addWindow();
 			
@@ -92,7 +89,6 @@ package org.bigbluebutton.modules.chat.view
 			chatWindow.height = 200;
 			chatWindow.title = ChatWindow.TITLE;
 			msg.setBody(chatWindow);
-			//viewComponent.mshell.debugLog.text = "in ChatModuleMediator:addwindow()";
 			outpipe.write(msg);
 			chatWindow.closeBtn.addEventListener(MouseEvent.CLICK, removeWindow);
 			log.debug("A message has been sent to show the chat window.");			
@@ -112,6 +108,8 @@ package org.bigbluebutton.modules.chat.view
    			msg.setBody(chatWindow);
 			outpipe.write(msg);
 			log.debug("A message has been sent to remove the chat window.");
+			log.debug("Disconnecting chat module...");
+			proxy.closeConnection();
 		}
 		/**
 		 * 
@@ -133,6 +131,15 @@ package org.bigbluebutton.modules.chat.view
 			var msg : String = message.getHeader().MSG;
 		}
 		
+		/**
+		 * 
+		 * @return proxy
+		 * 
+		 */		
+		public function get proxy():ChatProxy
+		{
+			return facade.retrieveProxy(ChatProxy.NAME) as ChatProxy;
+		} 
 		
 	//	override public function listNotificationInterests():Array
 	//	{

@@ -78,6 +78,14 @@ package org.bigbluebutton.modules.chat.model.business
 		}
 		public function handleDisconnection(e:ConnectionEvent):void {
 			
+		}
+		
+		public function closeConnection():void {
+			
+			conn.removeEventListener(Connection.SUCCESS, handleSucessfulConnection);
+			conn.removeEventListener(Connection.DISCONNECTED, handleDisconnection);
+			conn.close();
+			log.debug("Chat module disconnected");
 		}		
 		/**
 		 * SyncHandler for Shared Object
