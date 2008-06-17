@@ -1,3 +1,22 @@
+/**
+* BigBlueButton open source conferencing system - http://www.bigbluebutton.org/
+*
+* Copyright (c) 2008 by respective authors (see below).
+*
+* This program is free software; you can redistribute it and/or modify it under the
+* terms of the GNU Lesser General Public License as published by the Free Software
+* Foundation; either version 2.1 of the License, or (at your option) any later
+* version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+* PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+*
+* You should have received a copy of the GNU Lesser General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+* 
+*/
 package org.bigbluebutton.modules.viewers.model.services
 {
 	import flash.events.AsyncErrorEvent;
@@ -13,6 +32,11 @@ package org.bigbluebutton.modules.viewers.model.services
 	import org.puremvc.as3.multicore.interfaces.IProxy;
 	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
 	
+	/**
+	 * 
+	 * @author
+	 * 
+	 */	
 	public class SharedObjectConferenceDelegate extends Proxy implements IProxy
 	{
 		public static const NAME:String = "SharedObjectConferenceDelegate";
@@ -24,12 +48,22 @@ package org.bigbluebutton.modules.viewers.model.services
 		
 		private static const SO_NAME : String = "participantsSO";
 		
+		/**
+		 * Creates a new SharedObjectConferenceDelegate object 
+		 * @param conference - A Conference object
+		 * 
+		 */		
 		public function SharedObjectConferenceDelegate(conference:Conference)
 		{
 			super(NAME);
 			_conference = conference;	
 		}
 		
+		/**
+		 * Updates the user status in the conference object, and sends the update to the server shared object 
+		 * @param newStatus
+		 * 
+		 */		
 		public function sendNewStatus(newStatus : String) : void {
 			_conference.me.status = newStatus;
 	
@@ -43,6 +77,12 @@ package org.bigbluebutton.modules.viewers.model.services
 			}
 		}
 
+		/**
+		 * Sends the broadcast stream to the server 
+		 * @param hasStream
+		 * @param streamName
+		 * 
+		 */		
 		public function sendBroadcastStream(hasStream : Boolean, streamName : String) : void {
 			var id : Number = _conference.me.userid;
 			var aUser : User = _conference.getParticipant(id);			
@@ -58,7 +98,7 @@ package org.bigbluebutton.modules.viewers.model.services
 				//		+ aUser.hasStream + "," + aUser.streamName + "]");				
 			}
 		}
-
+	
 		public function broadcastStream(id : Number, hasStream : Boolean, streamName : String) : void
 		{
 			var aUser : User = _conference.getParticipant(id);			
@@ -68,6 +108,14 @@ package org.bigbluebutton.modules.viewers.model.services
 			}		
 		}
 				
+		/**
+		 * Join the server, connect 
+		 * @param host
+		 * @param username
+		 * @param password
+		 * @param room
+		 * 
+		 */		
 		public function join(host : String, username : String, password : String, room : String) : void
 		{
 			_connection = new NetConnection();
@@ -81,6 +129,11 @@ package org.bigbluebutton.modules.viewers.model.services
 			_ncDelegate.connect(host, room, username, password);
 		}
 		
+		/**
+		 * Return the NetConnection object which handles the server connection details 
+		 * @return 
+		 * 
+		 */		
 		public function get netConnection() : NetConnection
 		{
 			return _connection;
@@ -102,6 +155,10 @@ package org.bigbluebutton.modules.viewers.model.services
 			sendNotification(ViewersFacade.CONNECT_SUCCESS);
 		}
 		
+		/**
+		 * Join a conference room on the server 
+		 * 
+		 */		
 		private function joinConference() : void
 		{
 			// Start with a fresh list
@@ -118,6 +175,10 @@ package org.bigbluebutton.modules.viewers.model.services
 			_participantsSO.connect(_connection);
 		}
 
+		/**
+		 * Leave the conference 
+		 * 
+		 */		
 		public function leave() : void
 		{
 			removeListeners();
@@ -128,6 +189,10 @@ package org.bigbluebutton.modules.viewers.model.services
 			_conference.removeAllParticipants();		
 		}
 
+		/**
+		 * Remove the listeners for the participantsSO shared object 
+		 * 
+		 */		
 		private function removeListeners() : void
 		{
 			_participantsSO.removeEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);
@@ -135,6 +200,11 @@ package org.bigbluebutton.modules.viewers.model.services
 			_participantsSO.removeEventListener(SyncEvent.SYNC, sharedObjectSyncHandler);
 		}			
 
+		/**
+		 * Called when a sync_event is received for the SharedObject 
+		 * @param event
+		 * 
+		 */		
 		private function sharedObjectSyncHandler( event : SyncEvent) : void
 		{
 			//log.debug( "Conference::sharedObjectSyncHandler " + event.changeList.length);
@@ -250,16 +320,32 @@ package org.bigbluebutton.modules.viewers.model.services
 			}
 		}
 		
+		/**
+		 * Called when a net_statu_event is received 
+		 * @param event
+		 * 
+		 */		
 		private function netStatusHandler ( event : NetStatusEvent ) : void
 		{
 			//log.debug( "Conference::netStatusHandler " + event.info.code );
 		}
 		
+		/**
+		 * Called when an async_error_handler is called 
+		 * @param event
+		 * 
+		 */		
 		private function asyncErrorHandler ( event : AsyncErrorEvent ) : void
 		{
 			//log.debug( "Conference::asyncErrorHandler " + event.error);
 		}
 
+		/**
+		 * send a new user status message 
+		 * @param userid
+		 * @param newStatus
+		 * 
+		 */		
 		public function sendNewUserStatusEvent(userid : Number, newStatus : String):void
 		{
 			//var event : StatusChangeEvent = 

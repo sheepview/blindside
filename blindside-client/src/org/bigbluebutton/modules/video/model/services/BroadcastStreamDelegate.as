@@ -1,3 +1,22 @@
+/**
+* BigBlueButton open source conferencing system - http://www.bigbluebutton.org/
+*
+* Copyright (c) 2008 by respective authors (see below).
+*
+* This program is free software; you can redistribute it and/or modify it under the
+* terms of the GNU Lesser General Public License as published by the Free Software
+* Foundation; either version 2.1 of the License, or (at your option) any later
+* version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+* PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+*
+* You should have received a copy of the GNU Lesser General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+* 
+*/
 package org.bigbluebutton.modules.video.model.services
 {
 	import flash.events.*;
@@ -9,6 +28,13 @@ package org.bigbluebutton.modules.video.model.services
 	import org.puremvc.as3.multicore.interfaces.IProxy;
 	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
 	
+	/**
+	 * The BroadcastStreamDelegate manages a live video stream
+	 * <p>
+	 * This class extends the Proxy class of the puremvc framework
+	 * @author Denis Zgonjanin
+	 * 
+	 */	
 	public class BroadcastStreamDelegate extends Proxy implements IProxy
 	{	
 		public static const NAME:String = "BroadcastStreamDelegate";	
@@ -16,6 +42,11 @@ package org.bigbluebutton.modules.video.model.services
 		private var media : BroadcastMedia;
 		public var nsPublish : NetStream;
 			
+		/**
+		 * Creates a new BroadcastStreamDelegate 
+		 * @param broadcastMedia
+		 * 
+		 */		
 		public function BroadcastStreamDelegate( broadcastMedia:BroadcastMedia )
 		{
 			super(NAME);
@@ -30,6 +61,12 @@ package org.bigbluebutton.modules.video.model.services
 			return facade.retrieveProxy(NetworkConnectionDelegate.NAME) as NetworkConnectionDelegate;
 		}
 						
+		/**
+		 * Start publishing the real time video to the server 
+		 * @param publishMode
+		 * @param streamName
+		 * 
+		 */		
 		public function startPublish( publishMode : String, streamName : String ) : void
 		{
 			if (! model.connected) return;
@@ -99,12 +136,20 @@ package org.bigbluebutton.modules.video.model.services
 			}
 		}
 			
+		/**
+		 * Stop publishing the rel time video 
+		 * 
+		 */		
 		public function stopPublish() : void
 		{	
 			nsPublish.close();	
 			media.broadcasting = false;
 		}
 		
+		/**
+		 * Stop publishing the audio 
+		 * 
+		 */		
 		public function stopMicrophone() : void
 		{
 			// update audio stream when publishing
@@ -114,6 +159,10 @@ package org.bigbluebutton.modules.video.model.services
 			}				
 		}	
 		
+		/**
+		 * Stop the camera only 
+		 * 
+		 */		
 		public function stopCamera() : void
 		{
 			// Update video stream when publishing.
@@ -123,11 +172,21 @@ package org.bigbluebutton.modules.video.model.services
 			}			
 		}
 							
+		/**
+		 * Called when a net_status_event is received 
+		 * @param event
+		 * 
+		 */		
 		protected function netStatusEvent( event : NetStatusEvent ) : void 
 		{
 			handleResult( event );
 		}
 		
+		/**
+		 * Called when a net_security_error is received 
+		 * @param event
+		 * 
+		 */		
 		protected function netSecurityError( event : SecurityErrorEvent ) : void 
 		{
 			// Pass SecurityErrorEvent to Command.
@@ -135,6 +194,11 @@ package org.bigbluebutton.modules.video.model.services
 		    										  "Security error - " + event.text ) );
 		}
 			
+		/**
+		 * Called when a net_io_error is received 
+		 * @param event
+		 * 
+		 */		
 		protected function netIOError( event : IOErrorEvent ) : void 
 		{
 			// Pass IOErrorEvent to Command.
@@ -142,6 +206,11 @@ package org.bigbluebutton.modules.video.model.services
 							 "Input/output error - " + event.text ) );
 		}
 				
+		/**
+		 * Called when a net_async_error is received 
+		 * @param event
+		 * 
+		 */		
 		protected function netASyncError( event : AsyncErrorEvent ) : void 
 		{
 			// Pass AsyncErrorEvent to Command.
@@ -149,6 +218,11 @@ package org.bigbluebutton.modules.video.model.services
 							 "Asynchronous code error - <i>" + event.error + "</i>" ) );
 		}
 	
+		/**
+		 * Called when a result is received from the server 
+		 * @param event
+		 * 
+		 */		
 		public function handleResult(  event : Object  ) : void 
 		{
 			var info : Object = event.info;
@@ -227,17 +301,26 @@ package org.bigbluebutton.modules.video.model.services
 		}
 				
 			
+		/**
+		 * Called when publishing has ceased 
+		 * 
+		 */		
 		private function publishStopped() : void 
 		{
 			media.broadcasting = false;
 		}
 				
+		/**
+		 * Called when a fault was received by the server 
+		 * @param event
+		 * 
+		 */		
 		public function handleFault(  event : Object  ) : void
 		{			
 			//log.error("BroadcastStreamDelegate::" + event.text );
 			stopPublish();
 		}
-			
+		
 		public function onPlayStatus( info : Object ) : void 
 		{	
 			//log.debug("BroadcastStreamDelegate::Playback - " + info.code  );

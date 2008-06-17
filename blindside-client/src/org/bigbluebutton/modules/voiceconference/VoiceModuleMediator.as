@@ -1,3 +1,22 @@
+/**
+* BigBlueButton open source conferencing system - http://www.bigbluebutton.org/
+*
+* Copyright (c) 2008 by respective authors (see below).
+*
+* This program is free software; you can redistribute it and/or modify it under the
+* terms of the GNU Lesser General Public License as published by the Free Software
+* Foundation; either version 2.1 of the License, or (at your option) any later
+* version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+* PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+*
+* You should have received a copy of the GNU Lesser General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+* 
+*/
 package org.bigbluebutton.modules.voiceconference
 {
 	import org.bigbluebutton.common.InputPipe;
@@ -12,6 +31,12 @@ package org.bigbluebutton.modules.voiceconference
 	import org.puremvc.as3.multicore.utilities.pipes.messages.Message;
 	import org.puremvc.as3.multicore.utilities.pipes.plumbing.PipeListener;
 	
+	/**
+	 * The VoiceModuleMediator is a mediator class for the VoiceModule. It extends the Mediator class of the
+	 * PureMVC framework. 
+	 * @author dzgonjan
+	 * 
+	 */	
 	public class VoiceModuleMediator extends Mediator implements IMediator
 	{
 		public static const NAME:String = "VoiceModuleMediator";
@@ -23,6 +48,11 @@ package org.bigbluebutton.modules.voiceconference
 		
 		private var voiceWindow:ListenersWindow = new ListenersWindow();
 		
+		/**
+		 * The constructor. Registers this class with the VoiceModule 
+		 * @param view
+		 * 
+		 */		
 		public function VoiceModuleMediator(view:VoiceModule)
 		{
 			super(NAME,view);
@@ -39,6 +69,10 @@ package org.bigbluebutton.modules.voiceconference
 			var msg:String = message.getHeader().MSG;
 		}
 		
+		/**
+		 * Adds the presentation window gui component to the main application shell via puremvc piping 
+		 * 
+		 */		
 		private function addWindow():void{
 			var msg:IPipeMessage = new Message(Message.NORMAL);
 			msg.setHeader({MSG:MainApplicationConstants.ADD_WINDOW_MSG, SRC: VoiceModuleConstants.FROM_VOICE_MODULE,
@@ -53,6 +87,11 @@ package org.bigbluebutton.modules.voiceconference
    			outpipe.write(msg);
 		}
 		
+		/**
+		 * Register this mediator with the voice facade 
+		 * @param key
+		 * 
+		 */		
 		override public function initializeNotifier(key:String):void{
 			super.initializeNotifier(key);
 			facade.registerMediator(new ListenersWindowMediator(voiceWindow));

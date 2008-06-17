@@ -14,7 +14,7 @@ package org.bigbluebutton.modules.presentation.model.services
 	 * in this case)
 	 * <p>
 	 * This class extends the Proxy class of the pureMVC framework
-	 * @author Richard Alam
+	 * @author dev_team@bigbluebutton.org
 	 * 
 	 */	        	
 	public class PresentationService extends Proxy implements IProxy

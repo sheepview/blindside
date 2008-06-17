@@ -1,3 +1,22 @@
+/**
+* BigBlueButton open source conferencing system - http://www.bigbluebutton.org/
+*
+* Copyright (c) 2008 by respective authors (see below).
+*
+* This program is free software; you can redistribute it and/or modify it under the
+* terms of the GNU Lesser General Public License as published by the Free Software
+* Foundation; either version 2.1 of the License, or (at your option) any later
+* version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+* PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+*
+* You should have received a copy of the GNU Lesser General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+* 
+*/
 package org.bigbluebutton.modules.viewers
 {
 	import org.bigbluebutton.common.InputPipe;
@@ -15,6 +34,11 @@ package org.bigbluebutton.modules.viewers
 	import org.puremvc.as3.multicore.utilities.pipes.messages.Message;
 	import org.puremvc.as3.multicore.utilities.pipes.plumbing.PipeListener;
 	
+	/**
+	 * This is the mediator class for the ViewersModule class
+	 * @author Denis Zgonjanin
+	 * 
+	 */	
 	public class ViewersModuleMediator extends Mediator implements IMediator
 	{
 		public static const NAME:String = "ViewersModuleMediator";
@@ -29,6 +53,11 @@ package org.bigbluebutton.modules.viewers
 		
 		private var log:LogModuleFacade = LogModuleFacade.getInstance(LogModule.NAME);
 		
+		/**
+		 * The constructor. registers this mediator with the ViewersModuel 
+		 * @param module
+		 * 
+		 */		
 		public function ViewersModuleMediator(module:ViewersModule)
 		{
 			super(NAME, module);
@@ -45,6 +74,10 @@ package org.bigbluebutton.modules.viewers
 			var msg:String = message.getHeader().MSG;
 		}
 		
+		/**
+		 * Adds the login gui part of this module to the main application shell 
+		 * 
+		 */		
 		private function addJoinWindow():void{
 			var msg:IPipeMessage = new Message(Message.NORMAL);
 			msg.setHeader({MSG:MainApplicationConstants.ADD_WINDOW_MSG, SRC: ViewersConstants.FROM_VIEWERS_MODULE,
@@ -58,6 +91,10 @@ package org.bigbluebutton.modules.viewers
    			outpipe.write(msg);
 		}
 		
+		/**
+		 *  Adds the viewers gui part of this module to the main application shell
+		 * 
+		 */		
 		private function addViewersWindow():void{
 			var msg:IPipeMessage = new Message(Message.NORMAL);
 			msg.setHeader({MSG:MainApplicationConstants.ADD_WINDOW_MSG, SRC: ViewersConstants.FROM_VIEWERS_MODULE,
@@ -74,6 +111,10 @@ package org.bigbluebutton.modules.viewers
    			sendNotification(ViewersFacade.START_VIEWER_WINDOW, viewersWindow);
 		}
 		
+		/**
+		 * Removes the login window from the main application shell once login is completed 
+		 * 
+		 */		
 		private function removeJoinWindow():void{
 			var msg:IPipeMessage = new Message(Message.NORMAL);
 			msg.setHeader({MSG:MainApplicationConstants.REMOVE_WINDOW_MSG, SRC: ViewersConstants.FROM_VIEWERS_MODULE,
@@ -84,6 +125,10 @@ package org.bigbluebutton.modules.viewers
    			outpipe.write(msg);
 		}
 		
+		/**
+		 * Send a login complete notice 
+		 * 
+		 */		
 		private function sendLoginCompleteNotice():void{
 			var msg:IPipeMessage = new Message(Message.NORMAL);
 			msg.setHeader({MSG:MainApplicationConstants.LOGIN_COMPLETE, SRC: ViewersConstants.FROM_VIEWERS_MODULE,
@@ -95,10 +140,14 @@ package org.bigbluebutton.modules.viewers
 		
 		override public function initializeNotifier(key:String):void{
 			super.initializeNotifier(key);
-			//facade.registerMediator(new JoinWindowMediator(joinWindow));
 			sendNotification(ViewersFacade.START_LOGIN_WINDOW, joinWindow);
 		}
 		
+		/**
+		 * Lists the notifications to which this mediator listens to 
+		 * @return 
+		 * 
+		 */		
 		override public function listNotificationInterests():Array{
 			return [
 					ViewersFacade.CONNECT_SUCCESS,
@@ -106,6 +155,11 @@ package org.bigbluebutton.modules.viewers
 					];
 		}
 		
+		/**
+		 * Handles the notifications as they're received 
+		 * @param notification
+		 * 
+		 */		
 		override public function handleNotification(notification:INotification):void{
 			switch(notification.getName()){
 				case ViewersFacade.CONNECT_SUCCESS:
