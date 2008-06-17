@@ -31,25 +31,7 @@
 		   	this.m = new MessageObject(txtMsg.text, cmpColorPicker.selectedColor);
 		   	dispatchEvent(new Event(ChatWindowMediator.NEW_MESSAGE));
 		    }
-		    private function  sizeMenu():void
-		    {
-		    	sizeM = new Menu();
-		    	var dp:Object = [{label: " 8"}, {label: " 9"}, {label: "10"},
-		    	                 {label: "11"}, {label: "12"}, {label: "14"},
-		    	                 {label: "16"}];
-		        sizeM.dataProvider = dp;
-                sizeM.selectedIndex = 0;       
-                sizeM.addEventListener("itemClick", itemClickHandler);
-                fontSize.popUp = sizeM;
-                fontSize.label = "Size: " + sizeM.dataProvider[sizeM.selectedIndex].label;
-                
-		    }
-		    private function itemClickHandler(event:MenuEvent):void {
-                var label:String = event.item.label;        
-                fontSize.label = "Size: " + label;
-                fontSize.close();
-                sizeM.selectedIndex = event.index;
-            }
+		   
             private function updateScroll():void
             {
             	txtChatBox.verticalScrollPosition = txtChatBox.maxVerticalScrollPosition;
@@ -60,23 +42,10 @@
 	<mx:TextArea id="txtChatBox" editable="false" width="100%" height="100%" updateComplete="updateScroll()"/>
 		
 	<mx:ApplicationControlBar width="100%" height="10%">
-		<mx:VBox>
-			<mx:HBox>
-				
-					<mx:Button id="boldBtn" label="B" fontWeight="bold" width="22" height="22"
-						       paddingBottom="0" paddingLeft="0" paddingRight="0" paddingTop="0"/>
-					<mx:Button id="italicbtn" label="I" fontWeight="bold" fontStyle="italic" width="22" height="22"
-						       paddingBottom="0" paddingLeft="0" paddingRight="0" paddingTop="0"/>
-					<mx:Button id="ulBtn" label="U" fontWeight="bold" width="22" height="22"
-						       paddingBottom="0" paddingLeft="0" paddingRight="0" paddingTop="0"/>
-					<mx:PopUpButton id="fontSize" creationComplete="sizeMenu()"/>
-				    <mx:ColorPicker id="cmpColorPicker" showTextField="false" selectedColor="0x000000"/>
-			</mx:HBox>
-			<mx:HBox>
+		
 				<mx:TextInput id="txtMsg" width="100%" enter="sendMessages()"/>
+				<mx:ColorPicker id="cmpColorPicker" showTextField="false" selectedColor="0x000000"/>
 				<mx:Button label="Send" id="send" click="sendMessages()"/>
-			</mx:HBox>
-		</mx:VBox>
 		
 	    
 	</mx:ApplicationControlBar>
