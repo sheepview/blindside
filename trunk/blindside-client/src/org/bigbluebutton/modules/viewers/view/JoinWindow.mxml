@@ -20,5 +20,6 @@
 		<mx:TextInput x="98" y="130" id="passwdField" displayAsPassword="true" tabIndex="3"/>
 		<mx:Button label="Join" x="243" y="169" click="dispatchEvent(new Event(JoinWindowMediator.LOGIN))" tabIndex="4"/>
 		<mx:Label x="21" y="10" text="Complete form to join conference." width="256" id="messageLbl"/>
+		<mx:Label x="22" y="208" width="270" id="lblNote"/>
 
 </viewer:MDIWindow>

@@ -1,3 +1,22 @@
+/**
+* BigBlueButton open source conferencing system - http://www.bigbluebutton.org/
+*
+* Copyright (c) 2008 by respective authors (see below).
+*
+* This program is free software; you can redistribute it and/or modify it under the
+* terms of the GNU Lesser General Public License as published by the Free Software
+* Foundation; either version 2.1 of the License, or (at your option) any later
+* version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+* PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+*
+* You should have received a copy of the GNU Lesser General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+* 
+*/
 package org.bigbluebutton.modules.video.model.services
 {
 	import flash.events.*;
@@ -7,12 +26,21 @@ package org.bigbluebutton.modules.video.model.services
 	import org.puremvc.as3.multicore.interfaces.IProxy;
 	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
 	
+	/**
+	 *  The NetworkConnectionDelegate class is a proxy class for the red5 server
+	 * @author Denis Zgonjanin
+	 * 
+	 */	
 	public class NetworkConnectionDelegate extends Proxy implements IProxy
 	{	
 		public static const NAME:String = "NetworkConnectionDelegate";
 			
 		private var netConnection : NetConnection;
 			
+		/**
+		 * Creates a new NetworkConnectionDelegate 
+		 * 
+		 */		
 		public function NetworkConnectionDelegate()
 		{			
 			super(NAME);
@@ -27,6 +55,13 @@ package org.bigbluebutton.modules.video.model.services
 			return facade.retrieveProxy(PublisherModel.NAME) as PublisherModel;
 		}
 		
+		/**
+		 * Creates a new NetConnection object and registers listeners for it 
+		 * @param uri
+		 * @param proxy
+		 * @param encoding
+		 * 
+		 */		
 		public function connect( uri : String, proxy : String, encoding : uint ) : void
 		{			
 			netConnection = new NetConnection();			
@@ -59,34 +94,63 @@ package org.bigbluebutton.modules.video.model.services
 			}	
 		}
 			
+		/**
+		 * Closes the NetConnection 
+		 * 
+		 */		
 		public function close() : void
 		{
 			netConnection.close();
 		}
 					
+		/**
+		 * Called when the NetConnection generates a net_status event. Redirects to the handleResult method
+		 * @param event
+		 * 
+		 */		
 		protected function netStatus( event : NetStatusEvent ) : void 
 		{
 			handleResult( event );
 		}
 			
+		/**
+		 * Called when the NetConnection generates a security_error_event 
+		 * @param event
+		 * 
+		 */		
 		protected function netSecurityError( event : SecurityErrorEvent ) : void 
 		{
 		    handleFault( new SecurityErrorEvent ( SecurityErrorEvent.SECURITY_ERROR, false, true,
 		    										  "Security error - " + event.text ) );
 		}
 			
+		/**
+		 * Called when the NetConnection generates a net_io_error event 
+		 * @param event
+		 * 
+		 */		
 		protected function netIOError( event : IOErrorEvent ) : void 
 		{
 			handleFault( new IOErrorEvent ( IOErrorEvent.IO_ERROR, false, true, 
 							 "Input/output error - " + event.text ) );
 		}
 			
+		/**
+		 * Called when the NetConnection generates an async_error_event 
+		 * @param event
+		 * 
+		 */		
 		protected function netASyncError( event : AsyncErrorEvent ) : void 
 		{
 			handleFault( new AsyncErrorEvent ( AsyncErrorEvent.ASYNC_ERROR, false, true,
 							 "Asynchronous code error - <i>" + event.error + "</i>" ) );
 		}
 	
+		/**
+		 * Called when the NetConnection generates a net_status event
+		 * @param event
+		 * 
+		 */		
 		public function handleResult(  event : Object  ) : void {
 			var info : Object = event.info;
 			var statusCode : String = info.code;
@@ -141,6 +205,11 @@ package org.bigbluebutton.modules.video.model.services
 			}
 		}
 			
+		/**
+		 * Handles a fault from the server 
+		 * @param event
+		 * 
+		 */		
 		public function handleFault(  event : Object  ) : void {
 			//log.warn("NetworkConnectionDelegate::" + event.text );
 		}

@@ -1,3 +1,22 @@
+/**
+* BigBlueButton open source conferencing system - http://www.bigbluebutton.org/
+*
+* Copyright (c) 2008 by respective authors (see below).
+*
+* This program is free software; you can redistribute it and/or modify it under the
+* terms of the GNU Lesser General Public License as published by the Free Software
+* Foundation; either version 2.1 of the License, or (at your option) any later
+* version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+* PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+*
+* You should have received a copy of the GNU Lesser General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+* 
+*/
 package org.bigbluebutton.modules.video.model.services
 {
 
@@ -11,6 +30,13 @@ package org.bigbluebutton.modules.video.model.services
 	import org.puremvc.as3.multicore.interfaces.IProxy;
 	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
 	
+	/**
+	 * The PlayStreamDelegate manages a recorded stream
+	 * <p>
+	 * This class extends the proxy class of the puremvc framework
+	 * @author Denis Zgonjanin
+	 * 
+	 */	
 	public class PlayStreamDelegate extends Proxy implements IProxy
 	{	
 		public static const NAME:String = "PlayeStreamDelegate";
@@ -18,7 +44,12 @@ package org.bigbluebutton.modules.video.model.services
 		private var nsPlay : NetStream;
 		private var media : PlayMedia;
 		private var playbackFinished : Boolean = false;
-				
+		
+		/**
+		 * Creates a new PlayStreamDelegate object 
+		 * @param playMedia
+		 * 
+		 */		
 		public function PlayStreamDelegate( playMedia:PlayMedia)
 		{
 			super(NAME);
@@ -33,6 +64,14 @@ package org.bigbluebutton.modules.video.model.services
 			return facade.retrieveProxy(NetworkConnectionDelegate.NAME) as NetworkConnectionDelegate;
 		}
 					
+		/**
+		 * Starts playing back the media on the server 
+		 * @param bufferTime
+		 * @param streamName
+		 * @param audio
+		 * @param video
+		 * 
+		 */		
 		public function startPlayback( bufferTime : int, 
 									   streamName : String, 
 									   audio : Boolean,
@@ -87,7 +126,7 @@ package org.bigbluebutton.modules.video.model.services
 		}
 		
 		/**
-		 * 
+		 * Stops playback of the recorded media
 		 */		
 		public function stopPlayback() : void
 		{
@@ -124,41 +163,75 @@ package org.bigbluebutton.modules.video.model.services
 			nsPlay.resume();
 		}
 		
-		
+		/**
+		 * Enables audio 
+		 * @param enable
+		 * 
+		 */		
 		public function enableAudio( enable : Boolean ) : void
 		{
 			nsPlay.receiveAudio( enable );
 		}
-			
+		
+		/**
+		 * Enables video 
+		 * @param enable
+		 * 
+		 */			
 		public function enableVideo( enable : Boolean ) : void
 		{
 			
 			nsPlay.receiveVideo( enable );
 		}
 					
+		/**
+		 * Called when a net_status_event is received 
+		 * @param event
+		 * 
+		 */		
 		protected function netStatusEvent( event : NetStatusEvent ) : void 
 		{
 			handleResult( event );
 		}
 		
+		/**
+		 * Called when a net_security_error is received 
+		 * @param event
+		 * 
+		 */		
 		protected function netSecurityError( event : SecurityErrorEvent ) : void 
 		{
 			handleFault( new SecurityErrorEvent ( SecurityErrorEvent.SECURITY_ERROR, false, true,
 		    										  "Security error - " + event.text ) );
 		}
 			
+		/**
+		 * Called when a net_io_error is received 
+		 * @param event
+		 * 
+		 */		
 		protected function netIOError( event : IOErrorEvent ) : void 
 		{
 			handleFault( new IOErrorEvent ( IOErrorEvent.IO_ERROR, false, true, 
 							 "Input/output error - " + event.text ) );
 		}
 				
+		/**
+		 * Called when a net_async_error is received 
+		 * @param event
+		 * 
+		 */		
 		protected function netASyncError( event : AsyncErrorEvent ) : void 
 		{
 			handleFault( new AsyncErrorEvent ( AsyncErrorEvent.ASYNC_ERROR, false, true,
 							 "Asynchronous code error - <i>" + event.error + "</i>" ) );
 		}
-
+		
+		/**
+		 * Called when a result is received from the server 
+		 * @param event
+		 * 
+		 */		
 		public function handleResult(  event : Object  ) : void 
 		{
 			var info : Object = event.info;
@@ -232,12 +305,20 @@ package org.bigbluebutton.modules.video.model.services
 			}
 		}
 				
+		/**
+		 * sets the state of the playback to 'playing' 
+		 * 
+		 */		
 		private function playbackStarted() : void
 		{
 			playbackFinished = false;
 			media.playState = PlaybackState.PLAYING;
 		}
-							
+						
+		/**
+		 * Sets the state of the playback to 'stopped' 
+		 * 
+		 */			
 		private function playbackStopped() : void
 		{
 			playbackFinished = false;
@@ -246,6 +327,11 @@ package org.bigbluebutton.modules.video.model.services
 				media.remoteVideo = null;
 		}
 				
+		/**
+		 * Called when a fault is received from the server 
+		 * @param event
+		 * 
+		 */		
 		public function handleFault(  event : Object  ) : void
 		{			
 			//log.error("BroadcastStreamDelegate::" + event.text );
