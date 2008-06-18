@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MDIWindow xmlns="flexlib.mdi.containers.*" 
 		xmlns:mx="http://www.adobe.com/2006/mxml" 
-	    width="400" height="300">
+	    width="400" height="300" showCloseButton="false">
 	    <mx:Script>
 	    	<![CDATA[
 	    		public static const TITLE:String = "Log";
 	    		private function updateScroll():void
 	    		{
 	    			status_txt.verticalScrollPosition = status_txt.maxVerticalScrollPosition;
+	    		}
+	    		private function clearDisplay():void
+	    		{
+	    			status_txt.text = "";
 	    		}
 	    	]]>
 	    </mx:Script>
@@ -21,12 +25,12 @@
 	<mx:Box direction="horizontal" height="35" 
 			paddingLeft="5" paddingRight="5" paddingTop="5"
 			horizontalAlign="right" verticalAlign="top">
-		<mx:CheckBox label="Debug" id="debug_box"/>
+		<!--<mx:CheckBox label="Debug" id="debug_box"/>
 		<mx:CheckBox label="Error" id="error_box"/>
 		<mx:CheckBox label="Warning" id="warn_box"/>
 		<mx:CheckBox label="Info" id="info_box"/>
-		<mx:Spacer width="40" id="spacer"/>
-		<mx:Button id="clear_Btn" label="Clear" click=""/>
+		<mx:Spacer width="40" id="spacer"/>-->
+		<mx:Button id="clear_Btn" label="Clear" click="clearDisplay()"/>
 		
 	</mx:Box>	       	
 </MDIWindow>

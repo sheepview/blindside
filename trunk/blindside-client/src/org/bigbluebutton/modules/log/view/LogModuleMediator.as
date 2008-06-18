@@ -21,7 +21,6 @@ package org.bigbluebutton.modules.log.view
 {
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-	
 	import org.bigbluebutton.common.InputPipe;
 	import org.bigbluebutton.common.OutputPipe;
 	import org.bigbluebutton.common.Router;
@@ -36,7 +35,6 @@ package org.bigbluebutton.modules.log.view
 	import org.puremvc.as3.multicore.utilities.pipes.interfaces.IPipeMessage;
 	import org.puremvc.as3.multicore.utilities.pipes.messages.Message;
 	import org.puremvc.as3.multicore.utilities.pipes.plumbing.PipeListener;
-	
 	
 
 	/**
@@ -164,7 +162,6 @@ package org.bigbluebutton.modules.log.view
 			
 			//logWindow.visible = false;
 			
-			
 			msg.setBody(logWindow);
 			viewComponent.mshell.debugLog.text = "in logmodule mediator: addWindow()";
 			outpipe.write(msg);
@@ -199,10 +196,10 @@ package org.bigbluebutton.modules.log.view
    			
    			//Removing listeners
    			logWindow.clear_Btn.removeEventListener(MouseEvent.CLICK , clear);
-			logWindow.debug_box.removeEventListener(Event.CHANGE,changeLevel);
-			logWindow.info_box.removeEventListener(Event.CHANGE,changeLevel);
-			logWindow.warn_box.removeEventListener(Event.CHANGE,changeLevel);
-			logWindow.error_box.removeEventListener(Event.CHANGE,changeLevel);
+			//logWindow.debug_box.removeEventListener(Event.CHANGE,changeLevel);
+			//logWindow.info_box.removeEventListener(Event.CHANGE,changeLevel);
+			//logWindow.warn_box.removeEventListener(Event.CHANGE,changeLevel);
+			//logWindow.error_box.removeEventListener(Event.CHANGE,changeLevel);
 			logWindow.closeBtn.removeEventListener(MouseEvent.CLICK, removeWindow);
    			
    			msg.setBody(logWindow);
@@ -252,12 +249,12 @@ package org.bigbluebutton.modules.log.view
 		 * @param e:Event
 		 * 
 		 */		
-		private function changeLevel(e:Event) : void
+		/*private function changeLevel(e:Event) : void
 		{
 			if( logWindow.debug_box.selected) debug = true else debug = false;
 			if( logWindow.warn_box.selected) warn = true else warn = false;
 			if( logWindow.info_box.selected) info = true else info = false;
 			if( logWindow.error_box.selected) error = true else error = false;
-		}
+		}*/
 	}
 }
