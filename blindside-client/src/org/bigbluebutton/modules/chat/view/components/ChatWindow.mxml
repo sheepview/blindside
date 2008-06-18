@@ -21,15 +21,17 @@
 			public function showNewMessage(rm : MessageObject):void
 			{
 			var newMessage:String;
-			newMessage = "<font color=\"#" + rm.color.toString(16) + "\">" + rm.message + "</font>";
+			newMessage = "<font color=\"#" + rm.color.toString(16) + "\"><b>[" + 
+						rm.getUserid() + "]</b> " + rm.message + "</font>";
 			txtChatBox.htmlText += newMessage + "\n";
 			txtMsg.text = "";
 			}
 
 		    public function sendMessages():void
 		    {
+		   	if (txtMsg.text != ""){
 		   	this.m = new MessageObject(txtMsg.text, cmpColorPicker.selectedColor);
-		   	dispatchEvent(new Event(ChatWindowMediator.NEW_MESSAGE));
+		   	dispatchEvent(new Event(ChatWindowMediator.NEW_MESSAGE));}
 		    }
 		   
             private function updateScroll():void

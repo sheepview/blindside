@@ -27,6 +27,8 @@ package org.bigbluebutton.modules.chat.model.business
 	import org.bigbluebutton.modules.chat.ChatFacade;
 	import org.bigbluebutton.modules.chat.model.vo.*;
 	import org.bigbluebutton.modules.log.LogModuleFacade;
+	import org.bigbluebutton.modules.viewers.ViewersFacade;
+	import org.bigbluebutton.modules.viewers.model.business.Conference;
 	import org.puremvc.as3.multicore.interfaces.IProxy;
 	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
 	
@@ -47,7 +49,8 @@ package org.bigbluebutton.modules.chat.model.business
 		private var nc:NetConnection;
 		private var chatSO : SharedObject;
 		private var log : LogModuleFacade = LogModuleFacade.getInstance("LogModule");
-		//private var mediator : IMediator = facade.retrieveMediator("ChatModuleMediator");
+		private var conf : Conference = ViewersFacade.getInstance().retrieveMediator(Conference.NAME) as Conference;
+		private var me:String = conf.me.name;
 		
 		
 		/**
@@ -125,7 +128,7 @@ package org.bigbluebutton.modules.chat.model.business
 		public function sendMessageToSharedObject(message:MessageObject):void{
 			//sendNotification(ChatFacade.NEW_MESSAGE, message);
 			
-			chatSO.send("receiveNewMessage", message.getMessage(), message.getColor());
+			chatSO.send("receiveNewMessage", me, message.getMessage(), message.getColor());
 		}
 		
 		/**
@@ -135,8 +138,9 @@ package org.bigbluebutton.modules.chat.model.business
 		 * @param color
 		 * 
 		 */		
-		public function receiveNewMessage(message:String , color:uint):void{
+		public function receiveNewMessage(userid:String, message:String , color:uint):void{
 			var m:MessageObject = new MessageObject(message, color);
+			m.setUserid(userid);
 			this.messageVO.message = m;
 			sendNotification(ChatFacade.NEW_MESSAGE, m);
 		   
