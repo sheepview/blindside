@@ -23,13 +23,14 @@ package org.bigbluebutton.modules.chat.model.vo
 	{
 		public var color:uint;
 		public var message:String;
+		private var userid:String;
 		/**
 		 * 
 		 * @param message
 		 * @param color
 		 * 
 		 */
-		public function MessageObject(message:String , color:uint)
+		public function MessageObject(message:String, color:uint)
 		{
 			this.color = color;
 			this.message = message;
@@ -49,6 +50,18 @@ package org.bigbluebutton.modules.chat.model.vo
 		 */		
 		public function getMessage (): String {
 			return this.message;
+		}
+		/**
+		 * 
+		 * @return userid
+		 * 
+		 */		
+		public function getUserid():String {
+			return this.userid;
+		}
+		
+		public function setUserid(userid:String):void{
+			this.userid = userid;
 		}
 
 	}
