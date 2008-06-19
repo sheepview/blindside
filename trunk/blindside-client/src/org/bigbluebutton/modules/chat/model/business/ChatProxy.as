@@ -26,6 +26,7 @@ package org.bigbluebutton.modules.chat.model.business
 	import org.bigbluebutton.common.Constants;
 	import org.bigbluebutton.modules.chat.ChatFacade;
 	import org.bigbluebutton.modules.chat.model.vo.*;
+	import org.bigbluebutton.modules.chat.view.components.ChatWindow;
 	import org.bigbluebutton.modules.log.LogModuleFacade;
 	import org.bigbluebutton.modules.viewers.ViewersFacade;
 	import org.bigbluebutton.modules.viewers.model.business.Conference;
@@ -43,7 +44,7 @@ package org.bigbluebutton.modules.chat.model.business
 	public class ChatProxy extends Proxy implements IProxy
 	{
 		public static const NAME:String = "Chat Proxy";
-		public static const DEFAULT_RED5:String = "rtmp://134.117.58.96/oflaDemo";
+		//public static const DEFAULT_RED5:String = "rtmp://134.117.58.103/chatServer";
 		private var uri:String;		
 		private var conn:Connection;
 		private var nc:NetConnection;
@@ -51,6 +52,7 @@ package org.bigbluebutton.modules.chat.model.business
 		private var log : LogModuleFacade = LogModuleFacade.getInstance("LogModule");
 		private var conf : Conference = ViewersFacade.getInstance().retrieveMediator(Conference.NAME) as Conference;
 		private var me:String = conf.me.name;
+		private var room:String = "85115";
 		
 		
 		/**
@@ -63,7 +65,7 @@ package org.bigbluebutton.modules.chat.model.business
 			
 			super(NAME, messageVO);
 			conn = new Connection;
-			this.uri = "rtmp://" + Constants.RED5_HOST + "/oflaDemo";
+			this.uri = "rtmp://" + Constants.RED5_HOST + "/chatServer/";
 			conn.addEventListener(Connection.SUCCESS, handleSucessfulConnection);
 			conn.addEventListener(Connection.DISCONNECTED, handleDisconnection);
 			conn.setURI(this.uri);
@@ -94,8 +96,6 @@ package org.bigbluebutton.modules.chat.model.business
             chatSO.client = this;
             chatSO.connect(nc);
             log.debug("Chat is connected to Shared object");
-            
-            //sendNotification(ChatFacade.DEBUG ,"Message Body",null);
             
 		}
 		public function handleDisconnection(e:ConnectionEvent):void {
@@ -152,6 +152,12 @@ package org.bigbluebutton.modules.chat.model.business
 		 */		
 		public function getSharedObject(): SharedObject {
 			return chatSO;
+		}
+		
+		public function setChatLog (messages:String) : void {
+			log.info("This is inside setChatLog(): " + messages);
+			var face: ChatWindow = ChatFacade.getInstance().retrieveMediator("ChatMediator").getViewComponent() as ChatWindow;
+			face.txtChatBox.htmlText = messages;
 		}
 	}
 }
