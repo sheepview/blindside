@@ -23,10 +23,6 @@ package org.bigbluebutton.modules.chat.model.business
 	import flash.net.NetConnection;
 	import flash.events.*;
 		
-	
-	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerFacade;
-		
 	public class NetConnectionDelegate
 	{
 		public static const ID : String = "Chat.NetConnectionDelegate";

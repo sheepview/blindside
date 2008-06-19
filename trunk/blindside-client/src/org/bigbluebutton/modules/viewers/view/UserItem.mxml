@@ -6,7 +6,6 @@
    	<![CDATA[
    		import org.red5.samples.publisher.MediaType;
    		import org.red5.samples.publisher.vo.PlayMedia;
-   		import org.blindsideproject.main.BlindsideAppLocator;
    		import org.red5.samples.publisher.view.ViewCameraWindow;
   		
    		import mx.events.FlexEvent;
@@ -16,22 +15,7 @@
 	    import mx.core.DragSource;
 	    import mx.managers.DragManager;
 	    import com.adobe.cairngorm.control.CairngormEventDispatcher;
-   		import org.blindsideproject.views.general.Images;
-   		import org.blindsideproject.core.apps.conference.controller.events.StatusChangeEvent;
-        import org.blindsideproject.core.apps.chat.controller.events.*;
-   		import org.blindsideproject.core.apps.conference.model.*;
-		import org.blindsideproject.core.util.log.ILogger;
-		import org.blindsideproject.core.util.log.LoggerModelLocator;
-		import org.blindsideproject.core.apps.conference.controller.events.ConferenceEvents;
-		import org.blindsideproject.core.apps.conference.vo.Role;
-		import org.blindsideproject.core.apps.conference.vo.User;
-		import org.blindsideproject.views.chat.PrivateChatPanel;
-		import org.blindsideproject.core.apps.chat.model.*;
-		import org.blindsideproject.core.apps.chat.controller.events.*;
 		import mx.binding.utils.BindingUtils;
-		import org.blindsideproject.views.control.events.OpenWindowEvent;
-		
-		private var mainApp : BlindsideAppLocator = BlindsideAppLocator.getInstance();
 		
 		private var model : ConferenceModelLocator = ConferenceModelLocator.getInstance();
 		private var modelC : ChatModelLocator = ChatModelLocator.getInstance();

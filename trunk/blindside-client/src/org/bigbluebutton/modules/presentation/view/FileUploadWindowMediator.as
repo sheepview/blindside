@@ -98,6 +98,10 @@ package org.bigbluebutton.modules.presentation.view
 		 */		
 		private function closeFileUploadWindow(e:Event) : void
 		{
+			closeWindow();
+		}
+		
+		private function closeWindow():void{
 			if (okState) {
 				sendNotification(PresentationFacade.READY_EVENT);
 			}
@@ -284,6 +288,7 @@ package org.bigbluebutton.modules.presentation.view
 			fileUploadWindow.okCancelBtn.label = "Ok";
 			fileUploadWindow.okCancelBtn.visible = true;
 			okState = true;
+			closeWindow();
 		}
 		
 		/**
