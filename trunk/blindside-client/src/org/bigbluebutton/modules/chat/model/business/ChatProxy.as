@@ -52,7 +52,7 @@ package org.bigbluebutton.modules.chat.model.business
 		private var log : LogModuleFacade = LogModuleFacade.getInstance("LogModule");
 		private var conf : Conference = ViewersFacade.getInstance().retrieveMediator(Conference.NAME) as Conference;
 		private var me:String = conf.me.name;
-		private var room:String = "85115";
+		private var room:String = Constants.currentRoom;
 		
 		
 		/**
@@ -65,7 +65,7 @@ package org.bigbluebutton.modules.chat.model.business
 			
 			super(NAME, messageVO);
 			conn = new Connection;
-			this.uri = "rtmp://" + Constants.RED5_HOST + "/chatServer/";
+			this.uri = "rtmp://" + Constants.red5Host + "/chatServer/";
 			conn.addEventListener(Connection.SUCCESS, handleSucessfulConnection);
 			conn.addEventListener(Connection.DISCONNECTED, handleDisconnection);
 			conn.setURI(this.uri);

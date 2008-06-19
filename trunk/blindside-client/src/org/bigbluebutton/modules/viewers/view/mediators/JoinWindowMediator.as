@@ -101,7 +101,7 @@ package org.bigbluebutton.modules.viewers.view.mediators
 		    	return;
 		    } 
 			
-			var completeHost:String = "rtmp://" + Constants.RED5_HOST + "/conference/" + room;
+			var completeHost:String = "rtmp://" + Constants.red5Host + "/conference/" + room;
 			sendNotification(ViewersFacade.DEBUG, "connecting: " + completeHost);
 			LogModuleFacade.getInstance(LogModule.NAME).debug("Connecting");
 			proxy.join(completeHost,name,password,room);
