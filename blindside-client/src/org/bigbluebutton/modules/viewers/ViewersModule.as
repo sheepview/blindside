@@ -19,29 +19,32 @@
 */
 package org.bigbluebutton.modules.viewers
 {
-	import mx.modules.ModuleBase;
+	import flexlib.mdi.containers.MDIWindow;
 	
+	import org.bigbluebutton.common.BigBlueButtonModule;
 	import org.bigbluebutton.common.IRouterAware;
 	import org.bigbluebutton.common.Router;
 	import org.bigbluebutton.main.view.components.MainApplicationShell;
+	import org.bigbluebutton.modules.viewers.model.services.SharedObjectConferenceDelegate;
 	
 	/**
 	 * This is the main class of the ViewersModule. It extends the ModuleBase class of the Flex Framework 
 	 * @author dzgonjan
 	 * 
 	 */	
-	public class ViewersModule extends ModuleBase implements IRouterAware
+	public class ViewersModule extends BigBlueButtonModule implements IRouterAware
 	{
 		public static const NAME:String = "VoiceModule";
 		
 		private var facade:ViewersFacade;
-		private var _router:Router;
-		private var mshell:MainApplicationShell;
+		public var activeWindow:MDIWindow;
 		
 		public function ViewersModule()
 		{
-			super();
+			super(NAME);
 			facade = ViewersFacade.getInstance();
+			this.preferedX = 20;
+			this.preferedY = 20;
 		}
 		
 		/**
@@ -50,14 +53,22 @@ package org.bigbluebutton.modules.viewers
 		 * @param shell
 		 * 
 		 */		
-		public function acceptRouter(router:Router, shell:MainApplicationShell):void{
-			mshell = shell;
-			_router = router;
+		override public function acceptRouter(router:Router, shell:MainApplicationShell):void{
+			super.acceptRouter(router, shell);
 			facade.startup(this);
 		}
-
-		public function get router():Router{
-			return _router;
+		
+		override public function getMDIComponent():MDIWindow{
+			return activeWindow;
+		}
+		
+		override public function logout():void{
+			var delegate:SharedObjectConferenceDelegate = 
+				facade.retrieveProxy(SharedObjectConferenceDelegate.NAME) as SharedObjectConferenceDelegate;
+			
+			delegate.leave();
+			
+			facade.removeCore(ViewersFacade.NAME);
 		}
 	}
 }

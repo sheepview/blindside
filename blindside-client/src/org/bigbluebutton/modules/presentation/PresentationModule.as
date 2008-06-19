@@ -19,12 +19,16 @@
 */
 package org.bigbluebutton.modules.presentation
 {
-	import mx.modules.ModuleBase;
+	import flash.system.Capabilities;
 	
+	import flexlib.mdi.containers.MDIWindow;
+	
+	import org.bigbluebutton.common.BigBlueButtonModule;
 	import org.bigbluebutton.common.Constants;
 	import org.bigbluebutton.common.IRouterAware;
 	import org.bigbluebutton.common.Router;
 	import org.bigbluebutton.main.view.components.MainApplicationShell;
+	import org.bigbluebutton.modules.presentation.model.PresentationApplication;
 	import org.bigbluebutton.modules.viewers.ViewersFacade;
 	import org.bigbluebutton.modules.viewers.model.business.Conference;
 	
@@ -35,7 +39,7 @@ package org.bigbluebutton.modules.presentation
 	 * @author Denis Zgonjanin
 	 * 
 	 */	
-	public class PresentationModule extends ModuleBase implements IRouterAware
+	public class PresentationModule extends BigBlueButtonModule implements IRouterAware
 	{
 		public static const NAME:String = "Presentation Module";
 		
@@ -43,8 +47,7 @@ package org.bigbluebutton.modules.presentation
 		public static const DEFAULT_PRES_URL:String = "http://" + Constants.PRESENTATION_HOST;
 		
 		private var facade:PresentationFacade;
-		private var _router:Router;
-		public var mshell:MainApplicationShell;
+		public var activeWindow:MDIWindow;
 		
 		/**
 		 * Creates a new Presentation Module 
@@ -52,8 +55,10 @@ package org.bigbluebutton.modules.presentation
 		 */		
 		public function PresentationModule()
 		{
-			super();
+			super(NAME);
 			facade = PresentationFacade.getInstance();
+			this.preferedX = Capabilities.screenResolutionX/2 - 300;
+			this.preferedY = 20;
 		}
 		
 		/**
@@ -62,17 +67,25 @@ package org.bigbluebutton.modules.presentation
 		 * @param shell - the main application shell of the bigbluebutton project
 		 * 
 		 */		
-		public function acceptRouter(router:Router, shell:MainApplicationShell):void{
-			mshell = shell;
-			_router = router;
+		override public function acceptRouter(router:Router, shell:MainApplicationShell):void{
+			super.acceptRouter(router, shell);
 			facade.startup(this);
 			var conf:Conference = ViewersFacade.getInstance().retrieveMediator(Conference.NAME) as Conference;
 			facade.setPresentationApp(conf.me.userid, conf.room, DEFAULT_RED5_URL, DEFAULT_PRES_URL);
 			facade.presApp.join();
 		}
 		
-		public function get router():Router{
-			return _router;
+		override public function getMDIComponent():MDIWindow{
+			return activeWindow;
+		}
+		
+		override public function logout():void{
+			var presentation:PresentationApplication = 
+				facade.retrieveMediator(PresentationApplication.NAME) as PresentationApplication;
+				
+			presentation.leave();
+			
+			facade.removeCore(PresentationFacade.ID);
 		}
 
 	}

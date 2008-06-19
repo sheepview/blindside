@@ -19,11 +19,13 @@
 */
 package org.bigbluebutton.modules.video
 {
-	import mx.modules.ModuleBase;
+	import flexlib.mdi.containers.MDIWindow;
 	
+	import org.bigbluebutton.common.BigBlueButtonModule;
 	import org.bigbluebutton.common.IRouterAware;
 	import org.bigbluebutton.common.Router;
 	import org.bigbluebutton.main.view.components.MainApplicationShell;
+	import org.bigbluebutton.modules.video.view.mediators.ViewCameraWindowMediator;
 	
 	/**
 	 * The VideoModule is the main class of the Video Application
@@ -32,7 +34,7 @@ package org.bigbluebutton.modules.video
 	 * @author Denis Zgonjanin
 	 * 
 	 */	
-	public class VideoModule extends ModuleBase implements IRouterAware
+	public class VideoModule extends BigBlueButtonModule implements IRouterAware, BigBlueButtonModule
 	{
 		public static const NAME:String = "VideoModule";
 		
@@ -40,13 +42,16 @@ package org.bigbluebutton.modules.video
 		private var _router:Router;
 		private var mshell:MainApplicationShell;
 		
+		public var preferedX:Number = 20;
+		public var preferedY:Number = 20;
+		
 		/**
 		 * Creates a new instance of the Video Module 
 		 * 
 		 */		
 		public function VideoModule()
 		{
-			super();
+			super(NAME);
 			facade = VideoFacade.getInstance();
 		}
 		
@@ -64,6 +69,17 @@ package org.bigbluebutton.modules.video
 		
 		public function get router():Router{
 			return this.router
+		}
+		
+		override public function getMDIComponent():MDIWindow{
+			var mediator:ViewCameraWindowMediator = 
+				facade.retrieveMediator(ViewCameraWindowMediator.NAME) as ViewCameraWindowMediator;
+				
+			return mediator.videoWindow;
+		}
+		
+		override public function logout():void{
+			facade.removeCore(VideoFacade.NAME);
 		}
 
 	}

@@ -25,16 +25,16 @@ package org.bigbluebutton.modules.log.view
 
 	public class LogWindowMediator extends Mediator implements IMediator
 	{
-		
+		public static const NAME:String = "LOG_WINDOW_MEDIATOR";
 		public static const LOG_MESSAGE:String = "logMessage";
 		
 		public function LogWindowMediator(mediatorName:String=null, viewComponent:Object=null)
 		{
-			super(mediatorName, viewComponent);
+			super(NAME, viewComponent);
 			viewComponent.addEventListener(LogWindowMediator.LOG_MESSAGE, onLogMessage);
 		}
 		
-		protected function get logWindow():LogWindow{
+		public function get logWindow():LogWindow{
 			return viewComponent as LogWindow;
 		}
 		

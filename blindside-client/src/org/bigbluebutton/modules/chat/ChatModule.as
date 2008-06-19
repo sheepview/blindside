@@ -19,11 +19,15 @@
 */
 package org.bigbluebutton.modules.chat
 {
-	import mx.modules.ModuleBase;
+	import flash.system.Capabilities;
 	
+	import flexlib.mdi.containers.MDIWindow;
+	
+	import org.bigbluebutton.common.BigBlueButtonModule;
 	import org.bigbluebutton.common.IRouterAware;
 	import org.bigbluebutton.common.Router;
 	import org.bigbluebutton.main.view.components.MainApplicationShell;
+	import org.bigbluebutton.modules.chat.view.ChatModuleMediator;
 	import org.bigbluebutton.modules.chat.view.components.ChatWindow;
 	import org.bigbluebutton.modules.log.LogModuleFacade;
 
@@ -32,15 +36,14 @@ package org.bigbluebutton.modules.chat
 	 * Class ChatModule acts as view component for Chat Application
 	 * 
 	 */	
-	public class ChatModule extends ModuleBase implements IRouterAware
+	public class ChatModule extends BigBlueButtonModule implements IRouterAware
 	{
 		public static const NAME:String = 'ChatModule';
-		public var mshell : MainApplicationShell;
 		public var chatWindow : ChatWindow;
 		private var facade : ChatFacade;		
-		private var _router : Router;
 		private var log : LogModuleFacade = LogModuleFacade.getInstance("LogModule");
 		
+		public var activeWindow:MDIWindow;
 		
 		/**
 		 * costructor of class ChatModule 
@@ -48,11 +51,13 @@ package org.bigbluebutton.modules.chat
 		 */		
 		public function ChatModule()
 		{
-			super();
+			super(NAME);
 			log.debug("Creating new ChatWindow...");
 			chatWindow = new ChatWindow;
 			log.debug("Getting an instance of Chat Facade...");
 			facade = ChatFacade.getInstance();			
+			this.preferedX = Capabilities.screenResolutionX - 410;
+			this.preferedY = 20;
 		}
 		/**
 		 * 
@@ -60,22 +65,19 @@ package org.bigbluebutton.modules.chat
 		 * @param shell
 		 * 
 		 */		
-		public function acceptRouter(router : Router, shell : MainApplicationShell) : void
+		override public function acceptRouter(router : Router, shell : MainApplicationShell) : void
 		{
-			mshell = shell;
+			super.acceptRouter(router, shell);
 			log.debug("Setting Router for Chat Module...");
-			_router = router;
 			ChatFacade(facade).startup(this);						
 		}
-		/**
-		 * 
-		 * @return router : Router
-		 * 
-		 */		
-		public function get router() : Router
-		{
-			return _router;
+		
+		override public function getMDIComponent():MDIWindow{
+			return activeWindow;
 		}
 		
+		override public function logout():void{
+			//Shayan - add chat logout stuff here
+		}
 	}
 }

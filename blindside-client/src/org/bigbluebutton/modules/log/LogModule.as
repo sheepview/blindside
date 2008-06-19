@@ -19,32 +19,38 @@
 */
 package org.bigbluebutton.modules.log
 {
-	import mx.modules.ModuleBase;
+	import flash.system.Capabilities;
 	
+	import flexlib.mdi.containers.MDIWindow;
+	
+	import org.bigbluebutton.common.BigBlueButtonModule;
 	import org.bigbluebutton.common.IRouterAware;
 	import org.bigbluebutton.common.Router;
 	import org.bigbluebutton.main.view.components.MainApplicationShell;
+	import org.bigbluebutton.modules.log.view.LogModuleMediator;
 	
 	/**
 	 * 
 	 * view component class for LogModuleMediator
 	 * 
 	 */	
-	public class LogModule extends ModuleBase implements IRouterAware
+	public class LogModule extends BigBlueButtonModule implements IRouterAware
 	{
 		public static const NAME:String = 'LogModule';
 		
-		private var facade : LogModuleFacade;		
-		private var _router : Router;
-		public var mshell : MainApplicationShell;
+		private var facade : LogModuleFacade;	
+		public var mediator:LogModuleMediator;	
+
 		/**
 		 * Constructor 
 		 * Gets an instance of facade
 		 */		
 		public function LogModule()
 		{
-			super();
-			facade = LogModuleFacade.getInstance(NAME);			
+			super(NAME);
+			facade = LogModuleFacade.getInstance(NAME);		
+			this.preferedX = Capabilities.screenResolutionX - 600;
+			this.preferedY = Capabilities.screenResolutionY - 300;	
 		}
 		/**
 		 * setting up the router for the shell 
@@ -52,23 +58,18 @@ package org.bigbluebutton.modules.log
 		 * @param shell:MAinApplicationShell
 		 * 
 		 */        
-		public function acceptRouter(router : Router, shell : MainApplicationShell) : void
+		override public function acceptRouter(router : Router, shell : MainApplicationShell) : void
 		{
-			mshell = shell;
+			super.acceptRouter(router, shell);
 			shell.debugLog.text = 'In LogModule';
-			_router = router;
 			shell.debugLog.text = 'In LogModule 2';
-			LogModuleFacade(facade).startup(this);			
+			facade.startup(this);			
 			shell.debugLog.text = 'In LogModule 3';
 		}
-		/**
-		 * 
-		 * @return Router
-		 * 
-		 */		
-		public function get router() : Router
-		{
-			return _router;
+		
+		override public function getMDIComponent():MDIWindow{
+			//var mediator:LogModuleMediator = facade.retrieveMediator(LogModuleMediator.NAME) as LogModuleMediator;
+			return mediator.logWindow;
 		}
 	}
 }

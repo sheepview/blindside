@@ -54,7 +54,7 @@ package org.bigbluebutton.modules.chat.view
 		 * @return chatWindow, the view component
 		 * 
 		 */		
-		protected function get chatWindow():ChatWindow
+		public function get chatWindow():ChatWindow
 		{
 			return viewComponent as ChatWindow;
 		}
