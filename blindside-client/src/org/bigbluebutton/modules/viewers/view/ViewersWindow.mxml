@@ -44,10 +44,10 @@
     	</mx:columns>
     </mx:DataGrid>
     
-    <mx:ControlBar width="100%">
+   <!-- <mx:ControlBar width="100%">
      	 <mx:Spacer width="100%"/>
     	 <mx:Button id="raiseHandImage" icon="{toggleIcon}" toggle="true" 
     	   			width="20" height="20"
     	   			toolTip="{toggleTooltip}" click="dispatchEvent(new Event(ViewersWindowMediator.CHANGE_STATUS))"/>   			
-    </mx:ControlBar>    
+    </mx:ControlBar>  -->  
 </viewer:MDIWindow>

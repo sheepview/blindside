@@ -9,6 +9,8 @@ package org.bigbluebutton.modules.chat.model.business
 	import flash.events.NetStatusEvent;
 	import flash.events.SecurityErrorEvent;
 	import org.bigbluebutton.modules.log.LogModuleFacade;
+	//import org.bigbluebutton.modules.chat.view.components.ChatWindow;
+	//import org.bigbluebutton.modules.chat.ChatFacade;
 	import mx.controls.Alert;
 	
 	public class Connection extends EventDispatcher
@@ -146,5 +148,10 @@ package org.bigbluebutton.modules.chat.model.business
 			var e:ConnectionEvent = new ConnectionEvent(Connection.SECURITYERROR, false, false, event.text);
 			dispatchEvent(e);
 		}
+		/*public function setChatLog (messages:String) : void {
+			log.info("This is serChatLog" + messages);
+			var face: ChatWindow = ChatFacade.getInstance().retrieveMediator("ChatMediator").getViewComponent() as ChatWindow;
+			face.txtChatBox.htmlText = messages;
+		}*/
 	}
 }
