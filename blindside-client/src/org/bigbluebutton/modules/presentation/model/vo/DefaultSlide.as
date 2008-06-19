@@ -34,7 +34,7 @@ package org.bigbluebutton.modules.presentation.model.vo
 		 
 		public function DefaultSlide()
 		{
-			this.name = "Blindside Project";
+			this.name = "BigBlueButton Project";
 			this.source = "assets/slides/slide-0.swf";				
 		}
 	}

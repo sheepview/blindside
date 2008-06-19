@@ -12,12 +12,9 @@ package org.bigbluebutton.modules.video.view.monitor
 	import org.red5.samples.publisher.model.*;
 	import org.red5.samples.publisher.vo.PlayMedia;
 	import org.red5.samples.publisher.vo.PlaybackState;
-	import org.blindsideproject.main.BlindsideAppLocator;
 	
 	public class ViewMonitorControlBarClass extends Box
-	{	
-		private var mainApp : BlindsideAppLocator = BlindsideAppLocator.getInstance();
-			
+	{				
 		[Bindable] public var enableAudio : CheckBox;
 		
 		[Bindable] public var enableVideo : CheckBox;

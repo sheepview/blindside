@@ -20,14 +20,8 @@
 package org.bigbluebutton.modules.voiceconference.view
 {
 	import mx.containers.Box;
-	import org.blindsideproject.meetme.model.MeetMeFacade;
-	import org.blindsideproject.meetme.model.MeetMeRoom;
-	import org.blindsideproject.meetme.business.NetConnectionDelegate;
-	import org.blindsideproject.meetme.events.*;
 
 	import com.adobe.cairngorm.control.CairngormEventDispatcher;
-	import org.blindsideproject.core.util.log.ILogger;
-	import org.blindsideproject.core.util.log.LoggerFacade;
     import superpanel.nl.wv.extenders.panel.SuperPanel;
 	import mx.controls.TileList;
 

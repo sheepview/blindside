@@ -3,15 +3,11 @@
 
 	<mx:Script>
 		<![CDATA[
-			import org.blindsideproject.views.phone.PhoneWindow;
 			import org.red5.samples.publisher.MediaType;
 			import org.red5.samples.publisher.vo.BroadcastMedia;
-			import org.blindsideproject.views.control.events.OpenWindowEvent;
 			import org.red5.samples.publisher.view.MyCameraWindow;
 
-		import org.blindsideproject.views.general.Images;		
 		import mx.managers.PopUpManager;
-		import org.blindsideproject.main.*;
 				
 		private var images : Images = new Images();
 		public var asteriskHost : String = "localhost";
@@ -20,7 +16,6 @@
 		[Bindable] private var phoneIcon : Class = images.phone;
 		
 		private var myCamWindow : MyCameraWindow;
-		private var mainApp : BlindsideAppLocator = BlindsideAppLocator.getInstance();
 		
 		public function doLogout():void
 		{			

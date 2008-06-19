@@ -7,15 +7,12 @@
 		<![CDATA[
 			import org.red5.samples.publisher.view.SettingsWindow;
 			import com.adobe.cairngorm.control.CairngormEventDispatcher;
-			import org.blindsideproject.core.util.log.ILogger;
-			import org.blindsideproject.core.util.log.LoggerModelLocator;	
 		
 			import flash.events.*;
 			import mx.managers.PopUpManager;
 			import mx.controls.*;
 			import mx.binding.utils.BindingUtils;
 			import org.red5.samples.publisher.model.*;
-			import org.blindsideproject.main.*;
 			import org.red5.samples.publisher.vo.BroadcastMedia;			
 			import mx.events.CloseEvent;            
             import mx.containers.TitleWindow;

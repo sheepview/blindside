@@ -130,7 +130,7 @@
     <mx:ControlBar width="100%">
     	  <mx:Button id="uploadPres" icon="{uploadIcon}" visible="false"
     	   			width="20" height="20"
-    	   			toolTip="Upload Powerpoint" click="dispatchEvent(new Event(PresentationPanelMediator.OPEN_UPLOAD))"/>    
+    	   			toolTip="Upload PDF Document" click="dispatchEvent(new Event(PresentationPanelMediator.OPEN_UPLOAD))"/>    
     	  <mx:Button id="sharePres" icon="{sharingIcon}" visible="false"
     	   			width="20" height="20"
     	   			toolTip="{sharingTooltip}" click="dispatchEvent(new Event(PresentationPanelMediator.SHARE))"/> 
