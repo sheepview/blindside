@@ -19,16 +19,32 @@
 */
 package org.bigbluebutton.common
 {
+	/**
+	 * Holds various constants
+	 * NOTE: PLEASE DON'T CHANGE THE CONSTANTS, JUST CHANGE THE STATIC VARIABLES. ADD YOUR OWN CONSTANTS IF
+	 * YOU WANT 
+	 * @author Denis Zgonjanin
+	 * 
+	 */	
 	public class Constants
 	{
-		public static const RED5_HOST:String = "134.117.58.103";
-		public static const PRESENTATION_HOST:String = "134.117.58.103";
+		public static const RED5_HOST:String = "present.carleton.ca";
+		public static const PRESENTATION_HOST:String = "present.carleton.ca";		
+		public static const KIRUS_COMP:String = "134.117.58.103";
 		
 		public static const NEW_RELATIVE_FILE_UPLOAD:String = "/bigbluebutton/file";
 		//The old relative file upload is used for testing the new client on the old server 
 		//at present.carleton.ca. The reference to this string can be found in the 
 		//PresentationApplication class, in the presentation module under model
-		public static const OLD_RELATIVE_FILE_UPLOAD:String = "/bigbluebutton/file";
+		public static const OLD_RELATIVE_FILE_UPLOAD:String = "/blindside/file";
+		
+		public static const ROOM_85115:String = "85115";
+		public static const ROOM_85901:String = "85901";
+				
+		public static var red5Host:String = KIRUS_COMP;
+		public static var presentationHost:String = KIRUS_COMP;
+		public static var relativeFileUpload:String = NEW_RELATIVE_FILE_UPLOAD;
+		public static var currentRoom:String = ROOM_85115;
 
 	}
 }

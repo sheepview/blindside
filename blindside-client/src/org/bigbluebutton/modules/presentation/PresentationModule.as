@@ -43,8 +43,8 @@ package org.bigbluebutton.modules.presentation
 	{
 		public static const NAME:String = "Presentation Module";
 		
-		public static const DEFAULT_RED5_URL:String = "rtmp://" + Constants.RED5_HOST;
-		public static const DEFAULT_PRES_URL:String = "http://" + Constants.PRESENTATION_HOST;
+		public static const DEFAULT_RED5_URL:String = "rtmp://" + Constants.red5Host;
+		public static const DEFAULT_PRES_URL:String = "http://" + Constants.presentationHost;
 		
 		private var facade:PresentationFacade;
 		public var activeWindow:MDIWindow;

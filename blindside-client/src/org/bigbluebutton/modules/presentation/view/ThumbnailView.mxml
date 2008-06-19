@@ -70,7 +70,7 @@
 		<mx:List id="slideList" dataProvider="{deck.slides}" paddingBottom="0"
 		    width="100%" height="100%" selectedIndex="0" change="dispatchEvent(new Event(ThumbnailViewMediator.SEND_PAGE_NUM))"
 		    itemRenderer="org.bigbluebutton.modules.presentation.view.Thumbnail"
-		    styleName="thumbnailList"/>   
+		    styleName="thumbnailList" editorUsesEnterKey="true"/>   
 	</mx:VBox>
 
 </mx:HBox>

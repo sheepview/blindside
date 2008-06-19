@@ -22,6 +22,7 @@ package org.bigbluebutton.modules.voiceconference
 	import flexlib.mdi.containers.MDIWindow;
 	
 	import org.bigbluebutton.common.BigBlueButtonModule;
+	import org.bigbluebutton.common.Constants;
 	import org.bigbluebutton.common.IRouterAware;
 	import org.bigbluebutton.common.Router;
 	import org.bigbluebutton.main.view.components.MainApplicationShell;
@@ -35,7 +36,7 @@ package org.bigbluebutton.modules.voiceconference
 	public class VoiceModule extends BigBlueButtonModule implements IRouterAware
 	{
 		public static const NAME:String = "VoiceModule";
-		public static const DEFAULT_URI:String = "rtmp://present.carleton.ca/astmeetme/85115"; 
+		public static const DEFAULT_URI:String = "rtmp://" + Constants.red5Host + "/astmeetme/85115"; 
 		
 		private var facade:VoiceConferenceFacade;
 		public var activeWindow:MDIWindow;
