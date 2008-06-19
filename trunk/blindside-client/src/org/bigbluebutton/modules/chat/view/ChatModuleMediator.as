@@ -27,8 +27,8 @@ package org.bigbluebutton.modules.chat.view
 	import org.bigbluebutton.common.Router;
 	import org.bigbluebutton.main.MainApplicationConstants;
 	import org.bigbluebutton.modules.chat.ChatModule;
-	import org.bigbluebutton.modules.chat.model.business.ChatProxy;
 	import org.bigbluebutton.modules.chat.ChatModuleConstants;
+	import org.bigbluebutton.modules.chat.model.business.ChatProxy;
 	import org.bigbluebutton.modules.chat.view.components.ChatWindow;
 	import org.bigbluebutton.modules.log.LogModuleFacade;
 	import org.puremvc.as3.multicore.interfaces.IMediator;
@@ -51,8 +51,9 @@ package org.bigbluebutton.modules.chat.view
 		private var inpipe : InputPipe;
 		private var router : Router;
 		private var inpipeListener : PipeListener;
-		private var chatWindow : ChatWindow;
+		public var chatWindow : ChatWindow;
 		private var log : LogModuleFacade = LogModuleFacade.getInstance("LogModule");
+		private var module:ChatModule;
 		
 		/**
 		 * Constructor
@@ -63,6 +64,7 @@ package org.bigbluebutton.modules.chat.view
 		public function ChatModuleMediator( viewComponent:ChatModule )
 		{
 			super( NAME, viewComponent );	
+			module = viewComponent;
 			router = viewComponent.router;
 			log.debug("initializing input pipes for chat module...");
 			inpipe = new InputPipe(ChatModuleConstants.TO_CHAT_MODULE);
@@ -74,7 +76,6 @@ package org.bigbluebutton.modules.chat.view
 			router.registerInputPipe(inpipe.name, inpipe);
 			chatWindow = viewComponent.chatWindow;
 			addWindow();
-			
 			
 		}
 		
@@ -107,7 +108,8 @@ package org.bigbluebutton.modules.chat.view
 			chatWindow.width = 210;
 			chatWindow.height = 200;
 			chatWindow.title = ChatWindow.TITLE;
-			msg.setBody(chatWindow);
+			msg.setBody(viewComponent as ChatModule);
+			module.activeWindow = chatWindow;
 			outpipe.write(msg);
 			chatWindow.closeBtn.addEventListener(MouseEvent.CLICK, removeWindow);
 			log.debug("A message has been sent to show the chat window.");			
@@ -124,7 +126,7 @@ package org.bigbluebutton.modules.chat.view
    						TO: MainApplicationConstants.TO_MAIN });
    			msg.setPriority(Message.PRIORITY_HIGH );
    			chatWindow.closeBtn.removeEventListener(MouseEvent.CLICK, removeWindow);
-   			msg.setBody(chatWindow);
+   			msg.setBody(viewComponent as ChatModule);
 			outpipe.write(msg);
 			log.debug("A message has been sent to remove the chat window.");
 			log.debug("Disconnecting chat module...");

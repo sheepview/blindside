@@ -54,7 +54,7 @@ package org.bigbluebutton.modules.log.view
 		private var inpipe : InputPipe;
 		private var router : Router;
 		private var inpipeListener : PipeListener;
-		private var logWindow : LogWindow = new LogWindow();
+		public var logWindow : LogWindow = new LogWindow();
 		
 		/**
 		 * Constructor, initializing the router, pipes, and listeners 
@@ -64,6 +64,7 @@ package org.bigbluebutton.modules.log.view
 		public function LogModuleMediator( viewComponent:LogModule )
 		{
 			super( NAME, viewComponent );	
+			viewComponent.mediator = this;
 			viewComponent.mshell.debugLog.text = "in logmodule mediator";
 			router = viewComponent.router;
 			inpipe = new InputPipe(LogModuleConstants.TO_LOG_MODULE);
@@ -76,6 +77,7 @@ package org.bigbluebutton.modules.log.view
 			
 			
 		}
+		
 		/**
 		 * initializing notifiers 
 		 * @param key
@@ -162,7 +164,7 @@ package org.bigbluebutton.modules.log.view
 			
 			//logWindow.visible = false;
 			
-			msg.setBody(logWindow);
+			msg.setBody(viewComponent as LogModule);
 			viewComponent.mshell.debugLog.text = "in logmodule mediator: addWindow()";
 			outpipe.write(msg);
 			
@@ -202,7 +204,7 @@ package org.bigbluebutton.modules.log.view
 			//logWindow.error_box.removeEventListener(Event.CHANGE,changeLevel);
 			logWindow.closeBtn.removeEventListener(MouseEvent.CLICK, removeWindow);
    			
-   			msg.setBody(logWindow);
+   			msg.setBody(viewComponent as LogModule);
    			outpipe.write(msg);
 		}
 		/**

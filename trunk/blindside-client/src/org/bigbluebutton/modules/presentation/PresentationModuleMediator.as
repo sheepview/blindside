@@ -49,6 +49,7 @@ package org.bigbluebutton.modules.presentation
 		private var inpipeListener : PipeListener;
 		
 		private var presentationWindow:PresentationWindow = new PresentationWindow();
+		private var module:PresentationModule;
 		
 		/**
 		 * The constructor. Associates this mediator with the PresentationModule class
@@ -60,6 +61,7 @@ package org.bigbluebutton.modules.presentation
 		public function PresentationModuleMediator(view:PresentationModule)
 		{
 			super(NAME, view);
+			module = view;
 			router = view.router;
 			inpipe = new InputPipe(PresentationConstants.TO_PRESENTATION_MODULE);
 			outpipe = new OutputPipe(PresentationConstants.FROM_PRESENTATION_MODULE);
@@ -94,7 +96,8 @@ package org.bigbluebutton.modules.presentation
    			presentationWindow.width = 464;
    			presentationWindow.title = PresentationWindow.TITLE;
    			presentationWindow.showCloseButton = false;
-   			msg.setBody(presentationWindow);
+   			module.activeWindow = presentationWindow;
+   			msg.setBody(viewComponent as PresentationModule);
    			outpipe.write(msg);
 		}
 		

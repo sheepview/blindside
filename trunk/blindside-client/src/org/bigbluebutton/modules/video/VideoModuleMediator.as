@@ -85,7 +85,7 @@ package org.bigbluebutton.modules.video
    			videoWindow.width = 200;
    			videoWindow.height = 200;
    			videoWindow.title = ViewCameraWindow.TITLE;
-   			msg.setBody(videoWindow);
+   			msg.setBody(viewComponent as VideoModule);
    			outpipe.write(msg);
    			
 		}

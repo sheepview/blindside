@@ -48,6 +48,7 @@ package org.bigbluebutton.modules.viewers
 		private var router : Router;
 		private var inpipeListener : PipeListener;
 		
+		private var module:ViewersModule;
 		private var joinWindow:JoinWindow;
 		private var viewersWindow:ViewersWindow;
 		
@@ -61,6 +62,7 @@ package org.bigbluebutton.modules.viewers
 		public function ViewersModuleMediator(module:ViewersModule)
 		{
 			super(NAME, module);
+			this.module = module;
 			router = module.router;
 			inpipe = new InputPipe(ViewersConstants.TO_VIEWERS_MODULE);
 			outpipe = new OutputPipe(ViewersConstants.FROM_VIEWERS_MODULE);
@@ -87,7 +89,8 @@ package org.bigbluebutton.modules.viewers
    			joinWindow = new JoinWindow();
    			joinWindow.showCloseButton = false;
    			joinWindow.title = JoinWindow.TITLE;
-   			msg.setBody(joinWindow);
+   			module.activeWindow = joinWindow;
+   			msg.setBody(viewComponent as ViewersModule);
    			outpipe.write(msg);
 		}
 		
@@ -102,13 +105,14 @@ package org.bigbluebutton.modules.viewers
    			msg.setPriority(Message.PRIORITY_HIGH);
    			
    			viewersWindow = new ViewersWindow();
+   			module.activeWindow = viewersWindow;
    			viewersWindow.width = 210;
    			viewersWindow.height = 220;
    			viewersWindow.title = ViewersWindow.TITLE;
    			viewersWindow.showCloseButton = false;
-   			msg.setBody(viewersWindow);
-   			outpipe.write(msg);
    			sendNotification(ViewersFacade.START_VIEWER_WINDOW, viewersWindow);
+   			msg.setBody(viewComponent as ViewersModule);
+   			outpipe.write(msg);
 		}
 		
 		/**
@@ -116,12 +120,13 @@ package org.bigbluebutton.modules.viewers
 		 * 
 		 */		
 		private function removeJoinWindow():void{
+			module.activeWindow = joinWindow;
 			var msg:IPipeMessage = new Message(Message.NORMAL);
 			msg.setHeader({MSG:MainApplicationConstants.REMOVE_WINDOW_MSG, SRC: ViewersConstants.FROM_VIEWERS_MODULE,
    						TO: MainApplicationConstants.TO_MAIN });
    			msg.setPriority(Message.PRIORITY_HIGH);
    			
-   			msg.setBody(joinWindow);
+   			msg.setBody(viewComponent as ViewersModule);
    			outpipe.write(msg);
 		}
 		

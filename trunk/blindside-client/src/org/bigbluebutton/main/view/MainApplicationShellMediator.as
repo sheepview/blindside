@@ -20,27 +20,19 @@
 package org.bigbluebutton.main.view
 {
 	import flash.events.Event;
-	import flash.system.Capabilities;
 	
-	import flexlib.mdi.containers.MDIWindow;
-	
+	import org.bigbluebutton.common.BigBlueButtonModule;
 	import org.bigbluebutton.common.InputPipe;
 	import org.bigbluebutton.common.OutputPipe;
 	import org.bigbluebutton.common.Router;
 	import org.bigbluebutton.main.MainApplicationConstants;
 	import org.bigbluebutton.main.view.components.MainApplicationShell;
 	import org.bigbluebutton.modules.chat.ChatModule;
-	import org.bigbluebutton.modules.chat.view.components.ChatWindow;
 	import org.bigbluebutton.modules.log.LogModule;
 	import org.bigbluebutton.modules.log.LogModuleFacade;
-	import org.bigbluebutton.modules.log.view.components.LogWindow;
 	import org.bigbluebutton.modules.presentation.PresentationModule;
-	import org.bigbluebutton.modules.presentation.view.PresentationWindow;
 	import org.bigbluebutton.modules.viewers.ViewersModule;
-	import org.bigbluebutton.modules.viewers.view.JoinWindow;
-	import org.bigbluebutton.modules.viewers.view.ViewersWindow;
 	import org.bigbluebutton.modules.voiceconference.VoiceModule;
-	import org.bigbluebutton.modules.voiceconference.view.ListenersWindow;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
 	import org.puremvc.as3.multicore.utilities.pipes.interfaces.IPipeMessage;
 	import org.puremvc.as3.multicore.utilities.pipes.plumbing.PipeListener;
@@ -53,8 +45,10 @@ package org.bigbluebutton.main.view
 		public static const NAME:String = 'MainApplicationShellMediator';
 		public static const OPEN_CHAT_MODULE:String = 'openChatModule';
 		public static const OPEN_LOG_MODULE:String = 'openLogModule';
+		public static const LOGOUT:String = "Logout";
 
 		public var log:LogModuleFacade = LogModuleFacade.getInstance(LogModule.NAME);
+		private var mshell:MainApplicationShell;
 		
 		private var xPos:Number;
 		private var yPos:Number;
@@ -64,12 +58,10 @@ package org.bigbluebutton.main.view
 		public var router : Router;
 		private var inpipeListener : PipeListener;
 		
-		private var logModule : LogModule;
-		private var chatModule : ChatModule;
+		private var modules:Array;
 		
-		private var presentationModule:PresentationModule;
-		private var voiceModule:VoiceModule;
 		private var viewersModule:ViewersModule;
+		
 
 		/**
 		 *  
@@ -80,9 +72,12 @@ package org.bigbluebutton.main.view
 		public function MainApplicationShellMediator( viewComponent:MainApplicationShell )
 		{
 			super( NAME, viewComponent );
+			modules = new Array();
+			mshell = viewComponent;
 			router = new Router(viewComponent);
 			///viewComponent.debugLog.text = "Log Module inited 1";
 			viewComponent.addEventListener(OPEN_LOG_MODULE , runLogModule);
+			viewComponent.addEventListener(LOGOUT, logout);
 			inpipe = new InputPipe(MainApplicationConstants.TO_MAIN);
 			outpipe = new OutputPipe(MainApplicationConstants.FROM_MAIN);
 			inpipeListener = new PipeListener(this, messageReceiver);
@@ -90,22 +85,18 @@ package org.bigbluebutton.main.view
 			router.registerOutputPipe(outpipe.name, outpipe);
 			router.registerInputPipe(inpipe.name, inpipe);
 			
-			logModule = new LogModule();
-			logModule.acceptRouter(router, viewComponent);
+			addModule(new LogModule());
 			
-			viewersModule = new ViewersModule();
-			viewersModule.acceptRouter(router, viewComponent);
+			addModule(new ViewersModule());
 		
 		}
 		
 		public function runPresentationModule():void{
-			presentationModule = new PresentationModule();
-			presentationModule.acceptRouter(router, shell);
+			addModule(new PresentationModule());
 		}
 		
 		public function runVoiceModule():void{
-			voiceModule = new VoiceModule();
-			voiceModule.acceptRouter(router, shell);
+			addModule(new VoiceModule());
 		}
 		
 		/**
@@ -115,8 +106,7 @@ package org.bigbluebutton.main.view
 		 */		
 		public function runChatModule() : void
 		{
-			chatModule = new ChatModule();
-			chatModule.acceptRouter(router, shell);
+			addModule(new ChatModule());
 		}
 		/**
 		 * Runs the Log Module 
@@ -124,42 +114,55 @@ package org.bigbluebutton.main.view
 		 * 
 		 */		
 		public function runLogModule(event:Event) : void
-		{
-			
+		{			
 			//logModule = new LogModule();
 			//logModule.acceptRouter(router, shell);
-			
 		}
 		
-		private function setLayout(window:MDIWindow):void{
+		/**
+		 * Adds a module to this application 
+		 * @param module
+		 * 
+		 */		
+		public function addModule(module:BigBlueButtonModule):void{
+			this.modules.push(module);
+			acceptRouter(module);
+		}
+		
+		public function acceptRouter(module:BigBlueButtonModule):void{
+			module.acceptRouter(router, mshell);
+		}
+		
+		private function logout(e:Event):void{
+			shell.mdiCanvas.windowManager.removeAll();
 			
-			switch(window.title){
-				
-				case JoinWindow.TITLE:		
-					shell.mdiCanvas.windowManager.add(window);
-					shell.mdiCanvas.windowManager.center(window);
-					break;
-				case ViewersWindow.TITLE:
-					shell.mdiCanvas.windowManager.add(window);
-					shell.mdiCanvas.windowManager.absPos(window, 20, 20);
-					break;
-				case ChatWindow.TITLE:
-					shell.mdiCanvas.windowManager.add(window);
-					shell.mdiCanvas.windowManager.absPos(window, Capabilities.screenResolutionX - 410, 20);
-					break;
-				case LogWindow.TITLE:
-					shell.mdiCanvas.windowManager.add(window);
-					shell.mdiCanvas.windowManager.absPos(window, Capabilities.screenResolutionX - 530, 500);
-					break;
-				case PresentationWindow.TITLE:
-					shell.mdiCanvas.windowManager.add(window);
-					shell.mdiCanvas.windowManager.absPos(window, Capabilities.screenResolutionX/2 - 300, 20);
-					break;
-				case ListenersWindow.TITLE:
-					shell.mdiCanvas.windowManager.add(window);
-					shell.mdiCanvas.windowManager.absPos(window, 20, 400);
-					break;
-			}				 
+			var c:Number;
+			for (c = 0; c< this.modules.length; c++){
+				var module:BigBlueButtonModule = modules[c] as BigBlueButtonModule;
+				module.logout();
+				modules.pop();
+			}
+			
+			modules = new Array();
+			addModule(new ViewersModule());
+			addModule(new LogModule());
+			//log.debug("Attempting Logout...");
+			//var delegate:SharedObjectConferenceDelegate = 
+			//	ViewersFacade.getInstance().retrieveProxy(SharedObjectConferenceDelegate.NAME) 
+			//		as SharedObjectConferenceDelegate;
+			//
+			//delegate.leave();			
+		}
+		
+		private function setLayout(module:BigBlueButtonModule):void{
+			
+			shell.mdiCanvas.windowManager.add(module.getMDIComponent());
+			shell.mdiCanvas.windowManager.absPos(module.getMDIComponent(), 
+								module.getXPosition(), module.getYPosition());			 
+		}
+		
+		private function removeWindow(module:BigBlueButtonModule):void{
+			shell.mdiCanvas.windowManager.remove(module.getMDIComponent());
 		}
 		
 		/**
@@ -170,23 +173,23 @@ package org.bigbluebutton.main.view
 		private function messageReceiver(message : IPipeMessage) : void
 		{
 			var msg : String = message.getHeader().MSG as String;
-			var window : MDIWindow;
+			var module :BigBlueButtonModule;
 			
 			shell.debugLog.text = "Got message: " + msg;
 			
 			switch (msg)
 			{
 				case MainApplicationConstants.ADD_WINDOW_MSG:
-					window = message.getBody() as MDIWindow;
+					module = message.getBody() as BigBlueButtonModule;
 					//shell.mdiCanvas.windowManager.add(window);
-					setLayout(window);
+					setLayout(module);
 					break;
 				case MainApplicationConstants.REMOVE_WINDOW_MSG:
-					window = message.getBody() as MDIWindow;
-					if(window.title == "Log") {
+					module = message.getBody() as BigBlueButtonModule;
+					if(module.name == LogModule.NAME) {
 						shell.toolbar.LogBtn.enabled = true;
-						window.visible = false;
-					} else shell.mdiCanvas.windowManager.remove(window);
+						module.getMDIComponent().visible = false;
+					} else removeWindow(module);
 					break;					
 				case MainApplicationConstants.LOGIN_COMPLETE:
 					runPresentationModule();

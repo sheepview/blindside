@@ -47,6 +47,7 @@ package org.bigbluebutton.modules.voiceconference
 		private var inpipeListener : PipeListener;
 		
 		private var voiceWindow:ListenersWindow = new ListenersWindow();
+		private var module:VoiceModule;
 		
 		/**
 		 * The constructor. Registers this class with the VoiceModule 
@@ -56,6 +57,7 @@ package org.bigbluebutton.modules.voiceconference
 		public function VoiceModuleMediator(view:VoiceModule)
 		{
 			super(NAME,view);
+			module = view;
 			router = view.router;
 			inpipe = new InputPipe(VoiceModuleConstants.TO_VOICE_MODULE);
 			outpipe = new OutputPipe(VoiceModuleConstants.FROM_VOICE_MODULE);
@@ -83,7 +85,8 @@ package org.bigbluebutton.modules.voiceconference
    			voiceWindow.width = 210;
    			voiceWindow.title = ListenersWindow.TITLE;
    			voiceWindow.showCloseButton = false;
-   			msg.setBody(voiceWindow);
+   			module.activeWindow = voiceWindow;
+   			msg.setBody(viewComponent as VoiceModule);
    			outpipe.write(msg);
 		}
 		

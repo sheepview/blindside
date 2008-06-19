@@ -19,8 +19,9 @@
 */
 package org.bigbluebutton.modules.voiceconference
 {
-	import mx.modules.ModuleBase;
+	import flexlib.mdi.containers.MDIWindow;
 	
+	import org.bigbluebutton.common.BigBlueButtonModule;
 	import org.bigbluebutton.common.IRouterAware;
 	import org.bigbluebutton.common.Router;
 	import org.bigbluebutton.main.view.components.MainApplicationShell;
@@ -31,14 +32,13 @@ package org.bigbluebutton.modules.voiceconference
 	 * @author Denis Zgonjanin
 	 * 
 	 */	
-	public class VoiceModule extends ModuleBase implements IRouterAware
+	public class VoiceModule extends BigBlueButtonModule implements IRouterAware
 	{
 		public static const NAME:String = "VoiceModule";
 		public static const DEFAULT_URI:String = "rtmp://present.carleton.ca/astmeetme/85115"; 
 		
 		private var facade:VoiceConferenceFacade;
-		private var _router:Router;
-		private var mshell:MainApplicationShell;
+		public var activeWindow:MDIWindow;
 		
 		/**
 		 * Creates a new VoiceModule 
@@ -46,8 +46,10 @@ package org.bigbluebutton.modules.voiceconference
 		 */		
 		public function VoiceModule()
 		{
-			super();
+			super(NAME);
 			facade = VoiceConferenceFacade.getInstance();
+			this.preferedX = 20;
+			this.preferedY = 400;
 		}
 		
 		/**
@@ -56,16 +58,20 @@ package org.bigbluebutton.modules.voiceconference
 		 * @param shell
 		 * 
 		 */		
-		public function acceptRouter(router:Router, shell:MainApplicationShell):void{
-			mshell = shell;
-			_router = router;
+		override public function acceptRouter(router:Router, shell:MainApplicationShell):void{
+			super.acceptRouter(router, shell);
 			facade.startup(this, DEFAULT_URI);
 			facade.connectToMeetMe();
 		}
 		
-		public function get router():Router{
-			return _router;
+		override public function getMDIComponent():MDIWindow{
+			return activeWindow;
 		}
-
+		
+		override public function logout():void{
+			// Do nothing for now - listeners are independent of who is logged in through the client
+			facade.removeCore(VoiceConferenceFacade.ID);
+		}
+		
 	}
 }

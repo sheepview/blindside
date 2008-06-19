@@ -22,11 +22,16 @@
 				facade.startup(this);
 				debugLog.text = "After startup in initShell";
 				toolbar.LogBtn.addEventListener(MouseEvent.CLICK , openLogModule);
+				toolbar.btnLogout.addEventListener(MouseEvent.CLICK, logout);
 			}
 			
 			public function openLogModule(event:MouseEvent) : void
 			{
 				dispatchEvent(new Event(MainApplicationShellMediator.OPEN_LOG_MODULE));
+			}
+			
+			private function logout(e:MouseEvent):void{
+				dispatchEvent(new Event(MainApplicationShellMediator.LOGOUT));
 			}
 			
 		]]>
