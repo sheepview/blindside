@@ -1,3 +1,23 @@
+/**
+* BigBlueButton open source conferencing system - http://www.bigbluebutton.org/
+*
+* Copyright (c) 2008 by respective authors (see below).
+*
+* This program is free software; you can redistribute it and/or modify it under the
+* terms of the GNU Lesser General Public License as published by the Free Software
+* Foundation; either version 2.1 of the License, or (at your option) any later
+* version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+* PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+*
+* You should have received a copy of the GNU Lesser General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+* 
+*/
+
 package org.bigbluebuttonproject.fileupload.document.impl;
 
 import com.sun.star.uno.UnoRuntime;
@@ -17,8 +37,14 @@ import org.apache.commons.logging.LogFactory;
 
 import java.io.*;
 
+
+/**
+ * The Class PptToJpegConverter.
+ */
 public class PptToJpegConverter
 {
+	
+	/** The Constant logger. */
 	private static final Log logger = LogFactory.getLog(PptToJpegConverter.class);
 /*
     public static void main(String[] args){ 	
@@ -40,17 +66,40 @@ public class PptToJpegConverter
         System.exit(0);
     }
 */
-    public final static String FILE_URL_PREFIX = "file:///";
+    /** The Constant FILE_URL_PREFIX. */
+public final static String FILE_URL_PREFIX = "file:///";
     
+    /** The Constant OOO_FORMATS. */
     private static final String[] OOO_FORMATS = { "ppt", "sxi", "sxd", "odp", "odg" };
 
+    /** The Constant FORMAT_JPEG. */
     public final static PptToJpegConverter FORMAT_JPEG = new PptToJpegConverter();
+    
+    /** The Constant FORMAT_GIF. */
     public final static PptToJpegConverter FORMAT_GIF = new PptToJpegConverter();
+    
+    /** The Constant FORMAT_PNG. */
     public final static PptToJpegConverter FORMAT_PNG = new PptToJpegConverter();
+    
+    /** The Constant FORMAT_OPTIMAL. */
     public final static PptToJpegConverter FORMAT_OPTIMAL = new PptToJpegConverter();
 
+    /**
+     * Instantiates a new ppt to jpeg converter.
+     */
     private PptToJpegConverter(){}
 
+    /**
+     * Export slides.
+     * 
+     * @param fileSource the file source
+     * @param fileOutDir the file out dir
+     * @param strMachine the str machine
+     * @param iPort the i port
+     * @param format the format
+     * 
+     * @return the slide info[]
+     */
     public static synchronized SlideInfo[] exportSlides(File fileSource,
             File fileOutDir, String strMachine, int iPort, PptToJpegConverter format){
 

@@ -1,3 +1,23 @@
+/**
+* BigBlueButton open source conferencing system - http://www.bigbluebutton.org/
+*
+* Copyright (c) 2008 by respective authors (see below).
+*
+* This program is free software; you can redistribute it and/or modify it under the
+* terms of the GNU Lesser General Public License as published by the Free Software
+* Foundation; either version 2.1 of the License, or (at your option) any later
+* version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+* PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+*
+* You should have received a copy of the GNU Lesser General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+* 
+*/
+
 package org.bigbluebuttonproject.fileupload.document.impl;
 
 import com.sun.star.uno.UnoRuntime;
@@ -18,48 +38,101 @@ import org.bigbluebuttonproject.fileupload.document.IProgressListener;
 
 import java.io.*;
 
+
+/**
+ * The Class PptDocumentHandler.
+ */
 public class PptDocumentHandler
 {
+	
+	/** The Constant logger. */
 	private static final Log logger = LogFactory.getLog(PptDocumentHandler.class);
+	
+	/** The open office host. */
 	private String openOfficeHost = "localhost";
+	
+	/** The open office port. */
 	private int openOfficePort = 8100;
 	
+	/** The height. */
 	private int height = 600;
+	
+	/** The width. */
 	private int width = 800;
+	
+	/** The quality. */
 	private int quality = 100;
 	
+    /**
+     * Sets the open office host.
+     * 
+     * @param host the new open office host
+     */
     public void setOpenOfficeHost(String host) {
     	this.openOfficeHost = host;
     }
     
+    /**
+     * Sets the open office port.
+     * 
+     * @param port the new open office port
+     */
     public void setOpenOfficePort(int port) {
     	this.openOfficePort = port;
     }
     
+    /**
+     * Sets the height.
+     * 
+     * @param newHeight the new height
+     */
     public void setHeight(int newHeight){
     	if (newHeight > 0){
     		height = newHeight;
     	}
     }
     
+    /**
+     * Sets the width.
+     * 
+     * @param newWidth the new width
+     */
     public void setWidth(int newWidth){
     	if (newWidth > 0){
     		width = newWidth;
     	}
     }
     
+    /**
+     * Sets the quality.
+     * 
+     * @param newQuality the new quality
+     */
     public void setQuality(int newQuality){
     	if (newQuality > 0){
     		quality = newQuality;
     	}
     }
     
+    /**
+     * Connect.
+     * 
+     * @return the oOO connection
+     * 
+     * @throws Exception the exception
+     */
     private OOOConnection connect() throws Exception {
     	logger.info("Connecting to: " + openOfficeHost + ":" + openOfficePort);
     	
     	return Helper.connectEx(openOfficeHost, openOfficePort);
     }
     
+    /**
+     * Convert.
+     * 
+     * @param fileSource the file source
+     * @param destDir the dest dir
+     */
     public synchronized void convert(File fileSource, File destDir) {
 
         XComponent xComponent = null;        

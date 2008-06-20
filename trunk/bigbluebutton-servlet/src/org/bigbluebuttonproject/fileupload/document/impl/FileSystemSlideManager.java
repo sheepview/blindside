@@ -1,3 +1,23 @@
+/**
+* BigBlueButton open source conferencing system - http://www.bigbluebutton.org/
+*
+* Copyright (c) 2008 by respective authors (see below).
+*
+* This program is free software; you can redistribute it and/or modify it under the
+* terms of the GNU Lesser General Public License as published by the Free Software
+* Foundation; either version 2.1 of the License, or (at your option) any later
+* version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+* PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+*
+* You should have received a copy of the GNU Lesser General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+* 
+*/
+
 package org.bigbluebuttonproject.fileupload.document.impl;
 
 import java.awt.Graphics2D;
@@ -32,65 +52,111 @@ import org.bigbluebuttonproject.fileupload.SlideDescriptor;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+
 /**
- * This class is used as the BASE class which services client requests: fileUpload, getting Slides for viewing.... 
+ * This class is used as the BASE class where client services requests are routed. Service requests: fileUpload, getting Slides for viewing....
  * The requests are received by FileUploadCintroller class and routed here.
- *  
+ * 
  * Some code from jGallery
  * 
- * @author ritzalam 
+ * @author ritzalam
  */
 public class FileSystemSlideManager implements ISlideDatabase {
+	
+	/** The logger. */
 	private final Log logger = LogFactory.getLog(getClass());
 	// destination directory of the slides
+	/** The base directory. */
 	private String baseDirectory = null;
+	
+	/** The extracted folder. */
 	private String extractedFolder = null;
 	
+	/** The output xml. */
 	private PrintWriter outputXML = null;
 	// used for generating slides XML 
+	/** The Constant HEADER. */
 	private static final String HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+	
+	/** The Constant PRESENTATIONS. */
 	private static final String PRESENTATIONS = "<presentations>";
+	
+	/** The Constant PRESENTATIONS_END_TAG. */
 	private static final String PRESENTATIONS_END_TAG = "</presentations>";
+	
+	/** The Constant PRESENTATION. */
 	private static final String PRESENTATION = "<presentation id=\"slides\">";
+	
+	/** The Constant PRESENTATION_END_TAG. */
 	private static final String PRESENTATION_END_TAG = "</presentation>";
+	
+	/** The Constant DESCRIPTION. */
 	private static final String DESCRIPTION = "<description>";
+	
+	/** The Constant DESCRIPTION_END_TAG. */
 	private static final String DESCRIPTION_END_TAG = "</description>";
+	
+	/** The Constant SLIDE. */
 	private static final String SLIDE = "<slide>";
+	
+	/** The Constant SLIDE_END_TAG. */
 	private static final String SLIDE_END_TAG = "</slide>";
+	
+	/** The Constant NAME. */
 	private static final String NAME = "<name>";
+	
+	/** The Constant NAME_END_TAG. */
 	private static final String NAME_END_TAG = "</name>";
+	
+	/** The Constant SOURCE. */
 	private static final String SOURCE = "<source>";
+	
+	/** The Constant SOURCE_END_TAG. */
 	private static final String SOURCE_END_TAG = "</source>";
+	
+	/** The Constant HOST. */
 	private static final String HOST = "<host>";
+	
+	/** The Constant HOST_END_TAG. */
 	private static final String HOST_END_TAG = "</host>";
+	
+	/** The Constant ROOM. */
 	private static final String ROOM = "<room>";
+	
+	/** The Constant ROOM_END_TAG. */
 	private static final String ROOM_END_TAG = "</room>";
+	
+	/** The Constant host. */
 	private static final String host = "http://localhost:8080";
 	
 	/**
-	 * Setter for destination directory
+	 * Setter for destination directory.
+	 * 
 	 * @param dest destination directory
 	 */
 	public void setBaseDirectory(String dest) {
 		this.baseDirectory = dest;
 	}
+	
 	/**
-	 * Setter for extracted folder directory
-	 * @param extractedFolder
+	 * Setter for extracted folder directory.
+	 * 
+	 * @param extractedFolder the extracted folder
 	 */
 	public void setExtractedFolder(String extractedFolder) {
 		this.extractedFolder = extractedFolder;
 	}
 	
 	/**
-	 * This method create thumbImage of the image file given and save it in outFile. 
+	 * This method create thumbImage of the image file given and save it in outFile.
 	 * Compression quality is also given. thumbBounds is used for calculating the size of the thumb.
 	 * 
 	 * @param infile slide image to create thumb
 	 * @param outfile output thumb file
-	 * @param compressionQuality
-	 * @param thumbBounds
-	 * @throws IOException
+	 * @param compressionQuality the compression quality
+	 * @param thumbBounds the thumb bounds
+	 * 
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public void resizeImage(File infile, File outfile, float compressionQuality,
 			int thumbBounds) throws IOException
@@ -139,12 +205,13 @@ public class FileSystemSlideManager implements ISlideDatabase {
 		writer.dispose();
 		ios.close();
 	}
+	
 	/**
 	 * This method is used to generate SlideDescriptor List slide thumbs of the given conference room.
 	 * 
 	 * @param room conference room ID
-	 * @return List of Slide (thumb) Descriptors of all the slides of the conference room
 	 * 
+	 * @return List of Slide (thumb) Descriptors of all the slides of the conference room
 	 */
 	public List<SlideDescriptor> getThumbnailsForRoom(Integer room) {
 		logger.info("getting thumbnails for = [" + room + "]");
@@ -174,8 +241,10 @@ public class FileSystemSlideManager implements ISlideDatabase {
 	}	
 	
 	/**
-	 * This method returns the ArrayList of slideDescriptors belongs to the given conference room.
+	 * This method returns the ArrayList of slideDescriptors that belongs to the given conference room.
+	 * 
 	 * @param room conference room ID
+	 * 
 	 * @return List of SlideDescriptor
 	 */
 	public List<SlideDescriptor> getSlidesForRoom(Integer room) {
@@ -203,9 +272,12 @@ public class FileSystemSlideManager implements ISlideDatabase {
         
 		return listOfFiles;
 	}
+	
 	/**
-	 * This method loads the slide .swf files in the folder and put it in an File[] and returns it.
+	 * This method loads the slide .swf files from the source folder and puts it in an ArratList and returns it.
+	 * 
 	 * @param sourceFolder directory of the source
+	 * 
 	 * @return ArrayList of slides
 	 */
 	public ArrayList<File> getExtractedSlides(String sourceFolder) {
@@ -233,12 +305,17 @@ public class FileSystemSlideManager implements ISlideDatabase {
 
 	
 	/**
-	 * This method basically saves the MultipartFile given as parameter( temporary stored file format)
-	 * And it also return instance of file which is saved in saveDir
+	 * This method saves the MultipartFile given as parameter( temporary stored file format)
+	 * And it also return instance of file which is saved in saveDir.
 	 * 
 	 * @param multipartFile temporary storage of uploaded file
 	 * @param room conference room ID
+	 * 
 	 * @return file pointing to the new file stored
+	 * 
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * 
+	 * @see MultipartFile API
 	 */
 	public File saveUploadedFile(MultipartFile multipartFile, Integer room) throws IOException {
 		String filename = multipartFile.getOriginalFilename().replace(' ', '_');
@@ -258,13 +335,15 @@ public class FileSystemSlideManager implements ISlideDatabase {
 
 	
 	/**
-	 * This method basically copies the contents of the file (in our case, slides) to the OutputStream given. 
-	 * OutputStream given here is the connection stream to the client. 
+	 * This method copies the contents of the file (in our case, slides) to the OutputStream given.
+	 * OutputStream given to this method (as parameter) is the connection stream to the client.
 	 * This tells us that this function streams the slides to the client.
 	 * 
 	 * @param room conference room ID
 	 * @param name name of the slide
-	 * @see FileCopyUtils   
+	 * @param os the os
+	 * 
+	 * @see FileCopyUtils API
 	 */
 	public void streamImage(Integer room, String name, OutputStream os) {
 		
@@ -290,13 +369,15 @@ public class FileSystemSlideManager implements ISlideDatabase {
 	}
 	
 	/**
-	 * This method basically copies the contents of the file (in our case, slide XML description) to the OutputStream given. 
-	 * OutputStream given here is the connection stream to the client. 
+	 * This method basically copies the contents of the file (in our case, slide XML description) to the OutputStream given.
+	 * OutputStream given to method (as parameter) is the connection stream to the client.
 	 * This tells us that this function streams the slides to the client.
 	 * 
 	 * @param room conference room ID
 	 * @param name name of the slide
-	 * @see FileCopyUtils
+	 * @param os the os
+	 * 
+	 * @see FileCopyUtils API
 	 */
 	public void getXml(Integer room, String name, OutputStream os) {
 		File file = new File(baseDirectory + File.separator + room 
@@ -321,9 +402,11 @@ public class FileSystemSlideManager implements ISlideDatabase {
 	}
 
 	/**
-	 * This method creates XML formatted string (slide description) that is ready to be sent to the client.
+	 * This method creates XML formatted string (default slide description of the conference room) that is ready to be sent to the client.
+	 * 
 	 * @param room conference room ID
 	 * 
+	 * @see createXml()
 	 */
 	public void createDefaultXml(Integer room) {		
 		String slidesXml = HEADER + "\n";
@@ -349,17 +432,25 @@ public class FileSystemSlideManager implements ISlideDatabase {
 			}
 		}		
 	}
+	
 	/**
+	 * Gets the slides in xml.
 	 * 
-	 * @see createXml
+	 * @param room the room
+	 * 
+	 * @return the slides in xml
+	 * 
+	 * @see createXml()
 	 */
 	public String getSlidesInXml(Integer room) {
 		return 	createXml(room);
 	}
 	
 	/**
-	 * This method creates XML formatted string (slide description) that is ready to be sent to the client.
+	 * This method creates XML formatted string (slide description of the conference room) that is ready to be sent to the client.
+	 * 
 	 * @param room conference room ID
+	 * 
 	 * @return slide description XML string
 	 */
 	public String createXml(Integer room) {
@@ -402,22 +493,27 @@ public class FileSystemSlideManager implements ISlideDatabase {
 		
 		return slidesXml;
 	}
+	
 	/**
-	 * TODO Auto-generated method stub
+	 * TODO Auto-generated method stub.
 	 */
 	public void clearDatabase() {
 		// TODO Auto-generated method stub
 		
 	}
+	
 	/**
-	 * Getter for destination directory
+	 * Getter for destination directory.
+	 * 
 	 * @return dest destination directory
 	 */
 	public String getBaseDirectory() {
 		return baseDirectory;
 	}
+	
 	/**
-	 * Getter for extracted folder directory
+	 * Getter for extracted folder directory.
+	 * 
 	 * @return extractedFolder
 	 */
 	public String getExtractedFolder() {
@@ -425,16 +521,18 @@ public class FileSystemSlideManager implements ISlideDatabase {
 	}
 
     /**
-     * Internal class used to compare two slides and check for differences
+     * Internal class used to compare two slides and check for differences.
      */
     private class SlideComparator implements Comparator {
+        
         /**
          * Method to perform the actual comparison and sorting of files
          * This would be called automatically when this comparator is used
          * by a Collections.sort call
-         *
+         * 
          * @param a1 first file to compare
          * @param a2 second file to compare
+         * 
          * @return 0 if the files are equal, 1 if a1 is above a2, -1 if a2 is above a1
          */
         public int compare(Object a1, Object a2) {
@@ -463,9 +561,10 @@ public class FileSystemSlideManager implements ISlideDatabase {
         }
 
         /**
-         * Wrapper method to safely determine if the passed object equals this
-         *
+         * Wrapper method to safely determine if the passed object equals this.
+         * 
          * @param obj to check
+         * 
          * @return true if the objects are equal
          */
         public boolean equals(Object obj) {
@@ -477,8 +576,9 @@ public class FileSystemSlideManager implements ISlideDatabase {
          * ordering the files properly
          * For example, a file named Slide2.jpg would extract as 2, and therefore
          * could be sorted about 3, etc.
-         *
+         * 
          * @param name of the file
+         * 
          * @return numbers in the file, or -1 on error / no numbers present
          */
         private int getNumberFromFile(String name) {

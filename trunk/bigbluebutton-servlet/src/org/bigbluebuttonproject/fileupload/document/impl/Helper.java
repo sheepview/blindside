@@ -1,3 +1,23 @@
+/**
+* BigBlueButton open source conferencing system - http://www.bigbluebutton.org/
+*
+* Copyright (c) 2008 by respective authors (see below).
+*
+* This program is free software; you can redistribute it and/or modify it under the
+* terms of the GNU Lesser General Public License as published by the Free Software
+* Foundation; either version 2.1 of the License, or (at your option) any later
+* version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+* PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+*
+* You should have received a copy of the GNU Lesser General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+* 
+*/
+
 package org.bigbluebuttonproject.fileupload.document.impl;
 
 //from Helper.java sample from OpenOffice.org SDK
@@ -25,13 +45,35 @@ import com.sun.star.uno.XComponentContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+
+/**
+ * The Class Helper.
+ */
 public class Helper
 {
+	
+	/** The Constant logger. */
 	private static final Log logger = LogFactory.getLog(Helper.class);
+ 
+ /** The file converter. */
  private static XFileIdentifierConverter fileConverter;
+ 
+ /** The x office multi component factory. */
  private static XMultiComponentFactory xOfficeMultiComponentFactory;
+ 
+ /** The x office component context. */
  private static XComponentContext xOfficeComponentContext;
  
+ /**
+  * Connect ex.
+  * 
+  * @param strHost the str host
+  * @param iPort the i port
+  * 
+  * @return the oOO connection
+  * 
+  * @throws Exception the exception
+  */
  static public OOOConnection connectEx( String strHost, int iPort)
 		throws java.lang.Exception
  {
@@ -93,6 +135,13 @@ public class Helper
          return new OOOConnection(xComponent, xOfficeMultiComponentFactory);
  }
  
+ /**
+  * Close connection.
+  * 
+  * @param conn the conn
+  * 
+  * @throws Exception the exception
+  */
  static public void closeConnection(OOOConnection conn)
  throws Exception{
      //XBridge bridge = xBridgeFactorycreateBridge(strBridgeName, strProtocol , connection , null );
@@ -104,8 +153,19 @@ public class Helper
      }
  }
  
- /** creates and instantiates new document
- */
+ /**
+  * creates and instantiates new document.
+  * 
+  * @param xOfficeMultiComponentFactory the x office multi component factory
+  * @param sURL the s url
+  * @param sTargetFrame the s target frame
+  * @param nSearchFlags the n search flags
+  * @param aArgs the a args
+  * 
+  * @return the OOO document
+  * 
+  * @throws Exception the exception
+  */
  static public OOODocument createDocument( XMultiComponentFactory xOfficeMultiComponentFactory,//XMultiServiceFactory xMultiServiceFactory,
          String sURL, String sTargetFrame, int nSearchFlags, PropertyValue[] aArgs )
                  throws Exception
@@ -157,8 +217,10 @@ public class Helper
   * Creating a correct File URL that OpenOffice can handle. This is
   * necessary to be platform independent.
   * 
-  * @param filelocation
-  * @return
+  * @param filelocation the filelocation
+  * @param componentContext the component context
+  * 
+  * @return the string
   */
  public static String createUNOFileURL(XComponentContext componentContext, String filelocation)
  {
@@ -187,6 +249,11 @@ public class Helper
      return myUNOFileURL;
  }
 
+ /**
+  * Gets the file content provider.
+  * 
+  * @return the file content provider
+  */
  public static XFileIdentifierConverter getFileContentProvider() {
  	
  	Object service;

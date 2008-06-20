@@ -1,3 +1,23 @@
+/**
+* BigBlueButton open source conferencing system - http://www.bigbluebutton.org/
+*
+* Copyright (c) 2008 by respective authors (see below).
+*
+* This program is free software; you can redistribute it and/or modify it under the
+* terms of the GNU Lesser General Public License as published by the Free Software
+* Foundation; either version 2.1 of the License, or (at your option) any later
+* version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+* PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+*
+* You should have received a copy of the GNU Lesser General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+* 
+*/
+
 package org.bigbluebuttonproject.fileupload.web;
 
 import org.bigbluebuttonproject.fileupload.document.UnsupportedPresentationDocumentException;
@@ -30,34 +50,57 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.Session;
 
+// TODO: Auto-generated Javadoc
 /**
- * This class is used to 
+ * This class is used to convert the uploaded presentation slide to SWF file format.
+ * It assigns the converting requests to appropriate document handler class.
  * 
- * @author ritzalam 
- *
+ * @author ritzalam
  */
 
 
 public class SlidePresentationDocument {
+    
+    /** The log. */
     private static Log log = LogFactory.getLog(SlidePresentationDocument.class);
 
+    /** The slide manager. */
     private FileSystemSlideManager slideManager = null;
+    
+    /** The ppt document handler. */
     private PptDocumentHandler pptDocumentHandler = null;
+    
+    /** The zip document handler. */
     private ZipDocumentHandler zipDocumentHandler = null;
     // handler for converting ppt to swf
+    /** The ppt to swf handler. */
     private PptToSwfDocumentHandler pptToSwfHandler = null;
     
     // handler for converting pdf to swf
+    /** The pdf to swf handler. */
     private PdfToSwfDocumentHandler pdfToSwfHandler = null;
     
    
+    /** The uploaded file. */
     private File uploadedFile = null;
     // directory of the file to be uploaded to memory from file System
+    /** The dest dir. */
     private File destDir = null;
+    
+    /** The room. */
     private Integer room;
-    // updatesMsgSender for sending updates to blindside server
+    // updatesMsgSender for sending updates to bigbluebutton red5 server
+    /** The updates msg sender. */
     private UpdatesMessageSender updatesMsgSender = null;
 	
+	/**
+	 * This method takes care of loading the slides in the extracted folder.
+	 * 
+	 * @param uploaded the uploaded
+	 * @param room the room
+	 * 
+	 * @throws UnsupportedPresentationDocumentException the unsupported presentation document exception
+	 */
     public void load(File uploaded, Integer room) 
 		throws UnsupportedPresentationDocumentException
 	{
@@ -88,47 +131,66 @@ public class SlidePresentationDocument {
 			}	
      
             log.info("Loading file from [" + uploadedFile.getName() + "]");
-          
+            // create and start DocumentLoader thread to convert presentation slides to swf format
             DocumentLoader loader = new DocumentLoader();
             Thread docLoader = new Thread(loader, "Document Loader");
             docLoader.start();
         } else {
+        	// send unsupported file format error
         	updatesMsgSender.sendMessage(room, ReturnCode.WRONG_FORMAT, "Unsupported file type.");
         	
         	throw new UnsupportedPresentationDocumentException("Unsupported file type.");
         }
 	}
 	
+	/**
+	 * setter for slideManger.
+	 * 
+	 * @param slideManager the slide manager
+	 */
 	public void setSlideManager(FileSystemSlideManager slideManager) {
 		this.slideManager = slideManager;
 	}
-
+	
+	/**
+	 * setter for pptDocumentHandler.
+	 * 
+	 * @param pptDocumentHandler the ppt document handler
+	 */
 	public void setPptDocumentHandler(PptDocumentHandler pptDocumentHandler) {
 		this.pptDocumentHandler = pptDocumentHandler;
 	}
 
+	/**
+	 * Sets the zip document handler.
+	 * 
+	 * @param zipDocumentHandler the new zip document handler
+	 */
 	public void setZipDocumentHandler(ZipDocumentHandler zipDocumentHandler) {
 		this.zipDocumentHandler = zipDocumentHandler;
 	}
 	
     /**
-     * Internal class used to perform the background loading of a zip slide
-     * presentation
+     * Internal class used to perform the background loading of a slide presentation.
      */
     private class DocumentLoader implements Runnable {
 
+        /* (non-Javadoc)
+         * @see java.lang.Runnable#run()
+         */
         public void run() {
 
             try {
             	
                 if (uploadedFile.getName().toLowerCase().endsWith(".pdf")) {
+                	// converting pdf format slide presentation
                 	pdfToSwfHandler.convert(room, uploadedFile, destDir);                    
                 } else if (uploadedFile.getName().toLowerCase().endsWith(".ppt")) {
                 	updatesMsgSender.sendMessage(room, ReturnCode.UPDATE, "Converting Powerpoint document.");
 //                	if (pptDocumentHandler == null)
 //                		log.error("PPTHandler == NULL!!!!");
 //                	pptDocumentHandler.convert(uploadedFile, destDir);
-
+                	// converting ppt format slide presentation
                 	pptToSwfHandler.convert(room, uploadedFile, destDir);                	
                 } else {
                     log.error("Unsupported File.");
@@ -201,14 +263,29 @@ public class SlidePresentationDocument {
         }        
     }
 
+	/**
+	 * Sets the ppt to swf handler.
+	 * 
+	 * @param pptToSwfHandler the new ppt to swf handler
+	 */
 	public void setPptToSwfHandler(PptToSwfDocumentHandler pptToSwfHandler) {
 		this.pptToSwfHandler = pptToSwfHandler;
 	}
 
+	/**
+	 * Sets the pdf to swf handler.
+	 * 
+	 * @param pdfToSwfHandler the new pdf to swf handler
+	 */
 	public void setPdfToSwfHandler(PdfToSwfDocumentHandler pdfToSwfHandler) {
 		this.pdfToSwfHandler = pdfToSwfHandler;
 	}	
 	
+	/**
+	 * Sets the updates msg sender.
+	 * 
+	 * @param updatesMsgSender the new updates msg sender
+	 */
 	public void setUpdatesMsgSender(UpdatesMessageSender updatesMsgSender) {
 		this.updatesMsgSender = updatesMsgSender;
 	}	
