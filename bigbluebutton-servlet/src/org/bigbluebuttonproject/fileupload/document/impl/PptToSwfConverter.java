@@ -1,3 +1,23 @@
+/**
+* BigBlueButton open source conferencing system - http://www.bigbluebutton.org/
+*
+* Copyright (c) 2008 by respective authors (see below).
+*
+* This program is free software; you can redistribute it and/or modify it under the
+* terms of the GNU Lesser General Public License as published by the Free Software
+* Foundation; either version 2.1 of the License, or (at your option) any later
+* version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+* PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+*
+* You should have received a copy of the GNU Lesser General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+* 
+*/
+
 package org.bigbluebuttonproject.fileupload.document.impl;
 
 import java.io.BufferedReader;
@@ -31,18 +51,34 @@ import com.sun.star.ucb.XFileIdentifierConverter;
 import com.sun.star.uno.Exception;
 import com.sun.star.uno.UnoRuntime;
 
+
 /**
  * This class converts a PowerPoint document to PDFs then to SWFs.
- *
  */
 public class PptToSwfConverter extends AbstractOpenOfficeDocumentConverter {
+	
+	/** The Constant logger. */
 	private static final Log logger = LogFactory.getLog(PptToSwfConverter.class);
 	
+	/** The updates msg sender. */
 	private UpdatesMessageSender updatesMsgSender = null;	
+	
+	/** The room. */
 	private Integer room;
+	
+	/** The swftool converter. */
 	private String swftoolConverter;
+	
+	/** The total num pages. */
 	private int totalNumPages = 0;
 	
+	/**
+	 * Instantiates a new ppt to swf converter.
+	 * 
+	 * @param updatesMsgSender the updates msg sender
+	 * @param room the room
+	 * @param connection the connection
+	 */
 	public PptToSwfConverter(UpdatesMessageSender updatesMsgSender, Integer room, OpenOfficeConnection connection) {
 		super(connection);
 		this.room = room;
@@ -50,7 +86,12 @@ public class PptToSwfConverter extends AbstractOpenOfficeDocumentConverter {
 	}
 
 	/**
-	 * Implementation the same as OpenOfficeDocumentConverter
+	 * Implementation the same as OpenOfficeDocumentConverter.
+	 * 
+	 * @param inputStream the input stream
+	 * @param inputFormat the input format
+	 * @param outputStream the output stream
+	 * @param outputFormat the output format
 	 */
 	protected void convertInternal(InputStream inputStream, DocumentFormat inputFormat, OutputStream outputStream, DocumentFormat outputFormat) {
 		File inputFile = null;
@@ -86,6 +127,9 @@ public class PptToSwfConverter extends AbstractOpenOfficeDocumentConverter {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.artofsolving.jodconverter.openoffice.converter.AbstractOpenOfficeDocumentConverter#convertInternal(java.io.File, com.artofsolving.jodconverter.DocumentFormat, java.io.File, com.artofsolving.jodconverter.DocumentFormat)
+	 */
 	protected void convertInternal(File inputFile, DocumentFormat inputFormat, File outputFile, DocumentFormat outputFormat) {
         Map<String,Object> loadProperties = new HashMap<String,Object>();
         loadProperties.putAll(getDefaultLoadProperties());
@@ -161,6 +205,17 @@ public class PptToSwfConverter extends AbstractOpenOfficeDocumentConverter {
 		}
 	}
 
+	/**
+	 * Load and export.
+	 * 
+	 * @param inputUrl the input url
+	 * @param loadProperties the load properties
+	 * @param outputUrl the output url
+	 * @param storeProperties the store properties
+	 * @param page the page
+	 * 
+	 * @throws Exception the exception
+	 */
 	private void loadAndExport(String inputUrl, Map loadProperties, String outputUrl, Map storeProperties,
 			int page) throws Exception {
 		XComponentLoader desktop = openOfficeConnection.getDesktop();
@@ -187,6 +242,15 @@ public class PptToSwfConverter extends AbstractOpenOfficeDocumentConverter {
 		}
 	}	
 	
+	/**
+	 * Removes the pages except.
+	 * 
+	 * @param doc the doc
+	 * @param exceptPage the except page
+	 * @param numPages the num pages
+	 * 
+	 * @return the x component
+	 */
 	private XComponent removePagesExcept(XComponent doc, int exceptPage, int numPages) {
 		System.out.println("Numpages = [" + numPages + "] exceptPage = [" + exceptPage + "]");
 		
@@ -223,6 +287,12 @@ public class PptToSwfConverter extends AbstractOpenOfficeDocumentConverter {
 		return doc;
 	}
 	
+	/**
+	 * Convert pd fto swf.
+	 * 
+	 * @param input the input
+	 * @param output the output
+	 */
 	private void convertPDFtoSWF(File input, File output) {
 			String SPACE = " ";
 			
@@ -257,6 +327,13 @@ public class PptToSwfConverter extends AbstractOpenOfficeDocumentConverter {
 	        }						
 	}
 
+	/**
+	 * Gets the converted slides.
+	 * 
+	 * @param sourceFolder the source folder
+	 * 
+	 * @return the converted slides
+	 */
 	private ArrayList<File> getConvertedSlides(String sourceFolder) {
 		File file = new File(sourceFolder);
 		
@@ -276,6 +353,11 @@ public class PptToSwfConverter extends AbstractOpenOfficeDocumentConverter {
 		return listOfFiles;
 	}
 
+	/**
+	 * Sets the swftool converter.
+	 * 
+	 * @param swftoolConverter the new swftool converter
+	 */
 	public void setSwftoolConverter(String swftoolConverter) {
 		this.swftoolConverter = swftoolConverter;
 	}	

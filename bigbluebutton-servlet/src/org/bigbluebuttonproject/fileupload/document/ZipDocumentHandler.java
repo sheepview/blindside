@@ -1,3 +1,23 @@
+/**
+* BigBlueButton open source conferencing system - http://www.bigbluebutton.org/
+*
+* Copyright (c) 2008 by respective authors (see below).
+*
+* This program is free software; you can redistribute it and/or modify it under the
+* terms of the GNU Lesser General Public License as published by the Free Software
+* Foundation; either version 2.1 of the License, or (at your option) any later
+* version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+* PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+*
+* You should have received a copy of the GNU Lesser General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+* 
+*/
+
 package org.bigbluebuttonproject.fileupload.document;
 
 import java.io.BufferedOutputStream;
@@ -14,27 +34,29 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 
+// TODO: Auto-generated Javadoc
 /**
- * This class is used to extract uploaded slides in zip format. Zip file can only contain file formats: JPG, PNG or GIF.
- * Other formats in zip file are ignored (not extracted).
+ * Methods of this class are used to extract uploaded slides in zip format. Zip files can only have following file formats: JPG, PNG or GIF.
+ * Other formats in the zip file are ignored (not extracted).
  * 
- * @author ritzalam 
- *
+ * @author ritzalam
  */
 public class ZipDocumentHandler {
 	
 	// logging error when extracting (during exception)
-    private static Log log = LogFactory.getLog(ZipDocumentHandler.class);
+    /** The log. */
+	private static Log log = LogFactory.getLog(ZipDocumentHandler.class);
     
     
     /**
-     * This method is called from convert(File fileInput, File destDir), 
+     * This method is called from convert(File fileInput, File destDir),
      * to write the contents of InputStream given to OutputStream given.
-     * This is needed when extracting files from a zip file. 
+     * This is needed when extracting files from a zip file.
      * 
-     * @param in 
+     * @param in the in
      * @param out OutputStream pointing to output file
-     * @throws IOException
+     * 
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     private void copyInputStream(InputStream in, OutputStream out)
     throws IOException {
@@ -50,7 +72,7 @@ public class ZipDocumentHandler {
     }
 
     /**
-     * This method extracts the zip file given to the destDir. It uses ZipFile API 
+     * This method extracts the zip file given to the destDir. It uses ZipFile API
      * to parse through the files in the zip file.
      * Only files that the zip file can have are .jpg, .png and .gif formats.
      * 

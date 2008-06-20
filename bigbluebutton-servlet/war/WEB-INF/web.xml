@@ -129,7 +129,7 @@
 		- refering to the "image" servlet above.
 		-->
 	<servlet-mapping>
-		<servlet-name>blindside</servlet-name>
+		<servlet-name>bigbluebutton</servlet-name>
 		<url-pattern>/file/*</url-pattern>
 	</servlet-mapping>
     <servlet-mapping>
