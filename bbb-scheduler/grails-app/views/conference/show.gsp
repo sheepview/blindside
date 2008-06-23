@@ -20,14 +20,6 @@
             <div class="dialog">
                 <table>
                     <tbody>
-
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name">Id:</td>
-                            
-                            <td valign="top" class="value">${conference.id}</td>
-                            
-                        </tr>
                     
                         <tr class="prop">
                             <td valign="top" class="name">Conference Name:</td>
@@ -93,9 +85,9 @@
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name">User:</td>
+                            <td valign="top" class="name">Owner:</td>
                             
-                            <td valign="top" class="value"><g:link controller="user" action="show" id="${conference?.user?.id}">${conference?.user}</g:link></td>
+                            <td valign="top" class="value"><g:link controller="user" action="show" id="${conference?.owner?.id}">${conference?.owner}</g:link></td>
                             
                         </tr>
                     

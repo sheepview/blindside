@@ -9,8 +9,6 @@ class Conference implements Comparable {
 	Date endDateTime = new Date()
 	Date dateCreated
 	Date lastUpdated
-	User createdBy
-	User modifiedBy
 		
 	static optionals = [ 'attendees' ]
 	
@@ -18,7 +16,7 @@ class Conference implements Comparable {
 	
 	static constraints = {
 		conferenceName(maxLength:50, blank:false)
-		conferenceNumber(maxLength:10, blank:false)
+		conferenceNumber(maxLength:10, unique:true, blank:false)
 		pin(maxLength:20, blank:false)
 		startDateTime(validator: {return it > new Date()})
 		endDateTime(validator: {return it > new Date()})
@@ -30,7 +28,7 @@ class Conference implements Comparable {
         attendees type: 'text'
     }
     	
-	String toString() {"${this.name}"}
+	String toString() {"${this.conferenceName}"}
 
     int compareTo(obj) {
         obj.id.compareTo(id)

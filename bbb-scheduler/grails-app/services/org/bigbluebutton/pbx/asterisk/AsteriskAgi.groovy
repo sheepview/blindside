@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import javax.sql.DataSource;
 
-import org.bigbluebutton.domain.CallDetailRecord;
 import Conference;
 
 class AsteriskAgi implements AgiScript {
@@ -25,6 +24,7 @@ class AsteriskAgi implements AgiScript {
     
     private DataSource dataSource
     private String scriptsLocation
+    private int tries = 0
     	
     def void setDataSource(DataSource source) {
     	dataSource = source;
@@ -45,29 +45,33 @@ class AsteriskAgi implements AgiScript {
     
     def void service(AgiRequest request, AgiChannel channel)
             throws AgiException {
+        
+        tries = 0
+        boolean found = false
+        while ((tries < 3).and(!found)) {
             
-		def number = channel.getData("conf-getconfno", 10000, 10)
-		println "you entered "
-		println "$number"
+			def number = channel.getData("conf-getconfno", 10000, 10)
+			println "you entered "
+			println "$number"
 		
-	 	//def conf = db.firstRow("SELECT * FROM conference WHERE number=$number")
-		
-		def conf = Conference.findByNumber(number)
-		
-		if (conf) println "found one! " + conf.name
+			def conf = Conference.findByConferenceNumber(number)
 
-		if (conf) { 
-			def pin = channel.getData("conf-getpin", 10000)
-			println pin
-			println conf.pin
-			if (pin.toInteger() == conf.pin) {
-				channel.streamFile("conf-placeintoconf")
-				channel.exec("Meetme", "$number|dMq")
+			if (conf) { 
+				println "found one! " + conf.conferenceName
+				def pin = channel.getData("conf-getpin", 10000)
+				println pin
+				println conf.pin
+				if (pin.toInteger() == conf.pin) {
+					channel.streamFile("conf-placeintoconf")
+					channel.exec("Meetme", "$number|dMq")
+					found = true
+				} else {
+					channel.streamFile("conf-invalidpin")
+				}
 			} else {
-				channel.streamFile("conf-invalidpin")
+				channel.streamFile("conf-invalid")
 			}
-		} else {
-			channel.streamFile("conf-invalid")
+			tries++
 		}
 
 /*

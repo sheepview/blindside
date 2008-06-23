@@ -80,6 +80,24 @@
                                 </td>
                             </tr> 
                         
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="dateCreated">Date Created:</label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean:user,field:'dateCreated','errors')}">
+                                    <g:datePicker name="dateCreated" value="${user?.dateCreated}" ></g:datePicker>
+                                </td>
+                            </tr> 
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="lastUpdated">Last Updated:</label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean:user,field:'lastUpdated','errors')}">
+                                    <g:datePicker name="lastUpdated" value="${user?.lastUpdated}" ></g:datePicker>
+                                </td>
+                            </tr> 
+                        
                         </tbody>
                     </table>
                 </div>

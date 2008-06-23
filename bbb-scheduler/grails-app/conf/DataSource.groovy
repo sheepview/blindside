@@ -1,8 +1,8 @@
 dataSource {
 	pooled = false
 	driverClassName = "com.mysql.jdbc.Driver"
-	username = "sa"
-	password = ""
+	username = "ralam"
+	password = "secret"
 }
 
 hibernate {
@@ -16,7 +16,7 @@ environments {
 	development {
 		dataSource {
 			pooled = true
-			dbCreate = "create-drop" // one of 'create', 'create-drop','update'
+			dbCreate = "update" // one of 'create', 'create-drop','update'
 		}
 	}
 	test {
