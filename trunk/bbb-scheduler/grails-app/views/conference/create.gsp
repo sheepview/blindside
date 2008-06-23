@@ -8,9 +8,6 @@
     </head>
     <body>
         <div class="nav">
-        	<div class="nav">
-        		<g:render template="/adminmenubar" />
-        	</div>
             <span class="menuButton"><a class="home" href="${createLinkTo(dir:'')}">Home</a></span>
             <span class="menuButton"><g:link class="list" action="list">Conference List</g:link></span>
         </div>
@@ -88,18 +85,19 @@
                                     <label for="attendees">Attendees:</label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean:conference,field:'attendees','errors')}">
-                                    <g:textArea id="attendees" name="attendees" value="${fieldValue(bean:conference,field:'attendees')}" rows="5" cols="40"/>
-                                </td>
-                            </tr>                         
-
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="user">User:</label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean:conference,field:'user','errors')}">
-                                    <g:select optionKey="id" from="${User.list()}" name="user.id" value="${conference?.user?.id}" ></g:select>
+                                    <input type="text" id="attendees" name="attendees" value="${fieldValue(bean:conference,field:'attendees')}"/>
                                 </td>
                             </tr> 
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="owner">Owner:</label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean:conference,field:'owner','errors')}">
+                                    <g:select optionKey="id" from="${User.list()}" name="owner.id" value="${conference?.owner?.id}" ></g:select>
+                                </td>
+                            </tr> 
+                        
                         </tbody>
                     </table>
                 </div>

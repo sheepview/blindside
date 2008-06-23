@@ -3,8 +3,8 @@ println "meetme begin"
 
 
 number = channel.getData("conf-getconfno", 10000, 10)
-conf = db.firstRow("SELECT * FROM conference WHERE number=$number")
-if (conf) println "found one! " + conf.name
+conf = db.firstRow("SELECT * FROM conference WHERE conference_number=$number")
+if (conf) println "found one! " + conf.conference_name
 
 if (conf) { 
 	pin = channel.getData("conf-getpin", 10000)

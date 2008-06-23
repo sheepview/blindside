@@ -87,9 +87,37 @@
                                     <label for="attendees">Attendees:</label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean:conference,field:'attendees','errors')}">
-                                    <g:textArea id="attendees" name="attendees" value="${fieldValue(bean:conference,field:'attendees')}" rows="5" cols="40"/>
+                                    <input type="text" id="attendees" name="attendees" value="${fieldValue(bean:conference,field:'attendees')}"/>
                                 </td>
-                            </tr>                         
+                            </tr> 
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="dateCreated">Date Created:</label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean:conference,field:'dateCreated','errors')}">
+                                    ${conference?.dateCreated}
+                                </td>
+                            </tr> 
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="lastUpdated">Last Updated:</label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean:conference,field:'lastUpdated','errors')}">
+                                    ${conference?.lastUpdated}
+                                </td>
+                            </tr> 
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="owner">Owner:</label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean:conference,field:'owner','errors')}">
+                                    <g:select optionKey="id" from="${User.list()}" name="owner.id" value="${conference?.owner?.id}" ></g:select>
+                                </td>
+                            </tr> 
+                        
                         </tbody>
                     </table>
                 </div>

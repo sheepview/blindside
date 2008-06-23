@@ -70,6 +70,20 @@
                             
                         </tr>
                     
+                        <tr class="prop">
+                            <td valign="top" class="name">Date Created:</td>
+                            
+                            <td valign="top" class="value">${user.dateCreated}</td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td valign="top" class="name">Last Updated:</td>
+                            
+                            <td valign="top" class="value">${user.lastUpdated}</td>
+                            
+                        </tr>
+                    
                     </tbody>
                 </table>
             </div>

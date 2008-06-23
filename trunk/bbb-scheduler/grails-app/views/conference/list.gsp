@@ -20,9 +20,7 @@
                 <table>
                     <thead>
                         <tr>
-                        
-                   	        <g:sortableColumn property="id" title="Id" />
-                        
+
                    	        <g:sortableColumn property="conferenceName" title="Conference Name" />
                         
                    	        <g:sortableColumn property="conferenceNumber" title="Conference Number" />
@@ -38,10 +36,8 @@
                     <tbody>
                     <g:each in="${conferenceList}" status="i" var="conference">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-                        
-                            <td><g:link action="show" id="${conference.id}">${conference.id?.encodeAsHTML()}</g:link></td>
-                        
-                            <td>${conference.conferenceName?.encodeAsHTML()}</td>
+
+                            <td><g:link action="show" id="${conference.id}">${conference.conferenceName?.encodeAsHTML()}</g:link></td>
                         
                             <td>${conference.conferenceNumber?.encodeAsHTML()}</td>
                         

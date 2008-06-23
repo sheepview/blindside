@@ -6,8 +6,6 @@ class User {
 	SortedSet conferences
 	Date dateCreated
 	Date lastUpdated
-	User createdBy
-	User modifiedBy
 			
 	static hasMany = [ conferences: Conference ]
 	
