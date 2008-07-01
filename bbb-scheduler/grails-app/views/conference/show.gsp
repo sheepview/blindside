@@ -36,13 +36,6 @@
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name">Pin:</td>
-                            
-                            <td valign="top" class="value">${conference.pin}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
                             <td valign="top" class="name">Start Date Time:</td>
                             
                             <td valign="top" class="value">${conference.startDateTime}</td>
@@ -50,9 +43,9 @@
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name">End Date Time:</td>
+                            <td valign="top" class="name">Length Of Conference:</td>
                             
-                            <td valign="top" class="value">${conference.endDateTime}</td>
+                            <td valign="top" class="value">${conference.lengthOfConference} hour(s)</td>
                             
                         </tr>
                     
@@ -64,9 +57,9 @@
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name">Attendees:</td>
+                            <td valign="top" class="name">Email:</td>
                             
-                            <td valign="top" class="value">${conference.attendees}</td>
+                            <td valign="top" class="value">${conference.email}</td>
                             
                         </tr>
                     

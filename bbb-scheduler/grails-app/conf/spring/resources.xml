@@ -48,6 +48,5 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 	
 	<bean id="asteriskAgi" class="org.bigbluebutton.pbx.asterisk.AsteriskAgi" >
       <property name="dataSource" ref="dataSource"/>
-      <property name="scriptsLocation" value="${scriptsLocation}" />
 	</bean>	
 </beans>

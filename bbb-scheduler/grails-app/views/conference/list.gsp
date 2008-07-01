@@ -10,6 +10,7 @@
         <div class="nav">
             <span class="menuButton"><a class="home" href="${createLinkTo(dir:'')}">Home</a></span>
             <span class="menuButton"><g:link class="create" action="create">New Conference</g:link></span>
+            <span class="menuButton"><g:link class="create" action="list" params="[past: 'true']">Show Past Conferences</g:link></span>
         </div>
         <div class="body">
             <h1>Conference List</h1>
@@ -20,16 +21,15 @@
                 <table>
                     <thead>
                         <tr>
-
                    	        <g:sortableColumn property="conferenceName" title="Conference Name" />
                         
                    	        <g:sortableColumn property="conferenceNumber" title="Conference Number" />
                         
-                   	        <g:sortableColumn property="pin" title="Pin" />
-                        
                    	        <g:sortableColumn property="startDateTime" title="Start Date Time" />
                         
-                   	        <g:sortableColumn property="endDateTime" title="End Date Time" />
+                   	        <g:sortableColumn property="lengthOfConference" title="Length Of Conference (hours)" />
+                        
+                   	        <g:sortableColumn property="numberOfAttendees" title="Number Of Attendees" />
                         
                         </tr>
                     </thead>
@@ -41,11 +41,11 @@
                         
                             <td>${conference.conferenceNumber?.encodeAsHTML()}</td>
                         
-                            <td>${conference.pin?.encodeAsHTML()}</td>
-                        
                             <td>${conference.startDateTime?.encodeAsHTML()}</td>
                         
-                            <td>${conference.endDateTime?.encodeAsHTML()}</td>
+                            <td>${conference.lengthOfConference?.encodeAsHTML()}</td>
+                        
+                            <td>${conference.numberOfAttendees?.encodeAsHTML()}</td>
                         
                         </tr>
                     </g:each>

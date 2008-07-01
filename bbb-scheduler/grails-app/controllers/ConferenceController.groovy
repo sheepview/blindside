@@ -9,7 +9,10 @@ class ConferenceController extends BaseController {
 
     def list = {
         if(!params.max) params.max = 10
-        [ conferenceList: Conference.list( params ) ]
+        if (params.past)
+        	return [ conferenceList: Conference.findAllByStartDateTimeLessThan(new Date())]
+        else 
+        	return [ conferenceList: Conference.findAllByStartDateTimeGreaterThanEquals(new Date() - 1)]        	
     }
 
     def show = {
@@ -67,12 +70,13 @@ class ConferenceController extends BaseController {
 
     def create = {
         def conference = new Conference()
-        conference.properties = params
+        conference.properties = params        
         return ['conference':conference]
     }
 
     def save = {
-        def conference = new Conference(params)
+        def conference = new Conference(params)       
+        conference.conferenceNumber = 80000 + Conference.count() 
         if(!conference.hasErrors() && conference.save()) {
             flash.message = "Conference ${conference.id} created"
             redirect(action:show,id:conference.id)

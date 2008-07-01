@@ -1,8 +1,7 @@
 class User {
 	String email
 	String password
-	String firstName
-	String lastName
+	String fullName
 	SortedSet conferences
 	Date dateCreated
 	Date lastUpdated
@@ -12,9 +11,8 @@ class User {
 	static constraints = {
 		email(email:true,unique:true)
 		password(matches:/[\w\d]+/,length:6..12)
-		firstName(blank:false)
-		lastName(blank:false)	
+		fullName(blank:false)	
 	}
 	
-	String toString() {"${this.firstName} ${this.lastName}"}
+	String toString() {"${this.fullName}"}
 }

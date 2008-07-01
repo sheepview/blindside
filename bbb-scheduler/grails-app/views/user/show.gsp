@@ -44,16 +44,9 @@
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name">First Name:</td>
+                            <td valign="top" class="name">Full Name:</td>
                             
-                            <td valign="top" class="value">${user.firstName}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name">Last Name:</td>
-                            
-                            <td valign="top" class="value">${user.lastName}</td>
+                            <td valign="top" class="value">${user.fullName}</td>
                             
                         </tr>
                     
