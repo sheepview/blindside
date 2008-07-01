@@ -2,7 +2,7 @@
 class UserController extends BaseController {
     def beforeInterceptor = [action:this.&auth,
     							except:['login', 'logout']]
-    							
+    
     def index = { redirect(action:list,params:params) }
 
     // the delete, save and update actions only accept POST requests
@@ -82,7 +82,7 @@ class UserController extends BaseController {
             render(view:'create',model:[user:user])
         }
     }
-    
+        
     def login = {
     	if (request.method == "GET") {
     		session.email = null
@@ -102,5 +102,5 @@ class UserController extends BaseController {
     	session.email = null
     	flash['message'] = 'Successfully logged out'
     	redirect(controller:'user', action:'login')
-    }
+    }    
 }

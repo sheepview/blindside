@@ -46,19 +46,10 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="firstName">First Name:</label>
+                                    <label for="fullName">Full Name:</label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean:user,field:'firstName','errors')}">
-                                    <input type="text" id="firstName" name="firstName" value="${fieldValue(bean:user,field:'firstName')}"/>
-                                </td>
-                            </tr> 
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="lastName">Last Name:</label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean:user,field:'lastName','errors')}">
-                                    <input type="text" id="lastName" name="lastName" value="${fieldValue(bean:user,field:'lastName')}"/>
+                                <td valign="top" class="value ${hasErrors(bean:user,field:'fullName','errors')}">
+                                    <input type="text" id="fullName" name="fullName" value="${fieldValue(bean:user,field:'fullName')}"/>
                                 </td>
                             </tr> 
                         

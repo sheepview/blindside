@@ -2,7 +2,7 @@ dataSource {
 	pooled = false
 	driverClassName = "com.mysql.jdbc.Driver"
 	username = "ralam"
-	password = "secret"
+	password = "gessit"
 }
 
 hibernate {

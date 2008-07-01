@@ -27,12 +27,12 @@
                         
                    	        <g:sortableColumn property="password" title="Password" />
                         
-                   	        <g:sortableColumn property="firstName" title="First Name" />
-                        
-                   	        <g:sortableColumn property="lastName" title="Last Name" />
+                   	        <g:sortableColumn property="fullName" title="Full Name" />
                         
                    	        <th>Conferences</th>
                    	    
+                   	        <g:sortableColumn property="dateCreated" title="Date Created" />
+                        
                         </tr>
                     </thead>
                     <tbody>
@@ -45,11 +45,11 @@
                         
                             <td>${user.password?.encodeAsHTML()}</td>
                         
-                            <td>${user.firstName?.encodeAsHTML()}</td>
-                        
-                            <td>${user.lastName?.encodeAsHTML()}</td>
+                            <td>${user.fullName?.encodeAsHTML()}</td>
                         
                             <td>${user.conferences?.encodeAsHTML()}</td>
+                        
+                            <td>${user.dateCreated?.encodeAsHTML()}</td>
                         
                         </tr>
                     </g:each>
