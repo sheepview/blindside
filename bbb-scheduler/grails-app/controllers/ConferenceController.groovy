@@ -1,4 +1,4 @@
-            
+          
 class ConferenceController extends BaseController {
     def beforeInterceptor = [action:this.&auth]
     
@@ -22,7 +22,13 @@ class ConferenceController extends BaseController {
             flash.message = "Conference not found with id ${params.id}"
             redirect(action:list)
         }
-        else { return [ conference : conference ] }
+        else { 
+			def startTime = conference.startDateTime
+			def endTime = new Date(new Long(conference.startDateTime.time) + new Long(conference.lengthOfConference)*60*60*1000)
+        	def attendeesList = 
+        		Attendees.findAllByConferenceNumberAndDateJoinedBetween(conference.conferenceNumber, startTime, endTime)
+        	return [ conference : conference, attendeesList : attendeesList ] 
+        }
     }
 
     def delete = {
