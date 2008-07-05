@@ -1,6 +1,0 @@
-package org.bigbluebutton.domain;
-
-
-class CallDetailRecord {
-
-}

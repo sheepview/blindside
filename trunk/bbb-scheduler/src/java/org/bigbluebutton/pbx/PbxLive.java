@@ -28,16 +28,16 @@ public class PbxLive implements AsteriskServerListener, PropertyChangeListener
         // add property change listeners to existing objects
         for (AsteriskChannel asteriskChannel : asteriskServer.getChannels())
         {
-            System.out.println(asteriskChannel);
-            asteriskChannel.addPropertyChangeListener(this);
+        //    System.out.println(asteriskChannel);
+        //    asteriskChannel.addPropertyChangeListener(this);
         }
 
         for (AsteriskQueue asteriskQueue : asteriskServer.getQueues())
         {
-            System.out.println(asteriskQueue);
+        //    System.out.println(asteriskQueue);
             for (AsteriskChannel asteriskChannel : asteriskQueue.getEntries())
             {
-                asteriskChannel.addPropertyChangeListener(this);
+        //        asteriskChannel.addPropertyChangeListener(this);
             }
         }
 
@@ -53,8 +53,8 @@ public class PbxLive implements AsteriskServerListener, PropertyChangeListener
 
     public void onNewAsteriskChannel(AsteriskChannel channel)
     {
-        System.out.println(channel);
-        channel.addPropertyChangeListener(this);
+     //   System.out.println(channel);
+     //   channel.addPropertyChangeListener(this);
     }
 
     public void onNewMeetMeUser(MeetMeUser user)
@@ -65,10 +65,16 @@ public class PbxLive implements AsteriskServerListener, PropertyChangeListener
 
     public void propertyChange(PropertyChangeEvent propertyChangeEvent)
     {
-        System.out.println(propertyChangeEvent);
+    	if (propertyChangeEvent.getSource() instanceof MeetMeUser) {
+//    		System.out.println(propertyChangeEvent);
+    		MeetMeUser user = (MeetMeUser) propertyChangeEvent.getSource();
+    		System.out.println(user.getChannel().getCallerId().getName() + " " + user.getChannel().getCallerId().getNumber());
+    	}
+    		
     }
 
    public void shutdown() {
 	   asteriskServer.shutdown();
    }
+
 }
