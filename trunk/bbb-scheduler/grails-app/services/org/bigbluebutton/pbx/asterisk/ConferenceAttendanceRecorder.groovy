@@ -109,8 +109,8 @@ class ConferenceAttendanceRecorder implements AsteriskServerListener, PropertyCh
         	cdr.dateJoined = user.getDateJoined()
         	cdr.dateLeft = user.getDateLeft()
         	cdr.userNumber = user.getUserNumber()
-        	cdr.callerName = user.getChannel().getCallerId().getName()
-        	cdr.callerNumber = user.getChannel().getCallerId().getNumber()
+        	cdr.callerName = user.getChannel().getCallerId().getName() ? user.getChannel().getCallerId().getName() : "Unknown"
+        	cdr.callerNumber = user.getChannel().getCallerId().getNumber() ? user.getChannel().getCallerId().getNumber() : "Unknown"
         	cdr.save()     
         	System.out.println("updated ${cdr.conferenceNumber} ${cdr.channelId}")  
         }		

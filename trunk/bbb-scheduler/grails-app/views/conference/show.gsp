@@ -11,10 +11,6 @@
             <span class="menuButton"><a class="home" href="${createLinkTo(dir:'')}">Home</a></span>
             <span class="menuButton"><g:link class="list" action="list">Conference List</g:link></span>
             <span class="menuButton"><g:link class="create" action="create">New Conference</g:link></span>
-            <span class="menuButton"><g:link class="list" controller="callDetailRecord"
-            		action="list" params='[conferenceNumber:"${conference.conferenceNumber}",
-            							start:"${conference.startDateTime.time}",
-            							end:"${conference.lengthOfConference}"]'>Show Attendees</g:link></span>
         </div>
         <div class="body">
             <h1>Show Conference</h1>
@@ -33,7 +29,7 @@
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name">Conference Number:</td>
+                            <td valign="top" class="name">Conference ID:</td>
                             
                             <td valign="top" class="value">${conference.conferenceNumber}</td>
                             
@@ -107,9 +103,7 @@
             <div class="list">
                 <table>
                     <thead>
-                        <tr>
-                        
-                   	        <g:sortableColumn property="id" title="Id" />                        
+                        <tr>                       
                    	        <g:sortableColumn property="callerName" title="Caller Name" />                        
                    	        <g:sortableColumn property="callerNumber" title="Caller Number" />
                    	        <g:sortableColumn property="dateJoined" title="Date Joined" />
@@ -119,9 +113,6 @@
                     <tbody>
                     <g:each in="${attendeesList}" status="i" var="attendees">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-                        
-                            <td><g:link controller="attendees" action="show" id="${attendees.id}">${attendees.id?.encodeAsHTML()}</g:link></td>
-                        
                             <td>${attendees.callerName?.encodeAsHTML()}</td>
                         
                             <td>${attendees.callerNumber?.encodeAsHTML()}</td>
