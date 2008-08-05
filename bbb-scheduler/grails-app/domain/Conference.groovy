@@ -4,9 +4,9 @@ class Conference implements Comparable {
 	Date lastUpdated
 	String conferenceName
 	Integer conferenceNumber
-	Integer numberOfAttendees
+	Integer numberOfAttendees = new Integer(3)
 	Date startDateTime = new Date()
-	Integer lengthOfConference;
+	Integer lengthOfConference
 	String email
 
 		

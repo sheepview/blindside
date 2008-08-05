@@ -26,9 +26,9 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
    </bean--> 
       
    <bean id="asteriskServer" class="org.asteriskjava.live.DefaultAsteriskServer">
-		<constructor-arg index="0" value="192.168.0.101"/>
-		<constructor-arg index="1" value="ralam"/>
-		<constructor-arg index="2" value="secure"/>  		
+		<constructor-arg index="0" value="${asterisk.host}"/>
+		<constructor-arg index="1" value="${ami.user}"/>
+		<constructor-arg index="2" value="${ami.password}"/>  		
    </bean>
    
 	<bean id="mappingStrategy" class="org.asteriskjava.fastagi.SimpleMappingStrategy">
@@ -40,6 +40,6 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 	</bean>
 			
 	<bean id="asteriskAgi" class="org.bigbluebutton.pbx.asterisk.AsteriskAgi" >
-      <property name="dataSource" ref="dataSource"/>
+      <!--property name="dataSource" ref="dataSource"/-->
 	</bean>	
 </beans>

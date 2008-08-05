@@ -24,9 +24,6 @@
                    	        <g:sortableColumn property="id" title="Id" />
                         
                    	        <g:sortableColumn property="email" title="Email" />
-                        
-                   	        <g:sortableColumn property="password" title="Password" />
-                        
                    	        <g:sortableColumn property="fullName" title="Full Name" />
                         
                    	        <th>Conferences</th>
@@ -39,12 +36,8 @@
                     <g:each in="${userList}" status="i" var="user">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
-                            <td><g:link action="show" id="${user.id}">${user.id?.encodeAsHTML()}</g:link></td>
-                        
+                            <td><g:link action="show" id="${user.id}">${user.id?.encodeAsHTML()}</g:link></td>                        
                             <td>${user.email?.encodeAsHTML()}</td>
-                        
-                            <td>${user.password?.encodeAsHTML()}</td>
-                        
                             <td>${user.fullName?.encodeAsHTML()}</td>
                         
                             <td>${user.conferences?.encodeAsHTML()}</td>

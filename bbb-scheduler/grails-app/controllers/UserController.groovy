@@ -1,7 +1,10 @@
             
 class UserController extends BaseController {
+
+	VolunteerOttawaService volunteerOttawaService
+	
     def beforeInterceptor = [action:this.&auth,
-    							except:['login', 'logout']]
+    							except:['login', 'logout', 'vologin']]
     
     def index = { redirect(action:list,params:params) }
 
@@ -103,4 +106,11 @@ class UserController extends BaseController {
     	flash['message'] = 'Successfully logged out'
     	redirect(controller:'user', action:'login')
     }    
+    
+    def vologin = {
+    	
+    	def res = volunteerOttawaService.loginToVo(params.sessionId)
+    	flash['message'] = "Please enter a $res"
+    	redirect(controller:'user',action:'login')
+    }
 }
