@@ -76,7 +76,8 @@ class ConferenceController extends BaseController {
 
     def create = {
         def conference = new Conference()
-        conference.properties = params        
+        conference.properties = params     
+        conference.conferenceName = "Test-"   
         return ['conference':conference]
     }
 
