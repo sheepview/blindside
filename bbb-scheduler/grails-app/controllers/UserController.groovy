@@ -89,11 +89,13 @@ class UserController extends BaseController {
     def login = {
     	if (request.method == "GET") {
     		session.email = null
+    		session.fullname = null
     		def user = new User()
     	} else {
     		def user = User.findByEmailAndPassword(params.email, params.password)
     		if (user) {
     			session.email = user.email
+    			session.fullname = user.fullName
     			redirect(controller:'conference')
     		} else {
     			flash['message'] = 'Please enter a valid email and password'
@@ -103,14 +105,19 @@ class UserController extends BaseController {
     
     def logout = {
     	session.email = null
+    	session.fullname = null
     	flash['message'] = 'Successfully logged out'
     	redirect(controller:'user', action:'login')
     }    
     
-    def vologin = {
-    	
+    def vologin = {    	
     	def res = volunteerOttawaService.loginToVo(params.sessionId)
-    	flash['message'] = "Please enter a $res"
+    	if (res) {
+    			session.email = user.email
+    			session.fullname = user.fullName
+    			redirect(controller:'conference')    		
+    	}
+    	flash['message'] = "Unable to log you in from Volunteer Ottawa. Please enter a username or password."
     	redirect(controller:'user',action:'login')
     }
 }

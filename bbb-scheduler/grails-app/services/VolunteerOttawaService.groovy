@@ -27,16 +27,15 @@ public class VolunteerOttawaService {
 		
 		def get = new GetMethod(url)
 		
-		client.executeMethod(get)
-		
-		callable( new XmlSlurper().parse(get.responseBodyAsStream) )  
-//		callable( new XmlSlurper().parse(reply) )  
+		client.executeMethod(get)		
+		callable( new XmlSlurper().parse(get.responseBodyAsStream) )   
     }
     
     def loginToVo(sessionId) {
     	vologin(sessionId) { xml ->
-    	println xml
-    	return xml
+    	println "email ${xml.email} fullname ${xml.firstname} ${xml.lastname}"
+    	def res = [email: xml.email, fullname: "${xml.firstname} ${xml.lastname}"]
+    	return res
         }
     }
 }
