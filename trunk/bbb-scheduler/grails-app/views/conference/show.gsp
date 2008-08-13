@@ -80,7 +80,7 @@
                         <tr class="prop">
                             <td valign="top" class="name">Owner:</td>
                             
-                            <td valign="top" class="value"><g:link controller="user" action="show" id="${conference?.owner?.id}">${conference?.owner}</g:link></td>
+                            <td valign="top" class="value">${conference?.fullname}</td>
                             
                         </tr>
                     
@@ -97,9 +97,6 @@
         </div>
         <div class="body">
             <h1>Attendees List</h1>
-            <g:if test="${flash.message}">
-            <div class="message">${flash.message}</div>
-            </g:if>
             <div class="list">
                 <table>
                     <thead>

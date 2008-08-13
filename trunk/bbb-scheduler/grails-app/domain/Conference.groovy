@@ -1,5 +1,4 @@
 class Conference implements Comparable {
-	User owner
 	Date dateCreated
 	Date lastUpdated
 	String conferenceName
@@ -8,10 +7,8 @@ class Conference implements Comparable {
 	Date startDateTime = new Date()
 	Integer lengthOfConference
 	String email
-
-		
-	static belongsTo = [owner:User]
-	
+	String fullname
+			
 	static constraints = {
 		conferenceName(maxLength:50, blank:false)
 		conferenceNumber(maxLength:10, unique:true, blank:false)
