@@ -48,7 +48,7 @@ class ConferenceController extends BaseController {
         def conference = Conference.get( params.id )
 
         if(!conference) {
-            flash.message = "Conference not found with id ${params.id}"
+            flash.message = "Conference not found with name ${conference.conferenceName}"
             redirect(action:list)
         }
         else {
@@ -61,7 +61,7 @@ class ConferenceController extends BaseController {
         if(conference) {
             conference.properties = params
             if(!conference.hasErrors() && conference.save()) {
-                flash.message = "Conference ${params.id} updated"
+                flash.message = "Conference ${conference.conferenceName} updated"
                 redirect(action:show,id:conference.id)
             }
             else {
@@ -77,15 +77,20 @@ class ConferenceController extends BaseController {
     def create = {
         def conference = new Conference()
         conference.properties = params     
-        conference.conferenceName = "Test-"   
+        conference.email = session.email
+        conference.fullname = session.fullname
+        def now = new Date()
+        conference.conferenceName = "${conference.fullname}'s $now Conference"   
         return ['conference':conference]
     }
 
     def save = {
         def conference = new Conference(params)       
-        conference.conferenceNumber = 80000 + Conference.count() 
+        conference.conferenceNumber = 80000 + Conference.count()
+        conference.email = session.email
+        conference.fullname = session.fullname 
         if(!conference.hasErrors() && conference.save()) {
-            flash.message = "Conference ${conference.id} created"
+            flash.message = "Conference ${conference.conferenceName} created"
             redirect(action:show,id:conference.id)
         }
         else {

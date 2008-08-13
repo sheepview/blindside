@@ -107,17 +107,17 @@ class UserController extends BaseController {
     	session.email = null
     	session.fullname = null
     	flash['message'] = 'Successfully logged out'
-    	redirect(controller:'user', action:'login')
+    	redirect(url:"http://www.volunteerottawa.ca/vo-clean/index.php?/eng/user/login")
     }    
     
     def vologin = {    	
     	def res = volunteerOttawaService.loginToVo(params.sessionId)
     	if (res) {
-    			session.email = user.email
-    			session.fullname = user.fullName
+    			session.email = res.email
+    			session.fullname = res.fullName ? res.fullname : "Unknown"
     			redirect(controller:'conference')    		
     	}
     	flash['message'] = "Unable to log you in from Volunteer Ottawa. Please enter a username or password."
-    	redirect(controller:'user',action:'login')
+    	redirect(url:"http://www.volunteerottawa.ca/vo-clean/index.php?/eng/user/login")
     }
 }

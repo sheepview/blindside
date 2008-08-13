@@ -8,7 +8,7 @@ class AttendeesController extends BaseController {
     def allowedMethods = [delete:'POST', save:'POST', update:'POST']
 
     def list = {
-        if(!params.max) params.max = 10
+        if(!params.max) params.max = 50
 			def conf = new Integer(params.conferenceNumber)
 			def startTime = new Date(new Long(params.start))
 			def endTime = new Date(new Long(params.start) + 5*60*1000)

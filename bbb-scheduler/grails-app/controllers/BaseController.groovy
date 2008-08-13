@@ -10,7 +10,7 @@ abstract class BaseController {
 			
 			session.originalRequestParams = originalRequestParams
 			
-			redirect(controller:'user',action:'login')
+			redirect(url:"http://www.volunteerottawa.ca/vo-clean/index.php?/eng/user/login")
 			return false
 		}
 	}

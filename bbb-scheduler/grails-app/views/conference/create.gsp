@@ -77,7 +77,7 @@
                                     <label for="owner">Owner:</label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean:conference,field:'owner','errors')}">
-                                    <g:select optionKey="id" from="${User.list()}" name="owner.id" value="${conference?.owner?.id}" ></g:select>
+                                    ${conference?.fullname}
                                 </td>
                             </tr> 
                         
