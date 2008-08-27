@@ -2,12 +2,17 @@
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 
 
@@ -17,6 +22,7 @@ public class Test {
 	protected String room = "85115";
 	protected String file = "session_";
 	protected String root = "C:/";
+	protected static String MP3url = null;
 	
 	//public static Keyboard key;  
 
@@ -36,12 +42,14 @@ public class Test {
 		//getArgs(args);
 		//String pathName = Keyboard.getString();
 		//boolean test = mkDirVCR("c:\\TestVCR\\");
-		String source = new String ("C:\\Test upload");
-		String target = new String ("C:\\Test upload123");
-		copyDirectory( source , target);
-		System.out.println("press anyKey!");
-		char a = Keyboard.getCharacter();
-		System.out.println(a);
+		//String source = new String ("C:\\Test upload");
+		//String target = new String ("C:\\Test upload123");
+		//copyDirectory( source , target);
+		//System.out.println("press anyKey!");
+		//char a = Keyboard.getCharacter();
+		//System.out.println(a);
+		String str = convertCall("5901");
+		System.out.println(str);
 			
 
 	}
@@ -137,24 +145,33 @@ public class Test {
         }catch (IOException e) {
         	{//Catch exception if any
 			      System.err.println("Error: " + e.getMessage());
-			    }
+        	}
         }
     }
-   
+   public static String convertCall(String room){
+	   
+	   // http://134.117.254.226/cgi-bin/convert.pl?id=<id>
+	   //ex:  http://134.117.254.226/cgi-bin/convert.pl?id=5901
+	   
+	   String HTTPrequest = new String ("http://134.117.254.226/cgi-bin/convert.pl?id=");
+	   HTTPrequest = HTTPrequest.concat(room);
+	   System.out.println("The link is "+ HTTPrequest);
+	   String str = null;
+	   try {
+		   URL convert = new URL (HTTPrequest);
+		   HttpURLConnection u = (HttpURLConnection)convert.openConnection();
+		   BufferedReader in = new BufferedReader(new InputStreamReader(u.getInputStream()));
+		   str = in.readLine();
+		   System.out.println(str);
+		   in.close();
+		   /*u.setRequestMethod("http://134.117.254.226/cgi-bin/convert.pl?id=85901");
+		   MP3url=u.getRequestMethod();
+		   System.out.println("URLMP3: "+ MP3url);*/
+		   u.disconnect();
+		   }catch (Exception e){
+		   System.out.println(e);
+	   }
+	   return str;
+   }
     
 }
-
-
-	
-	
-	
-			
-
-
-	
-
-	
-	
-
-
-
