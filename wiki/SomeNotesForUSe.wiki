@@ -1,0 +1,11 @@
+= MySQL Replication and Clustering =
+
+Some notes on mysql replication and clustering.
+
+ * [http://www.softwareprojects.com/resources/programming/t-how-to-move-copy-a-live-mysql-database-1257.html How to: Move / Copy a live MySQL database (and what not to do)]
+ * [http://dev.mysql.com/tech-resources/articles/failover-strategy-part1.html MySQL Failover Strategy using State Management]
+ * [http://www.mysql.com/industry/telecom/ MySQL Cluster Carrier Grade Edition]
+ * [http://dev.mysql.com/doc/refman/5.0/en/ha-overview.html High Availability and Scalability]
+ * [http://www.databasejournal.com/features/mysql/article.php/3355201 An introduction to replication]
+ * [http://www.databasejournal.com/features/mysql/article.php/3326351 Restoring lost data from the Binary Update Log]
+ * [http://www.onlamp.com/pub/a/onlamp/2005/06/16/MySQLian.html Live Backups of MySQL Using Replication]
