@@ -9,3 +9,8 @@ Some notes on mysql replication and clustering.
  * [http://www.databasejournal.com/features/mysql/article.php/3355201 An introduction to replication]
  * [http://www.databasejournal.com/features/mysql/article.php/3326351 Restoring lost data from the Binary Update Log]
  * [http://www.onlamp.com/pub/a/onlamp/2005/06/16/MySQLian.html Live Backups of MySQL Using Replication]
+
+== Tcpdum==
+{{{
+> tcpdump -s 0 -i eth0 src 10.98.10.14 -vvv -ttt -e w feb7-8.49am.pbx2.pcap
+}}}
