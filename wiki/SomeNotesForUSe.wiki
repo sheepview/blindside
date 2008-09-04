@@ -31,3 +31,15 @@ Investigate creating ISO images for releases.
  * http://sipx-wiki.calivia.com/index.php/A_Kickstart_CD_for_sipX_on_CentOS
  * http://www.linux-live.org/
  * http://www.techonthenet.com/linux/centos4_update.php
+
+= Virtualization =
+
+Some notes on virtualization.
+
+ * [http://www.onlamp.com/pub/a/onlamp/2008/02/05/using-xen-for-high-availabilty-clusters.html Using Xen for High Availability Clusters]
+ * [http://www.clustermonkey.net//content/view/139/33/ Building A Virtual Cluster with Xen (Part One)]
+ * [http://lists.digium.com/pipermail/asterisk-dev/2007-May/027470.html ztxen a zaptel timer for XEN virtual domains]
+ * [http://lists.xensource.com/archives/html/xen-users/2005-11/msg00656.html Example PCI hiding in dom0 and direct access in domU]
+ * [http://bugs.digium.com/view.php?id=9592 loading ztdummy in xen creates an rtc problem]
+ * [http://code.blitzaffe.com/pages/home/entry/11_build_your_own_asterisk_home Build your own Asterisk@Home Xen domU]
+ * [http://www.crc.id.au/fedora-core-6-xen-and-asterisk/ Fedora Core 6, Xen and Asterisk]
