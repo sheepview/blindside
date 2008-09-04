@@ -43,3 +43,23 @@ Some notes on virtualization.
  * [http://bugs.digium.com/view.php?id=9592 loading ztdummy in xen creates an rtc problem]
  * [http://code.blitzaffe.com/pages/home/entry/11_build_your_own_asterisk_home Build your own Asterisk@Home Xen domU]
  * [http://www.crc.id.au/fedora-core-6-xen-and-asterisk/ Fedora Core 6, Xen and Asterisk]
+
+== Fax ==
+== References ==
+ * [http://www.attractel.com/t38.html Faxterisk]
+ * [http://blogtech.oc9.com/index.php?option=com_content&view=article&catid=4:asterisk&id=77:20071121ast&Itemid=6 Receiving and sending faxes with asterisk 1.4, NVFaxDetect, iaxmodem and hylafax]
+ * [http://www.voip-info.org/wiki/view/T.38 T.38]
+ * [http://blog.tmcnet.com/blog/tom-keating/voip/t38-fax-support-hype-or-reality.asp T.38 Fax Support, Hype or Reality?]
+ * [http://asterfax.sourceforge.net/ AsterFax - Asterisk Fax]
+ * [http://aussievoip.com.au/wiki/HylaFax+and+IAXmodem+Installatioin HylaFax and IAXmodem Installatioin]
+ * [http://iaxmodem.sourceforge.net/ IAXmodem]
+ * [http://www.voip-info.org/wiki-NVFaxDetect NVFaxDetect]
+ * [http://www.avantfax.com/ What is AvantFAX?]
+ * [http://www.howtoforge.com/build-a-hylafax-server-with-avantfax-on-debian-etch Build A HylaFax Server With AvantFax Frontend Using Debian Etch]
+ * [http://www.linux.org/lessons/advanced/x833.html Fax Services with Hylafax]
+ * [http://howtoforge.com/linux_hylafax_server How to build a Hylafax server (i.e. Hylamonster)]
+ * [http://www.aboutdebian.com/fax.htm How To Set Up A Debian Linux Fax Server]
+ * [http://winprinthylafax.sourceforge.net/ Winprint HylaFAX]
+ * [http://www.voip-info.org/wiki-Asterisk+fax Asterisk and fax calls]
+ * [http://scottstuff.net/blog/articles/2004/03/28/faxing-with-asterisk Faxing with Asterisk]
+ * [http://www.voip-info.org/tiki-index.php?page=Asterisk%20T.38 T.38 Passthrough]
