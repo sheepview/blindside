@@ -14,3 +14,7 @@ Some notes on mysql replication and clustering.
 {{{
 > tcpdump -s 0 -i eth0 src 10.98.10.14 -vvv -ttt -e w feb7-8.49am.pbx2.pcap
 }}}
+
+== CPAN ==
+http://sial.org/howto/perl/life-with-cpan/
+http://www.perlmonks.org/?node_id=394737
