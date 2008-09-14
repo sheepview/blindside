@@ -63,3 +63,5 @@ Some notes on virtualization.
  * [http://www.voip-info.org/wiki-Asterisk+fax Asterisk and fax calls]
  * [http://scottstuff.net/blog/articles/2004/03/28/faxing-with-asterisk Faxing with Asterisk]
  * [http://www.voip-info.org/tiki-index.php?page=Asterisk%20T.38 T.38 Passthrough]
+ * [http://www.avantfax.com/ Avantfax]
+ * [http://www.callweaver.org/blog?category=t.38 Callweaver]
