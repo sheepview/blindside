@@ -65,3 +65,10 @@ Some notes on virtualization.
  * [http://www.voip-info.org/tiki-index.php?page=Asterisk%20T.38 T.38 Passthrough]
  * [http://www.avantfax.com/ Avantfax]
  * [http://www.callweaver.org/blog?category=t.38 Callweaver]
+
+==FreeSWITCH==
+ * [http://www.pbxprompts.com/ PBX prompts]
+ * [http://lists.freeswitch.org/pipermail/freeswitch-users/2008-January/001932.html]
+ * [http://lists.freeswitch.org/pipermail/freeswitch-users/2008-July/004178.html]
+ * [http://wiki.freeswitch.org/wiki/FreeSwitch_Scheduler_API]
+ * http://wiki.freeswitch.org/index.php?title=Misc._Dialplan_Tools_sched_hangup
