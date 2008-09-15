@@ -68,6 +68,7 @@ Some notes on virtualization.
 
 ==FreeSWITCH==
  * [http://www.pbxprompts.com/ PBX prompts]
+ * http://www.gmvoices.com/
  * [http://lists.freeswitch.org/pipermail/freeswitch-users/2008-January/001932.html]
  * [http://lists.freeswitch.org/pipermail/freeswitch-users/2008-July/004178.html]
  * [http://wiki.freeswitch.org/wiki/FreeSwitch_Scheduler_API]
