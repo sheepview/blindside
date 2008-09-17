@@ -67,6 +67,7 @@ Some notes on virtualization.
  * [http://www.callweaver.org/blog?category=t.38 Callweaver]
 
 ==FreeSWITCH==
+ * http://www.voiceovergurl.com/
  * [http://www.pbxprompts.com/ PBX prompts]
  * http://www.gmvoices.com/
  * [http://lists.freeswitch.org/pipermail/freeswitch-users/2008-January/001932.html]
