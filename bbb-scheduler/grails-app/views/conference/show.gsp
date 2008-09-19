@@ -16,11 +16,11 @@
             <h1>Show Conference</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
-            </g:if>
+            </g:if>   
+            
             <div class="dialog">
                 <table>
-                    <tbody>
-                    
+                    <tbody>            
                         <tr class="prop">
                             <td valign="top" class="name">Conference Name:</td>
                             
@@ -31,7 +31,7 @@
                         <tr class="prop">
                             <td valign="top" class="name">Conference ID:</td>
                             
-                            <td valign="top" class="value">${conference.conferenceNumber}</td>
+                            <td valign="top" class="value">${conference.conferenceNumber}#</td>
                             
                         </tr>
                     
@@ -83,6 +83,23 @@
                             <td valign="top" class="value">${conference?.fullname}</td>
                             
                         </tr>
+                        <tr class="prop">
+                            <td valign="top" class="name">Invitation Email:</td>
+                            
+                            <td valign="top" class="value">
+                            	This is a sample email you can send to people you want to invite.<br/>
+                            	-----------------------------------------------------------------<br/><br/>
+                            	Please join me for a conference on ${conference.startDateTime}. <br/><br/>
+                            	Here are the information needed to join the conference: <br/>
+                            	&nbsp;<br/>
+                            	Phone Number: 613-731-1141 <br/>
+                            	Conference: ${conference.conferenceNumber}# <br/>
+                            	&nbsp;<br/>
+                            	Regards, <br/><br/>
+                            	${conference?.fullname}
+                            </td>
+                            
+                        </tr>
                     
                     </tbody>
                 </table>
@@ -121,9 +138,9 @@
                     </tbody>
                 </table>
             </div>
-            <div class="paginateButtons">
+            <!--div class="paginateButtons">
                 <g:paginate total="${Attendees.count()}" />
-            </div>
+            </div-->
         </div>
     </body>
 </html>

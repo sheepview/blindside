@@ -35,11 +35,11 @@ class ConferenceController extends BaseController {
         def conference = Conference.get( params.id )
         if(conference) {
             conference.delete()
-            flash.message = "Conference ${params.id} deleted"
+            flash.message = "${conference.conferenceName} has been deleted."
             redirect(action:list)
         }
         else {
-            flash.message = "Conference not found with id ${params.id}"
+            flash.message = "Cannot find conference ${conference.conferenceName}."
             redirect(action:list)
         }
     }
@@ -48,7 +48,7 @@ class ConferenceController extends BaseController {
         def conference = Conference.get( params.id )
 
         if(!conference) {
-            flash.message = "Conference not found with name ${conference.conferenceName}"
+            flash.message = "Cannot find conference ${conference.conferenceName}."
             redirect(action:list)
         }
         else {
@@ -61,7 +61,7 @@ class ConferenceController extends BaseController {
         if(conference) {
             conference.properties = params
             if(!conference.hasErrors() && conference.save()) {
-                flash.message = "Conference ${conference.conferenceName} updated"
+                flash.message = "The conference has been updated."
                 redirect(action:show,id:conference.id)
             }
             else {
@@ -85,12 +85,19 @@ class ConferenceController extends BaseController {
     }
 
     def save = {
-        def conference = new Conference(params)       
-        conference.conferenceNumber = 80000 + Conference.count()
+        def conference = new Conference(params)
+        def highestConfId = Conference.listOrderByConferenceNumber(max:1, order:"desc")
+        def nextConfId
+        if (highestConfId) {
+            nextConfId = highestConfId[0].conferenceNumber + 1
+        } else {
+            nextConfId = 8000 + 1
+        }
+        conference.conferenceNumber = nextConfId
         conference.email = session.email
         conference.fullname = session.fullname 
         if(!conference.hasErrors() && conference.save()) {
-            flash.message = "Conference ${conference.conferenceName} created"
+            flash.message = "You have successfully create a conference."
             redirect(action:show,id:conference.id)
         }
         else {

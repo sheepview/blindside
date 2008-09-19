@@ -68,7 +68,7 @@
                                     <label for="email">Email:</label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean:conference,field:'email','errors')}">
-                                    <input type="text" id="email" name="email" value="${fieldValue(bean:conference,field:'email')}"/>
+                                    ${conference?.email}
                                 </td>
                             </tr> 
                                                 
