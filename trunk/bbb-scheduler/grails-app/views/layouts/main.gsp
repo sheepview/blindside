@@ -10,7 +10,7 @@
         <div id="spinner" class="spinner" style="display:none;">
             <img src="${createLinkTo(dir:'images',file:'spinner.gif')}" alt="Spinner" />
         </div>	
-        <div class="logo"><img src="${createLinkTo(dir:'images',file:'grails_logo.jpg')}" alt="Grails" /></div>	
+        <div class="logo"><img src="${createLinkTo(dir:'images',file:'vo_logo.jpg')}" alt="Volunteer Ottawa" /></div>	
         <div class="nav">
         	<div class="nav">
         		<g:render template="/adminmenubar" />

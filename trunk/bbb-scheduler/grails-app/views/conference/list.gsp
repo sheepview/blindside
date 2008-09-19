@@ -23,7 +23,7 @@
                         <tr>
                    	        <g:sortableColumn property="conferenceName" title="Conference Name" />
                         
-                   	        <g:sortableColumn property="conferenceNumber" title="Conference Number" />
+                   	        <g:sortableColumn property="conferenceNumber" title="Conference ID" />
                         
                    	        <g:sortableColumn property="startDateTime" title="Start Date Time" />
                         
@@ -39,7 +39,7 @@
 
                             <td><g:link action="show" id="${conference.id}">${conference.conferenceName?.encodeAsHTML()}</g:link></td>
                         
-                            <td>${conference.conferenceNumber?.encodeAsHTML()}</td>
+                            <td>${conference.conferenceNumber?.encodeAsHTML()}#</td>
                         
                             <td>${conference.startDateTime?.encodeAsHTML()}</td>
                         
