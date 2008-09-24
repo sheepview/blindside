@@ -74,3 +74,7 @@ Some notes on virtualization.
  * [http://lists.freeswitch.org/pipermail/freeswitch-users/2008-July/004178.html]
  * [http://wiki.freeswitch.org/wiki/FreeSwitch_Scheduler_API]
  * http://wiki.freeswitch.org/index.php?title=Misc._Dialplan_Tools_sched_hangup
+
+== Grails ==
+ * [http://www.ibm.com/developerworks/java/library/j-grails05208/index.html Grails services and Google Maps]
+ * [http://www.ibm.com/developerworks/views/java/libraryview.jsp?search_by=mastering+grails Masterisk Grails]
