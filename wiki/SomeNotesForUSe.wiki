@@ -3,6 +3,7 @@
  * http://scottpenberthy.com/2008/09/24/amazon-aws-vs-rackspace-and-akamai/
  * http://www.mikebrittain.com/blog/2008/07/19/web-hosting-on-ec2/
  * http://ronaldlewis.com/asterisk-pbx-on-amazon-ec2-how-to-guide-almost-complete/
+ * http://www.scribd.com/doc/3905321/PREVIEW-CloudCrunch-Howto-Asterisk-PBX-and-Amazon-EC2
 
 = MySQL Replication and Clustering =
 
