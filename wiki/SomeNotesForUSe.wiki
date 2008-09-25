@@ -84,6 +84,7 @@ Some notes on virtualization.
  * [http://www.ibm.com/developerworks/views/java/libraryview.jsp?search_by=mastering+grails Masterisk Grails]
  * [http://fbflex.wordpress.com/2008/05/15/rest-service-xml-output-in-grails-via-content-negotiation/]
  * [http://www.grassr.com/wordpress/?p=18 Grails, REST and JSecurity]
+ * http://henyoonline.blogspot.com/2008/07/rest-with-grails.html
 
 == Tools ==
 === Diffs and Merging ===
