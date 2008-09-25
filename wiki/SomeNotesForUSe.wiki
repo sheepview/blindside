@@ -1,3 +1,8 @@
+= Amazon Cloud =
+ * http://www.techexperiment.com/2008/09/24/how-amazon-s3-and-ec2-can-cut-your-hosting-bills-in-half/
+ * http://scottpenberthy.com/2008/09/24/amazon-aws-vs-rackspace-and-akamai/
+ * http://www.mikebrittain.com/blog/2008/07/19/web-hosting-on-ec2/
+
 = MySQL Replication and Clustering =
 
 Some notes on mysql replication and clustering.
