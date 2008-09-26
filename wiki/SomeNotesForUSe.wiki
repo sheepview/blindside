@@ -4,6 +4,7 @@
  * http://www.mikebrittain.com/blog/2008/07/19/web-hosting-on-ec2/
  * http://ronaldlewis.com/asterisk-pbx-on-amazon-ec2-how-to-guide-almost-complete/
  * http://www.scribd.com/doc/3905321/PREVIEW-CloudCrunch-Howto-Asterisk-PBX-and-Amazon-EC2
+ * http://www.donaldflood.com/2007/07/21/installing-asterisk-on-amazon-ec2/
 
 = MySQL Replication and Clustering =
 
