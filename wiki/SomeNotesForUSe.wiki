@@ -9,13 +9,14 @@
  * http://www.madvertices.com/2008/01/papervision-3d-training-videos.html
  * http://papervision3d-fr.com/
 
-= Amazon Cloud =
+= Amazon EC2 =
  * http://www.techexperiment.com/2008/09/24/how-amazon-s3-and-ec2-can-cut-your-hosting-bills-in-half/
  * http://scottpenberthy.com/2008/09/24/amazon-aws-vs-rackspace-and-akamai/
  * http://www.mikebrittain.com/blog/2008/07/19/web-hosting-on-ec2/
  * http://ronaldlewis.com/asterisk-pbx-on-amazon-ec2-how-to-guide-almost-complete/
  * http://www.scribd.com/doc/3905321/PREVIEW-CloudCrunch-Howto-Asterisk-PBX-and-Amazon-EC2
  * http://www.donaldflood.com/2007/07/21/installing-asterisk-on-amazon-ec2/
+ * http://www.causecaller.com/wiki/Asterisk_on_EC2
 
 = MySQL Replication and Clustering =
 
