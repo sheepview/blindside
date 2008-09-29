@@ -2,6 +2,7 @@
  * http://www.jeroenwijering.com/?item=JW_FLV_Media_Player
 
  * http://pandastream.com/
+ * http://corp.kaltura.com/
 
 = Papervision =
  * http://papervision2.com/tutorial-list/
