@@ -117,8 +117,11 @@ Some notes on virtualization.
  * [http://tortoisesvn.tigris.org/TortoiseMerge.html Tortoise Merge]
  * [http://www.scootersoftware.com/ Beyond Compare]
  * [http://www.hanselman.com/blog/ScottHanselmans2007UltimateDeveloperAndPowerUsersToolListForWindows.aspx]
+ * http://opensourceresources.wikispaces.com/
 
+= Email/ Newsletter =
  * [http://www.openemm.org/ Marketing]
+ * http://www.phplist.com/
 
 = PDF =
  * http://www.primopdf.com/
