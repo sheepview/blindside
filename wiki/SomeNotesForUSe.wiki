@@ -119,3 +119,6 @@ Some notes on virtualization.
  * [http://www.hanselman.com/blog/ScottHanselmans2007UltimateDeveloperAndPowerUsersToolListForWindows.aspx]
 
  * [http://www.openemm.org/ Marketing]
+
+= PDF =
+ * http://www.primopdf.com/
