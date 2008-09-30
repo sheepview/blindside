@@ -1,3 +1,7 @@
+= FSM =
+http://smc.sourceforge.net/SmcHome.htm
+http://unimod.sourceforge.net/intro.html
+
 = Flash Player =
  * http://www.jeroenwijering.com/?item=JW_FLV_Media_Player
 
