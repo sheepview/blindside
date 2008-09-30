@@ -8,7 +8,10 @@ http://unimod.sourceforge.net/intro.html
 = Flash Player =
  * http://www.jeroenwijering.com/?item=JW_FLV_Media_Player
 
+ * http://www.flashinsider.com/2006/07/26/how-to-create-your-own-youtube-site/
+ * http://www.howforge.com/open-source-youtube
  * http://pandastream.com/
+ * http://phpmotion.com/
  * http://corp.kaltura.com/
  * http://www.moviemasher.com/
 
