@@ -41,7 +41,7 @@
                         
                             <td>${conference.conferenceNumber?.encodeAsHTML()}#</td>
                         
-                            <td>${conference.startDateTime?.encodeAsHTML()}</td>
+                            <td><g:formatDate format="EEE, d MMMM yyyy 'at' h:mm a" date="${conference.startDateTime}"/></td>
                         
                             <td>${conference.lengthOfConference?.encodeAsHTML()}</td>
                         
@@ -52,9 +52,12 @@
                     </tbody>
                 </table>
             </div>
-            <div class="paginateButtons">
+            <!--div class="paginateButtons">
                 <g:paginate total="${Conference.count()}" />
-            </div>
+            </div-->
         </div>
+		<div class="body">
+			<g:render template="instructions" />
+		</div>
     </body>
 </html>

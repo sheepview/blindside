@@ -39,7 +39,7 @@ class ConferenceController extends BaseController {
             redirect(action:list)
         }
         else {
-            flash.message = "Cannot find conference ${conference.conferenceName}."
+            flash.message = "Cannot find conference."
             redirect(action:list)
         }
     }
@@ -97,7 +97,7 @@ class ConferenceController extends BaseController {
         conference.email = session.email
         conference.fullname = session.fullname 
         if(!conference.hasErrors() && conference.save()) {
-            flash.message = "You have successfully create a conference."
+            flash.message = "You have successfully created a conference."
             redirect(action:show,id:conference.id)
         }
         else {
