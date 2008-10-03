@@ -28,14 +28,36 @@ public class VolunteerOttawaService {
 		def get = new GetMethod(url)
 		
 		client.executeMethod(get)		
-		callable( new XmlSlurper().parse(get.responseBodyAsStream) )   
+		callable( new XmlSlurper().parseText(get.getResponseBodyAsString() )  ) 
     }
     
     def loginToVo(sessionId) {
-    	vologin(sessionId) { xml ->
+/*    	vologin(sessionId) { xml ->
+    	println xml
     	println "email ${xml.email} fullname ${xml.firstname} ${xml.lastname}"
     	def res = [email: xml.email, fullname: "${xml.firstname} ${xml.lastname}"]
     	return res
         }
+*/
+
+		 def url = new URL("http://www.volunteerottawa.ca/vo-clean/ws.php?sessionId=${sessionId}")
+		 def connection = url.openConnection()
+		
+		      def result = [:]
+		      if(connection.responseCode == 200){
+		        def xml = connection.content.text
+		        println xml
+		        def user = new XmlSlurper().parseText(xml)
+		        result.email = user.email as String 
+		        result.firstname = user.firstname as String
+		        result.lastname = user.lastname as String
+		      }
+		      else{
+		        log.error("GeocoderService.geocodeAirport FAILED")
+		        log.error(url)
+		        log.error(connection.responseCode)
+		        log.error(connection.responseMessage)
+		      }      
+		return result
     }
 }

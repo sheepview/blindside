@@ -38,7 +38,7 @@
                         <tr class="prop">
                             <td valign="top" class="name">Start Date Time:</td>
                             
-                            <td valign="top" class="value">${conference.startDateTime}</td>
+                            <td valign="top" class="value"><g:formatDate format="EEE, d MMMM yyyy 'at' h:mm a" date="${conference.startDateTime}"/></td>
                             
                         </tr>
                     
@@ -56,7 +56,7 @@
                             
                         </tr>
                     
-                        <tr class="prop">
+                        <!--tr class="prop">
                             <td valign="top" class="name">Email:</td>
                             
                             <td valign="top" class="value">${conference.email}</td>
@@ -75,7 +75,7 @@
                             
                             <td valign="top" class="value">${conference.lastUpdated}</td>
                             
-                        </tr>
+                        </tr-->
                     
                         <tr class="prop">
                             <td valign="top" class="name">Owner:</td>
@@ -84,18 +84,24 @@
                             
                         </tr>
                         <tr class="prop">
-                            <td valign="top" class="name">Invitation Email:</td>
+                            <td valign="top" class="name">Invitation Text:</td>
                             
                             <td valign="top" class="value">
                             	This is a sample email you can send to people you want to invite.<br/>
                             	-----------------------------------------------------------------<br/><br/>
-                            	Please join me for a conference on ${conference.startDateTime}. <br/><br/>
-                            	Here are the information needed to join the conference: <br/>
+                            	Please join me for a conference call to discuss __________________ <br/>
+                            	on <g:formatDate format="EEE, d MMMM yyyy 'at' h:mm a" date="${conference.startDateTime}"/>. <br/><br/>
+                            	
+                            	Please RSVP at your earliest convenience. <br/> <br/>
+                            	 
+                            	<b>Below is the information you will need to join the conference:</b>
                             	&nbsp;<br/>
                             	Phone Number: 613-731-1141 <br/>
-                            	Conference: ${conference.conferenceNumber}# <br/>
-                            	&nbsp;<br/>
-                            	Regards, <br/><br/>
+                            	Conference Number: ${conference.conferenceNumber}# (ensure the digits are followed by the # sign)
+                            	<br/>
+                            	&nbsp;<br/><br/>
+                            	I look forward to speaking with you.<br/><br/><br/>
+                            	Kindest regards, <br/><br/>
                             	${conference?.fullname}
                             </td>
                             
@@ -112,6 +118,7 @@
                 </g:form>
             </div>
         </div>
+<!--
         <div class="body">
             <h1>Attendees List</h1>
             <div class="list">
@@ -138,9 +145,10 @@
                     </tbody>
                 </table>
             </div>
-            <!--div class="paginateButtons">
-                <g:paginate total="${Attendees.count()}" />
-            </div-->
         </div>
+-->
+		<div class="body">
+			<g:render template="instructions" />
+		</div>
     </body>
 </html>

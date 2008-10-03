@@ -91,5 +91,8 @@
                 </div>
             </g:form>
         </div>
+		<div class="body">
+			<g:render template="instructions" />
+		</div>
     </body>
 </html>

@@ -115,7 +115,7 @@ class UserController extends BaseController {
     	def res = volunteerOttawaService.loginToVo(params.sessionId)
     	if (res) {
     			session.email = res.email
-    			session.fullname = res.fullName ? res.fullname : "Unknown"
+    			session.fullname = res.fullname ? res.fullname : "Unknown"
     			redirect(controller:'conference')    		
     	} else {
     		flash['message'] = "Unable to log you in from Volunteer Ottawa. Please enter a username or password."
