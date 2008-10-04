@@ -80,7 +80,7 @@ class ConferenceController extends BaseController {
         conference.email = session.email
         conference.fullname = session.fullname
         def now = new Date()
-        conference.conferenceName = "${conference.fullname}'s $now Conference"   
+        conference.conferenceName = "$now Conference"   
         return ['conference':conference]
     }
 

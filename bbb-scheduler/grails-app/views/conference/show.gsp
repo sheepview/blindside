@@ -56,14 +56,14 @@
                             
                         </tr>
                     
-                        <!--tr class="prop">
-                            <td valign="top" class="name">Email:</td>
+                        <tr class="prop">
+                            <td valign="top" class="name">Booked By:</td>
                             
                             <td valign="top" class="value">${conference.email}</td>
                             
                         </tr>
                     
-                        <tr class="prop">
+                        <!--tr class="prop">
                             <td valign="top" class="name">Date Created:</td>
                             
                             <td valign="top" class="value">${conference.dateCreated}</td>
@@ -75,34 +75,44 @@
                             
                             <td valign="top" class="value">${conference.lastUpdated}</td>
                             
-                        </tr-->
+                        </tr>
                     
                         <tr class="prop">
                             <td valign="top" class="name">Owner:</td>
                             
                             <td valign="top" class="value">${conference?.fullname}</td>
                             
-                        </tr>
+                        </tr-->
                         <tr class="prop">
                             <td valign="top" class="name">Invitation Text:</td>
                             
                             <td valign="top" class="value">
-                            	This is a sample email you can send to people you want to invite.<br/>
+                            	Please copy this invitation to the email inviting people to attend.<br/>
                             	-----------------------------------------------------------------<br/><br/>
-                            	Please join me for a conference call to discuss __________________ <br/>
-                            	on <g:formatDate format="EEE, d MMMM yyyy 'at' h:mm a" date="${conference.startDateTime}"/>. <br/><br/>
-                            	
-                            	Please RSVP at your earliest convenience. <br/> <br/>
+                            	<p class="doublespace">
+                            		Please join me for a conference call to discuss __________________
+                            		on <g:formatDate format="EEE, d MMMM yyyy 'at' h:mm a" date="${conference.startDateTime}"/>.
+                            	<p>
+                            	<p class="doublespace">
+                            		Please RSVP at your earliest convenience.
+                            	</p>
                             	 
-                            	<b>Below is the information you will need to join the conference:</b>
-                            	&nbsp;<br/>
-                            	Phone Number: 613-731-1141 <br/>
-                            	Conference Number: ${conference.conferenceNumber}# (ensure the digits are followed by the # sign)
-                            	<br/>
-                            	&nbsp;<br/><br/>
-                            	I look forward to speaking with you.<br/><br/><br/>
-                            	Kindest regards, <br/><br/>
-                            	${conference?.fullname}
+                            	<p class="doublespace">
+                            		<b>Below is the information you will need to join the conference:</b>
+                            	<p>
+                            	<p class="doublespace">
+                            	<ul class="none">
+                            	  <li>Phone Number: 613-731-1141 </li>
+                            	  <li>Conference Number: ${conference.conferenceNumber}# (ensure the digits are followed by the # sign)</li>
+                            	</ul>
+                            	</p>
+                            	<p class="doublespace">
+                            		I look forward to speaking with you.
+                            	</p>
+                            	<p class="doublespace">
+                            		Kindest regards,
+                            	<p>
+                            	<p class="doublespace">__________________</p>
                             </td>
                             
                         </tr>
@@ -147,8 +157,7 @@
             </div>
         </div>
 -->
-		<div class="body">
-			<g:render template="instructions" />
-		</div>
+		<g:render template="instructions" />
+
     </body>
 </html>
