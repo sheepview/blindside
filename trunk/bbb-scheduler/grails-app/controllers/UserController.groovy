@@ -116,6 +116,7 @@ class UserController extends BaseController {
     	if (res) {
     			session.email = res.email
     			session.fullname = res.fullname ? res.fullname : "Unknown"
+    			println "${session.fullname} ${session.email}"
     			redirect(controller:'conference')    		
     	} else {
     		flash['message'] = "Unable to log you in from Volunteer Ottawa. Please enter a username or password."

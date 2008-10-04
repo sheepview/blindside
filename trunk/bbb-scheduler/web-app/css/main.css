@@ -34,6 +34,12 @@ ul {
     padding-left: 15px;	
 }
 
+ul.none {list-style-type: none}
+
+ol.decimal {list-style-type: decimal}
+
+p.doublespace {line-height: 200%}
+
 input, select, textarea {
     background-color: #fcfcfc;
     border: 1px solid #ccc;

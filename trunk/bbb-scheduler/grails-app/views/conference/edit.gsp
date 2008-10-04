@@ -66,21 +66,21 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="email">Email:</label>
+                                    <label for="email">Booked By:</label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean:conference,field:'email','errors')}">
                                     ${conference?.email}
                                 </td>
                             </tr> 
                         
-                            <tr class="prop">
+                            <!--tr class="prop">
                                 <td valign="top" class="name">
                                     <label for="owner">Owner:</label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean:conference,field:'owner','errors')}">
                                     ${conference?.fullname}
                                 </td>
-                            </tr> 
+                            </tr--> 
                         
                         </tbody>
                     </table>
@@ -91,8 +91,8 @@
                 </div>
             </g:form>
         </div>
-		<div class="body">
-			<g:render template="instructions" />
-		</div>
+
+		<g:render template="instructions" />
+
     </body>
 </html>
