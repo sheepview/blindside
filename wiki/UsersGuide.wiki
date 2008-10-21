@@ -1,9 +1,8 @@
+#summary Blindside Users Guide.
 #labels Featured
+
 = NOTE =
 || * We have changed the name of the project to !BigBlueButton and moved to http://code.google.com/p/bigbluebutton. * ||
-
-
-#summary Blindside Users Guide.
 
 = Introduction =
 
