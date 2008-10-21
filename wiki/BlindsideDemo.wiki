@@ -1,5 +1,9 @@
 #summary Blindside Demo
 
+= NOTE =
+|| * We have changed the name of the project to !BigBlueButton and moved to http://code.google.com/p/bigbluebutton. * ||
+
+
 = Webconferencing Demo =
 
 If you haven't viewed the Blindside tour screencast yet, please [http://code.google.com/p/blindside/ do so] now to have an idea on what you can do with Blindside.
