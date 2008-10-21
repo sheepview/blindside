@@ -1,5 +1,9 @@
 #summary How to install Pdftk in Fedora
 
+= NOTE =
+|| * We have changed the name of the project to !BigBlueButton and moved to http://code.google.com/p/bigbluebutton. * ||
+
+
 = Introduction =
 
 Add your content here.
