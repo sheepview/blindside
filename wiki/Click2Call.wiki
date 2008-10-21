@@ -1,5 +1,9 @@
 #summary Add click-2-call to your webpage.
 
+= NOTE =
+|| * We have changed the name of the project to !BigBlueButton and moved to http://code.google.com/p/bigbluebutton. * ||
+
+
 =Add click-2-call to your webpage=
 
 We demonstrate how you can add a click-2-call functionality on your webpages.
