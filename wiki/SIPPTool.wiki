@@ -1,3 +1,7 @@
+= NOTE =
+|| * We have changed the name of the project to !BigBlueButton and moved to http://code.google.com/p/bigbluebutton. * ||
+
+
 == SIPP == 
 == SIPP Help ==
 {{{
