@@ -1,5 +1,9 @@
-#summary How to setup your development environment
 #labels Phase-Implementation,Featured
+= NOTE =
+|| * We have changed the name of the project to !BigBlueButton and moved to http://code.google.com/p/bigbluebutton. * ||
+
+
+#summary How to setup your development environment
 
 = Development Environment =
 Note: The instructions assumes you are working on a Windows machine. There is no specific requirement on what type of machine or OS is needed. If it has enough processor and memory (at least 512MB), has Java installed, you're good to go.
