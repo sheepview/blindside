@@ -9,10 +9,11 @@ class ConferenceController extends BaseController {
 
     def list = {
         if(!params.max) params.max = 10
+        def email = session.email.toString()
         if (params.past)
-        	return [ conferenceList: Conference.findAllByStartDateTimeLessThan(new Date())]
+        	return [ conferenceList: Conference.findAllByEmailAndStartDateTimeLessThan(email, new Date())]
         else 
-        	return [ conferenceList: Conference.findAllByStartDateTimeGreaterThanEquals(new Date() - 1)]        	
+        	return [ conferenceList: Conference.findAllByEmailAndStartDateTimeGreaterThanEquals(email, new Date() - 1)]        	
     }
 
     def show = {
