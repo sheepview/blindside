@@ -18,6 +18,7 @@ http://unimod.sourceforge.net/intro.html
  * http://phpmotion.com/
  * http://corp.kaltura.com/
  * http://www.moviemasher.com/
+ * http://www.metavid.org
 
 = Papervision =
  * http://papervision2.com/tutorial-list/
@@ -28,6 +29,7 @@ http://unimod.sourceforge.net/intro.html
  * http://blog.tartiflop.com/
  * http://blog.tartiflop.com/2008/09/first-steps-in-papervision3d-part-8-movie-materials/
  * http://dev.papervision3d.org/
+ * http://www.blender.org/
 
 = Amazon EC2 =
  * http://www.techexperiment.com/2008/09/24/how-amazon-s3-and-ec2-can-cut-your-hosting-bills-in-half/
