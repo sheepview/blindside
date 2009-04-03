@@ -39,24 +39,24 @@ Here's the HTML output when pasting the wiki source into Google Code's wiki:
  <h1><a name="Introduction"/>Introduction</h1><p>Add your content here. </p><h1><a name="Details"/>Details</h1><p>Add your content here.  Format your content with: <ul><li>Text in <strong>bold</strong> or <i>italic</i> </li><li>Headings, paragraphs, and lists </li><li>Automatic links to other wiki pages </li></ul>
 }}}
 
-Here's the HTML output when pasting the wiki source into Tikiwiki:
+Here's the HTML output (after running through tidy -i) when pasting the wiki source into Tikiwiki:
 
 {{{
-<div class="wikitext">
-<ol><li>summary One-sentence summary of this page.
-</li></ol>
-<br />
-= Introduction =<br />
-<br />
-Add your content here.<br />
-<br />
-<br />
-= Details =<br />
-<br />
-Add your content here.  Format your content with:<br />
-  * Text in *bold* or _italic_<br />
-  * Headings, paragraphs, and lists<br />
-  * Automatic links to other wiki pages<br />
+  <div class="wikitext">
+    <ol>
+      <li>summary One-sentence summary of this page.</li>
+    </ol><br>
+    = Introduction =<br>
+    <br>
+    Add your content here.<br>
+    <br>
+    <br>
+    = Details =<br>
+    <br>
+    Add your content here. Format your content with:<br>
+    * Text in *bold* or _italic_<br>
+    * Headings, paragraphs, and lists<br>
+    * Automatic links to other wiki pages<br>
+  </div>
 
-</div>
 }}}
