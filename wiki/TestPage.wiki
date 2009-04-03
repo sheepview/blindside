@@ -115,7 +115,7 @@ The problem is the diversity of wiki syntax.
 
 = Links =
 
-TikiWiki syntax: [http://tikiwiki.org/tiki-index.php?page=RFCWiki]
-Wikipedia markup: [http://en.wikipedia.org/wiki/Wikipedia:Cheatsheet]
-HTML2Wiki converter: [http://search.cpan.org/~diberri/HTML-WikiConverter-0.68/lib/HTML/WikiConverter.pm]
-HTML tidy: http://tidy.sourceforge.net/
+ * TikiWiki syntax: [http://tikiwiki.org/tiki-index.php?page=RFCWiki]
+ * Wikipedia markup: [http://en.wikipedia.org/wiki/Wikipedia:Cheatsheet]
+ * HTML2Wiki converter: [http://search.cpan.org/~diberri/HTML-WikiConverter-0.68/lib/HTML/WikiConverter.pm]
+ * HTML tidy: http://tidy.sourceforge.net/
