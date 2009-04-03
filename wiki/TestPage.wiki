@@ -1,20 +1,10 @@
 #summary One-sentence summary of this page.
 
-= Introduction =
+= Experimentation =
 
-Add your content here.
+Here's some samples when looking at creating slides from wiki or html source.
 
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
-
-== Sample Wiki ==
-
-Here's some sample wiki text:
+Here's the sample wiki syntax used by Google Code.
 
 {{{
 #summary One-sentence summary of this page.
@@ -53,7 +43,7 @@ Here's the HTML output (after running through tidy -i) when pasting the wiki sou
 
 }}}
 
-Here's the HTML output (after running through tidy -i) when pasting the wiki source into Tikiwiki:
+Looks Ok; however, here's the HTML output (after running through tidy -i) when pasting the wiki source into Tikiwiki:
 
 {{{
   <div class="wikitext">
@@ -74,3 +64,57 @@ Here's the HTML output (after running through tidy -i) when pasting the wiki sou
   </div>
 
 }}}
+
+Following Tiki marketup, here's how this sample text would look
+
+{{{
+#summary One-sentence summary of this page.
+
+! Introduction 
+
+Add your content here.
+
+
+! Details 
+
+Add your content here.  Format your content with:
+* Text in __bold__ or ''italic''
+* Headings, paragraphs, and lists
+* Automatic links to other wiki pages
+}}}
+
+Here's the HTML output with TikiWiki
+
+{{{
+  <div class="wikitext">
+    <ol>
+      <li>summary One-sentence summary of this page.</li>
+    </ol><br>
+
+    <h2 class="showhide_heading" id="_Introduction">
+    Introduction</h2><br>
+    Add your content here.<br>
+    <br>
+    <br>
+
+    <h2 class="showhide_heading" id="_Details">Details</h2><br>
+    Add your content here. Format your content with:<br>
+
+    <ul>
+      <li>Text in <b>bold</b> or <i>italic</i></li>
+
+      <li>Headings, paragraphs, and lists</li>
+
+      <li>Automatic links to other wiki pages</li>
+    </ul>
+  </div>
+}}}
+
+
+The problem is the diversity of wiki syntax.  
+
+= Links =
+
+TikiWiki syntax: [http://tikiwiki.org/tiki-index.php?page=RFCWiki]
+Wikipedia markup: [http://en.wikipedia.org/wiki/Wikipedia:Cheatsheet]
+HTML2Wiki converter: [http://search.cpan.org/~diberri/HTML-WikiConverter-0.68/lib/HTML/WikiConverter.pm]
