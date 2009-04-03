@@ -60,3 +60,25 @@ Output
 </body>
 </html>
 }}}
+
+After pasting the same wiki syntax into TikiWiki, here is the output
+
+{{{
+<div class="wikitext">
+<ol><li>summary One-sentence summary of this page.
+</li></ol>
+<br />
+= Introduction =<br />
+<br />
+Add your content here.<br />
+<br />
+<br />
+= Details =<br />
+<br />
+Add your content here.  Format your content with:<br />
+  * Text in *bold* or _italic_<br />
+  * Headings, paragraphs, and lists<br />
+  * Automatic links to other wiki pages<br />
+
+</div>
+}}}
