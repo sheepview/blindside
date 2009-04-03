@@ -11,3 +11,52 @@ Add your content here.  Format your content with:
   * Text in *bold* or _italic_
   * Headings, paragraphs, and lists
   * Automatic links to other wiki pages
+
+== Sample Wiki ==
+
+{{{
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+Add your content here.
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
+}}}
+
+Output
+
+{{{
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Linux/x86 (vers 6 November 2007), see www.w3.org">
+
+  <title></title>
+</head>
+
+<body>
+  <h1><a name="Introduction">Introduction</h1>
+
+  <p>Add your content here.</p>
+
+  <h1><a name="Details">Details</h1>
+
+  <p>Add your content here. Format your content with:</p>
+
+  <ul>
+    <li>Text in <strong>bold</strong> or <i>italic</i></li>
+
+    <li>Headings, paragraphs, and lists</li>
+
+    <li>Automatic links to other wiki pages</li>
+  </ul>
+</body>
+</html>
+}}}
