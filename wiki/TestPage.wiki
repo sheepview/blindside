@@ -14,6 +14,8 @@ Add your content here.  Format your content with:
 
 == Sample Wiki ==
 
+Here's some sample wiki text:
+
 {{{
 #summary One-sentence summary of this page.
 
@@ -30,7 +32,7 @@ Add your content here.  Format your content with:
   * Automatic links to other wiki pages
 }}}
 
-Output
+Here's the HTML output when pasting the wiki source into Google Code's wiki:
 
 {{{
 <html>
@@ -61,7 +63,7 @@ Output
 </html>
 }}}
 
-After pasting the same wiki syntax into TikiWiki, here is the output
+Here's the HTML output when pasting the wiki source into Tikiwiki:
 
 {{{
 <div class="wikitext">
