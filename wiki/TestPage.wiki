@@ -32,7 +32,7 @@ Add your content here.  Format your content with:
   * Automatic links to other wiki pages
 }}}
 
-Here's the HTML output when pasting the wiki source into Google Code's wiki:
+Here's the HTML output (after running through tidy -i) when pasting the wiki source into Google Code's wiki:
 
 {{{
   <h1><a name="Introduction">Introduction</h1>
