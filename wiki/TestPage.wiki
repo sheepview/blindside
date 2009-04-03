@@ -35,8 +35,22 @@ Add your content here.  Format your content with:
 Here's the HTML output when pasting the wiki source into Google Code's wiki:
 
 {{{
-</div> 
- <h1><a name="Introduction"/>Introduction</h1><p>Add your content here. </p><h1><a name="Details"/>Details</h1><p>Add your content here.  Format your content with: <ul><li>Text in <strong>bold</strong> or <i>italic</i> </li><li>Headings, paragraphs, and lists </li><li>Automatic links to other wiki pages </li></ul>
+  <h1><a name="Introduction">Introduction</h1>
+
+  <p>Add your content here.</p>
+
+  <h1><a name="Details">Details</h1>
+
+  <p>Add your content here. Format your content with:</p>
+
+  <ul>
+    <li>Text in <strong>bold</strong> or <i>italic</i></li>
+
+    <li>Headings, paragraphs, and lists</li>
+
+    <li>Automatic links to other wiki pages</li>
+  </ul>
+
 }}}
 
 Here's the HTML output (after running through tidy -i) when pasting the wiki source into Tikiwiki:
