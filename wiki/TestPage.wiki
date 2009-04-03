@@ -1,6 +1,6 @@
 #summary One-sentence summary of this page.
 
-= Experimentation =
+= Experimentation with Wiki Syntax =
 
 The question is should we convert text from wiki markup to slides, or from HTML to slides.
 
@@ -110,8 +110,22 @@ Now pasting this markup into TikiWiki, we get the following HTML output (again c
   </div>
 }}}
 
+== Comments ==
+The problem is the diversity of wiki syntax, but there is also a diversity of output from wiki pages.
 
-The problem is the diversity of wiki syntax.  
+To Do:
+# Create an account on the TalentFirst Wiki
+# Look at slides 1-7, 18, 30 (nine pages all together) from Tony's presentation http://www.talentfirstnetwork.org/wiki/images/7/73/Ecosystem_approach_to_commercialization_March_28v10.pdf
+
+Using these nine pages as a baseline
+# encode them into TikiWiki Format (you can create a sample page on Talent First Network wiki)
+# encode them into Google Code Wiki
+# encode them into MediaWiki (use wikipedia)
+
+Once you've encoded them
+# Compare the output HTML from each of the wiki engines
+# Comment on your approach to parsing the HTML output.
+ 
 
 = Links =
 
