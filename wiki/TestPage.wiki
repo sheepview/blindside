@@ -2,9 +2,9 @@
 
 = Experimentation =
 
-Here's some samples when looking at creating slides from wiki or html source.
+The question is should we convert text from wiki markup to slides, or from HTML to slides.
 
-Here's the sample wiki syntax used by Google Code.
+To experiment, let's look at a very simple wiki markup (this is the sample Wiki text given in Google Code).
 
 {{{
 #summary One-sentence summary of this page.
@@ -22,7 +22,7 @@ Add your content here.  Format your content with:
   * Automatic links to other wiki pages
 }}}
 
-Here's the HTML output (after running through tidy -i) when pasting the wiki source into Google Code's wiki:
+Here's the HTML output (after running through tidy -i) from Google Code:
 
 {{{
   <h1><a name="Introduction">Introduction</h1>
@@ -43,7 +43,7 @@ Here's the HTML output (after running through tidy -i) when pasting the wiki sou
 
 }}}
 
-Looks Ok; however, here's the HTML output (after running through tidy -i) when pasting the wiki source into Tikiwiki:
+Looks Ok; however, if we try pasting the same wiki markup into TikiWiki, the markup is not recognized:
 
 {{{
   <div class="wikitext">
@@ -65,7 +65,7 @@ Looks Ok; however, here's the HTML output (after running through tidy -i) when p
 
 }}}
 
-Following Tiki marketup, here's how this sample text would look
+If we convert the source markup into TikiWiki's syntax, here's how it looks:
 
 {{{
 #summary One-sentence summary of this page.
@@ -83,7 +83,7 @@ Add your content here.  Format your content with:
 * Automatic links to other wiki pages
 }}}
 
-Here's the HTML output with TikiWiki
+Now pasting this markup into TikiWiki, we get the following HTML output (again cleaned up a bit with tidy -i).
 
 {{{
   <div class="wikitext">
