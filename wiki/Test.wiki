@@ -10,13 +10,13 @@ The API is implemented with the end-user in mind. To call the API, you simply ma
 <a href="http://yourserver.com/bigbluebutton/api/create?name=Test+Meeting&meetingID=abcdef&attendeePW=111222&moderatorPW=333444">http://yourserver.com/bigbluebutton/api/create?name=Test+Meeting&meetingID=abcdef&attendeePW=111222&moderatorPW=333444</a>
 {{{
 <response>
-<returncode>SUCCESS</returncode>
-  <meetingToken>6db0a605-627f-4f6c-a384-53f745ee372c</meetingToken>
-  <meetingID>abcdef</meetingID>
-  <attendeePW>111222</attendeePW>
-  <moderatorPW>333444</moderatorPW>
-  <messageKey/>
-  <message/>
+    <returncode>SUCCESS</returncode>
+    <meetingToken>6db0a605-627f-4f6c-a384-53f745ee372c</meetingToken>
+    <meetingID>abcdef</meetingID>
+    <attendeePW>111222</attendeePW>
+    <moderatorPW>333444</moderatorPW>
+    <messageKey/>
+<message/>
 </response>
 }}}
 
@@ -24,13 +24,13 @@ The API is implemented with the end-user in mind. To call the API, you simply ma
 <a href="http://yourserver.com/bigbluebutton/api/create?name=Test+Meeting&meetingID=fedcba">http://yourserver.com/bigbluebutton/api/create?name=Test+Meeting&meetingID=fedcba</a>
 {{{
 <response>
-<returncode>SUCCESS</returncode>
-<meetingToken>0752956f-dc4a-46f1-81a7-a1f98014c723</meetingToken>
-<meetingID>fedcba</meetingID>
-<attendeePW>tverwpay</attendeePW>
-<moderatorPW>eqma84wp</moderatorPW>
-<messageKey/>
-<message/>
+    <returncode>SUCCESS</returncode>
+    <meetingToken>0752956f-dc4a-46f1-81a7-a1f98014c723</meetingToken>
+    <meetingID>fedcba</meetingID>
+    <attendeePW>tverwpay</attendeePW>
+    <moderatorPW>eqma84wp</moderatorPW>
+    <messageKey/>
+    <message/>
 </response>
 }}}
 
@@ -42,8 +42,8 @@ The API is implemented with the end-user in mind. To call the API, you simply ma
 <a href="http://yourserver.com/bigbluebutton/api/isMeetingRunning?meetingID=abcdef">http://yourserver.com/bigbluebutton/api/isMeetingRunning?meetingID=abcdef</a>
 {{{
 <response>
-<returncode>SUCCESS</returncode>
-<running>true</running>
+    <returncode>SUCCESS</returncode>
+    <running>true</running>
 </response>
 }}}
 
@@ -196,3 +196,5 @@ Those examples are clearly abuses of the system, and therefore must be protected
 === Get Meeting Info (getMeetingInfo) ===
 <p>This call will return all of a meeting's information, including the list of attendees as well as start and end times.</p>
 <p><font color="#FF0000">TODO: this call is not yet implemented.</font></p>
+
+
