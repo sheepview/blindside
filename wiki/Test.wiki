@@ -1,11 +1,11 @@
 <wiki:toc max_depth="3" />
-== Overview == 
+= Overview = 
 This document outlines the API that is available for integrating !BigBlueButton with other applications. It is currently in draft stage as not all features are available. Features which are not currently implemented will be clearly marked as such.
 
-== Overall API Usage ==
+= Overall API Usage =
 The API is implemented with the end-user in mind. To call the API, you simply make an HTTP request to a URL with the query parameters supplying the information needed for the call. The API returns an XML response. Here are some example API calls and their responses:
 
-=== _Create meeting (with your own meeting ID) example:_ ===
+== _Create meeting (with your own meeting ID) example:_ ==
 <a href="http://yourserver.com/bigbluebutton/api/create?name=Test+Meeting&meetingID=abcdef&attendeePW=111222&moderatorPW=333444">http://yourserver.com/bigbluebutton/api/create?name=Test+Meeting&meetingID=abcdef&attendeePW=111222&moderatorPW=333444</a>
 {{{
 <response>
@@ -19,7 +19,7 @@ The API is implemented with the end-user in mind. To call the API, you simply ma
 </response>
 }}}
 
-=== _Create meeting (with no meeting ID) example:_ ===
+== _Create meeting (with no meeting ID) example:_ ==
 <a href="http://yourserver.com/bigbluebutton/api/create?name=Test+Meeting&meetingID=fedcba">http://yourserver.com/bigbluebutton/api/create?name=Test+Meeting&meetingID=fedcba</a>
 {{{
 <response>
@@ -33,11 +33,11 @@ The API is implemented with the end-user in mind. To call the API, you simply ma
 </response>
 }}}
 
-=== _Join meeting example:_ ===
+== _Join meeting example:_ ==
 <a href="http://yourserver.com/bigbluebutton/api/join?fullName=Joe+User&meetingID=abcdef&password=333444">http://yourserver.com/bigbluebutton/api/join?fullName=Joe+User&meetingID=abcdef&password=333444</a>
 <p>This call sends the caller directly into the application. There is no XML response. You should redirect your user to a URL like this when you are done creating the meeting and are ready to direct them into the meeting.</p>
 
-=== _Is meeting running example:_ ===
+== _Is meeting running example:_ ==
 <a href="http://yourserver.com/bigbluebutton/api/isMeetingRunning?meetingID=abcdef">http://yourserver.com/bigbluebutton/api/isMeetingRunning?meetingID=abcdef</a>
 {{{
 <response>
@@ -49,16 +49,16 @@ The API is implemented with the end-user in mind. To call the API, you simply ma
 More details on these calls can be found in the *API Calls* section below.
 
 <br><br>
-== API Security Model ==
+= API Security Model =
 The API provides a way to be secured so that third-party apps may make calls to it, but not allow other people (end users) to make similar calls to create their own meetings, etc.
 For instance, a third party application that is integrated with the API may embed a !JavaScript URL that calls to the BBB API to create a meeting. An end user will be able to see this URL in their browser and should not be allowed to modify a parameter (for example, the meeting ID) and create their own meeting. By doing so, they could create meetings that were not tracked by the third-party app, which could present a billing problem, et cetera. They should also not be able to modify any parameter (for instance the maximum attendees) to modify the meeting that is being created by the third party app.
 Those examples are clearly abuses of the system, and therefore must be protected against. The API must provide a way of enabling this protection.
 
-=== _Configuration_ ===
+== _Configuration_ ==
 <p>*TODO:* the securitySalt is currently set on the !ApiController and needs to be able to be configured via bigbluebutton.properties (or similar)</p>
 <p><font color="#FF0000">*IMPORTANT: DO NOT ALLOW END USERS TO KNOW YOUR SECURITY SALT OR ELSE YOUR SECURITY WILL BE COMPROMISED.*</font></p>
 
-=== _Usage_ ===
+== _Usage_ ==
 <p>The implementation of this security model lies in !ApiController.groovy. It entails creating a checksum out of the combination of the entire HTTP query string and a server-configured security token.</p>
 <p>To use the security model, you must be able to create an SHA-1 checksum out of the query string _plus_ the security salt that you configured on your server. To do so, follow these steps:</p>
     # CreatetheentirequerystringforyourAPIcallwithoutthechecksumparameter.
@@ -79,18 +79,18 @@ Those examples are clearly abuses of the system, and therefore must be protected
     * PHP: simply call sha(string + salt)
         ** See <a href="http://php.net/manual/en/function.sha1.php">http://php.net/manual/en/function.sha1.php</a>
 
-=== _Error handling_ ===
+== _Error handling_ ==
     * Any invalid API calls should return a properly formatted document that contains enough information for the user to be able to determine what the error is.
     * It would be good if this returned a reasonable error message as well as a distinct error key for each type of error so that end users could internationalize their applications and provide custom messages based only on the key that we return.
         ** i.e.-aninvalidrequestmayreturnanerrormessageof“Noconferenceexistswiththat token ID” but the error key returned is simply “invalidTokenID”.
 
 <br><br>
-== Desired Future Features ==
+= Desired Future Features =
 
-=== _Support for JSON/JSONP_ ===
+== _Support for JSON/JSONP_ ==
     * It would be very nice to optionally allow JSON responses, and to support JSONP. This might allow for simpler integrations, even within static or almost-static webpages using !JavaScript as the primary integration language. It should not be assumed that all users will be running custom software on a server and be able to process XML responses, etc.
         ** This being said, even within !JavaScript there are simple ways to make the API call and process the returned XML (using jQuery and $.xml2json, for example)
-=== _Meeting event callbacks_ ===
+== _Meeting event callbacks_ ==
 <p>This may actually even be called a “reverse API” - where we define an interface that the third- party application can implement to be notified of events. This would not be necessary for the first version of the API, but would be a nice feature for future enhancements. More details:</p>
     * When major events happen within meetings, it would be very helpful to provide a way for third-party applications to be notified of these events. For instance, when a user joins a conference, they will presumably be joining through the third-party app. However, when they leave the conference, the app may have certain auditing that it needs to do to record their disconnect time, etc. If BBB could make some callback to the application, this would assist in such scenarios.
     * For example, the application may be able to register a URL that BBB would call with status updates. BBB would define an API that such an app would be required to implement at that URL.
@@ -101,8 +101,8 @@ Those examples are clearly abuses of the system, and therefore must be protected
     * We are already announcing events such as this within BBB through ActiveMQ to communicate between the Red5 apps where these events originate and the API. It would probably not be very difficult to register additional listeners through the Spring Integration configuration that will make these HTTP calls for us for each event.
 
 <br><br>
-== API Calls ==
-===_ Standard parameters and responses _===            
+= API Calls =
+==_ Standard parameters and responses _==            
 <p> The following response parameters are standard to every call and may be returned from any call. </p>
 <p>*Parameters:*</p>    
 || *Param Name* || *Required / Optional* || *Type* || *Description* ||
@@ -115,12 +115,12 @@ Those examples are clearly abuses of the system, and therefore must be protected
 || messageKey || Sometimes || String || <p>Provides similar functionality to the message and follows the same rules. However, a message key will be much shorter and will generally remain the same for the life of the API whereas a message may change over time. If your third party application would like to internationalize or otherwise change the standard messages returned, you can look up your own custom messages based on this messageKey.</p> ||
 
 <p></p>
-=== _Meeting workflow calls_ ===
+== _Meeting workflow calls_ ==
 <p>These calls are the primary calls of the API. They are used for creating and joining meetings.</p>
 <p><font color="#FF0000">*NOTE:*</font> Parameters marked with <font color="#FF0000">(NFS)</font> are not yet fully supported. You can pass them in to the controller, but they may not have any actual effect on the conference. This is more a limitation based on support by the actual BBB application more than the API itself.</p>
 
 <br><br>
-== Create Meeting (create) ==
+= Create Meeting (create) =
 <p>Example URL:<a href="http://yourserver.com/bigbluebutton/api/create?[parameters]&checksum=[checksum]">http://yourserver.com/bigbluebutton/api/create?[parameters]&checksum=[checksum]</a> </p>
 
 <p>*Parameters:*</p>    
@@ -141,7 +141,7 @@ Those examples are clearly abuses of the system, and therefore must be protected
 || moderatorPW || Always || String || <p>The password that will be required for moderators to join the meeting or for certain administrative actions (i.e. ending a meeting). If you did not supply one, BBB will assign a random password.</p> ||
 
 <br><br>
-== Join Meeting (join) ==
+= Join Meeting (join) =
 
 <p>*Parameters:*</p> 
 || *Param Name* || *Required/Optional* || *Type* || *Description* ||
@@ -156,10 +156,10 @@ Those examples are clearly abuses of the system, and therefore must be protected
 || *Param Name* || *When Returned* || *Type* || *Description* ||
 || entryURL || Always || String || <p>The URL that the user can be sent to in order to join the meeting. When they go to this URL, BBB will setup their client session and redirect them into the conference.</p>||
 
-=== _Back-office administration calls_ ===
+== _Back-office administration calls_ ==
 <p>These calls may be used by the back-office applications to handle meeting management, etc.</p>
 
-=== Is meeting running (isMeetingRunning) ===
+== Is meeting running (isMeetingRunning) ==
 <p>This call enables you to simply check on whether or not a meeting is running by looking it up with either the token or your ID.</p>
 
 <p>*Parameters:*</p> 
@@ -171,7 +171,7 @@ Those examples are clearly abuses of the system, and therefore must be protected
 || *Param Name* || *When Returned* || *Type* || *Description* ||
 || running || Always || String || <p>A string of either “true” or “false” that signals whether a meeting with this ID or token is currently running.</p>||
 
-=== End Meeting (endMeeting) ===
+== End Meeting (endMeeting) ==
 <p>Use this to forcibly end a meeting and kick all participants out of the meeting.</p>
 <p><font color="#FF0000">TODO: this call is not yet implemented.</font></p>
 
@@ -187,12 +187,12 @@ Those examples are clearly abuses of the system, and therefore must be protected
 || ended || Always || String || <p>A string of either “true” or “false” that signals whether the meeting was successfully ended.</p>||
 
 
-=== List Meeting Attendees (listAttendees) ===
+== List Meeting Attendees (listAttendees) ==
 <p>This call will list all current attendees of a meeting.</p>
 <p><font color="#FF0000">TODO: this call is not yet implemented.</font></p>
 
 
-=== Get Meeting Info (getMeetingInfo) ===
+== Get Meeting Info (getMeetingInfo) ==
 <p>This call will return all of a meeting's information, including the list of attendees as well as start and end times.</p>
 <p><font color="#FF0000">TODO: this call is not yet implemented.</font></p>
 
