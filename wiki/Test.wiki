@@ -11,12 +11,12 @@ The API is implemented with the end-user in mind. To call the API, you simply ma
 {{{
 <response>
 <returncode>SUCCESS</returncode>
-<meetingToken>6db0a605-627f-4f6c-a384-53f745ee372c</meetingToken>
-<meetingID>abcdef</meetingID>
-<attendeePW>111222</attendeePW>
-<moderatorPW>333444</moderatorPW>
-<messageKey/>
-<message/>
+  <meetingToken>6db0a605-627f-4f6c-a384-53f745ee372c</meetingToken>
+  <meetingID>abcdef</meetingID>
+  <attendeePW>111222</attendeePW>
+  <moderatorPW>333444</moderatorPW>
+  <messageKey/>
+  <message/>
 </response>
 }}}
 
@@ -196,5 +196,3 @@ Those examples are clearly abuses of the system, and therefore must be protected
 === Get Meeting Info (getMeetingInfo) ===
 <p>This call will return all of a meeting's information, including the list of attendees as well as start and end times.</p>
 <p><font color="#FF0000">TODO: this call is not yet implemented.</font></p>
-
-
