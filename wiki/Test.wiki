@@ -52,15 +52,15 @@ More details on these calls can be found in the *API Calls* section below.
 <br><br>
 == API Security Model ==
 The API provides a way to be secured so that third-party apps may make calls to it, but not allow other people (end users) to make similar calls to create their own meetings, etc.
-For instance, a third party application that is integrated with the API may embed a JavaScript URL that calls to the BBB API to create a meeting. An end user will be able to see this URL in their browser and should not be allowed to modify a parameter (for example, the meeting ID) and create their own meeting. By doing so, they could create meetings that were not tracked by the third-party app, which could present a billing problem, et cetera. They should also not be able to modify any parameter (for instance the maximum attendees) to modify the meeting that is being created by the third party app.
+For instance, a third party application that is integrated with the API may embed a !JavaScript URL that calls to the BBB API to create a meeting. An end user will be able to see this URL in their browser and should not be allowed to modify a parameter (for example, the meeting ID) and create their own meeting. By doing so, they could create meetings that were not tracked by the third-party app, which could present a billing problem, et cetera. They should also not be able to modify any parameter (for instance the maximum attendees) to modify the meeting that is being created by the third party app.
 Those examples are clearly abuses of the system, and therefore must be protected against. The API must provide a way of enabling this protection.
 
 === _Configuration_ ===
-<p>*TODO:* the securitySalt is currently set on the ApiController and needs to be able to be configured via bigbluebutton.properties (or similar)</p>
+<p>*TODO:* the securitySalt is currently set on the !ApiController and needs to be able to be configured via bigbluebutton.properties (or similar)</p>
 <p><font color="#FF0000">*IMPORTANT: DO NOT ALLOW END USERS TO KNOW YOUR SECURITY SALT OR ELSE YOUR SECURITY WILL BE COMPROMISED.*</font></p>
 
 === _Usage_ ===
-<p>The implementation of this security model lies in ApiController.groovy. It entails creating a checksum out of the combination of the entire HTTP query string and a server-configured security token.</p>
+<p>The implementation of this security model lies in !ApiController.groovy. It entails creating a checksum out of the combination of the entire HTTP query string and a server-configured security token.</p>
 <p>To use the security model, you must be able to create an SHA-1 checksum out of the query string _plus_ the security salt that you configured on your server. To do so, follow these steps:</p>
     # CreatetheentirequerystringforyourAPIcallwithoutthechecksumparameter.
         * Example for create meeting API call: name=Test+Meeting&meetingID=abc123&attendeePW=111222&moderatorPW=33344 4
@@ -74,9 +74,9 @@ Those examples are clearly abuses of the system, and therefore must be protected
         * Above example becomes: name=Test+Meeting&meetingID=abc123&attendeePW=111222&moderatorPW=33344 4&checksum=fe1f3f036d420997a5aa6fdadb21eba346a892ad
 <p>If you configured a security salt on your server, you *MUST* send this checksum with *EVERY* API call. Since end users do not know your security salt, they can not fake calls to the server, and they can not modify your calls – since changing a single parameter name or value by only one character will completely change the checksum required to validate the call.</p>
 <p>Implementations of the SHA-1 functionality exist in nearly all programming languages. Here are example methods or links to example implementations for various languages:</p>
-    * JavaScript (describes MD5 also): <a href="http://pajhome.org.uk/crypt/md5/">http://pajhome.org.uk/crypt/md5/</a>
+    * !JavaScript (describes MD5 also): <a href="http://pajhome.org.uk/crypt/md5/">http://pajhome.org.uk/crypt/md5/</a>
     * Java: <a href="http://commons.apache.org/codec/">http://commons.apache.org/codec/</a>
-        **You can use org.apache.commons.codec.digest.DigestUtilsandcall DigestUtils.shaHex(string + salt)
+        **You can use org.apache.commons.codec.digest.!DigestUtilsandcall !DigestUtils.shaHex(string + salt)
     * PHP: simply call sha(string + salt)
         ** See <a href="http://php.net/manual/en/function.sha1.php">http://php.net/manual/en/function.sha1.php</a>
 
