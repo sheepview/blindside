@@ -89,8 +89,8 @@ Those examples are clearly abuses of the system, and therefore must be protected
 == Desired Future Features ==
 
 === _Support for JSON/JSONP_ ===
-    * It would be very nice to optionally allow JSON responses, and to support JSONP. This might allow for simpler integrations, even within static or almost-static webpages using JavaScript as the primary integration language. It should not be assumed that all users will be running custom software on a server and be able to process XML responses, etc.
-        ** This being said, even within JavaScript there are simple ways to make the API call and process the returned XML (using jQuery and $.xml2json, for example)
+    * It would be very nice to optionally allow JSON responses, and to support JSONP. This might allow for simpler integrations, even within static or almost-static webpages using !JavaScript as the primary integration language. It should not be assumed that all users will be running custom software on a server and be able to process XML responses, etc.
+        ** This being said, even within !JavaScript there are simple ways to make the API call and process the returned XML (using jQuery and $.xml2json, for example)
 === _Meeting event callbacks_ ===
 <p>This may actually even be called a “reverse API” - where we define an interface that the third- party application can implement to be notified of events. This would not be necessary for the first version of the API, but would be a nice feature for future enhancements. More details:</p>
     * When major events happen within meetings, it would be very helpful to provide a way for third-party applications to be notified of these events. For instance, when a user joins a conference, they will presumably be joining through the third-party app. However, when they leave the conference, the app may have certain auditing that it needs to do to record their disconnect time, etc. If BBB could make some callback to the application, this would assist in such scenarios.
