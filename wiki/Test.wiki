@@ -1,7 +1,7 @@
 = !BigBlueButton API Documentation =
 
 == Overview == 
-This document outlines the API that is available for integrating BigBlueButton with other applications. It is currently in draft stage as not all features are available. Features which are not currently implemented will be clearly marked as such.
+This document outlines the API that is available for integrating !BigBlueButton with other applications. It is currently in draft stage as not all features are available. Features which are not currently implemented will be clearly marked as such.
 
 == Overall API Usage ==
 The API is implemented with the end-user in mind. To call the API, you simply make an HTTP request to a URL with the query parameters supplying the information needed for the call. The API returns an XML response. Here are some example API calls and their responses:
