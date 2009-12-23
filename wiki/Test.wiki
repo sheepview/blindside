@@ -1,3 +1,5 @@
+<wiki:toc max_depth="1" />
+
 = !BigBlueButton API Documentation =
 
 == Overview == 
