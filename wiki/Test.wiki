@@ -61,16 +61,16 @@ Those examples are clearly abuses of the system, and therefore must be protected
 == _Usage_ ==
 <p>The implementation of this security model lies in !ApiController.groovy. It entails creating a checksum out of the combination of the entire HTTP query string and a server-configured security token.</p>
 <p>To use the security model, you must be able to create an SHA-1 checksum out of the query string _plus_ the security salt that you configured on your server. To do so, follow these steps:</p>
-    # CreatetheentirequerystringforyourAPIcallwithoutthechecksumparameter.
-        * Example for create meeting API call: name=Test+Meeting&meetingID=abc123&attendeePW=111222&moderatorPW=33344 4
-    # Appendthesecuritysalttoyourstring
+    # Create the entire query string for your API call without the checksum parameter.
+        * Example for create meeting API call: "name=Test+Meeting&meetingID=abc123&attendeePW=111222&moderatorPW=333444"
+    # Append the security salt to your string
         * Example for above query string:
-            ** securitysaltis639259d4-9dd8-4b25-bf01-95f9567eaf4b
-            ** Stringbecomes:name=Test+Meeting&meetingID=abc123&attendeePW=111222&moderatorPW=333444639259d4-9dd8-4b25-bf01-95f9567eaf4b
+            ** security salt is "639259d4-9dd8-4b25-bf01-95f9567eaf4b"
+            ** String becomes: "name=Test+Meeting&meetingID=abc123&attendeePW=111222&moderatorPW=333444639259d4-9dd8-4b25-bf01-95f9567eaf4b"
     # Now, find the SHA-1 sum for that string (implementation varies based on programming language).
-        *The SHA-1 sum for the above string is: fe1f3f036d420997a5aa6fdadb21eba346a892ad
+        *The SHA-1 sum for the above string is: "fe1f3f036d420997a5aa6fdadb21eba346a892ad"
     # Add a checksum parameter to your query string that contains this checksum.
-        * Above example becomes: name=Test+Meeting&meetingID=abc123&attendeePW=111222&moderatorPW=33344 4&checksum=fe1f3f036d420997a5aa6fdadb21eba346a892ad
+        * Above example becomes: "name=Test+Meeting&meetingID=abc123&attendeePW=111222&moderatorPW=33344 4&checksum=fe1f3f036d420997a5aa6fdadb21eba346a892ad"
 <p>If you configured a security salt on your server, you *MUST* send this checksum with *EVERY* API call. Since end users do not know your security salt, they can not fake calls to the server, and they can not modify your calls – since changing a single parameter name or value by only one character will completely change the checksum required to validate the call.</p>
 <p>Implementations of the SHA-1 functionality exist in nearly all programming languages. Here are example methods or links to example implementations for various languages:</p>
     * !JavaScript (describes MD5 also): <a href="http://pajhome.org.uk/crypt/md5/">http://pajhome.org.uk/crypt/md5/</a>
@@ -195,5 +195,3 @@ Those examples are clearly abuses of the system, and therefore must be protected
 == Get Meeting Info (getMeetingInfo) ==
 <p>This call will return all of a meeting's information, including the list of attendees as well as start and end times.</p>
 <p><font color="#FF0000">TODO: this call is not yet implemented.</font></p>
-
-
