@@ -266,7 +266,6 @@ wget http://bigbluebutton.org/downloads/0.64/packages/video.tar.gz
 wget http://bigbluebutton.org/downloads/0.64/packages/bigbluebutton-apps.tar.gz
 wget http://bigbluebutton.org/downloads/0.64/packages/client.tar.gz
 wget http://bigbluebutton.org/downloads/0.64/packages/sip.tar.gz
-wget http://www.bigbluebutton.org/sites/all/releases/latest-release/deskshare.tar.gz
 }}}
 
 		
@@ -544,7 +543,7 @@ Hint: if you are using vi you can use a command similar to this: :1,$s/192.168.0
 #
 #     http://code.google.com/p/bigbluebutton/wiki/InstallingDesktopSharing 
 #
-
+wget http://bigbluebutton.org/downloads/0.64/packages/deskshare.tar.gz
 cp /tmp/deskshare.tar.gz /usr/share/red5/webapps/
 cd /usr/share/red5/webapps
 tar zxvf deskshare.tar.gz
