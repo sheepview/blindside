@@ -464,6 +464,7 @@ String BigBlueButtonURL = \"http://<YOUR-IP>/bigbluebutton/\";
   cp /tmp/client.tar.gz ./
   tar zxvf client.tar.gz
   rm client.tar.gz
+  mv bin client
 }}}
 
 == Edit client config ==
@@ -532,7 +533,7 @@ Your config.xml should look something like:
 </config>
 }}}
 
-Hint: if you are using vi you can use a command similar to this: :1,$s/192.168.0.159/< YOUR-IP >/g
+Hint: if you are using vi you can use a command similar to this: :1,$s/192.168.0.120/< YOUR-IP >/g
 
 == Installing Desktop Sharing (optional) ==
 {{{
@@ -544,8 +545,8 @@ Hint: if you are using vi you can use a command similar to this: :1,$s/192.168.0
 #     http://code.google.com/p/bigbluebutton/wiki/InstallingDesktopSharing 
 #
 
-cp /tmp/bbb-install/deskshare.tar.gz /opt/red5-0.8/webapps/
-cd /opt/red5-0.8/webapps
+cp /tmp/deskshare.tar.gz /usr/share/red5/webapps/
+cd /usr/share/red5/webapps
 tar zxvf deskshare.tar.gz
 rm -f deskshare.tar.gz
 
@@ -573,6 +574,7 @@ chmod 777 /var/log/bigbluebutton/bbb-web.log
 
 # restart server
 
+service nginx restart
 service activemq restart
 service asterisk restart
 service red5 restart
