@@ -133,7 +133,7 @@ More info can be found here http://ubuntuforums.org/showthread.php?t=221768
 == Install red5 ==
 {{{
   cd /tmp
-  wget http://bigbluebutton.org/downloads/0.63/fedora-install/red5-0.8.tar.gz
+  wget http://bigbluebutton.org/downloads/0.64/red5-0.9.1.tar.gz
   tar zxvf red5-0.8.tar.gz
   mv /tmp/red5-0.8 /usr/share/red5
 }}}
