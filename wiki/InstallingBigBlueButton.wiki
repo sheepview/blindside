@@ -134,8 +134,8 @@ More info can be found here http://ubuntuforums.org/showthread.php?t=221768
 {{{
   cd /tmp
   wget http://bigbluebutton.org/downloads/0.64/red5-0.9.1.tar.gz
-  tar zxvf red5-0.8.tar.gz
-  mv /tmp/red5-0.8 /usr/share/red5
+  tar zxvf red5-0.9.1.tar.gz
+  mv /tmp/red5-0.9.1 /usr/share/red5
 }}}
 
 Create red5 user
