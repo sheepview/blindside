@@ -9,19 +9,15 @@ The following instructions will guide you to install !BigBlueButton on CentOS. S
 # we'll work mostly from the /tmp/ directory:
 cd /tmp
 
+# we'll need wget
+yum install wget -y
+
 # install MySQL server
 yum install -y mysql-server
 service mysqld start
 chkconfig mysqld on
 
-# Tomcat6 is not available in the main repos, so we will use the jpackage repos
-yum install -y jpackage-utils
-wget http://www.jpackage.org/jpackage17.repo
-cat jpackage17.repo | sed 's/1\.7/5.0/' | sed 's/\[jpack/\[5jpack/' > /etc/yum.repos.d/jpackage5.repo
-mv jpackage17.repo /etc/yum.repos.d/
-yum makecache
-
-# now you should be able to install tomcat6
+# install tomcat6
 yum install -y tomcat6
 
 # start tomcat and configure it to automatically start on boot:
@@ -29,10 +25,7 @@ service tomcat6 start
 chkconfig tomcat6 on
 
 # install openoffice
-wget http://download.services.openoffice.org/files/stable/3.2.0/OOo_3.2.0_LinuxIntel_install_wJRE_en-US.tar.gz
-tar xzvf OOo_3.2.0_LinuxIntel_install_wJRE_en-US.tar.gz
-rpm -Uvih OOO320_m12_native_packed-1_en-US.9483/RPMS/o*.rpm
-rm -rf OOo_3.2.0_LinuxIntel_install_wJRE_en-US.tar.gz OOO320_m12_native_packed-1_en-US.9483
+yum -y groupinstall 'Office/Productivity'
 
 # download openoffice server initializing script
 wget http://bigbluebutton.org/downloads/0.64/centos-install/bbb-openoffice-headless
@@ -68,15 +61,11 @@ make
 make install
 cd ..
 
-# install ghostscript 8.64
-rpm -Uvh http://ec2-67-202-22-38.compute-1.amazonaws.com/centos/5.4/i386/dev/util/ghostscript-8.64-9.3.el5.i386.rpm
+# install ghostscript
+yum install -y ghostscript
 
-# install ImageMagick:
+# install ImageMagick
 yum install -y ImageMagick
-
-# nginx also needs an alternative repo - using EPEL
-rpm -Uvh http://download.fedora.redhat.com/pub/epel/5/i386/epel-release-5-3.noarch.rpm
-yum makecache
 
 # now install nginx:
 yum install -y nginx
