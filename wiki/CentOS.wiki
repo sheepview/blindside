@@ -224,7 +224,7 @@ vi /var/lib/tomcat6/webapps/bigbluebutton/WEB-INF/classes/bigbluebutton.properti
 #  - swfToolsDir to the directory where pdf2swf is located (in this example, it is /usr/local/bin)
 #  - imageMagickDir to the directory where convert is located (in this example, it is /usr/bin)
 #  - ghostScriptExec to point to the gs application (in this example, it is /usr/bin/gs)
-#  - change bigbluebutton.web.serverURL=http://<YOUR IP>
+#  - change bigbluebutton.web.serverURL=http://<YOUR HOSTNAME>
 #  - set beans.dynamicConferenceService.securitySalt to be equal to the guid we just generated (i.e. beans.dynamicConferenceService.securitySalt=<YOUR-GUID>)
 }}}
 Back to the automated tasks: 
@@ -272,7 +272,7 @@ tar xvf bbb-default.tar.gz
 mv web /var/www/bigbluebutton-default
 }}}
 
-Now we need to create bbb_api_conf.jsp, which will hold our GUID and the BigBlueButtonURL. Be sure to replace < YOUR-GUID > and < YOUR-IP > with the GUID we generated earlier and your IP, respectively.
+Now we need to create bbb_api_conf.jsp, which will hold our GUID and the BigBlueButtonURL. Be sure to replace < YOUR-GUID > with the GUID we generated earlier.
 {{{
 echo "<%!
 // This is the security salt that must match the value set in the BigBlueButton server
