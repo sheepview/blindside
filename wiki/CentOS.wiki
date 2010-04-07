@@ -43,19 +43,10 @@ yum -y install gcc gcc-c++ compat-gcc-32 compat-gcc-32-c++
 # some more requirements for packages that we will soon install:
 yum -y install -y zlib zlib-devel freetype freetype-devel libjpeg libjpeg-devel
 
-
 # install swftools:
-wget http://www.swftools.org/swftools-0.9.0.tar.gz
-tar xzf swftools-0.9.0.tar.gz
-cd swftools-0.9.0
-}}}
-
-We need to make a slight modification to swftool's source:
-  * Open src/pdf2swf.c
-  * Comment out the lines 643-655
-
-{{{
-# compile swftools
+wget http://www.swftools.org/swftools-0.8.1.tar.gz
+tar xzf swftools-0.8.1.tar.gz 
+cd swftools-0.8.1
 ./configure 
 make
 make install
