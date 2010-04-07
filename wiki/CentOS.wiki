@@ -182,6 +182,9 @@ echo "commit;" | mysql -u root
 # now install the webapp
 cp /tmp/bbb-install/bigbluebutton.war /var/lib/tomcat6/webapps/bigbluebutton.war
 
+setsebool -P allow_execstack 1
+service tomcat6 restart
+
 # download blank slide and thumbnail dummies
 mkdir -p /var/bigbluebutton/blank
 cd /var/bigbluebutton/blank
