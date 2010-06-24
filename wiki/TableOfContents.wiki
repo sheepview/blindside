@@ -1,4 +1,3 @@
-#sidebar TableOfContents
  * [Installation Installation of Version 0.64]
     * [BigBlueButtonVM BigBlueButton Virtual Machine]
     * [InstallationUbuntu Install on Ubuntu 9.04 (15 minutes)]
