@@ -1,19 +1,26 @@
-#summary Overview of installation options
-
-= Introduction =
-
-The !BigBlueButton server runs under Linux.  Here are some install options:
-    * [BigBlueButtonVM Download the Virtual Machine] (white belt)
-    * [InstallationUbuntu Install on Ubuntu 9.04 32-bit (15 minutes)] (yellow belt)
-    * [RPMPackaging Install on CentOS 5.4 32-bit/64-bit (15 minutes)] (yellow belt, one brown stripe)
-    * [InstallingBigBlueButton Install from source (Ubuntu)] (brown belt)
-    * [InstallingBigBlueButtonFedora Install from source (Fedora)] (brown belt)
-    * [InstallingBigBlueButtonCentOS Install from source (CentOS)] (brown belt, two black stripes) 
-    * Port !BigBlueButton to another OS and contribute the steps to the community (black belt!)
-
-Regardless of the way you choose, the following page shows the configuration files:
-
-   * [ConfigurationFiles Configuration Files]
-
-Finally, if you are upgrading from a previous release, please see [ReleaseNotes Release Notes] on how to upgrade.
+  * [Installation Installation of Version 0.64]
+    * [BigBlueButtonVM BigBlueButton Virtual Machine]
+    * [InstallationUbuntu Install on Ubuntu 9.04 (15 minutes)]
+    * [RPMPackaging Install on CentOS 5.4]
+    * Install from source on [InstallingBigBlueButton Ubuntu], [InstallingBigBlueButtonCentOS CentOS], and [InstallingBigBlueButtonFedora Fedora]
+    * [Integration Integrate] !BigBlueButton with your existing system
+    * [ConfigurationFiles Configuration Files]
+  * [GettingStarted Getting Started]
+    * [ArchitectureOverview Overview of Architecture]
+    * [OpenSourceComponents Open Source Components]
+    * [DevelopingBBB Setting up a Development Environment]
+    * [SampleModule Tutorial on Creating a New Module]
+    * [API API for Integration with Third-Party Applications]  
+    * [LocalizationOfBBB Translating BigBlueButton into Another Lanugage]  
+  * [Support Support]
+    * [ReleaseNotes Release Notes]
+    * [FAQ FAQ]
+    * [RoadMap Product Road Map]
+  * [BigBlueButtonLabs BigBlueButton Labs]
+    * [SummerOfCodeApplication Summer of Code Application template]
+    * [IdeasPage Ideas Page for Google Summer of Code Students]
+    * [Phidgets Physical Widgets for External Notification]
+    * [Red5Phone Red 5 Phone]
+    * [http://readytopresent.wordpress.com/ Ready To Present]
+    * [Whiteboard Whiteboard using Wiimote]   
  
