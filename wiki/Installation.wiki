@@ -1,0 +1,19 @@
+#summary Overview of installation options
+
+= Introduction =
+
+The !BigBlueButton server runs under Linux.  Here are some install options:
+    * [BigBlueButtonVM Download the Virtual Machine] (white belt)
+    * [InstallationUbuntu Install on Ubuntu 9.04 32-bit (15 minutes)] (yellow belt)
+    * [RPMPackaging Install on CentOS 5.4 32-bit/64-bit (15 minutes)] (yellow belt, one brown stripe)
+    * [InstallingBigBlueButton Install from source (Ubuntu)] (brown belt)
+    * [InstallingBigBlueButtonFedora Install from source (Fedora)] (brown belt)
+    * [InstallingBigBlueButtonCentOS Install from source (CentOS)] (brown belt, two black stripes) 
+    * Port !BigBlueButton to another OS and contribute the steps to the community (black belt!)
+
+Regardless of the way you choose, the following page shows the configuration files:
+
+   * [ConfigurationFiles Configuration Files]
+
+Finally, if you are upgrading from a previous release, please see [ReleaseNotes Release Notes] on how to upgrade.
+ 
