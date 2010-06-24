@@ -1,4 +1,4 @@
- * [Installation Installation of Version 0.64]
+  * [Installation Installation of Version 0.64]
     * [BigBlueButtonVM BigBlueButton Virtual Machine]
     * [InstallationUbuntu Install on Ubuntu 9.04 (15 minutes)]
     * [RPMPackaging Install on CentOS 5.4]
@@ -22,5 +22,5 @@
     * [Phidgets Physical Widgets for External Notification]
     * [Red5Phone Red 5 Phone]
     * [http://readytopresent.wordpress.com/ Ready To Present]
-    * [Whiteboard Whiteboard using Wiimote]   
+    * [Whiteboard Whiteboard using Wiimote] 
  
