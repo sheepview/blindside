@@ -84,14 +84,11 @@ The window approach for !BigBlueButton's UI is very flexible, sometime too flexi
 === Additional Modules ===
 Add the following additional modules to !BigBlueButton.
 
-==== Polling module ====
-See xxx.
+# Polling module
 
-==== Breakout module ====
-See issues tagged [http://code.google.com/p/bigbluebutton/issues/list?can=2&q=breakout breakout].
+# Breakout module - See issues tagged [http://code.google.com/p/bigbluebutton/issues/list?can=2&q=breakout breakout].
 
-==== Shared notes module ====
-See [http://code.google.com/p/bigbluebutton/issues/detail?id=875 875].
+# Shared notes module - See [http://code.google.com/p/bigbluebutton/issues/detail?id=875 875].
 
 
 == For the Developer ==
