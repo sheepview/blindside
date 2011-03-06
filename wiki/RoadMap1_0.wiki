@@ -29,19 +29,19 @@ Our vision is to make BigBlueButton the leading open source web conferencing sys
 
 When a user has an improperly configured microphone or webcam, Flash has difficulty picking the right audio or video source.  In other cases, there might be a software conflict that is preventing Flash from accessing either device.  This causes the presenter to have to debug a user's problem at the stat of a meeting.
 
-Add a pre-flight checklist (see 
+Add a pre-flight checklist (issue [http://code.google.com/p/bigbluebutton/issues/detail?id=122 122])
 
 === Unify the Users and Listeners ===
-When there are 25 users (or more), some usability issues with the current two window layout emerge.  For example, when a student raises her hand, in the users window, it takes too much effort to find the associated user in the listeners window to unmute.  
+When there are 25 users (or more), some usability issues with the current two window layout emerge.  For example, when a student raises her hand, in the users window, it takes too much effort to find the associated user in the listeners window to unmute. (issue xxx)
 	
 === Accessibility ===
-!BigBlueButton must support Section 508 requirements for access for disability.  AODA compatibility.
+!BigBlueButton must support [http://www.section508.gov/ Section 508] requirements for access by users with disability.  
 
 === Localization === 
 Support right-left languages.  This may require us to move to Flex 4.  
 
 === Component requirements === 
-The following section looks at the requirements for each individual componet.
+The following section looks at the requirements for each individual component.
 
   ==== Voice ==== 
   Currently, the built-in VoIP (clicking the headset icon) in !BigBlueButton has a 2-4 second delay.  This is perceptable when running in a LAN environment.
@@ -55,17 +55,20 @@ The following section looks at the requirements for each individual componet.
   ==== Video ==== 
   Since we are using the built-in video from Flash, we're not planning on bypassing the built-in video with a custom solution.  Instead, we watching closely to see what Adobe does to improve the bult-in Flash video in version 11.  
 
-	==== Chat ==== 
-	Support right-to-left languages.  This may require going to Flex 4.
+  ==== Chat ==== 
+  XXX
 	
-	==== Presentation ==== 
-	When a presenter uploads a portrait A4 document, the text is not readable.	
-	Support dispalying presentations in both fit-to-page (current mode) and fit-to-width.  The addition of fit-to-width will make it possible to use the full width of the presentation window for portait documents.
-	Support full screen mode (similar to hitting F5 in power point)
-	Support collaboration mode (all users can move around the current presentationa)
+  ==== Presentation ==== 
+  When a presenter uploads a portrait A4 document, the text is not readable.	
 
-	==== Whiteboard ==== 
-	Support keyboard input of text.
+  Support dispalying presentations in both fit-to-page (current mode) and fit-to-width.  The addition of fit-to-width will make it possible to use the full width of the presentation window for portait documents. (see [http://code.google.com/p/bigbluebutton/issues/detail?id=579 579])
+
+  Support full screen mode, similar to hitting F5 in power point.  (see [http://code.google.com/p/bigbluebutton/issues/detail?id=872 872])
+
+  Support collaboration mode which enables viewers to "unlock" from the presenter's view and freely move around the current presentation.  (see [http://code.google.com/p/bigbluebutton/issues/detail?id=604 604]).
+
+  ==== Whiteboard ==== 
+  Support keyboard input of text. (see [http://code.google.com/p/bigbluebutton/issues/detail?id=591 591])
 	
 	==== Desktop sharing ==== 
 	When the presenter shares their desktop, many times the upates are too slow.
