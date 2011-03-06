@@ -159,40 +159,40 @@ In the BigBlueButto ecosystem, there would be three types of modules:
 
 To support the above, !BigBlueButton must provide the following capabilities (listed below).
 
-==== Architecture ====
-The !BigBlueButton architecture must provide the internal APIs to provide developers the means to interact with other components of the platform, both within the server and client.
+  ==== Architecture ====
+  The !BigBlueButton architecture must provide the internal APIs to provide developers the means to interact with other components of the platform, both within the server and client.
 
-Specifically
+  Specifically
 
 # !BigBlueButton server (bbb-apps) must provide well-defined API for a module to interact and be added/removed
 
 # !BigBlueButton client (bbb-client) must provide well-defined ways for a module to interact and be added/removed
 
 
-==== Structure of a module ====
-A module must have a well-defined directory structure that includes both its server and client components, along with an manifest.xml file that describes the components and dependencies.  
+  ==== Structure of a module ====
+  A module must have a well-defined directory structure that includes both its server and client components, along with an manifest.xml file that describes the components and dependencies.  
 
-==== Server Configuration ====
-There be command-line tools that enable the administrator to list, install, remove modules, and enable/disable modules.
+  ==== Server Configuration ====
+  There be command-line tools that enable the administrator to list, install, remove modules, and enable/disable modules.
 
-An installed but disabled module is a stelth module.
+  An installed but disabled module is a stelth module.
 
-==== Module API ====
-The developer would have an API to dynamically enable/disable modules when creating a session.  The API would enable passing of configuration parameters to the enabled modules.
+  ==== Module API ====
+  The developer would have an API to dynamically enable/disable modules when creating a session.  The API would enable passing of configuration parameters to the enabled modules.
 
-A good example of this API would be to start !BigBlueButton with only a single or few modules enabled, such as 
+  A good example of this API would be to start !BigBlueButton with only a single or few modules enabled, such as 
 
   # Chat only
   # Two-way web-cam
   # Desktop sharing session
   # Click to call
 
-The last example would be enabling developers to use !BigBlueButton to enable a click-to-call type applications.  
+  The last example would be enabling developers to use !BigBlueButton to enable a click-to-call type applications.  
 
-==== Moderator Control of modules ====
-Some modules me be active, but only visible to the moderator.  A polling module is a good example: it should be avaialble to the moderator or presenter, but no to the viewers.
+  ==== Moderator Control of modules ====
+  Some modules me be active, but only visible to the moderator.  A polling module is a good example: it should be avaialble to the moderator or presenter, but no to the viewers.
 
-The !BigBlueButton UI should eanble the presenter to launch an avaialble module during a session.
+  The !BigBlueButton UI should eanble the presenter to launch an avaialble module during a session.
 
 == Areas for investigation ==
 The following modules could be added to !BigBlueButton as core or stelth.
