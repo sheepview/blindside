@@ -1,6 +1,6 @@
 = Introduction =
 
-BigBlueButton has been in development for over four years now.  We've delivered nine releases since !BigBlueButton 0.4 was release on June 12, 2009.  We're currently working on !BigBlueButton 0.8. 
+!BigBlueButton has been in development for over four years now.  We've delivered nine releases since !BigBlueButton 0.4 was release on June 12, 2009.  We're currently working on !BigBlueButton 0.8. 
  
 We've come a long way since the first release.  We're often asked now "When are you going to release 1.0?"
 
@@ -131,76 +131,99 @@ Add/remove a module at configuration
 	For those modules that are marked as avaialble, allow the presenter to add/remove the modules.
 	
 === Pre-upload slides to a presentation ===
-See 
+See [http://code.google.com/p/bigbluebutton/issues/detail?id=356 356].
 
-	Manage the recorded meetings 
-	Enable API calls to query meetings for a given meetingID, publish/unpublish meetings, and delete a meeting.
-	
-	Inject messages into the chat
-	Eanble API calls for sending messages into the chat window.  This would enable tigher integration, such as enabling a 3rd party application to notify users that the meeting is about it end.  Clicking on a link could extend the meeting another 1 hour (and bill for it)
+
+=== Manage the recorded meetings ===
+As of !BigBlueButton 0.8, the server will now store recorded sessions.
+
+Provide a recording API to query meetings for a given meetingID.  The meetingID can be a prefix string, so meetings with the id `math101-001`, `math101-002`, and `math101-003`, can be returned with the query `math101`. (see XXX).
+
+Provide a recording API to publish/unpublish meetings and delete a meeting.
+
+
+=== Inject messages into the chat ===
+
+Eanble API calls for sending messages into the chat window.  This would enable tigher integration, such as enabling a 3rd party application to notify users that the meeting is about it end.  Clicking on a link could extend the meeting another 1 hour (and bill for it).  (see XXX)
 	
 === Modularity ===
-When looking at !BigBlueButton, we want the developer to see a platform (not a closed application) that gives them a well-defined modular architecture for adding/removing existing components, installing third-party components, and creating their own compont.
-	Eclipse is a very good example of achieving a modular architecture.  There is the Eclipse platform which ships with a number of core modules.  
-	In the BigBlueButto ecosystem, there would be three types of modules: 
-# core - enabled by default
-# stelth - modules are not of sufficent quality to become core, but are included in !BigBlueButton to enable broader testing or make it easier for the administrator to add them to the setup
-# contribued modules are available for download and install from other sites.
-To support the above, there must be the following capabiliities
+When looking at !BigBlueButton, we want the developer to see a platform, not a closed application.  The platform should provide well-defined modular architecture for adding/removing existing components, installing third-party components, and creating their own componte.
+
+Eclipse is a very good example of achieving a modular architecture.  There is the Eclipse platform which ships with a number of core modules.  
+
+In the BigBlueButto ecosystem, there would be three types of modules: 
+
+  # core - enabled by default
+  # stelth - modules are not of sufficent quality to become core, but are included in !BigBlueButton to enable broader testing or make it easier for the administrator to add them to the setup
+  # contrib modules are available for download and install from other sites.
+
+To support the above, !BigBlueButton must provide the following capabilities (listed below).
+
 ==== Architecture ====
-# !BigBlueButton server (bbb-apps) must provide well-defined ways for a module to be added/removed
-# !BigBlueButton client (bbb-client) must provide well-defined ways for a module to be added/removed
-The server and client must provide a componet API that lest a module access all the needed functionality to operate. 
+The !BigBlueButton architecture must provide the internal APIs to provide developers the means to interact with other components of the platform, both within the server and client.
+
+Specifically
+
+# !BigBlueButton server (bbb-apps) must provide well-defined API for a module to interact and be added/removed
+
+# !BigBlueButton client (bbb-client) must provide well-defined ways for a module to interact and be added/removed
+
+
 ==== Structure of a module ====
 A module must have a well-defined directory structure that includes both its server and client components, along with an manifest.xml file that describes the components and dependencies.  
+
 ==== Server Configuration ====
 There be command-line tools that enable the administrator to list, install, remove modules, and enable/disable modules.
+
 An installed but disabled module is a stelth module.
-==== API ====
+
+==== Module API ====
 The developer would have an API to dynamically enable/disable modules when creating a session.  The API would enable passing of configuration parameters to the enabled modules.
+
 A good example of this API would be to start !BigBlueButton with only a single or few modules enabled, such as 
-# Chat only
-# Two-way web-cam
-# Desktop sharing session
-# Click to call
+
+  # Chat only
+  # Two-way web-cam
+  # Desktop sharing session
+  # Click to call
+
 The last example would be enabling developers to use !BigBlueButton to enable a click-to-call type applications.  
+
 ==== Moderator Control of modules ====
 Some modules me be active, but only visible to the moderator.  A polling module is a good example: it should be avaialble to the moderator or presenter, but no to the viewers.
+
 The !BigBlueButton UI should eanble the presenter to launch an avaialble module during a session.
 
 == Areas for investigation ==
 The following modules could be added to !BigBlueButton as core or stelth.
-# Breakout module
-# Polling module
-# Shared notes module
+
+  # Breakout module
+  # Polling module
+  # Shared notes module
 
 == For the Administrator ==
 
-    	=== Security === 
-	There are no plans to add security for 1.0.  Secure connections to a !BigBlueButton can be achieved via VPN.
+=== Security === 
+There are no plans to add security for 1.0.  Secure connections to a !BigBlueButton can be achieved via VPN.
 	
-	=== Troubleshooting === 
-	Add capbility to bbb-conf to change the logging levels of all applications, making it easier to spot errors.
+=== Troubleshooting === 
+Add capbility to bbb-conf to change the logging levels of all applications, making it easier to spot errors.
 
-	=== Configuration === 
-	Add more checks to bbb-conf to continue to trouble shoot any problems with the installation.  Once the error messages have been removed, any error message would be a real error.
+=== Configuration === 
+Add more checks to bbb-conf to continue to trouble shoot any problems with the installation.  Once the error messages have been removed, any error message would be a real error.
 	
-	=== Installation and upgrade ===
-	Continue to support Ubuntu 10.04 32-bit or 64-bit.  Add support for CentOS only if there is sufficent demand (and support) from commerical companies.
+=== Installation and upgrade ===
+Continue to support Ubuntu 10.04 32-bit or 64-bit.  Add support for CentOS only if there is sufficent demand (and support) from commerical companies.
 	
-	=== IMS Basic LTI integration ===
-	Enable products such as Desire2Learn to launch !BigBlueButton meetings without having to create a custom module.
+=== IMS Basic LTI integration ===
+Enable products such as Desire2Learn to launch !BigBlueButton meetings without having to create a custom module.
 
-== Completeness ==
-
-There are a number of supporting items to ensure completeness:
-
-# All user functions have a video tutorial
 
 
 == Beyond 1.0 ==
 Probably what's also important is to cover some of the items that we are not planning for 1.0.  In some ways, there area all ares under development, but if we tried to do too much for 1.0.
-# Full HTML5 client
-# Full Android, Rim, iPhone client
-# Integrate with H.232 video conferencing systems
-# Integrate with Jabber for instant messaging
+
+  # Full HTML5 client
+  # Full Android, Rim, iPhone client
+  # Integrate with H.232 video conferencing systems
+  # Integrate with Jabber for instant messaging
