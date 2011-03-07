@@ -1,27 +1,26 @@
 = Introduction =
 
-!BigBlueButton has been in development for over four years now.  We've delivered nine releases since !BigBlueButton 0.4 was release on June 12, 2009.  We're currently working on !BigBlueButton 0.8. 
- 
-We've come a long way since the first release.  We're often asked now "When are you going to release 1.0?"
+!BigBlueButton has been in development for over four years now.  We delivered !BigBlueButton 0.4 in June 12, 2009, and have since shipped eight subsequent releases.  We're currently working on !BigBlueButton 0.8.   We've come a long way since the first release, and the question we're increasingly asked is "When are you going to release 1.0?"  
 
-The document outlines the DRAFT list of requirements we believe are necessary to complete for for the release of !BigBlueButton 1.0.   For many, the version number is arbitrary.  With each release of !BigBlueButton the project delievers a more solid, more stable, system and many universities and companies have deployed !BigBlueButton to their students and incorporated it into their product.  This grow really encourages us to make a 1.0 as stellar as possible.
+The document outlines the DRAFT requirements we believe necessary to release of !BigBlueButton 1.0.   
 
-For many, the version number is not arbitrary.  It represents a level of completes, a real product that has completely implement features, documentation, specifications, and test cases.
+For many, the version number is arbitrary.  It's a marketing term.  As each !BigBlueButton release has steadily improved on the previous, we see many universities using it for distance education, and many companies incorporating it into their products.  
 
-There are a number of important requirements for 1.0, and we'll group them as follows: usability, stability, API, and modularity.  
+For many others, including the core development team, the version number is not arbitrary.  It represents a level of quality, stability, and completeness in the core features.  Given a core feature, it should be easy for the user to use, easy for the developer to understand and modify, and easy for the administrator to setup and deploy.
 
+!BigBlueButton is not a small project, and there are many details herein for 1.0.  Behind the details are a number of core objectives: usability, stability, API, and modularity.  
 
-  * *Usability* - The hallmark of !BigBlueButton is its ease of use.  Nothing drives the initial positive impression of !BigBlueButton more than a presenter or user able to quickly use the interface without needing a training course.
+  * *Usability* - The hallmark of !BigBlueButton is its ease of use.  When a first time presenter or user able to quickly get started, they have a very positive initial impression.
 
-  * *Stability* - Once past the initial positive experience, the stability of the product ensures long-term acceptance.   While !BigBlueButton is fairly stable (our demo server runs for many days without reboot), there are a number of areas for improvement discussed below.
+  * *Stability* - Turning that initial impression into long-term use depends on stability.   While !BigBlueButton is fairly stable (our demo server runs for many days without reboot), there are a number of areas for improvement discussed below.
 
-  * *APIs* - We started with very simple APIs, and we need to expand those APIs to enable pre-uploading of slides, management recorded content, and server and client control of individual components.
+  * *APIs* - !BigBlueButton started with very simple APIs, which made it very easy for other open source (and closed source) applications to integrate !BigBlueButton into the product.  We need expand those APIs to enable pre-uploading of slides, management recorded content, and control of individual modules.
 
-  * *Modular Architecture* - !BigBlueButton started as a self-contained product.  Everything comes pre-assembled, ready to go.  That was great for adoption, but !BigBlueButton needs to eveolve to a modular platform (like eclipse) to enable other developers add/remove their own components.  Getting this right will not be easy, and will likely take a few iterations.  
+  * *Modular Architecture* - Currently, !BigBlueButton is self-contained product.  Everything comes pre-assembled, ready to go.  That was great for adoption, but !BigBlueButton needs to become modular platform (like eclipse) to enable other developers add/remove their own modules.  Getting this right will not be easy, and will likely take a few iterations.  
 
-All of the above areas have specific requirements for 1.0 which will be outlined below.  In many cases, where there is an associated issue, we'll give a brief outline of the requirement and link to the specific issue for more details.
+The remainder of this document goes into the details of the requirements for 1.0, including what's not planned for inclusion.    In many cases, we'll give a brief outline of the requirement and link to the specific issue where discussions can occur.
 
-Our vision is to make !BigBlueButton the leading open source web conferencing system -- weather you use it for education, commercial, personal use.  This document outlines our plans to reach that goal.  When !BigBlueButton 1.0 is released, it will be in substance, not in name. 
+Our vision is to make !BigBlueButton the leading open source web conferencing system.  This document outlines our plans to reach that goal.  And when !BigBlueButton 1.0 is released, it will be in substance, not in name. 
 
 == Usability ==
 
