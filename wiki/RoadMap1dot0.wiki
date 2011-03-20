@@ -62,7 +62,7 @@ When there are 25 (or more) users in a session, having a separate Users window (
 Unify the Users and Listeners window (xxx).
             	
 === Accessibility ===
-!BigBlueButton must support students with disabilities.  Specifically, it must support the necessary [http://www.section508.gov/ Section 508] requirements to enable access by users with disabilities (http://code.google.com/p/bigbluebutton/issues/detail?id=85 85]). 
+!BigBlueButton must support students with disabilities.  Specifically, it must support the necessary [http://www.section508.gov/ Section 508] requirements to enable access by users with disabilities ([http://code.google.com/p/bigbluebutton/issues/detail?id=85 85]). 
  
   
 === Voice ===
@@ -108,9 +108,9 @@ Investigate locking down the windows, providing better layout managememt, or mov
 ==== Additional Modules ====
 Include the following additional modules.
  
-# Polling module
-# Breakout module [http://code.google.com/p/bigbluebutton/issues/list?can=2&q=breakout breakout].
-# Shared notes module - See [http://code.google.com/p/bigbluebutton/issues/detail?id=875 875].
+  * Polling module
+  * Breakout module [http://code.google.com/p/bigbluebutton/issues/list?can=2&q=breakout breakout].
+  * Shared notes module - See [http://code.google.com/p/bigbluebutton/issues/detail?id=875 875].
  
  
 == Developer Requirements ==
@@ -129,10 +129,11 @@ Ensure all classes that implement the APIs are throughly documented.  The develo
 === API Examples ===
 All the APIs in !BigBlueButton should have API examples that demonstrate applications of using the API.
  
-Add additional API examples:
-  # Embedding !BigBlueButton in an iFrame.
-  # Using oAuth to log into a meeting
-  # Using sibbolith to log into a meeting
+Add additional API examples:  
+
+  * Embedding !BigBlueButton in an iFrame
+  * Using oAuth to log into a meeting
+  * Using sibbolith to log into a meeting
          
 
 == Testing ==
@@ -154,7 +155,7 @@ The “heavy load” will need to be calibrated according to the server capacity
 This section covers the extensions needed to the !BigBlueButton 1.0 API.
 
 === Pre-upload slides to a presentation ===
-See [http://code.google.com/p/bigbluebutton/issues/detail?id=356 356].
+This feature is currently in development for !BigBlueButton 0.8.  ([http://code.google.com/p/bigbluebutton/issues/detail?id=356 356])
  
 === Manage the recorded meetings ===
 The addition of record and plabyack to !BigBlueButton 0.8 means the server will now store recorded sessions.  
