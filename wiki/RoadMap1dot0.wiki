@@ -203,21 +203,21 @@ The next step is to create a full plug-in architecture with well-defined APIs (s
  
 === Security ===
 There are no plans to add security for 1.0.  Secure connections to a !BigBlueButton can be achieved via VPN.
-            	
+
+=== Installation and upgrade ===
+Continue to support Ubuntu 10.04 32-bit or 64-bit.  Add support for CentOS only if there is sufficient demand (and support) from commerical companies. 
+           	
 === Troubleshooting ===
 Add more capabilities to bbb-conf to change the logging levels of all applications, making it easier to spot errors (see XXX)
  
 Add more checks to bbb-conf to continue to trouble shoot any problems with the installation.  Once the error messages have been removed, any error message would be a real error.
-            	
-=== Installation and upgrade ===
-Continue to support Ubuntu 10.04 32-bit or 64-bit.  Add support for CentOS only if there is sufficient demand (and support) from commerical companies.
-            	
+            	      	
 === IMS Basic LTI integration ===
 Enable products such as Desire2Learn to launch !BigBlueButton meetings without having to create a custom module.
  
  
  
-== Beyond 1.0 ==
+= Beyond 1.0 =
 
 There are a number of capabilities that we want to add (soon) after 1.0 is released.
 
