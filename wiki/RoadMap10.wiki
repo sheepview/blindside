@@ -1,3 +1,4 @@
+#labels Deprecated
 = Introduction =
 
 !BigBlueButton has been in development for over four years now.  We've delivered nine releases since !BigBlueButton 0.4 was release on June 12, 2009.  We're currently working on !BigBlueButton 0.8. 
