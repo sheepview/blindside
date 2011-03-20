@@ -1,228 +1,236 @@
+# The roadmap to 1.0
+
+<wiki:toc max_depth="3" />
+
 = Introduction =
+One question we are increasingly asked is "When are you going to release !BigBlueButton 1.0?" 
 
-!BigBlueButton has been in development for over four years now.  We delivered !BigBlueButton 0.4 in June 12, 2009, and have since shipped eight subsequent releases.  We're currently working on !BigBlueButton 0.8.   We've come a long way since the first release, and the question we're increasingly asked is "When are you going to release 1.0?"  
+We released !BigBlueButton version 0.4 on June 12, 2009.  Since then there have been nine subsequent releases: 0.5, 0.6, 0.61, 0.62, 0.63, 0.64, 0.7, 0.71, and 0.71a – each improving on the previous, each reflecting a strong desire by the core development team to build a solid product. 
 
-The document outlines the DRAFT requirements we believe necessary to release of !BigBlueButton 1.0.   
+This document outlines the DRAFT requirements we believe necessary to achieve 1.0.  
+ 
+For many !BigBlueButton’s version number is an arbitrary number, a marketing name.  Whether its 0.71a, 1.2, 4.5 or some other arbitrary number, the reality is we adoption has been steadily growing.  With each release, we see more universities, colleges, and K12 institutions deploying !BigBlueButton and more companies integrating !BigBlueButton into their products with each release.  
 
-For many, the version number is arbitrary.  It's a marketing term.  As each !BigBlueButton release has steadily improved on the previous, we see many universities using it for distance education, and many companies incorporating it into their products.  
+For many others, including the core developers, the version number is *not* arbitrary.  It represents a level of quality, stability, and completeness in product that we want to achieve before calling it 1.0.  When !BigBlueButton 1.0 is released, it will be in substance, not name. 
 
-For many others, including the core development team, the version number is not arbitrary.  It represents a level of quality, stability, and completeness in the core features.  Given a core feature, it should be easy for the user to use, easy for the developer to understand and modify, and easy for the administrator to setup and deploy.
+The requirements for !BigBlueButton 1.0 are driven by our target market: distance education. We are also asked “Why are you focusing on one market?  Don’t you realize that !BigBlueButton would be great for market X, Y, and Z?”  In a word: focus.  Focus helps us keep the product simple.  In reality, the core features of shared chat, presentation, voice, video, and desktop for the same for all market segments (including distance education).  Our belief is if we deliver a world-class open source solution for distance education, then we will, essentially, deliver a world class solution to other markets as well.
 
-!BigBlueButton is not a small project, and there are many details herein for 1.0.  Behind the details are a number of core objectives: usability, stability, API, and modularity.  
+By focusing on distance education, we are trying hard (very hard) to constantly make the product simpler.  If we canvased ten customers and asked them *all* the features they wanted in synchronous teaching tool, we would get ten slightly different answers, and if we did everything, we would make the product more complex, not simpler.  Instead, we try to focus on the core feature set that everyone needs.  In other words, we try to focus on needs, not wants.
 
-  * *Usability* - The hallmark of !BigBlueButton is its ease of use.  When a first time presenter or user able to quickly get started, they have a very positive initial impression.
+So what are the requirements for distance education?  At the highest level, we state the goal of !BigBlueButton is to enable universities and colleges to provide remote students a high-quality learning experience.  Breaking that vision down further, we can slightly the requirements using the following user stories:
+ 
+  * As a teacher I want to start my on-line class within five minutes so I can focus my energies on teaching students.
+ 
+  * As a remote student I want clearly hear the teacher, see the slides, and easily interact with the teacher and other students so I can learn the most during my session.
+ 
+  * As an administrator I want to install !BigBlueButton in under fifteen minutes so I can experiment with its capabilities within my organization.
+ 
+  * As a developer I want to integrate !BigBlueButton into my product in less than four hours so I can experiment with adding real-time collaboration to my products.
+ 
+You can see there are four roles: teacher, student, administrator, and developer.  We want users to quickly “get their job” done with !BigBlueButton.  In other words, we want !BigBlueButton to fade into the background and shift the focus to the transfer of knowledge from teacher to student.
+                                                                                  	
+In drafting this document, there are a number goals that are not related to any specific feature, but underlie some of the overall design goals of !BigBlueButton.  They are usability, stability, and APIs.
+ 
+  * *Usability* - If we’ve learned anything over the past two years, it’s that if we can make the product simpler with each new release, we’re headed in the right direction.  Whenever a first time presenter or user is able to quickly get started with !BigBlueButton, the product establishes a very positive initial first impression.  Usability touches all human-facing aspect of the product, including the quality of audio and video.   
+ 
+  * *Stability* - Translating that initial positive impression into long-term adoption requires rock-solid stability.  We want to ensure 1.0 has the proper coverage for unit, integration, and stress testing.
+ 
+  * *APIs* - !BigBlueButton has a very simple API (there are just seven API calls).  This has helped make easy for others to integrate.  Looking ahead, we need to keep the APIs simple but also expand to include pre-uploading of slides, dynamic configuration of the client, and access recorded content.
+ 
+Throughout this document tou’ll see sections titled “Areas under investigation”, which list requirements that are under consideration for !BigBlueButton 1.0.  Obviously, if we tried to do everything in 1.0, we’d never finish.  Anything that does not get into 1.0 can always be added in a subsequent release.  There’s also a section at the end of this document to cover items already planned for a release beyond 10.
 
-  * *Stability* - Turning that initial impression into long-term use depends on stability.   While !BigBlueButton is fairly stable (our demo server runs for many days without reboot), there are a number of areas for improvement discussed below.
+We welcome your feedback.  We’re building BigBlueButton for the distance education market.  If you are a teacher at an educational or commerical institution, then we are building !BigBlueButton for you.
 
-  * *APIs* - !BigBlueButton started with very simple APIs, which made it very easy for other open source (and closed source) applications to integrate !BigBlueButton into the product.  We need expand those APIs to enable pre-uploading of slides, management recorded content, and control of individual modules.
+= The Requirement for !BigBlueButton 1.0 =
 
-  * *Modular Architecture* - Currently, !BigBlueButton is self-contained product.  Everything comes pre-assembled, ready to go.  That was great for adoption, but !BigBlueButton needs to become modular platform (like eclipse) to enable other developers add/remove their own modules.  Getting this right will not be easy, and will likely take a few iterations.  
+== Core Features ==
+This section covers the enhancement and additions we want to make to !BigBlueButton’s core features. 
+ 
+=== Record and Playback ===
+This feature is currently in development for !BigBlueButton 0.8.  See [http://code.google.com/p/bigbluebutton/wiki/RecordPlaybackSpecification Record and Playback specifications].
 
-The remainder of this document goes into the details of the requirements for 1.0, including what's not planned for inclusion.    In many cases, we'll give a brief outline of the requirement and link to the specific issue where discussions can occur.
-
-Our vision is to make !BigBlueButton the leading open source web conferencing system.  This document outlines our plans to reach that goal.  And when !BigBlueButton 1.0 is released, it will be in substance, not in name. 
-
-== Usability ==
+Release 0.8 will focus on record and playback of slides + audio in an HTML5 interface.   Release 1.0 will include recording of all media and events during a session, and playback of video playback of slides + audio.
 
 === Pre-flight checklist ===
-
-Sometimes Flash has difficulty picking the right microphone, speaker, or webcam for the user.  Other times the presenter doesn't have Java properly setup to start desktop sharing.  These problems can delay the start of a session.
-
-Add a pre-flight checklist ([http://code.google.com/p/bigbluebutton/issues/detail?id=122 122]).
-
-=== Unify the Users and Listeners ===
-When there are 25 users (or more), the separation of participants into the Users window (logged in from the web) and Listeners window (joined the voice conference) cause usability problems.  A specific example is when a student raises her hand in the Users window, and the moderator has to find the associated entry in the listeners window to unmute.
-
+Sometimes Flash has difficulty picking the right microphone, speaker, or webcam for the user’s setup.  Other times the presenter can’t start their desktop sharing because Java is not properly installed.  These problems can delay the start of a session.
+ 
+The pre-flight checklist is in development for 0.8 ([http://code.google.com/p/bigbluebutton/issues/detail?id=122 122]).
+ 
+=== Unify the Users and Listeners window ===
+When there are 25 (or more) users in a session, having a separate Users window (those logged in from the web) and Listeners window (those who have joined the voice conference) starts to cause usability problems for the presenter.  For example, when a student raises her hand in the Users window, the moderator must scroll and hunt for the associated user in the Listeners window to unmute the student.
+ 
 Unify the Users and Listeners window (xxx).
-	
+            	
 === Accessibility ===
-!BigBlueButton must support [http://www.section508.gov/ Section 508] requirements for access by users with disability (http://code.google.com/p/bigbluebutton/issues/detail?id=85 85]).  
-
-=== Localization === 
-Support right-left languages ([http://code.google.com/p/bigbluebutton/issues/detail?id=686 686]).  
-
-=== Core Modules === 
-The following section looks at the requirements for each core module.
-
-==== Voice ==== 
-The built-in VoIP (clicking the headset icon) in !BigBlueButton has a 2-4 second delay.  This is perceptable even when running in a LAN environment (the network latency and packet loss are negligible).  A description of the reasons are given in this [http://code.google.com/p/bigbluebutton/wiki/FAQ#Why_is_there_a_delay_in_the_audio_when_I_use_VoIP? FAQ].
-
-!BigBlueButton must have *no* perceptial voice delay for 50 users running within a LAN environment ([http://code.google.com/p/bigbluebutton/issues/detail?id=740 740]).
+!BigBlueButton must support students with disabilities.  Specifically, it must support the necessary [http://www.section508.gov/ Section 508] requirements to enable access by users with disabilities (http://code.google.com/p/bigbluebutton/issues/detail?id=85 85]). 
+ 
   
+=== Voice ===
+The built-in VoIP (clicking the headset icon) in !BigBlueButton has an average 2-4 second delay.  This is perceptible even when running in a LAN environment, where the network latency and packet loss are negligible.  A description of the reasons for the delay are in [http://code.google.com/p/bigbluebutton/wiki/FAQ#Why_is_there_a_delay_in_the_audio_when_I_use_VoIP? FAQ].
+ 
+!BigBlueButton must have *no* perceptual voice delay for 50 users running within a LAN environment ([http://code.google.com/p/bigbluebutton/issues/detail?id=740 740]).
+ 
 
-==== Video ==== 
-!BigBlueButton uses the built-in video from Flash.   We're not planning any improvements to video; rather, we watching closely to see what Adobe does to improve the bult-in Flash video in version 11.  
-
-==== Chat ==== 
-XXX
-	
-==== Presentation ==== 
-When a presenter uploads a portrait A4 document, the text is not readable because !BigBlueButton displays the entire document at once (fit-to-page).
-
-Support dispalying presentations in both fit-to-page (good for landscape documents) and fit-to-width (good for portrait documents).  The addition of fit-to-width will make it possible to use more width and scroll up and down in a portrait document. ([http://code.google.com/p/bigbluebutton/issues/detail?id=579 579])
-
-Support full screen mode, similar to hitting F5 in power point.  ([http://code.google.com/p/bigbluebutton/issues/detail?id=872 872])
-
+=== Video ===
+!BigBlueButton uses the built-in video from Flash.   We're not planning any improvements to video; rather, we watching closely to see what Adobe does to improve the built-in video in upcoming versions of Flash.
+ 
+=== Chat ===
+There are no major enhancements planned for chat in 1.0.
+            	
+=== Presentation ===
+When a presenter uploads a portrait A4 document, the text is not readable on most screens as !BigBlueButton displays the entire document at once (fit-to-page).
+ 
+Support displaying presentations in both fit-to-page (good for landscape documents) and fit-to-width (good for portrait documents).  The addition of fit-to-width will make it possible for the presenter to use more width and scroll up and down in a portrait document. ([http://code.google.com/p/bigbluebutton/issues/detail?id=579 579])
+ 
+Support full screen mode, similar to hitting F5 in power point.  ([http://code.google.com/p/bigbluebutton/issues/detail?id=872 872]).  Support notifications of new chat message and people entering/leaving when in full screen mode.
+ 
 Support collaboration mode which enables viewers to "unlock" from the presenter's view and freely move around the current presentation.  ([http://code.google.com/p/bigbluebutton/issues/detail?id=604 604]).
-
-==== Whiteboard ==== 
+ 
+=== Whiteboard ===
 Support keyboard input of text ([http://code.google.com/p/bigbluebutton/issues/detail?id=591 591]).
-	
-==== Desktop sharing ==== 
-When the presenter shares her desktop, the remote viewers screens update too slowly, especially if there are 32-bit graphics on the presenter's screen.
+            	
+=== Desktop sharing ===
+!BigBlueButton uses a Java applet to capture and display the presenter’s screen on remote clients.  However, the screen updates are slow, especially if there are 32-bit graphics on the presenter's screen. The speed is related to the data on the screen, the compression of the data, and the rate the updates can be sent to the remote users.  
 
-!BigBlueButton 1.0 must double the update rates.  Explore ways to Modify the desktop sharing algorithm to sends the smallest (size) changed regions first, thus increase the perceived update speed (xxx).  Center the chat window and make show it as original size if there is sufficent room to display it within the user's monitor (xxx).
+We need to increase the efficiency of the screen sharing as measured by the speed at which the remote screen updates for the users (the actual target refresh rate to be determined).
 
-== Areas for investigation ==
-We are review these requirements for inclusion in 1.0.
-
-=== Layout management ===
-
+Reduce the effort by viewers to view the screen sharing by automatically centering the screen sharing window and make it show original size if there is sufficient on the viewer’s monitor (xxx).
+ 
+=== Areas for investigation ===
+We are reviewing these requirements for inclusion in 1.0.
+ 
+==== Layout management ====
+ 
 !BigBlueButton's window-based UI is very flexible, sometime too flexible as it requires the user to manage their windows.  For younger users, such as students in K12, too much flexibility can hinder the learning.
-
+ 
 Investigate locking down the windows, providing better layout managememt, or moving from a windowed layout to a fixed layout.
-
-=== Additional Modules ===
-Include the following as core modules.
-
+ 
+==== Additional Modules ====
+Include the following additional modules.
+ 
 # Polling module
-
-# Breakout module - See issues tagged [http://code.google.com/p/bigbluebutton/issues/list?can=2&q=breakout breakout].
-
+# Breakout module [http://code.google.com/p/bigbluebutton/issues/list?can=2&q=breakout breakout].
 # Shared notes module - See [http://code.google.com/p/bigbluebutton/issues/detail?id=875 875].
-
-
-== For the Developer ==
-As an open source project, !BigBlueButton must make it easy for other developers to participate.
-
+ 
+ 
+== Developer Requirements ==
+This section looks at ways to make it easier for other developers to participate in the !BigBlueButton project.
+ 
 === Development Environment ===
-XXX
-	
-=== Documentation ===
-All classes in !BigBlueButton -- Java (server) and Action Script (client) -- should have sufficent document to understand their role relative to others. 
+Analyze whether we can reduce the number of steps necessary to setup your own development environment.
 
-The classes that implement the APIs should be throughly documented.  The build process for !BigBlueButton should automatically create Java docs for server-based applications.
-
-
-=== Development Process ===
 It should be possible to setup a development environment on a non-BigBlueButton VM in under 30 minutes.
+ 
+=== Documentation ===
+Ensure all classes in !BigBlueButton, both on the server (Java) and client (Action Script) -- have sufficient java-doc documentation for a developer to understand their role relative to others.
 
-	
-=== Testing ===
-All the core modules, server components, and client should have the framework for unit tests.  The development environment should enable developers to run the unit tests.
-
-The API should have a complete test suite that can be used for both unit testing and stress testing
+Ensure all classes that implement the APIs are throughly documented.  The development environment (i.e ant scripts) should automatically compile the Java docs.
 
 === API Examples ===
 All the APIs in !BigBlueButton should have API examples that demonstrate applications of using the API.
-
+ 
 Add additional API examples:
   # Embedding !BigBlueButton in an iFrame.
   # Using oAuth to log into a meeting
-  # Using sibbolith integration
-	
-== API ==
-The API 
+  # Using sibbolith to log into a meeting
+         
 
-Add/remove a module at configuration
-	
-	Add/remove modules at run-time
-	For those modules that are marked as avaialble, allow the presenter to add/remove the modules.
-	
+== Testing ==
+
+=== Unit Testing ===
+All the core modules, server components, and client should have unit tests to verify their functionality.  The development environment should enable developers to run the unit tests.
+ 
+=== Integration Testing ===
+The API should have a complete test suite that can be used for both unit testing and stress testing
+
+=== Stress Testing ===
+Verify that the a !BigBlueButton server can run under heavy load for 48 hours without any errors on the client or on the server.
+
+The “heavy load” will need to be calibrated according to the server capacity and creating stress testing for a number of use case scenarios.  The stress test should repeatedly start, stop, and generate traffic in multiple simultaneous classrooms.   The traffic should cover using all of the core elements of voice, video, chat, presentations, and desktop sharing.
+
+ 
+   	
+== API ==
+This section covers the extensions needed to the !BigBlueButton 1.0 API.
+
 === Pre-upload slides to a presentation ===
 See [http://code.google.com/p/bigbluebutton/issues/detail?id=356 356].
-
-
+ 
 === Manage the recorded meetings ===
-As of !BigBlueButton 0.8, the server will now store recorded sessions.
+The addition of record and plabyack to !BigBlueButton 0.8 means the server will now store recorded sessions.  
+ 
+Extend the API to enable 3rd party applications to query for all recorded meetings (getRecordedMeetings).  This query can pass an option meetingID to filter the meetings that match that ID.  For example, a meetingID of “math101-%” would match the meetings with ID math101-001`, `math101-002`, and `math101-003` (see XXX).
+	getRecordedMeetings( meetingID )
 
-Provide a recording API to query meetings for a given meetingID.  The meetingID can be a prefix string, so meetings with the id `math101-001`, `math101-002`, and `math101-003`, can be returned with the query `math101`. (see XXX).
+Enable the API to get detailed information on a specific meetingID
+getRecrodedMeetingInfo( meetingID )
 
-Provide a recording API to publish/unpublish meetings and delete a meeting.
+Enable the API Provide publish/unpublish meetings
+setRecordedMeetingPublish( meetingID, true|false)
 
+Enable the API to delete a recorded meeting
+	deleteRecordedMeeting( meetingID )
 
+Create an test suite to validate the APIs are all implemented correctly. 
+ 
 === Inject messages into the chat ===
+Enable API calls for sending messages into the chat window (see xxx)
+	sendChatMessage( meetingID, message )
 
-Eanble API calls for sending messages into the chat window.  This would enable tigher integration, such as enabling a 3rd party application to notify users that the meeting is about it end.  Clicking on a link could extend the meeting another 1 hour (and bill for it).  (see XXX)
-	
+This would enable tighter integration, such as enabling a 3rd party application to notify users that the meeting is about it end.  Clicking on a link could extend the meeting another 1 hour (and bill for it).  (see XXX)
+ 
 === Modularity ===
-When looking at !BigBlueButton, we want the developer to see a platform, not a closed application.  The platform should provide well-defined modular architecture for adding/removing existing components, installing third-party components, and creating their own componte.
+When looking at !BigBlueButton 1.0, we want the developer to see a platform, not a closed application.  
 
-Eclipse is a very good example of achieving a modular architecture.  There is the Eclipse platform which ships with a number of core modules.  
+There are a spectrum of modularity we can achieve.
 
-In the BigBlueButto ecosystem, there would be three types of modules: 
+For existing components:
+  # Configure the components within the server (implemented in XXX)
+  # Dynamically enable/disable components at time of creating a meeting
+  # Dynamically enable/disable components after the meeting has started
 
-  # core - enabled by default
-  # stelth - modules are not of sufficent quality to become core, but are included in !BigBlueButton to enable broader testing or make it easier for the administrator to add them to the setup
-  # contrib modules are available for download and install from other sites.
+By creating modularity, a developer could start a !BigBlueButton session specific with only the modules needed for her specific application.  For example
 
-To support the above, !BigBlueButton must provide the following capabilities (listed below).
-
-==== Architecture ====
-The !BigBlueButton architecture must provide the internal APIs to provide developers the means to interact with other components of the platform, both within the server and client.
-
-Specifically
-
-  # !BigBlueButton server (bbb-apps) must provide well-defined API for a module to interact and be added/removed
-
-  # !BigBlueButton client (bbb-client) must provide well-defined ways for a module to interact and be added/removed
-
-
-==== Structure of a module ====
-A module must have a well-defined directory structure that includes both its server and client components, along with an manifest.xml file that describes the components and dependencies.  
-
-==== Server Configuration ====
-There be command-line tools that enable the administrator to list, install, remove modules, and enable/disable modules.
-
-An installed but disabled module is a stelth module.
-
-==== Module API ====
-The developer would have an API to dynamically enable/disable modules when creating a session.  The API would enable passing of configuration parameters to the enabled modules.
-
-A good example of this API would be to start !BigBlueButton with only a single or few modules enabled, such as 
-
-  # Chat only
+  # Chat only 
   # Two-way web-cam
   # Desktop sharing session
   # Click to call
 
-The last example would be enabling developers to use !BigBlueButton to enable a click-to-call type applications.  
+The next step is to create a full plug-in architecture with well-defined APIs (see post 1.0).
 
-==== Moderator Control of modules ====
-Some modules me be active, but only visible to the moderator.  A polling module is a good example: it should be avaialble to the moderator or presenter, but no to the viewers.
 
-The !BigBlueButton UI should eanble the presenter to launch an avaialble module during a session.
-
-== Areas for investigation ==
-The following modules could be added to !BigBlueButton as core or stelth.
-
-  # Breakout module
-  # Polling module
-  # Shared notes module
-
-== For the Administrator ==
-
-=== Security === 
+== Administrator Requirements ==
+ 
+=== Security ===
 There are no plans to add security for 1.0.  Secure connections to a !BigBlueButton can be achieved via VPN.
-	
-=== Troubleshooting === 
-Add capbility to bbb-conf to change the logging levels of all applications, making it easier to spot errors.
-
-=== Configuration === 
+            	
+=== Troubleshooting ===
+Add more capabilities to bbb-conf to change the logging levels of all applications, making it easier to spot errors (see XXX)
+ 
 Add more checks to bbb-conf to continue to trouble shoot any problems with the installation.  Once the error messages have been removed, any error message would be a real error.
-	
+            	
 === Installation and upgrade ===
-Continue to support Ubuntu 10.04 32-bit or 64-bit.  Add support for CentOS only if there is sufficent demand (and support) from commerical companies.
-	
+Continue to support Ubuntu 10.04 32-bit or 64-bit.  Add support for CentOS only if there is sufficient demand (and support) from commerical companies.
+            	
 === IMS Basic LTI integration ===
 Enable products such as Desire2Learn to launch !BigBlueButton meetings without having to create a custom module.
-
-
-
+ 
+ 
+ 
 == Beyond 1.0 ==
-Probably what's also important is to cover some of the items that we are not planning for 1.0.  In some ways, there area all ares under development, but if we tried to do too much for 1.0.
 
-  # Full HTML5 client
-  # Full Android, Rim, iPhone client
-  # Integrate with H.232 video conferencing systems
-  # Integrate with Jabber for instant messaging
+There are a number of capabilities that we want to add (soon) after 1.0 is released.
+
+  * *Plug-in Architecture* - Currently, !BigBlueButton is self-contained product.  Everything comes pre-assembled, ready to go.  That is great for initial adoption, but we want !BigBlueButton to become modular platform (like eclipse) to enable other developers to easily create an integrate their own modules.  
+
+  * *Full mobile support* - This includes a Android, Rim, iPhone client.
+
+  * *HTML 5 client* - While the absence of an ability to access the microphone and web cam would prevent an HTML 5 client from becoming a first-class client, an HTML 5 client could receive a stream of the current video and audio, and it could participate in other areas, such as real-time chat.
+
+  * *Integration with H.263* - This would enable !BigBlueButton to integrate with other commercial conferencing systems.
+
+  * *Support for Jabber* - This would enable us to integrate with other popular IM systems.
+
+  * *Support right-left languages* - See [http://code.google.com/p/bigbluebutton/issues/detail?id=686 686]. 
+ 
+ 
