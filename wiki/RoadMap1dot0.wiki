@@ -5,41 +5,41 @@
 = Introduction =
 One question we are increasingly asked is "When are you going to release !BigBlueButton 1.0?" 
 
-We released !BigBlueButton version 0.4 on June 12, 2009.  Since then there have been nine subsequent releases: 0.5, 0.6, 0.61, 0.62, 0.63, 0.64, 0.7, 0.71, and 0.71a – each improving on the previous, each reflecting a strong desire by the core development team to build a solid product. 
+Looking back, we released !BigBlueButton version 0.4 on June 12, 2009.  Since then we've had nine subsequent releases: 0.5, 0.6, 0.61, 0.62, 0.63, 0.64, 0.7, 0.71, and 0.71a – each improving on the previous, each reflecting a strong desire by the core development team to build a solid product. 
 
-This document outlines the DRAFT requirements we believe necessary to achieve 1.0.  
+This document outlines the DRAFT requirements for 1.0.  
  
-For many !BigBlueButton’s version number is an arbitrary number, a marketing name.  Whether its 0.71a, 1.2, 4.5 or some other arbitrary number, the reality is we adoption has been steadily growing.  With each release, we see more universities, colleges, and K12 institutions deploying !BigBlueButton and more companies integrating !BigBlueButton into their products with each release.  
+For some, the version number is arbitrary -- a marketing name.  Whether its 0.71a, 1.2, 4.5 or some other number, see increasing adoption with each release.  We see more universities, colleges, and K12 institutions deploying !BigBlueButton in their classes, and we companies integrating !BigBlueButton into into their products.  
 
-For many others, including the core developers, the version number is *not* arbitrary.  It represents a level of quality, stability, and completeness in product that we want to achieve before calling it 1.0.  When !BigBlueButton 1.0 is released, it will be in substance, not name. 
+For others, including the core developers, the version number is *not* arbitrary.  It represents a level of quality, stability, and completeness in !BigBlueButton we want to achieve before calling it 1.0.  When !BigBlueButton 1.0 is released, it will be in substance, not name. 
 
-The requirements for !BigBlueButton 1.0 are driven by our target market: distance education. We are also asked “Why are you focusing on one market?  Don’t you realize that !BigBlueButton would be great for market X, Y, and Z?”  In a word: focus.  Focus helps us keep the product simple.  In reality, the core features of shared chat, presentation, voice, video, and desktop for the same for all market segments (including distance education).  Our belief is if we deliver a world-class open source solution for distance education, then we will, essentially, deliver a world class solution to other markets as well.
+The requirements for !BigBlueButton 1.0 are driven by our target market: distance education. We are also often asked “why are you focusing on one market -- don’t you realize that !BigBlueButton would be great for market X, Y, and Z?”  We realize this, but we also realize that the core features of !BigBlueButton -- shared chat, presentation, voice, video, and desktop -- are the same core features for many markets (including distance education).  Our belief is if we deliver a world-class open source solution for distance education with solid core features, then we will, essentially, deliver a world class solution for other markets as well.
 
-By focusing on distance education, we are trying hard (very hard) to constantly make the product simpler.  If we canvased ten customers and asked them *all* the features they wanted in synchronous teaching tool, we would get ten slightly different answers, and if we did everything, we would make the product more complex, not simpler.  Instead, we try to focus on the core feature set that everyone needs.  In other words, we try to focus on needs, not wants.
-
-So what are the requirements for distance education?  At the highest level, we state the goal of !BigBlueButton is to enable universities and colleges to provide remote students a high-quality learning experience.  Breaking that vision down further, we can slightly the requirements using the following user stories:
+So what are the requirements for distance education?  At the highest level, we state the goal of !BigBlueButton is to enable universities and colleges to provide remote students a high-quality learning experience.  Breaking that vision down, we can refine the requirements using the following user stories:
  
-  * As a teacher I want to start my on-line class within five minutes so I can focus my energies on teaching students.
+  * As a teacher, I want to start my on-line class within five minutes so I can focus my energies on teaching students.
  
-  * As a remote student I want clearly hear the teacher, see the slides, and easily interact with the teacher and other students so I can learn the most during my session.
+  * As a remote student, I want to effortlessly interact with the teacher and other students so I can focus my energies on learning.
  
-  * As an administrator I want to install !BigBlueButton in under fifteen minutes so I can experiment with its capabilities within my organization.
+  * As an administrator, I want to install !BigBlueButton in under fifteen minutes so I can experiment with its capabilities within my organization.
  
-  * As a developer I want to integrate !BigBlueButton into my product in less than four hours so I can experiment with adding real-time collaboration to my products.
+  * As a developer, I want to integrate !BigBlueButton into my product in less than four hours so I can demonstrate integrated real-time collaboration.
  
-You can see there are four roles: teacher, student, administrator, and developer.  We want users to quickly “get their job” done with !BigBlueButton.  In other words, we want !BigBlueButton to fade into the background and shift the focus to the transfer of knowledge from teacher to student.
+From the above user stories there are four distinct roles: teacher, student, administrator, and developer.  Each user in the role role has a job to accomplish.  We want the interface of !BigBlueButton to fade into the background and enable the user to get their job done efficiently.
                                                                                   	
-In drafting this document, there are a number goals that are not related to any specific feature, but underlie some of the overall design goals of !BigBlueButton.  They are usability, stability, and APIs.
+In drafting this document, we have a number of goals not related to any specific feature; rather, they underlie many of the requirements.  These underlying goals are usability, stability, and APIs.
  
-  * *Usability* - If we’ve learned anything over the past two years, it’s that if we can make the product simpler with each new release, we’re headed in the right direction.  Whenever a first time presenter or user is able to quickly get started with !BigBlueButton, the product establishes a very positive initial first impression.  Usability touches all human-facing aspect of the product, including the quality of audio and video.   
+  * *Usability* - If we’ve learned anything in the past nine releases, it’s that if we can make !BigBlueButton simpler in a release, we’re headed in the right direction.  Whenever a first time teacher or student is able to quickly get started with !BigBlueButton, the product establishes a very positive initial first impression.  Usability touches all human-facing aspect of the product, including the quality of audio and video.   
  
-  * *Stability* - Translating that initial positive impression into long-term adoption requires rock-solid stability.  We want to ensure 1.0 has the proper coverage for unit, integration, and stress testing.
+  * *Stability* - Translating that initial positive impression into long-term adoption requires rock-solid stability of !BigBlueButton.  We run our demo server for days without reboot, but we want to have some formal metrics for determining 1.0.  These metrics need to be based on proper coverage for unit, integration, and stress testing.
  
-  * *APIs* - !BigBlueButton has a very simple API (there are just seven API calls).  This has helped make easy for others to integrate.  Looking ahead, we need to keep the APIs simple but also expand to include pre-uploading of slides, dynamic configuration of the client, and access recorded content.
+  * *APIs* - !BigBlueButton's API is very simple, and simple is good.  It's helped create a growing list of 3rd party integrations with other open source products.  As we work towards 1.0, we need to keep the APIs simple but also expand to include pre-uploading of slides, dynamic configuration of the client, and access recorded content.
  
-Throughout this document tou’ll see sections titled “Areas under investigation”, which list requirements that are under consideration for !BigBlueButton 1.0.  Obviously, if we tried to do everything in 1.0, we’d never finish.  Anything that does not get into 1.0 can always be added in a subsequent release.  There’s also a section at the end of this document to cover items already planned for a release beyond 10.
+There's lots of detail in this document.  Many times we'll like a requirement to its associated issue (which many an enhancement request).  Parts of this document are titled “Areas under investigation”, which list those requirements that are under consideration for !BigBlueButton 1.0, but not yet committed to that release.  Obviously, if we tried to do everything in 1.0, we’d never finish.  There is also a section at the end of this document for those items planed for post 1.0.
 
-We welcome your feedback.  We’re building BigBlueButton for the distance education market.  If you are a teacher at an educational or commerical institution, then we are building !BigBlueButton for you.
+!BigBlueButton has seen a lot of growth since that first 0.4 release.  We welcome your feedback on this roadmap to 1.0.
+
+Keeping true to our focus, we’re building BigBlueButton for the distance education market.  If you are a teacher at an educational or commerical institution, then we are building !BigBlueButton for you.
 
 = The DRAFT Requirement for !BigBlueButton 1.0 =
 
