@@ -39,7 +39,7 @@ There's lots of detail in this document.  Many times we'll like a requirement to
 
 !BigBlueButton has seen a lot of growth since that first 0.4 release.  We welcome your feedback on this roadmap to 1.0.
 
-Keeping true to our focus, we’re building BigBlueButton for the distance education market.  If you are a teacher at an educational or commerical institution, then we are building !BigBlueButton for you.
+Keeping true to our focus, we’re building !BigBlueButton for the distance education market.  If you are a teacher at an educational or commerical institution, then we are building !BigBlueButton for you.
 
 = The DRAFT Requirement for !BigBlueButton 1.0 =
 
