@@ -1,4 +1,4 @@
-#The roadmap to 1.0
+#summary The DRAFT roadmap to BigBlueButton 1.0
 
 <wiki:toc max_depth="3" />
 
@@ -79,25 +79,30 @@ There are no major enhancements planned for chat for 1.0.
             	
 === Presentation ===
 When a presenter uploads a portrait A4 document, the text is not readable on most screens as !BigBlueButton displays the entire document at once (fit-to-page).
- 
-Support displaying presentations in both fit-to-page (good for landscape documents) and fit-to-width (good for portrait documents).  The addition of fit-to-width will make it possible for the presenter to use more width and scroll up and down in a portrait document. ([http://code.google.com/p/bigbluebutton/issues/detail?id=579 579])
- 
-Support full screen mode, similar to hitting F5 in power point.  ([http://code.google.com/p/bigbluebutton/issues/detail?id=872 872]).  
 
-Support notifications of new chat message and people entering/leaving when in full screen mode.
- 
+Support displaying presentations in both fit-to-page (good for landscape documents) and fit-to-width (good for portrait documents).  The addition of fit-to-width will make it possible for the presenter to use more width and scroll up and down in a portrait document. ([http://code.google.com/p/bigbluebutton/issues/detail?id=579 579])
+
+Support full screen mode, similar to hitting F5 in power point.  Full screen mode should have optional notifications of new chat messages or join/leave vents. ([http://code.google.com/p/bigbluebutton/issues/detail?id=872 872]).  
+
 Support collaboration mode which enables viewers to "unlock" from the presenter's view and freely move around the current presentation.  ([http://code.google.com/p/bigbluebutton/issues/detail?id=604 604]).
  
 === Whiteboard ===
-Support keyboard input of text ([http://code.google.com/p/bigbluebutton/issues/detail?id=591 591]).
+Support keyboard input of text and symbols ([http://code.google.com/p/bigbluebutton/issues/detail?id=591 591]).
             	
 === Desktop sharing ===
-!BigBlueButton uses a Java applet to capture and display the presenter’s screen on remote clients.  However, the screen updates are slow, especially if there are 32-bit graphics on the presenter's screen. The speed is related to the data on the screen, the compression of the data, and the rate the updates can be sent to the remote users.  
+Currently, !BigBlueButton uses a Java applet to capture and display the presenter’s screen to remote clients.  However, the screen updates can be slow, especially if there are 32-bit graphics on the presenter's screen.  For detailed explanation, see [http://code.google.com/p/bigbluebutton/wiki/FAQ#How_can_I_make_desktop_sharing_faster? FAQ entry].
 
-We need to increase the efficiency of the screen sharing as measured by the speed at which the remote screen updates for the users (the actual target refresh rate to be determined).
+We need to increase the efficiency of the screen sharing as measured by the speed at which the remote screen updates for the users.  Two possible approaches
 
-Reduce the effort by viewers to view the screen sharing by automatically centering the screen sharing window and make it show original size if there is sufficient on the viewer’s monitor (xxx).
- 
+  * Reduce the bit depth of the changed regions from 32-bit to 16-bit before compression and sending
+  * Reorder the send of change regions to always send the smallest first (giving the remote user a perception of faster screen updates).
+
+See [http://code.google.com/p/bigbluebutton/issues/detail?id=902 902].
+
+
+Reduce the effort by viewers to view the screen sharing by automatically centering the screen sharing window and make it show original size if there is sufficient on the viewer’s monitor ([http://code.google.com/p/bigbluebutton/issues/detail?id=903 903]).
+
+
 === Areas for investigation ===
 We are reviewing these requirements for inclusion in 1.0.
  
@@ -105,14 +110,14 @@ We are reviewing these requirements for inclusion in 1.0.
  
 !BigBlueButton's window-based UI is very flexible, sometime too flexible as it requires the user to manage their windows.  For younger users, such as students in K12, too much flexibility can hinder the learning.
  
-Investigate locking down the windows, providing better layout managememt, or moving from a windowed layout to a fixed layout.
+Investigate locking down the windows, providing better layout managememt, or moving from a windowed layout to a fixed layout ([http://code.google.com/p/bigbluebutton/issues/detail?id=904 904]).
  
 ==== Additional Modules ====
 Include the following additional modules.
  
-  * Polling module
-  * Breakout module [http://code.google.com/p/bigbluebutton/issues/list?can=2&q=breakout breakout].
-  * Shared notes module - See [http://code.google.com/p/bigbluebutton/issues/detail?id=875 875].
+  * Polling module ([http://code.google.com/p/bigbluebutton/issues/detail?id=831 831])
+  * Breakout module [http://code.google.com/p/bigbluebutton/issues/list?can=2&q=breakout breakout] (see [http://code.google.com/p/bigbluebutton/issues/list?can=2&q=breakout issues related to breakout module])
+  * Shared notes module ([http://code.google.com/p/bigbluebutton/issues/detail?id=875 875])
  
  
 == Developer Requirements ==
@@ -141,23 +146,30 @@ Add additional API examples:
 == Testing ==
 
 === Unit Testing ===
-All the core modules, server components, and client should have unit tests to verify their functionality.  The development environment should enable developers to run the unit tests.
+All the core client modules (voice, video, chat, presentation, and desktop sharing) should have unit tests to verify their functionality.
+
+All the core server modules should have unit tests to verify their functionality.  
+
+Note: At the moment, the above is current imprecise as it doesn't specify to the percentage of coverage for the unit tests. 
+
+The development environment should enable developers to run the unit tests.
  
 === Integration Testing ===
-The API should have a complete test suite that can be used for both unit testing and stress testing
+The API should have a complete test suite that can be used for both unit testing and stress testing.
+
 
 === Stress Testing ===
-Verify that the a !BigBlueButton server can run under heavy load for 48 hours without any errors on the client or on the server.
+Verify that the a !BigBlueButton server can run with large number of users load for 48 hours without any errors on the client or the server.
 
-The “heavy load” will need to be calibrated according to the server capacity and creating stress testing for a number of use case scenarios.  The stress test should repeatedly start, stop, and generate traffic in multiple simultaneous classrooms.   The traffic should cover using all of the core elements of voice, video, chat, presentations, and desktop sharing.
+The term "large number of users" will need to be calibrated according to the server capacity and creating stress testing for a number of use case scenarios.  The stress test should repeatedly start, stop, and generate traffic in multiple simultaneous classrooms.   The traffic should cover using all of the core elements of voice, video, chat, presentations, and desktop sharing.
 
- 
+The term "without any errors" means the there were no freezes on the client, nor are there any exceptions in the server logs.
    	
 == API ==
 This section covers the extensions needed to the !BigBlueButton 1.0 API.
 
 === Pre-upload slides to a presentation ===
-This feature is currently in development for !BigBlueButton 0.8.  ([http://code.google.com/p/bigbluebutton/issues/detail?id=356 356])
+This feature is currently in development for !BigBlueButton 0.8   ([http://code.google.com/p/bigbluebutton/issues/detail?id=356 356]).
  
 === Manage the recorded meetings ===
 The addition of record and plabyack to !BigBlueButton 0.8 means the server will now store recorded sessions.  
@@ -180,7 +192,7 @@ Create an test suite to validate the APIs are all implemented correctly.
 Enable API calls for sending messages into the chat window (see xxx)
 	sendChatMessage( meetingID, message )
 
-This would enable tighter integration, such as enabling a 3rd party application to notify users that the meeting is about it end.  Clicking on a link could extend the meeting another 1 hour (and bill for it).  (see XXX)
+This would enable tighter integration, such as enabling a 3rd party application to notify users that the meeting is about it end.  Clicking on a link could extend the meeting another 1 hour (and bill for it) ([http://code.google.com/p/bigbluebutton/issues/detail?id=905 905]).
  
 === Modularity ===
 When looking at !BigBlueButton 1.0, we want the developer to see a platform, not a closed application.  
@@ -199,6 +211,8 @@ By creating modularity, a developer could start a !BigBlueButton session specifi
   # Desktop sharing session
   # Click to call
 
+See [http://code.google.com/p/bigbluebutton/issues/detail?id=294 294].
+
 The next step is to create a full plug-in architecture with well-defined APIs (see post 1.0).
 
 
@@ -211,12 +225,12 @@ There are no plans to add security for 1.0.  Secure connections to a !BigBlueBut
 Continue to support Ubuntu 10.04 32-bit or 64-bit.  Add support for CentOS only if there is sufficient demand (and support) from commerical companies. 
            	
 === Troubleshooting Tools ===
-Add more capabilities to bbb-conf to change the logging levels of all applications, making it easier to spot errors (see XXX)
+Add more capabilities to bbb-conf to change the logging levels of all applications, making it easier to spot errors ([http://code.google.com/p/bigbluebutton/issues/detail?id=906 906]).
  
 Add more checks to bbb-conf to continue to trouble shoot any problems with the installation.  Once the error messages have been removed, any error message would be a real error.
             	      	
 === IMS Basic LTI integration ===
-Enable products such as Desire2Learn to launch !BigBlueButton meetings without having to create a custom module.
+Enable products such as Desire2Learn to launch !BigBlueButton meetings without having to create a custom module ([http://code.google.com/p/bigbluebutton/issues/detail?id=907]).
  
  
  
