@@ -35,7 +35,7 @@ In drafting this document, we have a number of goals not related to any specific
  
   * *APIs* - !BigBlueButton's API is very simple, and simple is good.  It's helped create a growing list of 3rd party integrations with other open source products.  As we work towards 1.0, we need to keep the APIs simple but also expand to include pre-uploading of slides, dynamic configuration of the client, and access recorded content.
  
-There's lots of detail in this document.  Many times we'll like a requirement to its associated issue (which many an enhancement request).  Parts of this document are titled “Areas under investigation”, which list those requirements that are under consideration for !BigBlueButton 1.0, but not yet committed to that release.  Obviously, if we tried to do everything in 1.0, we’d never finish.  There is also a section at the end of this document for those items planed for post 1.0.
+There's lots of detail in this document.  Many times we'll like a requirement to its associated issue (which many an enhancement request).  Parts of this document are titled “Areas under investigation”, which list those requirements that are under consideration for !BigBlueButton 1.0, but not committed to that release.  Obviously, if we tried to do everything in 1.0, we’d never finish.  There is also a section at the end of this document for those items planed for post 1.0.
 
 !BigBlueButton has seen a lot of growth since that first 0.4 release.  We welcome your feedback on this roadmap to 1.0.
 
@@ -49,7 +49,7 @@ This section covers the enhancement and additions we want to make to !BigBlueBut
 === Record and Playback ===
 This feature is currently in development for !BigBlueButton 0.8.  See [http://code.google.com/p/bigbluebutton/wiki/RecordPlaybackSpecification Record and Playback specifications].
 
-Release 0.8 will focus on record and playback of slides + audio in an HTML5 interface.   Release 1.0 will include recording of all media and events during a session, and playback of video playback of slides + audio.
+Release 0.8 will focus on record and playback of slides + audio in an HTML5 interface.   Support an video playback of the slides + audio ([http://code.google.com/p/bigbluebutton/issues/list?thanks=900 900]).
 
 === Pre-flight checklist ===
 Sometimes Flash has difficulty picking the right microphone, speaker, or webcam for the user’s setup.  Other times the presenter can’t start their desktop sharing because Java is not properly installed.  These problems can delay the start of a session.
@@ -57,9 +57,8 @@ Sometimes Flash has difficulty picking the right microphone, speaker, or webcam 
 The pre-flight checklist is in development for 0.8 ([http://code.google.com/p/bigbluebutton/issues/detail?id=122 122]).
  
 === Unify the Users and Listeners window ===
-When there are 25 (or more) users in a session, having a separate Users window (those logged in from the web) and Listeners window (those who have joined the voice conference) starts to cause usability problems for the presenter.  For example, when a student raises her hand in the Users window, the moderator must scroll and hunt for the associated user in the Listeners window to unmute the student.
- 
-Unify the Users and Listeners window (xxx).
+When there are 25 (or more) users in a session, having a separate Users window (those logged in from the web) and Listeners window (those who have joined the voice conference) starts to cause usability problems for the presenter.  For example, when a student raises her hand in the Users window, the moderator must scroll and hunt for the associated user in the Listeners window to unmute the student ([http://code.google.com/p/bigbluebutton/issues/detail?id=901 901]).
+
             	
 === Accessibility ===
 !BigBlueButton must support students with disabilities.  Specifically, it must support the necessary [http://www.section508.gov/ Section 508] requirements to enable access by users with disabilities ([http://code.google.com/p/bigbluebutton/issues/detail?id=85 85]). 
@@ -69,20 +68,23 @@ Unify the Users and Listeners window (xxx).
 The built-in VoIP (clicking the headset icon) in !BigBlueButton has an average 2-4 second delay.  This is perceptible even when running in a LAN environment, where the network latency and packet loss are negligible.  A description of the reasons for the delay are in [http://code.google.com/p/bigbluebutton/wiki/FAQ#Why_is_there_a_delay_in_the_audio_when_I_use_VoIP? FAQ].
  
 !BigBlueButton must have *no* perceptual voice delay for 50 users running within a LAN environment ([http://code.google.com/p/bigbluebutton/issues/detail?id=740 740]).
- 
+
+Note: We've made some progress towards this goal in a recent [http://groups.google.com/group/bigbluebutton-dev/browse_thread/thread/a36d61df9b9fc45b forum post].
 
 === Video ===
-!BigBlueButton uses the built-in video from Flash.   We're not planning any improvements to video; rather, we watching closely to see what Adobe does to improve the built-in video in upcoming versions of Flash.
+!BigBlueButton uses the built-in video from Flash.   Currently, we're not planning any improvements to video for 1.0.  Instead, we watching closely to see what Adobe does to improve the built-in video in upcoming versions of Flash.
  
 === Chat ===
-There are no major enhancements planned for chat in 1.0.
+There are no major enhancements planned for chat for 1.0.
             	
 === Presentation ===
 When a presenter uploads a portrait A4 document, the text is not readable on most screens as !BigBlueButton displays the entire document at once (fit-to-page).
  
 Support displaying presentations in both fit-to-page (good for landscape documents) and fit-to-width (good for portrait documents).  The addition of fit-to-width will make it possible for the presenter to use more width and scroll up and down in a portrait document. ([http://code.google.com/p/bigbluebutton/issues/detail?id=579 579])
  
-Support full screen mode, similar to hitting F5 in power point.  ([http://code.google.com/p/bigbluebutton/issues/detail?id=872 872]).  Support notifications of new chat message and people entering/leaving when in full screen mode.
+Support full screen mode, similar to hitting F5 in power point.  ([http://code.google.com/p/bigbluebutton/issues/detail?id=872 872]).  
+
+Support notifications of new chat message and people entering/leaving when in full screen mode.
  
 Support collaboration mode which enables viewers to "unlock" from the presenter's view and freely move around the current presentation.  ([http://code.google.com/p/bigbluebutton/issues/detail?id=604 604]).
  
