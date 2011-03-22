@@ -41,7 +41,7 @@ There's lots of detail in this document.  Many times we'll like a requirement to
 
 Keeping true to our focus, we’re building !BigBlueButton for the distance education market.  If you are a teacher at an educational or commerical institution, then we are building !BigBlueButton for you.
 
-= The DRAFT Requirement for !BigBlueButton 1.0 =
+= The DRAFT Requirements for !BigBlueButton 1.0 =
 
 == Core Features ==
 This section covers the enhancement and additions we want to make to !BigBlueButton’s core features. 
@@ -60,7 +60,7 @@ The pre-flight checklist is in development for 0.8 ([http://code.google.com/p/bi
 When there are 25 (or more) users in a session, having a separate Users window (those logged in from the web) and Listeners window (those who have joined the voice conference) starts to cause usability problems for the presenter.  For example, when a student raises her hand in the Users window, the moderator must scroll and hunt for the associated user in the Listeners window to unmute the student ([http://code.google.com/p/bigbluebutton/issues/detail?id=901 901]).
 
             	
-=== Accessibility ===
+=== Accessibility for users with disabilities ===
 !BigBlueButton must support students with disabilities.  Specifically, it must support the necessary [http://www.section508.gov/ Section 508] requirements to enable access by users with disabilities ([http://code.google.com/p/bigbluebutton/issues/detail?id=85 85]). 
  
   
@@ -171,7 +171,7 @@ This section covers the extensions needed to the !BigBlueButton 1.0 API.
 === Pre-upload slides to a presentation ===
 This feature is currently in development for !BigBlueButton 0.8   ([http://code.google.com/p/bigbluebutton/issues/detail?id=356 356]).
  
-=== Manage the recorded meetings ===
+=== Access to recorded sessions ===
 The addition of record and plabyack to !BigBlueButton 0.8 means the server will now store recorded sessions.  
  
 Extend the API to enable 3rd party applications to query for all recorded meetings (getRecordedMeetings).  This query can pass an option meetingID to filter the meetings that match that ID.  For example, a meetingID of “math101-%” would match the meetings with ID math101-001`, `math101-002`, and `math101-003` (see XXX).
@@ -221,10 +221,10 @@ The next step is to create a full plug-in architecture with well-defined APIs (s
 === Security ===
 There are no plans to add security for 1.0.  Secure connections to a !BigBlueButton can be achieved via VPN.
 
-=== Installation and upgrade ===
+=== Installation and Upgrade of !BigBlueButton ===
 Continue to support Ubuntu 10.04 32-bit or 64-bit.  Add support for CentOS only if there is sufficient demand (and support) from commerical companies. 
            	
-=== Troubleshooting Tools ===
+=== Troubleshooting tools ===
 Add more capabilities to bbb-conf to change the logging levels of all applications, making it easier to spot errors ([http://code.google.com/p/bigbluebutton/issues/detail?id=906 906]).
  
 Add more checks to bbb-conf to continue to trouble shoot any problems with the installation.  Once the error messages have been removed, any error message would be a real error.
