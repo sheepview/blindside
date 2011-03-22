@@ -80,9 +80,9 @@ There are no major enhancements planned for chat for 1.0.
 === Presentation ===
 When a presenter uploads a portrait A4 document, the text is not readable on most screens as !BigBlueButton displays the entire document at once (fit-to-page).
 
-Support displaying presentations in both fit-to-page (good for landscape documents) and fit-to-width (good for portrait documents).  The addition of fit-to-width will make it possible for the presenter to use more width and scroll up and down in a portrait document. ([http://code.google.com/p/bigbluebutton/issues/detail?id=579 579])
+Support displaying presentations in both fit-to-page (good for landscape documents) and fit-to-width (good for portrait documents).  The addition of fit-to-width will make it possible for the presenter to use more width and scroll up and down in a portrait document ([http://code.google.com/p/bigbluebutton/issues/detail?id=579 579]).
 
-Support full screen mode, similar to hitting F5 in power point.  Full screen mode should have optional notifications of new chat messages or join/leave vents. ([http://code.google.com/p/bigbluebutton/issues/detail?id=872 872]).  
+Support full screen mode, similar to hitting F5 in power point.  Full screen mode should have optional notifications of new chat messages or join/leave vents ([http://code.google.com/p/bigbluebutton/issues/detail?id=872 872]).  
 
 Support collaboration mode which enables viewers to "unlock" from the presenter's view and freely move around the current presentation.  ([http://code.google.com/p/bigbluebutton/issues/detail?id=604 604]).
  
@@ -116,7 +116,7 @@ Investigate locking down the windows, providing better layout managememt, or mov
 Include the following additional modules.
  
   * Polling module ([http://code.google.com/p/bigbluebutton/issues/detail?id=831 831])
-  * Breakout module [http://code.google.com/p/bigbluebutton/issues/list?can=2&q=breakout breakout] (see [http://code.google.com/p/bigbluebutton/issues/list?can=2&q=breakout issues related to breakout module])
+  * Breakout module (see [http://code.google.com/p/bigbluebutton/issues/list?can=2&q=breakout issues related to breakout module])
   * Shared notes module ([http://code.google.com/p/bigbluebutton/issues/detail?id=875 875])
  
  
@@ -155,7 +155,7 @@ Note: At the moment, the above is current imprecise as it doesn't specify to the
 The development environment should enable developers to run the unit tests.
  
 === Integration Testing ===
-The API should have a complete test suite that can be used for both unit testing and stress testing.
+The API should have a complete test suite to verify stability and conformance to documentation.  The test suite should help us find this API bug: [http://code.google.com/p/bigbluebutton/issues/detail?id=672 672].
 
 
 === Stress Testing ===
