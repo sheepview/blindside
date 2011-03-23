@@ -5,15 +5,15 @@
 = Introduction =
 One question we are increasingly asked is "When are you going to release !BigBlueButton 1.0?" 
 
-Looking back, we released !BigBlueButton version 0.4 on June 12, 2009.  Since then we've had nine subsequent releases: 0.5, 0.6, 0.61, 0.62, 0.63, 0.64, 0.7, 0.71, and 0.71a – each improving on the previous, each reflecting a strong desire by the core development team to build a solid product. 
+Looking back, we released !BigBlueButton version 0.4 on June 12, 2009.  Since then we had nine subsequent releases: 0.5, 0.6, 0.61, 0.62, 0.63, 0.64, 0.7, 0.71, and 0.71a – each improving on the previous, each reflecting a strong desire by the core development team to build a solid product. 
 
-This document outlines the DRAFT requirements for 1.0.  
+This document outlines the *DRAFT* requirements for 1.0.  
  
-For some, the version number is arbitrary -- a marketing name.  Whether its 0.71a, 1.2, 4.5 or some other number, see increasing adoption with each release.  We see more universities, colleges, and K12 institutions deploying !BigBlueButton in their classes, and we companies integrating !BigBlueButton into into their products.  
+For some, the version number is arbitrary -- a marketing name.  Whether its 0.71a, 1.2, 4.5 or some other number, see increasing adoption with each release.  We see more universities, colleges, and K12 institutions use !BigBlueButton in their classes, and companies integrating !BigBlueButton into their products.  
 
 For others, including the core developers, the version number is *not* arbitrary.  It represents a level of quality, stability, and completeness in !BigBlueButton we want to achieve before calling it 1.0.  When !BigBlueButton 1.0 is released, it will be in substance, not name. 
 
-The requirements for !BigBlueButton 1.0 are driven by our target market: distance education. We are also often asked “why are you focusing on one market -- don’t you realize that !BigBlueButton would be great for market X, Y, and Z?”  We realize this, but we also realize that the core features of !BigBlueButton -- shared chat, presentation, voice, video, and desktop -- are the same core features for many markets (including distance education).  Our belief is if we deliver a world-class open source solution for distance education with solid core features, then we will, essentially, deliver a world class solution for other markets as well.
+The requirements for !BigBlueButton 1.0 are driven by our target market: distance education. We are also often asked “why are you focusing on one market -- don’t you realize that !BigBlueButton would be great for market X, Y, and Z?”  We realize this, but we also realize that the core features of !BigBlueButton -- shared chat, presentation, voice, video, and desktop -- are the same core features for many markets (including distance education).  Our belief is when we deliver a world-class open source solution for distance education with solid core features, then we will, essentially, deliver a world class solution for other markets as well.
 
 So what are the requirements for distance education?  At the highest level, we state the goal of !BigBlueButton is to enable universities and colleges to provide remote students a high-quality learning experience.  Breaking that vision down, we can refine the requirements using the following user stories:
  
@@ -35,7 +35,7 @@ In drafting this document, we have a number of goals not related to any specific
  
   * *APIs* - !BigBlueButton's API is very simple, and simple is good.  It's helped create a growing list of 3rd party integrations with other open source products.  As we work towards 1.0, we need to keep the APIs simple but also expand to include pre-uploading of slides, dynamic configuration of the client, and access recorded content.
  
-There's lots of detail in this document.  Many times we'll like a requirement to its associated issue (which many an enhancement request).  Parts of this document are titled “Areas under investigation”, which list those requirements that are under consideration for !BigBlueButton 1.0, but not committed to that release.  Obviously, if we tried to do everything in 1.0, we’d never finish.  There is also a section at the end of this document for those items planed for post 1.0.
+There's lots of detail in this document.  Many times we'll link a requirement to its associated issue (which many are  enhancement requests).  Parts of this document are titled “Areas under investigation”, which list those requirements that are under consideration for !BigBlueButton 1.0, but not committed to that release.  Obviously, if we tried to do everything in 1.0, we’d never finish.  There is also a section at the end of this document for those items planned for post 1.0.
 
 !BigBlueButton has seen a lot of growth since that first 0.4 release.  We welcome your feedback on this roadmap to 1.0.
 
@@ -82,7 +82,7 @@ When a presenter uploads a portrait A4 document, the text is not readable on mos
 
 Support displaying presentations in both fit-to-page (good for landscape documents) and fit-to-width (good for portrait documents).  The addition of fit-to-width will make it possible for the presenter to use more width and scroll up and down in a portrait document ([http://code.google.com/p/bigbluebutton/issues/detail?id=579 579]).
 
-Support full screen mode, similar to hitting F5 in power point.  Full screen mode should have optional notifications of new chat messages or join/leave vents ([http://code.google.com/p/bigbluebutton/issues/detail?id=872 872]).  
+Support full screen mode, similar to hitting F5 in power point.  Full screen mode should have optional notifications of new chat messages or join/leave events ([http://code.google.com/p/bigbluebutton/issues/detail?id=872 872]).  
 
 Support collaboration mode which enables viewers to "unlock" from the presenter's view and freely move around the current presentation.  ([http://code.google.com/p/bigbluebutton/issues/detail?id=604 604]).
  
@@ -95,7 +95,7 @@ Currently, !BigBlueButton uses a Java applet to capture and display the presente
 We need to increase the efficiency of the screen sharing as measured by the speed at which the remote screen updates for the users.  Two possible approaches
 
   * Reduce the bit depth of the changed regions from 32-bit to 16-bit before compression and sending
-  * Reorder the send of change regions to always send the smallest first (giving the remote user a perception of faster screen updates).
+  * Reorder the sending of change regions to always send the smallest first (giving the remote user a perception of faster screen updates).
 
 See [http://code.google.com/p/bigbluebutton/issues/detail?id=902 902].
 
@@ -129,7 +129,7 @@ Analyze whether we can reduce the number of steps necessary to setup your own de
 It should be possible to setup a development environment on a non-BigBlueButton VM in under 30 minutes.
  
 === Documentation ===
-Ensure all classes in !BigBlueButton, both on the server (Java) and client (Action Script) -- have sufficient java-doc documentation for a developer to understand their role relative to others.
+Ensure all classes in !BigBlueButton, both on the server (Java) and client (ActionScript) -- have sufficient javadoc documentation for a developer to understand their role relative to others.
 
 Ensure all classes that implement the APIs are throughly documented.  The development environment (i.e ant scripts) should automatically compile the Java docs.
 
@@ -178,7 +178,7 @@ Extend the API to enable 3rd party applications to query for all recorded meetin
 	getRecordedMeetings( meetingID )
 
 Enable the API to get detailed information on a specific meetingID
-getRecrodedMeetingInfo( meetingID )
+getRecordedMeetingInfo( meetingID )
 
 Enable the API Provide publish/unpublish meetings
 setRecordedMeetingPublish( meetingID, true|false)
