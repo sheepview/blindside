@@ -124,10 +124,10 @@ This section looks at ways to make it easier for other developers to participate
 === Development Environment ===
 Analyze whether we can reduce the number of steps necessary to setup your own development environment.
 
-It should be possible to setup a development environment on a non-BigBlueButton VM in under 30 minutes.
+It should be possible to setup a development environment on a non-!BigBlueButton VM in under 30 minutes.
  
 === Documentation ===
-Ensure all classes in !BigBlueButton, both on the server (Java) and client (ActionScript) -- have sufficient javadoc documentation for a developer to understand their role relative to others.
+Ensure all classes in !BigBlueButton, both on the server (Java) and client (!ActionScript) -- have sufficient javadoc documentation for a developer to understand their role relative to others.
 
 Ensure all classes that implement the APIs are throughly documented.  The development environment (i.e ant scripts) should automatically compile the Java docs.
 
