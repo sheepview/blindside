@@ -96,6 +96,72 @@ sudo apt-get install openjdk-6-jdk
 sudo apt-get install ant
 }}}
 
+{{{
+tar zcvf gradle-0.8.tar.gz gradle-0.8
+tar zcvf grails-1.1.1.tar.gz grails-1.1.1
+tar zcvf groovy-1.6.5.tar.gz groovy-1.6.5
+
+
+scp gradle-0.8.tar.gz 192.168.1.107:~/dev/tools
+scp grails-1.1.1.tar.gz 192.168.1.107:~/dev/tools/
+scp groovy-1.6.5.tar.gz 192.168.1.107:~/dev/tools/
+}}}
+
+{{{
+#
+# BigBlueButton: Setup development environment
+
+export GROOVY_HOME=/home/firstuser/dev/tools/groovy-1.6.5
+export JAVA_HOME=/usr/lib/jvm/java-6-openjdk
+
+export GRAILS_HOME=/home/firstuser/dev/tools/grails-1.1.1
+export PATH=$PATH:$GRAILS_HOME/bin
+
+export FLEX_HOME=/home/firstuser/dev/tools/flex
+export PATH=$PATH:$FLEX_HOME/bin
+
+export GRADLE_HOME=/home/firstuser/dev/tools/gradle-0.8
+export PATH=$PATH:$GRADLE_HOME/bin
+
+export ANT_OPTS="-Xmx512m -XX:MaxPermSize=512m"
+}}}
+
+{{{
+    source ~/.profile
+    env
+}}}
+
+{{{
+mkdir dev/source
+sudo apt-get install git-core
+git clone git://github.com/bigbluebutton/bigbluebutton.git
+
+bbb-conf --setup-dev client
+
+cd dev/source/bigbluebutton/bigbluebutton-client
+mkdir bin
+mkdir bin/conf
+ln -s bin client
+}}}
+
+{{{
+vi /etc/nginx/sites-enabled/bigbluebutton
+
+Change root entry in /client to
+        # BigBlueButton Flash client.
+        location /client {
+                root    /home/firstuser/dev/source/bigbluebutton/bigbluebutton-client;
+                index  index.html index.htm;
+        }
+
+/etc/init.d/nginx/restart
+
+cp /var/www/bigbluebutton/client/conf/config.xml bigbluebutton-client/src/conf/config.xml
+
+
+ant
+sudo bbb-conf --clean
+}}}
 
 
 == Check Out the Source Code ==
