@@ -203,6 +203,7 @@ sudo apt-get install git-core
 git clone git://github.com/bigbluebutton/bigbluebutton.git
 }}}
 
+===Client Development===
 {{{
 mkdir -p /home/firstuser/dev/tools/flex-4.5.0.20967
 cd /home/firstuser/dev/tools
