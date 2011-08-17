@@ -319,6 +319,7 @@ Now test again if you can join the demo meeting.
 ===Developing BBB_apps===
 
 {{{
+cd /home/firstuser/dev/source/bigbluebutton/bigbluebutton-apps
 gradle resolveDeps
 
 
