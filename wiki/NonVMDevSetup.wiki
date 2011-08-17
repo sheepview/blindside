@@ -371,7 +371,7 @@ cd /home/firstuser/dev/source/bigbluebutton/deskshare
 gradle resolveDeps
 }}}
 
-Building the applet.
+*Building the applet.*
 {{{
 cd applet
 gradle jar
@@ -394,4 +394,25 @@ cp /home/firstuser/dev/source/bigbluebutton/deskshare/applet/build/libs/bbb-desk
 
 cp /home/firstuser/dev/source/bigbluebutton/deskshare/applet/build/libs/bbb-deskshare-applet-0.71.jar /var/www/bigbluebutton/client/
 
+}}}
+
+*Building the server side component.*
+{{{
+
+cd /home/firstuser/dev/source/bigbluebutton/deskshare/app
+# Compile
+gradle war
+# Copy over to Red5
+gradle deploy
+
+# Stop red5
+    sudo /etc/init.d/red5 stop
+
+cd /home/firstuser/dev/source/bigbluebutton/bigbluebutton-apps
+# Compile and deploy bbb-apps
+gradle war deploy
+
+# On another terminal window, start Red5
+cd /usr/share/red5/
+sudo -u red5 ./red5.sh
 }}}
