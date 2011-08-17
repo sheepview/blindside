@@ -182,7 +182,7 @@ sudo apt-get remove ffmpeg x264 libx264-dev
 sudo apt-get update
 
 # install dependencies
-sudo apt-get install build-essential git-core checkinstall yasm texi2html libfaac-dev     libopencore-amrnb-dev libopencore-amrwb-dev libsdl1.2-dev libtheora-dev     libvorbis-dev libx11-dev libxfixes-dev libxvidcore-dev zlib1g-dev
+sudo apt-get install build-essential git-core checkinstall yasm texi2html libfaac-dev libopencore-amrnb-dev libopencore-amrwb-dev libsdl1.2-dev libtheora-dev libvorbis-dev libx11-dev libxfixes-dev libxvidcore-dev zlib1g-dev
 
 # Install x264
 cd /usr/local/src
@@ -193,8 +193,7 @@ sudo git checkout 392e762151d1657abc8ae5d345c144c3ef280819
 sudo git checkout -b 392e762151d1657abc8ae5d345c144c3ef280819
 sudo ./configure --enable-static
 sudo make
-sudo checkinstall --pkgname=x264 --default --pkgversion="3:$(./version.sh | \
-    awk -F'[" ]' '/POINT/{print $4"+git"$5}')" --backup=no --deldoc=yes
+sudo checkinstall --pkgname=x264 --default --pkgversion="3:$(./version.sh | awk -F'[" ]' '/POINT/{print $4"+git"$5}')" --backup=no --deldoc=yes
 
 # Install LAME (optional)
 sudo apt-get remove libmp3lame-dev
@@ -205,7 +204,7 @@ sudo tar xzvf lame-3.98.4.tar.gz
 cd /usr/local/src/lame-3.98.4
 sudo ./configure --enable-nasm --disable-shared
 sudo make
-sudo checkinstall --pkgname=lame-ffmpeg --pkgversion="3.98.4" --backup=no --default     --deldoc=yes
+sudo checkinstall --pkgname=lame-ffmpeg --pkgversion="3.98.4" --backup=no --default --deldoc=yes
 
 # Install libvpx (optional)
 cd /usr/local/src
@@ -215,8 +214,7 @@ sudo git checkout v0.9.6
 sudo git checkout -b v0.9.6
 sudo ./configure
 sudo make
-sudo checkinstall --pkgname=libvpx --pkgversion="$(date +%Y%m%d%H%M)-git" --backup=no \
-    --default --deldoc=yes
+sudo checkinstall --pkgname=libvpx --pkgversion="$(date +%Y%m%d%H%M)-git" --backup=no --default --deldoc=yes
 
 
 # Install FFMPEG
@@ -225,13 +223,13 @@ sudo git clone git://git.videolan.org/ffmpeg
 cd /usr/local/src/ffmpeg
 sudo git checkout n0.8.1
 sudo git checkout -b n0.8.1
-sudo ./configure --enable-gpl --enable-version3 --enable-nonfree --enable-postproc  --enable-libfaac --enable-libopencore-amrnb --enable-libopencore-amrwb     --enable-libtheora --enable-libvorbis --enable-libx264 --enable-libxvid     --enable-x11grab --enable-libvpx --enable-libmp3lame
+sudo ./configure --enable-gpl --enable-version3 --enable-nonfree --enable-postproc  --enable-libfaac --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libvorbis --enable-libx264 --enable-libxvid --enable-x11grab --enable-libvpx --enable-libmp3lame
 sudo make
-sudo checkinstall --pkgname=ffmpeg --pkgversion="5:$(./version.sh)" --backup=no     --deldoc=yes --default
+sudo checkinstall --pkgname=ffmpeg --pkgversion="5:$(./version.sh)" --backup=no --deldoc=yes --default
 
 hash x264 ffmpeg ffplay ffprobe
 sudo make tools/qt-faststart
-sudo checkinstall --pkgname=qt-faststart --pkgversion="$(./version.sh)" --backup=no     --deldoc=yes --default install -D -m755 /usr/local/src/ffmpeg/tools/qt-faststart /usr/local/bin/qt-faststart
+sudo checkinstall --pkgname=qt-faststart --pkgversion="$(./version.sh)" --backup=no --deldoc=yes --default install -D -m755 /usr/local/src/ffmpeg/tools/qt-faststart /usr/local/bin/qt-faststart
 
 }}}
 
