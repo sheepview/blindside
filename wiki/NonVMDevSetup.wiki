@@ -295,3 +295,5 @@ sudo /etc/init.d/tomcat6 stop
 cd /home/firstuser/dev/source/bigbluebutton/bigbluebutton-web/
 ant
 }}}
+
+If you get an error {{{ "Could not resolve placeholder 'apiVersion'"}}}., just run "ant" again. It's grails not picking up the "bigbluebutton.properties" the first time.
