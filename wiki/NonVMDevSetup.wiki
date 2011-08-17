@@ -68,6 +68,35 @@ When finished, you should be able to join the demo conference.
 Test the demo recording by clicking on "View API Examples" and then "Join a Course (Recorded)".
 
 == Setup Development Environment ==
+{{{
+mkdir -p /home/firstuser/dev/tools/flex-4.5.0.20967
+cd /home/firstuser/dev/tools
+ln -s flex-4.5.0.20967 flex
+}}}
+
+
+Download the Open Source Flex SDK 4.5.0.20967 from
+[http://opensource.adobe.com/wiki/display/flexsdk/Download+Flex+4.5]
+
+{{{
+wget http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.5/flex_sdk_4.5.0.20967_mpl.zip
+unzip flex_sdk_4.5.0.20967_mpl.zip
+}}}
+
+{{{
+cd
+mkdir dev/tools/flex-4.5.0.20967/frameworks/libs/player/10.3
+cd dev/tools/flex-4.5.0.20967/frameworks/libs/player/10.3
+wget http://fpdownload.macromedia.com/pub/flashplayer/updaters/10/playerglobal10_3.swc
+mv playerglobal10_3.swc playerglobal.swc
+}}}
+
+{{{
+sudo apt-get install openjdk-6-jdk
+sudo apt-get install ant
+}}}
+
+
 
 == Check Out the Source Code ==
 Note - June 3, 2011: You want to checkout the source tagged for 0.71a as master is under active development for 0.8 and is currently not stable.
