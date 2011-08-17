@@ -222,7 +222,6 @@ Refresh your environment.
     env
 }}}
 
-
 Clone !BigBlueButton
 {{{
 mkdir /home/firstuser/dev/source
@@ -231,35 +230,53 @@ sudo apt-get install git-core
 git clone git://github.com/bigbluebutton/bigbluebutton.git
 }}}
 
+
+Setup the client for development.
 {{{
 bbb-conf --setup-dev client
+}}}
 
+*NOTE* If you don't want to run {{{bbb-conf --setup-dev client}}} but want to instead setup manually, do the following: (the steps below essentially is what {{{bbb-conf --setup-dev client}}} executes.
+----
+{{{
 cd dev/source/bigbluebutton/bigbluebutton-client
-mkdir bin
-mkdir bin/conf
+mkdir -p bin/conf
 ln -s bin client
 }}}
 
-{{{
-vi /etc/nginx/sites-enabled/bigbluebutton
 
-Change root entry in /client to
+Edit {{{/etc/nginx/sites-enabled/bigbluebutton}}} and change root entry in /client to
+{{{
         # BigBlueButton Flash client.
         location /client {
                 root    /home/firstuser/dev/source/bigbluebutton/bigbluebutton-client;
                 index  index.html index.htm;
         }
+}}}
 
+Restart Nginx
+{{{
 /etc/init.d/nginx/restart
+}}}
 
+Copy the installed {{{config.xml}}} into the client dev directory.
+{{{
 cp /var/www/bigbluebutton/client/conf/config.xml bigbluebutton-client/src/conf/config.xml
+}}}
+----
 
-
+Now compile the client.
+{{{
+cd /home/firstuser/dev/source/bigbluebutton/bigbluebutton-client
 ant
+}}}
+
+Restart the servers.
+{{{
 sudo bbb-conf --clean
 }}}
 
-
+Test by joining the demo meeting. The dev client should be the one that get's loaded. You can check {{{/var/log/nginx/access.log}}} to confirm. Or make some simple changes in the UI to see that it is the one being loaded.
 
 == Check Out the Source Code ==
 Note - June 3, 2011: You want to checkout the source tagged for 0.71a as master is under active development for 0.8 and is currently not stable.
