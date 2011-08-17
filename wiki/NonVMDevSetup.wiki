@@ -236,8 +236,8 @@ Setup the client for development.
 bbb-conf --setup-dev client
 }}}
 
-*NOTE* If you don't want to run {{{bbb-conf --setup-dev client}}} but want to instead setup manually, do the following: (the steps below essentially is what {{{bbb-conf --setup-dev client}}} executes.
 ----
+*NOTE:* If you don't want to run [{{{bbb-conf --setup-dev client}}}] but want to instead setup manually, do the following: (the steps below essentially is what [{{{bbb-conf --setup-dev client}}}} executes.
 {{{
 cd dev/source/bigbluebutton/bigbluebutton-client
 mkdir -p bin/conf
@@ -245,7 +245,7 @@ ln -s bin client
 }}}
 
 
-Edit {{{/etc/nginx/sites-enabled/bigbluebutton}}} and change root entry in /client to
+Edit {{{/etc/nginx/sites-enabled/bigbluebutton}}} and change root entry in /client to point to your dev client.
 {{{
         # BigBlueButton Flash client.
         location /client {
