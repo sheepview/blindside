@@ -1,8 +1,8 @@
 #summary Notes on setting up the dev environment, but not on the VM
 
-Not for beginners. This is a rough set of guidelines on how to set up the bbb dev environment on Unix system. These notes are complimentary to the notes on [DevelopingBBB Developing BigBlueButton]
+Not for beginners. This is a rough set of guidelines on how to set up the bbb dev environment on Unix system. 
 
-We recommend installing on Ubuntu 10.04 32-bit system. You'll need to have a BigBlueButton VM running to copy some of the files.
+We recommend installing on Ubuntu 10.04 32-bit system. You'll need to have a !BigBlueButton VM running to copy some of the files.
 
 == Installing !BigBlueButton ==
 Install Ubuntu 10.04 32-bit on your server.
