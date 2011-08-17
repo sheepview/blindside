@@ -4,6 +4,7 @@ Not for beginners. This is a rough set of guidelines on how to set up the bbb de
 
 We recommend installing on Ubuntu 10.04 32-bit system. You'll need to have a BigBlueButton VM running to copy some of the files.
 
+== Installing !BigBlueButton ==
 Install Ubuntu 10.04 32-bit on your server.
 
 Create a user called {{{firstuser}}}. We will run commands using this user.
@@ -56,13 +57,17 @@ sudo bbb-conf --check
 
 }}}
 
-Make the script executable.
+Make the script executable.When prompted for mysql password, just hit enter. Accept the Java license agreement by hitting Tab or left arrow.
 {{{
   chmod +x install.sh
   sudo ./install.sh
 }}}
 
+When finished, you should be able to join the demo conference. 
 
+Test the demo recording by clicking on "View API Examples" and then "Join a Course (Recorded)".
+
+== Setup Development Environment ==
 
 == Check Out the Source Code ==
 Note - June 3, 2011: You want to checkout the source tagged for 0.71a as master is under active development for 0.8 and is currently not stable.
