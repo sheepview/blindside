@@ -137,7 +137,7 @@ sudo checkinstall --pkgname=qt-faststart --pkgversion="$(./version.sh)" --backup
 
 Make the file executable
 {{{
-  chmod install-ffmpeg.sh
+  chmod +x install-ffmpeg.sh
   sudo ./install-ffmpeg.sh
 }}}
 
