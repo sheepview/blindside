@@ -71,108 +71,9 @@ When finished, you should be able to join the demo conference.
 
 Test the demo recording by clicking on "View API Examples" and then "Join a Course (Recorded)".
 
-== Setup Development Environment ==
-{{{
-mkdir -p /home/firstuser/dev/tools/flex-4.5.0.20967
-cd /home/firstuser/dev/tools
-ln -s flex-4.5.0.20967 flex
-}}}
-
-
-Install Flex SDK.
-
-Download the Open Source Flex SDK 4.5.0.20967 from
-[http://opensource.adobe.com/wiki/display/flexsdk/Download+Flex+4.5]
-
-{{{
-wget http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.5/flex_sdk_4.5.0.20967_mpl.zip
-unzip flex_sdk_4.5.0.20967_mpl.zip
-}}}
-
-Install {{{playerglobal.swc}}}
-
-{{{
-cd
-mkdir dev/tools/flex-4.5.0.20967/frameworks/libs/player/10.3
-cd dev/tools/flex-4.5.0.20967/frameworks/libs/player/10.3
-wget http://fpdownload.macromedia.com/pub/flashplayer/updaters/10/playerglobal10_3.swc
-mv playerglobal10_3.swc playerglobal.swc
-}}}
-
-Install Java and Ant
-{{{
-sudo apt-get install openjdk-6-jdk
-sudo apt-get install ant
-}}}
-
-{{{
-tar zcvf gradle-0.8.tar.gz gradle-0.8
-tar zcvf grails-1.1.1.tar.gz grails-1.1.1
-tar zcvf groovy-1.6.5.tar.gz groovy-1.6.5
-
-
-scp gradle-0.8.tar.gz 192.168.1.107:~/dev/tools
-scp grails-1.1.1.tar.gz 192.168.1.107:~/dev/tools/
-scp groovy-1.6.5.tar.gz 192.168.1.107:~/dev/tools/
-}}}
-
-{{{
-#
-# BigBlueButton: Setup development environment
-
-export GROOVY_HOME=/home/firstuser/dev/tools/groovy-1.6.5
-export JAVA_HOME=/usr/lib/jvm/java-6-openjdk
-
-export GRAILS_HOME=/home/firstuser/dev/tools/grails-1.1.1
-export PATH=$PATH:$GRAILS_HOME/bin
-
-export FLEX_HOME=/home/firstuser/dev/tools/flex
-export PATH=$PATH:$FLEX_HOME/bin
-
-export GRADLE_HOME=/home/firstuser/dev/tools/gradle-0.8
-export PATH=$PATH:$GRADLE_HOME/bin
-
-export ANT_OPTS="-Xmx512m -XX:MaxPermSize=512m"
-}}}
-
-{{{
-    source ~/.profile
-    env
-}}}
-
-{{{
-mkdir dev/source
-sudo apt-get install git-core
-git clone git://github.com/bigbluebutton/bigbluebutton.git
-
-bbb-conf --setup-dev client
-
-cd dev/source/bigbluebutton/bigbluebutton-client
-mkdir bin
-mkdir bin/conf
-ln -s bin client
-}}}
-
-{{{
-vi /etc/nginx/sites-enabled/bigbluebutton
-
-Change root entry in /client to
-        # BigBlueButton Flash client.
-        location /client {
-                root    /home/firstuser/dev/source/bigbluebutton/bigbluebutton-client;
-                index  index.html index.htm;
-        }
-
-/etc/init.d/nginx/restart
-
-cp /var/www/bigbluebutton/client/conf/config.xml bigbluebutton-client/src/conf/config.xml
-
-
-ant
-sudo bbb-conf --clean
-}}}
-
-Install FFMPEG
+==Install FFMPEG==
+Install FFMPEG 0.8.1 from instruction here
+[http://ubuntuforums.org/showpost.php?p=9868359&postcount=1289]
 
 {{{
 #!/bin/bash
@@ -232,6 +133,133 @@ sudo make tools/qt-faststart
 sudo checkinstall --pkgname=qt-faststart --pkgversion="$(./version.sh)" --backup=no --deldoc=yes --default install -D -m755 /usr/local/src/ffmpeg/tools/qt-faststart /usr/local/bin/qt-faststart
 
 }}}
+
+== Setup Development Environment ==
+{{{
+mkdir -p /home/firstuser/dev/tools/flex-4.5.0.20967
+cd /home/firstuser/dev/tools
+ln -s flex-4.5.0.20967 flex
+}}}
+
+
+Install Flex SDK.
+
+Download the Open Source Flex SDK 4.5.0.20967 from
+[http://opensource.adobe.com/wiki/display/flexsdk/Download+Flex+4.5]
+
+{{{
+wget http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.5/flex_sdk_4.5.0.20967_mpl.zip
+unzip flex_sdk_4.5.0.20967_mpl.zip
+}}}
+
+Install {{{playerglobal.swc}}}
+
+{{{
+cd
+mkdir dev/tools/flex-4.5.0.20967/frameworks/libs/player/10.3
+cd dev/tools/flex-4.5.0.20967/frameworks/libs/player/10.3
+wget http://fpdownload.macromedia.com/pub/flashplayer/updaters/10/playerglobal10_3.swc
+mv playerglobal10_3.swc playerglobal.swc
+}}}
+
+Install Java and Ant
+{{{
+sudo apt-get install openjdk-6-jdk
+sudo apt-get install ant
+}}}
+
+SSH into your !BigBlueButton VM.
+{{{
+cd /home/firstuser/dev/tools
+tar zcvf gradle-0.8.tar.gz gradle-0.8
+tar zcvf grails-1.1.1.tar.gz grails-1.1.1
+tar zcvf groovy-1.6.5.tar.gz groovy-1.6.5
+}}}
+
+Now, transfer the tar.gz files to your new dev env. 
+{{{
+scp gradle-0.8.tar.gz <your server's ip>:~/dev/tools
+scp grails-1.1.1.tar.gz <your server's ip>:~/dev/tools/
+scp groovy-1.6.5.tar.gz <your server's ip>:~/dev/tools/
+}}}
+
+In you dev env. Extract the files you just transferred.
+{{{
+cd /home/firstuser/dev/tools
+tar zxvf gradle-0.8.tar.gz 
+tar zxvf grails-1.1.1.tar.gz 
+tar zxvf groovy-1.6.5.tar.gz 
+}}}
+
+Update your environment by editing {{{~/.profile}}}
+{{{
+ vi ~/.profile
+}}}
+
+Append the following to the {{{~/.profile}}}
+{{{
+#
+# BigBlueButton: Setup development environment
+
+export GROOVY_HOME=/home/firstuser/dev/tools/groovy-1.6.5
+export JAVA_HOME=/usr/lib/jvm/java-6-openjdk
+
+export GRAILS_HOME=/home/firstuser/dev/tools/grails-1.1.1
+export PATH=$PATH:$GRAILS_HOME/bin
+
+export FLEX_HOME=/home/firstuser/dev/tools/flex
+export PATH=$PATH:$FLEX_HOME/bin
+
+export GRADLE_HOME=/home/firstuser/dev/tools/gradle-0.8
+export PATH=$PATH:$GRADLE_HOME/bin
+
+export ANT_OPTS="-Xmx512m -XX:MaxPermSize=512m"
+}}}
+
+Refresh your environment.
+{{{
+    source ~/.profile
+    env
+}}}
+
+
+Clone !BigBlueButton
+{{{
+mkdir /home/firstuser/dev/source
+cd /home/firstuser/dev/source
+sudo apt-get install git-core
+git clone git://github.com/bigbluebutton/bigbluebutton.git
+}}}
+
+{{{
+bbb-conf --setup-dev client
+
+cd dev/source/bigbluebutton/bigbluebutton-client
+mkdir bin
+mkdir bin/conf
+ln -s bin client
+}}}
+
+{{{
+vi /etc/nginx/sites-enabled/bigbluebutton
+
+Change root entry in /client to
+        # BigBlueButton Flash client.
+        location /client {
+                root    /home/firstuser/dev/source/bigbluebutton/bigbluebutton-client;
+                index  index.html index.htm;
+        }
+
+/etc/init.d/nginx/restart
+
+cp /var/www/bigbluebutton/client/conf/config.xml bigbluebutton-client/src/conf/config.xml
+
+
+ant
+sudo bbb-conf --clean
+}}}
+
+
 
 == Check Out the Source Code ==
 Note - June 3, 2011: You want to checkout the source tagged for 0.71a as master is under active development for 0.8 and is currently not stable.
