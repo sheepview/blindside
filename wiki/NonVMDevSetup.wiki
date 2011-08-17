@@ -7,7 +7,7 @@ We recommend installing on Ubuntu 10.04 32-bit system. You'll need to have a !Bi
 == Installing !BigBlueButton ==
 Install Ubuntu 10.04 32-bit on your server.
 
-Create a user called *{{{firstuser}}}*. We will run commands using *{{{firstuser}}}* user.
+If you don't have a user called *{{{firstuser}}}*, create a user called *{{{firstuser}}}*. We will run commands using *{{{firstuser}}}* user.
 {{{
 sudo useradd -d /home/firstuser -m firstuser
 sudo passwd firstuser
@@ -277,16 +277,3 @@ sudo bbb-conf --clean
 }}}
 
 Test by joining the demo meeting. The dev client should be the one that get's loaded. You can check {{{/var/log/nginx/access.log}}} to confirm. Or make some simple changes in the UI to see that it is the one being loaded.
-
-== Check Out the Source Code ==
-Note - June 3, 2011: You want to checkout the source tagged for 0.71a as master is under active development for 0.8 and is currently not stable.
-
-Type the following command to checkout !BigBlueButton from our [http://www.github.com/bigbluebutton github repository].
-{{{
-bbb-conf --checkout
-cd ~/dev/source/bigbluebutton
-git init
-git checkout v0.71a
-}}}
-
-This will checkout into {{{~/dev/source/bigbluebutton}}}.  
