@@ -315,3 +315,31 @@ grails -Dserver.port=8888 run-app
 If you get an error {{{ "Could not resolve placeholder 'apiVersion'"}}}., just run "ant" again. It's grails not picking up the "bigbluebutton.properties" the first time.
 
 Now test again if you can join the demo meeting.
+
+===Developing BBB_apps===
+
+{{{
+gradle resolveDeps
+
+
+# Make red5/webapps writeable by firstuser
+sudo chmod -R o+w /usr/share/red5/webapps
+
+# Copy values from /usr/share/red5/webapps/bigbluebutton/WEB-INF/bigbluebutton.properties to
+# /home/firstuser/dev/source/bigbluebutton/bigbluebutton-apps/src/main/webapp/WEB-INF/bigbluebutton.properties.
+
+# Remove the existing bbb-apps
+sudo apt-get purge --yes bbb-apps
+
+# Stop red5
+    sudo /etc/init.d/red5 stop
+
+cd /home/firstuser/dev/source/bigbluebutton/bigbluebutton-apps
+# Compile and deploy bbb-apps
+gradle war deploy
+
+# On another terminal window, start Red5
+cd /usr/share/red5/
+sudo -u red5 ./red5.sh
+
+}}}
