@@ -8,6 +8,10 @@ We recommend installing on Ubuntu 10.04 32-bit system. You'll need to have a !Bi
 Install Ubuntu 10.04 32-bit on your server.
 
 Create a user called *{{{firstuser}}}*. We will run commands using *{{{firstuser}}}* user.
+{{{
+sudo useradd -d /home/firstuser -m firstuser
+sudo passwd firstuser
+}}}
 
 Update the system
 {{{
