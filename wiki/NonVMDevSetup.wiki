@@ -364,3 +364,34 @@ cd /usr/share/red5/
 sudo -u red5 ./red5.sh
 
 }}}
+
+===Developing Deskshare===
+{{{
+cd /home/firstuser/dev/source/bigbluebutton/deskshare
+gradle resolveDeps
+}}}
+
+Building the applet.
+{{{
+cd applet
+gradle jar
+
+# Now we need to create a key to sign the applet. Enter a password when prompted for one. Make sure it is at least 6 chars long.
+ant create-signing-key
+
+# Sign the jar file. Enter the password you created from the previous step when prompted.
+ant sign-jar
+
+# The signed jar file is located in  /home/firstuser/dev/source/bigbluebutton/deskshare/applet/build/libs/bbb-deskshare-applet-0.71.jar
+
+# We need to copy it to where nginx is loading the client.
+
+# If you are developing also the bbb-client, then
+
+cp /home/firstuser/dev/source/bigbluebutton/deskshare/applet/build/libs/bbb-deskshare-applet-0.71.jar /home/firstuser/dev/source/bigbluebutton/bigbluebutton-client/client
+
+# If you are not developing the client, therefore, nginx will serve the client from the default location. Therefore, 
+
+cp /home/firstuser/dev/source/bigbluebutton/deskshare/applet/build/libs/bbb-deskshare-applet-0.71.jar /var/www/bigbluebutton/client/
+
+}}}
