@@ -135,33 +135,6 @@ sudo checkinstall --pkgname=qt-faststart --pkgversion="$(./version.sh)" --backup
 }}}
 
 == Setup Development Environment ==
-{{{
-mkdir -p /home/firstuser/dev/tools/flex-4.5.0.20967
-cd /home/firstuser/dev/tools
-ln -s flex-4.5.0.20967 flex
-}}}
-
-
-Install Flex SDK.
-
-Download the Open Source Flex SDK 4.5.0.20967 from
-[http://opensource.adobe.com/wiki/display/flexsdk/Download+Flex+4.5]
-
-{{{
-wget http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.5/flex_sdk_4.5.0.20967_mpl.zip
-unzip flex_sdk_4.5.0.20967_mpl.zip
-}}}
-
-Install {{{playerglobal.swc}}}
-
-{{{
-cd
-mkdir dev/tools/flex-4.5.0.20967/frameworks/libs/player/10.3
-cd dev/tools/flex-4.5.0.20967/frameworks/libs/player/10.3
-wget http://fpdownload.macromedia.com/pub/flashplayer/updaters/10/playerglobal10_3.swc
-mv playerglobal10_3.swc playerglobal.swc
-}}}
-
 Install Java and Ant
 {{{
 sudo apt-get install openjdk-6-jdk
@@ -228,6 +201,32 @@ mkdir /home/firstuser/dev/source
 cd /home/firstuser/dev/source
 sudo apt-get install git-core
 git clone git://github.com/bigbluebutton/bigbluebutton.git
+}}}
+
+{{{
+mkdir -p /home/firstuser/dev/tools/flex-4.5.0.20967
+cd /home/firstuser/dev/tools
+ln -s flex-4.5.0.20967 flex
+}}}
+
+Install Flex SDK.
+
+Download the Open Source Flex SDK 4.5.0.20967 from
+[http://opensource.adobe.com/wiki/display/flexsdk/Download+Flex+4.5]
+
+{{{
+wget http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.5/flex_sdk_4.5.0.20967_mpl.zip
+unzip flex_sdk_4.5.0.20967_mpl.zip
+}}}
+
+Install {{{playerglobal.swc}}}
+
+{{{
+cd
+mkdir dev/tools/flex-4.5.0.20967/frameworks/libs/player/10.3
+cd dev/tools/flex-4.5.0.20967/frameworks/libs/player/10.3
+wget http://fpdownload.macromedia.com/pub/flashplayer/updaters/10/playerglobal10_3.swc
+mv playerglobal10_3.swc playerglobal.swc
 }}}
 
 
