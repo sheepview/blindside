@@ -277,3 +277,21 @@ sudo bbb-conf --clean
 }}}
 
 Test by joining the demo meeting. The dev client should be the one that get's loaded. You can check {{{/var/log/nginx/access.log}}} to confirm. Or make some simple changes in the UI to see that it is the one being loaded.
+
+=== Developing BBB-Web===
+{{{
+
+# Copy bigbluebutton.properites in /var/lib/tomcat6/webapps/bigbluebutton/WEB-INF/classes/bigbluebutton.properties 
+cp /var/lib/tomcat6/webapps/bigbluebutton/WEB-INF/classes/bigbluebutton.properties /home/firstuser/bigbluebutton/bigbluebutton-web/grails-app/conf/
+
+# Enabling firstuser to write to /var/bigbluebutton to upload slides
+sudo chmod -R ugo+rwx /var/bigbluebutton
+
+# Enable firstuser to write to /var/log/bigbluebutton to write log files
+sudo chmod -R ugo+rwx /var/log/bigbluebutton
+
+
+sudo /etc/init.d/tomcat6 stop
+cd /home/firstuser/bigbluebutton/bigbluebutton-web/
+ant
+}}}
