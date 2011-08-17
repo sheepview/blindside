@@ -75,6 +75,7 @@ Test the demo recording by clicking on "View API Examples" and then "Join a Cour
 Install FFMPEG 0.8.1 from instruction here
 [http://ubuntuforums.org/showpost.php?p=9868359&postcount=1289]
 
+Copy the following into a file called {{{install-ffmpeg.sh}}}
 {{{
 #!/bin/bash
 set -x
@@ -132,6 +133,12 @@ hash x264 ffmpeg ffplay ffprobe
 sudo make tools/qt-faststart
 sudo checkinstall --pkgname=qt-faststart --pkgversion="$(./version.sh)" --backup=no --deldoc=yes --default install -D -m755 /usr/local/src/ffmpeg/tools/qt-faststart /usr/local/bin/qt-faststart
 
+}}}
+
+Make the file executable
+{{{
+  chmod install-ffmpeg.sh
+  sudo ./install-ffmpeg.sh
 }}}
 
 == Setup Development Environment ==
