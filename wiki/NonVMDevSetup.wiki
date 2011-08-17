@@ -316,7 +316,7 @@ If you get an error {{{ "Could not resolve placeholder 'apiVersion'"}}}., just r
 
 Now test again if you can join the demo meeting.
 
-===Developing BBB_apps===
+===Developing BBB-Apps===
 
 {{{
 cd /home/firstuser/dev/source/bigbluebutton/bigbluebutton-apps
@@ -331,6 +331,26 @@ sudo chmod -R o+w /usr/share/red5/webapps
 
 # Remove the existing bbb-apps
 sudo apt-get purge --yes bbb-apps
+
+# Stop red5
+    sudo /etc/init.d/red5 stop
+
+cd /home/firstuser/dev/source/bigbluebutton/bigbluebutton-apps
+# Compile and deploy bbb-apps
+gradle war deploy
+
+# On another terminal window, start Red5
+cd /usr/share/red5/
+sudo -u red5 ./red5.sh
+
+}}}
+
+===Developing BBB-Voice===
+{{{
+cd /home/firstuser/dev/source/bigbluebutton/bbb-voice
+gradle resolveDeps
+
+# Copy values from /usr/share/red5/webapps/sip/WEB-INF/bigbluebutton-sip.properties to /home/firstuser/dev/source/bigbluebutton/bbb-voice/src/main/webapp/WEB-INF/bigbluebutton-sip.properties
 
 # Stop red5
     sudo /etc/init.d/red5 stop
