@@ -7,7 +7,7 @@ We recommend installing on Ubuntu 10.04 32-bit system. You'll need to have a !Bi
 == Installing !BigBlueButton ==
 Install Ubuntu 10.04 32-bit on your server.
 
-Create a user called {{{firstuser}}}. We will run commands using this user.
+Create a user called *{{{firstuser}}}*. We will run commands using *{{{firstuser}}}* user.
 
 Update the system
 {{{
@@ -75,6 +75,8 @@ ln -s flex-4.5.0.20967 flex
 }}}
 
 
+Install Flex SDK.
+
 Download the Open Source Flex SDK 4.5.0.20967 from
 [http://opensource.adobe.com/wiki/display/flexsdk/Download+Flex+4.5]
 
@@ -82,6 +84,8 @@ Download the Open Source Flex SDK 4.5.0.20967 from
 wget http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.5/flex_sdk_4.5.0.20967_mpl.zip
 unzip flex_sdk_4.5.0.20967_mpl.zip
 }}}
+
+Install {{{playerglobal.swc}}}
 
 {{{
 cd
@@ -91,6 +95,7 @@ wget http://fpdownload.macromedia.com/pub/flashplayer/updaters/10/playerglobal10
 mv playerglobal10_3.swc playerglobal.swc
 }}}
 
+Install Java and Ant
 {{{
 sudo apt-get install openjdk-6-jdk
 sudo apt-get install ant
