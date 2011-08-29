@@ -72,6 +72,9 @@ When finished, you should be able to join the demo conference.
 Test the demo recording by clicking on "View API Examples" and then "Join a Course (Recorded)".
 
 ==Install FFMPEG==
+
+*Note* You can skip this step as ffmpeg is only needed for the Matterhorn integration.
+
 Install FFMPEG 0.8.1 from instruction here
 [http://ubuntuforums.org/showpost.php?p=9868359&postcount=1289]
 
