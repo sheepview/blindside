@@ -1,0 +1,330 @@
+#summary BigBlueButton Third-Party Integration API.
+<wiki:toc max_depth="3" />
+
+= What's New =
+* NOTE:* If you make changes to the API, please document it here so others will know when a certain change occurred. For example, if a parameter has changed from "optional" to "mandatory".
+
+  * * isMeetingRunning * - added in 0.64
+  * * end * - added in 0.64
+  * * getMeetingInfo * - added in 0.64
+  * * getMeetings * - added in 0.64
+  * * api version returned on index * - added in 0.7 - now, if you call /bigbluebutton/api with no parameters (and no checksum is necessary), we will return a simple response that gives you the version of the API.  This may help if you are integrating against multiple machines that are running different versions of BigBlueButton (see issue #528)
+
+* 0.70 - YOU NEED TO READ ABOUT THESE CHANGES * 
+
+In 0.70, we made a couple of changes that will force you to update your API integrations.  These changes were necessary to improve the security of the API and our ability to add features in future releases.  We apologize for any inconvenience this may have caused.
+
+ * * Issue 487 * - Add the action name to the checksum calculation.  This will be more secure.  If you read the security section below, it will give you the updated instructions on calculating the checksum.  Basically, this change was simple.  Where you previously would have done something similar to: sha1(queryString + securitySalt), you now need to do sha1(callName + queryString + securitySalt).  callName will be "create", "join", "getMeetings", "getMeetingInfo", "end", et cetera - the name of the API call you are making.  This also eliminated the need to send the "random" parameter to getMeetings.
+ * * Issue 473 * - Remove "meetingToken" from the API.  Now you will not be able to pass the meetingToken to any API call, nor will it be returned in any response from the API.  You should now use just the meetingID, which is now required for any meeting-related call.
+ * * Issue 394 * - Now, after calling "end" to forcibly end a meeting, you are not allowed to join that meeting again.  Previously, someone could reuse the join link they originally had, and join a meeting that had been forcibly ended.  A new response parameter (hasBeenForciblyEnded) was added to responses that return information about a meeting.
+ * * Issue 247 * - After a meeting has ended (either forcibly or after all participants have voluntarily left), a meeting only stays in memory for 60 minutes.  After that it will no longer be returned from the getMeetings call, and you will not be able to call getMeetingInfo, etc, for that meeting.  The number of minutes that it remains in memory is configurable.  You can modify /var/lib/tomcat6/webapps/bigbluebutton/WEB-INF/classes/bigbluebutton.properties and change (or add) the line "beans.dynamicConferenceService.minutesElapsedBeforeMeetingExpiration=60".  If you add it, it should be added just before or after the line where your security salt is configured.
+ * * Issue 393 * - getMeetingInfo / join enhancements: you can now specify a "userID" parameter to the join API call, and this will appear as the userID that is returned in getMeetingInfo.  You can use this for periodically checking to see who is still signed into the conference
+
+= What's Planned =
+To see a list of the planned changes for 0.7, see: http://code.google.com/p/bigbluebutton/issues/list?q=label:API%20label:Release0.7
+
+The major changes were already completed - see the notes above.
+
+= Overview = 
+This document outlines the API that is available for integrating !BigBlueButton with other applications. It is currently in draft stage as not all features are available. Features which are not currently implemented will be clearly marked as such.
+
+= Overall API Usage =
+The API is implemented with the end-user in mind. To call the API, you simply make an HTTP request to a URL with the query parameters supplying the information needed for the call. The API returns an XML response. Here are some example API calls and their responses:
+
+== Chrome extension ==
+There is a Chrome extension that allows for quickly testing the API functionality.  You can also use it to help you understand usage of the API.  
+
+The extension can be found at: https://chrome.google.com/extensions/detail/ncbonhmhjnamefpmmjdpbohnkbeliehb
+
+The code for the extension can be found at: http://github.com/jthomerson/BigBlueButton-api-chrome-extension
+
+== _Create meeting example:_ ==
+<a href="http://yourserver.com/bigbluebutton/api/create?name=Test+Meeting&meetingID=abcdef&attendeePW=111222&moderatorPW=333444">http://yourserver.com/bigbluebutton/api/create?name=Test+Meeting&meetingID=abcdef&attendeePW=111222&moderatorPW=333444</a>
+{{{
+<response>
+    <returncode>SUCCESS</returncode>
+    <meetingID>abcdef</meetingID>
+    <attendeePW>111222</attendeePW>
+    <moderatorPW>333444</moderatorPW>
+    <messageKey/>
+<message/>
+</response>
+}}}
+
+
+== _Join meeting example:_ ==
+<a href="http://yourserver.com/bigbluebutton/api/join?fullName=Joe+User&meetingID=abcdef&password=333444">http://yourserver.com/bigbluebutton/api/join?fullName=Joe+User&meetingID=abcdef&password=333444</a>
+<p>This call sends the caller directly into the application. There is no XML response. You should redirect your user to a URL like this when you are done creating the meeting and are ready to direct them into the meeting.</p>
+
+== _Is meeting running example:_ ==
+<a href="http://yourserver.com/bigbluebutton/api/isMeetingRunning?meetingID=abcdef">http://yourserver.com/bigbluebutton/api/isMeetingRunning?meetingID=abcdef</a>
+{{{
+<response>
+    <returncode>SUCCESS</returncode>
+    <running>true</running>
+</response>
+}}}
+
+More details on these calls can be found in the *API Calls* section below.
+
+<br><br>
+= API Security Model =
+The API provides a way to be secured so that third-party apps may make calls to it, but not allow other people (end users) to make similar calls to create their own meetings, etc.
+For instance, a third party application that is integrated with the API may embed a !JavaScript URL that calls to the BBB API to create a meeting. An end user will be able to see this URL in their browser and should not be allowed to modify a parameter (for example, the meeting ID) and create their own meeting. By doing so, they could create meetings that were not tracked by the third-party app, which could present a billing problem, et cetera. They should also not be able to modify any parameter (for instance the maximum attendees) to modify the meeting that is being created by the third party app.
+Those examples are clearly abuses of the system, and therefore must be protected against. The API must provide a way of enabling this protection.
+
+== _Configuration_ ==
+The securitySalt is set in 
+
+{{{
+   /var/lib/tomcat6/webapps/bigbluebutton/WEB-INF/classes/bigbluebutton.properties 
+}}}
+
+Look for the parameter 
+
+{{{
+   beans.dynamicConferenceService.securitySalt=<your_salt>
+}}}
+
+
+<p><font color="#FF0000">*IMPORTANT: DO NOT ALLOW END USERS TO KNOW YOUR SECURITY SALT OR ELSE YOUR SECURITY WILL BE COMPROMISED.*</font></p>
+
+== _Usage_ ==
+<p>The implementation of this security model lies in !ApiController.groovy. It entails creating a checksum out of the combination of the entire HTTP query string and a server-configured security token.</p>
+<p>To use the security model, you must be able to create an SHA-1 checksum out of the call name _plus_ the query string _plus_ the security salt that you configured on your server. To do so, follow these steps:</p>
+    # Create the entire query string for your API call without the checksum parameter.
+        * Example for create meeting API call: "name=Test+Meeting&meetingID=abc123&attendeePW=111222&moderatorPW=333444"
+    # Prepend the call name to your string
+        * Example for above query string:
+            ** call name is "create"
+            ** String becomes: "createname=Test+Meeting&meetingID=abc123&attendeePW=111222&moderatorPW=333444"
+    # Now, append the security salt to your string
+        * Example for above query string:
+            ** security salt is "639259d4-9dd8-4b25-bf01-95f9567eaf4b"
+            ** String becomes: "createname=Test+Meeting&meetingID=abc123&attendeePW=111222&moderatorPW=333444639259d4-9dd8-4b25-bf01-95f9567eaf4b"
+    # Now, find the SHA-1 sum for that string (implementation varies based on programming language).
+        *The SHA-1 sum for the above string is: "1fcbb0c4fc1f039f73aa6d697d2db9ba7f803f17"
+    # Add a checksum parameter to your query string that contains this checksum.
+        * Above example becomes: "name=Test+Meeting&meetingID=abc123&attendeePW=111222&moderatorPW=333444&checksum=1fcbb0c4fc1f039f73aa6d697d2db9ba7f803f17"
+<p>If you configured a security salt on your server, you *MUST* send this checksum with *EVERY* API call. Since end users do not know your security salt, they can not fake calls to the server, and they can not modify your calls – since changing a single parameter name or value by only one character will completely change the checksum required to validate the call.</p>
+<p>Implementations of the SHA-1 functionality exist in nearly all programming languages. Here are example methods or links to example implementations for various languages:</p>
+    * !JavaScript (describes MD5 also): <a href="http://pajhome.org.uk/crypt/md5/">http://pajhome.org.uk/crypt/md5/</a>
+    * Java: <a href="http://commons.apache.org/codec/">http://commons.apache.org/codec/</a>
+        **You can use org.apache.commons.codec.digest.!DigestUtilsandcall !DigestUtils.shaHex(string + salt)
+    * PHP: simply call sha(string + salt)
+        ** See <a href="http://php.net/manual/en/function.sha1.php">http://php.net/manual/en/function.sha1.php</a>
+
+== _Error handling_ ==
+ * All API calls make a best-effort attempt to return a properly formatted document that contains enough information for the user to be able to determine what the error is.
+ * Errors are returned with a "returncode" value of "FAILED" and a "message" and "messageKey" value.  We will try very hard to keep the messageKey stable (unchanging) throughout the life of the API.  However, the "message" value is a plain text (english) value that may change with time.  You can use the messageKey to determine the type of error and look up internationalized text within your own system if needed.
+ ** i.e. - An invalid request may return an error message of "No conference with that meeting ID exists", but the messageKey is simple "invalidMeetingIdentifier".
+
+<br><br>
+= Desired Future Features =
+
+== _Support for JSON/JSONP_ ==
+    * It would be very nice to optionally allow JSON responses, and to support JSONP. This might allow for simpler integrations, even within static or almost-static webpages using !JavaScript as the primary integration language. It should not be assumed that all users will be running custom software on a server and be able to process XML responses, etc.
+        ** This being said, even within !JavaScript there are simple ways to make the API call and process the returned XML (using jQuery and $.xml2json, for example)
+== _Meeting event callbacks_ ==
+<p>This may actually even be called a “reverse API” - where we define an interface that the third- party application can implement to be notified of events. This would not be necessary for the first version of the API, but would be a nice feature for future enhancements. More details:</p>
+    * When major events happen within meetings, it would be very helpful to provide a way for third-party applications to be notified of these events. For instance, when a user joins a conference, they will presumably be joining through the third-party app. However, when they leave the conference, the app may have certain auditing that it needs to do to record their disconnect time, etc. If BBB could make some callback to the application, this would assist in such scenarios.
+    * For example, the application may be able to register a URL that BBB would call with status updates. BBB would define an API that such an app would be required to implement at that URL.
+        ** i.e. -BBB could call:
+        ** http://third-party-app/bbb-integ.php?event=meetingEnded&meetingID=abcd
+            *** [http://third-party-app/bbb-integ.php?event=userLeft&userID=1234 http://third-party-app/bbb-integ.php?event=userLeft&userID=1234]
+            *** [http://third-party-app/bbb-integ.php?event=meetingEnded&meetingID=abcd http://third-party-app/bbb-integ.php?event=meetingEnded&meetingID=abcd]
+    * We are already announcing events such as this within BBB through ActiveMQ to communicate between the Red5 apps where these events originate and the API. It would probably not be very difficult to register additional listeners through the Spring Integration configuration that will make these HTTP calls for us for each event.
+
+<br><br>
+= API Calls =
+==_ Standard parameters and responses _==            
+<p> The following response parameters are standard to every call and may be returned from any call. </p>
+<p>*Parameters:*</p>    
+|| *Param Name* || *Required / Optional* || *Type* || *Description* ||
+|| checksum || Varies || String || <p>See the *Security* section for more details on the usage for this parameter.</p> <p>This is basically an SHA-1 hash of callName + queryString + securitySalt. The security salt will be configured into the application at deploy time. If a security salt is present, all calls to the API must include the checksum parameter.</p> ||
+
+<p>*Response:*</p> 
+|| *Param Name* || *When Returned* || *Type* || *Description* ||
+|| returncode || Always || String || <p>Indicates whether the intended function was successful or not. Always one of two values:</p> <p>FAILED – there was an error of some sort – look for the message and messageKey for more information. Note that if the returncode is FAILED, the call-specific response parameters marked as “always returned” will not be returned. They are only returned as part of successful responses.</p> <p>SUCCESS – the call succeeded – the other parameters that are normally associated with this call will be returned.</p>||
+|| message || Sometimes || String || <p>A message that gives additional information about the status of the call. A message parameter will always be returned if the returncode was FAILED. A message may also be returned in some cases where returncode was SUCCESS if additional information would be helpful.</p> ||
+|| messageKey || Sometimes || String || <p>Provides similar functionality to the message and follows the same rules. However, a message key will be much shorter and will generally remain the same for the life of the API whereas a message may change over time. If your third party application would like to internationalize or otherwise change the standard messages returned, you can look up your own custom messages based on this messageKey.</p> ||
+
+<p></p>
+== _Meeting workflow calls_ ==
+<p>These calls are the primary calls of the API. They are used for creating and joining meetings.</p>
+<p><font color="#FF0000">*NOTE:*</font> Parameters marked with <font color="#FF0000">(NFS)</font> are not yet fully supported. You can pass them in to the controller, but they may not have any actual effect on the conference. This is more a limitation based on support by the actual BBB application more than the API itself.</p>
+
+<br><br>
+= Create Meeting (create) =
+<p>Example URL:<a href="http://yourserver.com/bigbluebutton/api/create?[parameters]&checksum=[checksum]">http://yourserver.com/bigbluebutton/api/create?[parameters]&checksum=[checksum]</a> </p>
+
+<p>*Parameters:*</p>    
+|| *Param Name* || *Required / Optional* || *Type* || *Description* ||
+|| name || Required || String || <p>A name for the meeting.</p> <p><font color="#FF0000">TODO: Currently there is no way to specify a name for the meeting that is different than the meeting ID / meetme room name. This is a limitation of BBB client and not really the API.</font></p> ||
+|| meetingID || Required || String || <p>A meeting ID that can be used to identify this meeting by the third party application.  This must be unique to the server that you are calling.  If you supply a non-unique meeting ID, you will still have a successful call, but will receive a warning message in the response.</p> ||
+|| attendeePW || Optional || String || <p>The password that will be required for attendees to join the meeting. This is optional, and if not supplied, BBB will assign a random password.</p> ||
+|| moderatorPW || Optional || String || <p>The password that will be required for moderators to join the meeting or for certain administrative actions (i.e. ending a meeting). This is optional, and if not supplied, BBB will assign a random password.</p> ||
+|| welcome || Optional || String || <p>A welcome message that gets displayed on the chat window when the participant joins. You can include keywords (`%%CONFNAME%%`, `%%DIALNUM%%`, `%%CONFNUM%%`) which will be substituted automatically. You can set a default welcome message on [http://code.google.com/p/bigbluebutton/source/browse/trunk/bigbluebutton-web/grails-app/conf/bigbluebutton.properties bigbluebutton.properties]</p> ||
+|| dialNumber|| Optional || String || <p>The dial access number that participants can call in using regular phone. You can set a default dial number on [http://code.google.com/p/bigbluebutton/source/browse/trunk/bigbluebutton-web/grails-app/conf/bigbluebutton.properties bigbluebutton.properties]</p> ||
+|| voiceBridge || Required || String || <p>Voice conference number that participants enter to join the voice conference. The default pattern for this is a 5-digit number, because in the default Asterisk configuration, this is the PIN that a dial-in user must enter to join the conference.  If you want to change this pattern, you have to edit /etc/asterisk/bbb_extensions.conf.  When using the default setup, we recommend you always pass a 5 digit voiceBridge parameter -- and have it begin with the digit '7' if you are using the default FreeSWITCH setup (see <a href="http://code.google.com/p/bigbluebutton/wiki/FAQ#Why_did_my_voice_conference_number_worked_in_0.7_but_not_in_0.71">FAQ entry</a>). Finally, if you don't pass a value for voiceBridge, then users will not be able to join a voice conference for the session. </p> ||
+|| logoutURL || Optional || String || <p>The URL that the !BigBlueButton client will go to after users click the OK button on the 'You have been logged out message'.  This overrides, the value for `bigbluebutton.web.loggedOutURL` if defined in [http://code.google.com/p/bigbluebutton/source/browse/trunk/bigbluebutton-web/grails-app/conf/bigbluebutton.properties bigbluebutton.properties]</p> <p><font color="#FF0000">.</font></p> ||
+|| maxParticipants || Optional <font color="#FF0000">(NFS)</font> || Number || <p>The maximum number of participants to allow into the meeting (including moderators). After this number of participants have joined, BBB will return an appropriate error for other users trying to join the meeting. A negative number indicates that an unlimited number of participants should be allowed (this is the default setting).</p> <p><font color="#FF0000">TODO: This can be supplied to the API currently, but BBB does not actually restrict access yet once the room is full.</font></p> ||
+
+<p>*Response:*</p> 
+|| *Param Name* || *When Returned* || *Type* || *Description* ||
+|| meetingID || Always || String || <p>The meeting ID supplied by the third party app.  It must be used in conjunction with a password in subsequent calls for joining or otherwise modifying a meeting's status.</p> ||
+|| attendeePW || Always || String || <p>The password that will be required for attendees to join the meeting. If you did not supply one, BBB will assign a random password.</p> ||
+|| moderatorPW || Always || String || <p>The password that will be required for moderators to join the meeting or for certain administrative actions (i.e. ending a meeting). If you did not supply one, BBB will assign a random password.</p> ||
+
+<br><br>
+= Join Meeting (join) =
+
+<p>*Parameters:*</p> 
+|| *Param Name* || *Required/Optional* || *Type* || *Description* ||
+|| fullName || Required || String || <p>The full name that is to be used to identify this user to other conference attendees.</p> ||
+|| meetingID || Required || String || <p>The meeting ID that identifies the meeting you are attempting to join.</p> ||
+|| password || Required || String || <p>The password that this attendee is using. If the moderator password is supplied, he will be given moderator status (and the same for attendee password, etc)</p> ||
+|| userID || Optional || String || <p style="font-weight: bold; color: red">NEW in 0.7</p><p>An identifier for this user that will help your application to identify which person this is.  This user ID will be returned for this user in the getMeetingInfo API call so that you can check </p> ||
+|| webVoiceConf|| Optional || String || <p style="font-weight: bold; color: red">NEW in 0.7</p><p>If you want to pass in a custom voice-extension when a user joins the voice conference using voip. This is useful if you want to collect more info in you Call Detail Records about the user joining the conference. You need to modify your /etc/asterisk/bbb-extensions.conf to handle this new extensions. </p> ||
+
+<p>*Response:*</p> 
+
+There is no XML response for this call if it is properly formatted.  You should simply redirect the user to the call URL, and they will be entered into the meeting.
+
+<p style="color: red; font-weight: bold;">NOTE: there is the possibility that a user is sent to a join URL that is invalid right now.  For instance, if the client application forms the URL incorrectly, or sends the user to join a meeting that hasn't been created, then the user will end up seeing the XML that would be returned as an error.  We need to figure out a better way of handling this.</p>
+
+= _Back-office administration calls_ =
+<p>These calls may be used by the back-office applications to handle meeting management, etc.</p>
+
+== Is meeting running (isMeetingRunning) ==
+<p>This call enables you to simply check on whether or not a meeting is running by looking it up with your meeting ID.</p>
+
+<p>*Parameters:*</p> 
+|| *Param Name* || *Required/Optional* || *Type* || *Description* ||
+|| meetingID || Required || String || <p>The meeting ID that identifies the meeting you are attempting to check on.</p> ||
+
+<p>*Response:*</p> 
+|| *Param Name* || *When Returned* || *Type* || *Description* ||
+|| running || Always || String || <p>A string of either “true” or “false” that signals whether a meeting with this ID is currently running.</p>||
+
+== End Meeting (end) ==
+<p>Use this to forcibly end a meeting and kick all participants out of the meeting.</p>
+
+<p>*Parameters:*</p> 
+|| *Param Name* || *Required/Optional* || *Type* || *Description* ||
+|| meetingID || Required || String || <p>The meeting ID that identifies the meeting you are attempting to end.</p> ||
+|| password || Required || String || <p>The moderator password for this meeting. You can not end a meeting using the attendee password.</p>||
+
+
+<p>*Response:*</p> 
+
+This call returns no additional information other than the standard returncode parameter of "SUCCESS" or "FAILED".  It will return a messageKey and message for additional information.
+
+<font color="#FF0000">IMPORTANT NOTE:</font>  You should note that when you call end meeting, it is simply sending a request to the backend (Red5) server that is handling all the conference traffic.  That backend server will immediately attempt to send every connected client a logout event, kicking them from the meeting.  It will then disconnect them, and the meeting will be ended.  However, this may take several seconds, depending on network conditions.  Therefore, the end meeting call will return a success as soon as the request is sent.  But to be sure that it completed, you should then check back a few seconds later by using the getMeetingInfo or isMeetingRunning calls to verify that all participants have left the meeting and that it successfully ended.
+
+<font color="#FF0000">TODO: in future iterations, this call will also mark a meeting that has ended so that it can not be immediately restarted with the same join meeting URLs that initially dropped users into the meeting.  This will protect against devious users restarting a meeting that you just kicked them from.</font>
+
+
+== Get Meeting Info (getMeetingInfo) ==
+<p>This call will return all of a meeting's information, including the list of attendees as well as start and end times.</p>
+
+<font style="color: #FF0000; font-weight: bold">NOTE: This call was initially added in the 0.64 release, but in that release, you had no control over the userID.  Starting with the 0.7 release, you can specify a userID in the join call that will now be used as a return parameter for the userID field returned in this call.</font>
+
+<p>*Parameters:*</p> 
+|| *Param Name* || *Required/Optional* || *Type* || *Description* ||
+|| meetingID || Required || String || <p>The meeting ID that identifies the meeting you are attempting to check on.</p> ||
+|| password || Required || String || <p>The moderator password for this meeting. You can not get the meeting information using the attendee password.</p>||
+
+
+<p>*Example Response:*</p> 
+<p>
+If the returncode is "SUCCESS", all of the following elements are returned.  If the returncode is "FAILED", only the message and messageKey elements will be returned along with the returncode.
+</p>
+<p>
+<font color="#FF0000">TODO: add participant join / disconnect times to each attendee node.</font>
+</p>
+{{{
+<response>
+    <returncode>SUCCESS</returncode>
+    <meetingID>123456</meetingID>
+    <attendeePW>abc</attendeePW>
+    <moderatorPW>qwe</moderatorPW>
+    <running>true</running>
+    <startTime>Thu Mar 04 14:05:56 UTC 2010</startTime>
+    <endTime>null</endTime>
+    <participantCount>2</participantCount>
+    <moderatorCount>1</moderatorCount>
+    <attendees>
+        <attendee>
+            <userID>40</userID>
+            <fullName>JT Attendee</fullName>
+            <role>VIEWER</role>
+        </attendee>
+        <attendee>
+            <userID>37</userID>
+            <fullName>JT Moderator</fullName>
+            <role>MODERATOR</role>
+        </attendee>
+    </attendees>
+    <messageKey/>
+    <message/>
+</response>
+}}}
+
+== Get Meetings (getMeetings) ==
+<p>This call will return a list of all the meetings found on this server.</p>
+
+<p style="color: #FF0000; font-weight: bold">NOTE: At this time, meetings live on the server as long as it is running, so over time, this call will start returning more and more meetings.  In an upcoming release, we will prune out old meetings that have not been running for over thirty minutes, an hour, or similar timeframe.</p>
+
+<p>*Parameters:*</p> 
+|| *Param Name* || *Required/Optional* || *Type* || *Description* ||
+|| random || Required || String || This can be <b>any</b> value.  It must be supplied so that we can use your security salt and do a checksum verification that you are the server's owner.  This is for security purposes.  If you do not supply the random parameter, the call will fail immediately. ||
+
+<p>*Example Response:*</p> 
+<p>
+If the returncode is "SUCCESS", all of the following elements are returned.  If the returncode is "FAILED", only the message and messageKey elements will be returned along with the returncode.
+</p>
+
+{{{
+<response>
+    <returncode>SUCCESS</returncode>
+    <meetings>
+        <meeting>
+            <meetingID>test123</meetingID>
+            <attendeePW>234567</attendeePW>
+            <moderatorPW>123456</moderatorPW>
+            <running>true</running>
+        </meeting>
+        <meeting>
+            <meetingID>testAgain</meetingID>
+            <attendeePW>def456</attendeePW>
+            <moderatorPW>abc123</moderatorPW>
+            <running>false</running>
+        </meeting>
+    </meetings>
+</response>
+}}}
+
+
+= Sample API Examples (JSP, PHP, Python ...) = 
+== Overview ==
+BBB provides API Examples so you can integrate BBB easily with your application. For now, only PHP and JSP examples are available. Please check out : http://code.google.com/p/bigbluebutton/source/browse/#svn/trunk/bbb-api-examples
+and
+http://code.google.com/p/bigbluebutton/source/browse/trunk/#trunk/bigbluebutton-web/web-app/demo
+
+Feel free to contribute and post your implementation of the API in other language code.
+
+== Language code ==
+  * JSP : Done - http://code.google.com/p/bigbluebutton/source/browse/trunk/#trunk/bigbluebutton-web/web-app/demo
+  * PHP : Done - http://code.google.com/p/bigbluebutton/source/browse/#svn/trunk/bbb-api-examples/PHP/
+  * Python : Planned
+  * JavaScript: see the Chrome extension that allows for API testing: http://github.com/jthomerson/BigBlueButton-api-chrome-extension
+  ** Obviously implementing your entire integration in JavaScript is risky because you must expose your security salt.  This is not recommended.
+  ** Also note that if you integrate using JavaScript and you are calling the API on a different domain than the one that your JavaScript is being served from, you will have cross-site scripting issues.
+  * ASP : To do / Feel free to contribute
+  * ...
+
+== PHP Requirement ==
+You need to enable the "allow_url_fopen" to "On" in your php.ini file so this example can work. Simply add/replace to your php.ini file :
+
+`allow_url_fopen = On`
