@@ -1,24 +1,36 @@
 #summary BigBlueButton Third-Party Integration API.
 <wiki:toc max_depth="3" />
 
-= What's New =
-* NOTE:* If you make changes to the API, please document it here so others will know when a certain change occurred. For example, if a parameter has changed from "optional" to "mandatory".
+= Overview = 
+This document outlines the API that is available for integrating BigBlueButton with other applications. The changes between releases will be described in the document. Features which are not currently implemented will be clearly marked as such.
 
-  * * isMeetingRunning * - added in 0.64
-  * * end * - added in 0.64
-  * * getMeetingInfo * - added in 0.64
-  * * getMeetings * - added in 0.64
+= API Changes in Releases =
+
+== Version 0.64 ==
+Added new API calls:
+  * * isMeetingRunning *
+  * * end *
+  * * getMeetingInfo *
+  * * getMeetings *
+
   * * api version returned on index * - added in 0.7 - now, if you call /bigbluebutton/api with no parameters (and no checksum is necessary), we will return a simple response that gives you the version of the API.  This may help if you are integrating against multiple machines that are running different versions of BigBlueButton (see issue #528)
 
-* 0.70 - YOU NEED TO READ ABOUT THESE CHANGES * 
+== Version 0.7 ==
+Added new API calls:
+  * * api version returned on index *
 
 In 0.70, we made a couple of changes that will force you to update your API integrations.  These changes were necessary to improve the security of the API and our ability to add features in future releases.  We apologize for any inconvenience this may have caused.
 
- * * Issue 487 * - Add the action name to the checksum calculation.  This will be more secure.  If you read the security section below, it will give you the updated instructions on calculating the checksum.  Basically, this change was simple.  Where you previously would have done something similar to: sha1(queryString + securitySalt), you now need to do sha1(callName + queryString + securitySalt).  callName will be "create", "join", "getMeetings", "getMeetingInfo", "end", et cetera - the name of the API call you are making.  This also eliminated the need to send the "random" parameter to getMeetings.
- * * Issue 473 * - Remove "meetingToken" from the API.  Now you will not be able to pass the meetingToken to any API call, nor will it be returned in any response from the API.  You should now use just the meetingID, which is now required for any meeting-related call.
+ * * Fixed <a href="http://code.google.com/p/bigbluebutton/issues/detail?id=487">Issue 487</a> * - Add the action name to the checksum calculation.  
+ * * Fixed <a href="http://code.google.com/p/bigbluebutton/issues/detail?id=473">Issue 473</a> * - Remove "meetingToken" from the API.
  * * Issue 394 * - Now, after calling "end" to forcibly end a meeting, you are not allowed to join that meeting again.  Previously, someone could reuse the join link they originally had, and join a meeting that had been forcibly ended.  A new response parameter (hasBeenForciblyEnded) was added to responses that return information about a meeting.
  * * Issue 247 * - After a meeting has ended (either forcibly or after all participants have voluntarily left), a meeting only stays in memory for 60 minutes.  After that it will no longer be returned from the getMeetings call, and you will not be able to call getMeetingInfo, etc, for that meeting.  The number of minutes that it remains in memory is configurable.  You can modify /var/lib/tomcat6/webapps/bigbluebutton/WEB-INF/classes/bigbluebutton.properties and change (or add) the line "beans.dynamicConferenceService.minutesElapsedBeforeMeetingExpiration=60".  If you add it, it should be added just before or after the line where your security salt is configured.
  * * Issue 393 * - getMeetingInfo / join enhancements: you can now specify a "userID" parameter to the join API call, and this will appear as the userID that is returned in getMeetingInfo.  You can use this for periodically checking to see who is still signed into the conference
+
+== Version 0.8 ==
+
+== Version Master Branch ==
+No changes.
 
 = What's Planned =
 To see a list of the planned changes for 0.7, see: http://code.google.com/p/bigbluebutton/issues/list?q=label:API%20label:Release0.7
@@ -304,6 +316,24 @@ If the returncode is "SUCCESS", all of the following elements are returned.  If 
     </meetings>
 </response>
 }}}
+
+== GetRecordings (getRecordings) ==
+<p>Retrieves the recordings that are available for playback for a given 
+meetingID (or set of meeting IDs).</p>
+<p>Example URL:<a href="#">http://yourserver.com/bigbluebutton/api/getRecordings?[parameters]&checksum=[checksum]</a> </p>
+
+<p>*Parameters:*</p>    
+|| *Param Name* || *Required / Optional* || *Type* || *Description* ||
+|| meetingID || Optional || String || <p>A meeting ID for get the recordings. It can be a set of meetingIDs separate by commas. If the meeting ID is not specified, it will get ALL the recordings.</p> ||
+
+<p>*Response:*</p> 
+|| *Param Name* || *When Returned* || *Type* || *Description* ||
+|| meetingID || Always || String || <p>The meeting ID supplied by the third party app.  It must be used in conjunction with a password in subsequent calls for joining or otherwise modifying a meeting's status.</p> ||
+|| attendeePW || Always || String || <p>The password that will be required for attendees to join the meeting. If you did not supply one, BBB will assign a random password.</p> ||
+|| moderatorPW || Always || String || <p>The password that will be required for moderators to join the meeting or for certain administrative actions (i.e. ending a meeting). If you did not supply one, BBB will assign a random password.</p> ||
+
+<br><br>
+
 
 
 = Sample API Examples (JSP, PHP, Python ...) = 
