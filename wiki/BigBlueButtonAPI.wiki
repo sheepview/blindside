@@ -4,6 +4,8 @@
 = Overview = 
 This document outlines the API that is available for integrating BigBlueButton with other applications. The changes between releases will be described in the document. Features which are not currently implemented will be clearly marked as such.
 
+The current API implementation lies on the bigbluebutton-web component, which has been written using the Grails framework.
+
 = API Changes in Releases =
 
 == Version 0.64 ==
@@ -13,76 +15,34 @@ Added new API calls:
   * * getMeetingInfo *
   * * getMeetings *
 
-  * * api version returned on index * - added in 0.7 - now, if you call /bigbluebutton/api with no parameters (and no checksum is necessary), we will return a simple response that gives you the version of the API.  This may help if you are integrating against multiple machines that are running different versions of BigBlueButton (see issue #528)
-
 == Version 0.7 ==
+In 0.70, we made a couple of changes that will force you to update your API integrations.  These changes were necessary to improve the security of the API and our ability to add features in future releases.  We apologize for any inconvenience this may have caused.
+
 Added new API calls:
   * * api version returned on index *
 
-In 0.70, we made a couple of changes that will force you to update your API integrations.  These changes were necessary to improve the security of the API and our ability to add features in future releases.  We apologize for any inconvenience this may have caused.
-
- * * Fixed <a href="http://code.google.com/p/bigbluebutton/issues/detail?id=487">Issue 487</a> * - Add the action name to the checksum calculation.  
- * * Fixed <a href="http://code.google.com/p/bigbluebutton/issues/detail?id=473">Issue 473</a> * - Remove "meetingToken" from the API.
- * * Issue 394 * - Now, after calling "end" to forcibly end a meeting, you are not allowed to join that meeting again.  Previously, someone could reuse the join link they originally had, and join a meeting that had been forcibly ended.  A new response parameter (hasBeenForciblyEnded) was added to responses that return information about a meeting.
- * * Issue 247 * - After a meeting has ended (either forcibly or after all participants have voluntarily left), a meeting only stays in memory for 60 minutes.  After that it will no longer be returned from the getMeetings call, and you will not be able to call getMeetingInfo, etc, for that meeting.  The number of minutes that it remains in memory is configurable.  You can modify /var/lib/tomcat6/webapps/bigbluebutton/WEB-INF/classes/bigbluebutton.properties and change (or add) the line "beans.dynamicConferenceService.minutesElapsedBeforeMeetingExpiration=60".  If you add it, it should be added just before or after the line where your security salt is configured.
- * * Issue 393 * - getMeetingInfo / join enhancements: you can now specify a "userID" parameter to the join API call, and this will appear as the userID that is returned in getMeetingInfo.  You can use this for periodically checking to see who is still signed into the conference
+Fixes:
+  * * Fixed <a href="http://code.google.com/p/bigbluebutton/issues/detail?id=487">Issue 487</a> * - Add the action name to the checksum calculation.  
+  * * Fixed <a href="http://code.google.com/p/bigbluebutton/issues/detail?id=473">Issue 473</a> * - Remove "meetingToken" from the API.
+  * * Fixed <a href="http://code.google.com/p/bigbluebutton/issues/detail?id=394">Issue 394</a> * - Need endMeeting API call implemented.
+  * * Fixed <a href="http://code.google.com/p/bigbluebutton/issues/detail?id=247">Issue 247</a> * - DynamicConferenceService never cleans out ended conferences.
+  * * Fixed <a href="http://code.google.com/p/bigbluebutton/issues/detail?id=393">Issue 393</a> * - Need getMeetingInfo API call implemented.
 
 == Version 0.8 ==
+Added new API calls:
+  * * getRecordings *
+  * * publishRecordings *
+  * * deleteRecordings *
+
+For a detail of the updates in the api 0.8 check the following <a href="http://groups.google.com/group/bigbluebutton-dev/browse_thread/thread/c214cbe9bdb2268a">link</a>
 
 == Version Master Branch ==
-No changes.
+No changes yet.
 
-= What's Planned =
-To see a list of the planned changes for 0.7, see: http://code.google.com/p/bigbluebutton/issues/list?q=label:API%20label:Release0.7
-
-The major changes were already completed - see the notes above.
-
-= Overview = 
-This document outlines the API that is available for integrating !BigBlueButton with other applications. It is currently in draft stage as not all features are available. Features which are not currently implemented will be clearly marked as such.
-
-= Overall API Usage =
-The API is implemented with the end-user in mind. To call the API, you simply make an HTTP request to a URL with the query parameters supplying the information needed for the call. The API returns an XML response. Here are some example API calls and their responses:
-
-== Chrome extension ==
-There is a Chrome extension that allows for quickly testing the API functionality.  You can also use it to help you understand usage of the API.  
-
-The extension can be found at: https://chrome.google.com/extensions/detail/ncbonhmhjnamefpmmjdpbohnkbeliehb
-
-The code for the extension can be found at: http://github.com/jthomerson/BigBlueButton-api-chrome-extension
-
-== _Create meeting example:_ ==
-<a href="http://yourserver.com/bigbluebutton/api/create?name=Test+Meeting&meetingID=abcdef&attendeePW=111222&moderatorPW=333444">http://yourserver.com/bigbluebutton/api/create?name=Test+Meeting&meetingID=abcdef&attendeePW=111222&moderatorPW=333444</a>
-{{{
-<response>
-    <returncode>SUCCESS</returncode>
-    <meetingID>abcdef</meetingID>
-    <attendeePW>111222</attendeePW>
-    <moderatorPW>333444</moderatorPW>
-    <messageKey/>
-<message/>
-</response>
-}}}
-
-
-== _Join meeting example:_ ==
-<a href="http://yourserver.com/bigbluebutton/api/join?fullName=Joe+User&meetingID=abcdef&password=333444">http://yourserver.com/bigbluebutton/api/join?fullName=Joe+User&meetingID=abcdef&password=333444</a>
-<p>This call sends the caller directly into the application. There is no XML response. You should redirect your user to a URL like this when you are done creating the meeting and are ready to direct them into the meeting.</p>
-
-== _Is meeting running example:_ ==
-<a href="http://yourserver.com/bigbluebutton/api/isMeetingRunning?meetingID=abcdef">http://yourserver.com/bigbluebutton/api/isMeetingRunning?meetingID=abcdef</a>
-{{{
-<response>
-    <returncode>SUCCESS</returncode>
-    <running>true</running>
-</response>
-}}}
-
-More details on these calls can be found in the *API Calls* section below.
-
-<br><br>
+<br />
 = API Security Model =
 The API provides a way to be secured so that third-party apps may make calls to it, but not allow other people (end users) to make similar calls to create their own meetings, etc.
-For instance, a third party application that is integrated with the API may embed a !JavaScript URL that calls to the BBB API to create a meeting. An end user will be able to see this URL in their browser and should not be allowed to modify a parameter (for example, the meeting ID) and create their own meeting. By doing so, they could create meetings that were not tracked by the third-party app, which could present a billing problem, et cetera. They should also not be able to modify any parameter (for instance the maximum attendees) to modify the meeting that is being created by the third party app.
+For instance, a third party application that is integrated with the API may embed a !JavaScript URL that calls to the BBB API to create a meeting. An end user will be able to see this URL in their browser and should not be allowed to modify a parameter (for example, the meeting ID) and create their own meeting. By doing so, they could create meetings that were not tracked by the third-party app, which could present a billing problem, etcetera. They should also not be able to modify any parameter (for instance the maximum attendees) to modify the meeting that is being created by the third party app.
 Those examples are clearly abuses of the system, and therefore must be protected against. The API must provide a way of enabling this protection.
 
 == _Configuration_ ==
@@ -130,8 +90,72 @@ Look for the parameter
  * All API calls make a best-effort attempt to return a properly formatted document that contains enough information for the user to be able to determine what the error is.
  * Errors are returned with a "returncode" value of "FAILED" and a "message" and "messageKey" value.  We will try very hard to keep the messageKey stable (unchanging) throughout the life of the API.  However, the "message" value is a plain text (english) value that may change with time.  You can use the messageKey to determine the type of error and look up internationalized text within your own system if needed.
  ** i.e. - An invalid request may return an error message of "No conference with that meeting ID exists", but the messageKey is simple "invalidMeetingIdentifier".
+  ** For a complete list of Errors check the following section. 
+
+<br />
+
+= API Resources =
+== Administration ==
+In the following section is described the administration calls
+|| Resource || Description ||
+|| create || Creates a new meeting. ||
+|| join || Join a new user to an existing meeting. ||
+|| end || Ends meeting. ||
+
+== Monitoring ==
+In the following section is described the monitoring calls
+|| Resource || Description ||
+|| isMeetingRunning || Checks whether if an specified meeting is running. ||
+|| getMeetings || Get a list of the Meetings. ||
+|| getMeetingInfo || Get the details of a Meeting. ||
+
+== Recording ==
+|| Resource || Description ||
+|| getRecordings || Get a list of recordings. ||
+|| publishRecordings || Enables to publish or unpublish a recording. ||
+|| deleteRecordings || Deletes a existing Recording ||
+
+= Overall API Usage =
+The API is implemented with the end-user in mind. To call the API, you simply make an HTTP request to a URL with the query parameters supplying the information needed for the call. The API returns an XML response. Here are some example API calls and their responses:
+
+== Chrome extension ==
+There is a Chrome extension that allows for quickly testing the API functionality.  You can also use it to help you understand usage of the API.  
+
+The extension can be found at: https://chrome.google.com/extensions/detail/ncbonhmhjnamefpmmjdpbohnkbeliehb
+
+The code for the extension can be found at: http://github.com/jthomerson/BigBlueButton-api-chrome-extension
+
+== _Create meeting example:_ ==
+<a href="http://yourserver.com/bigbluebutton/api/create?name=Test+Meeting&meetingID=abcdef&attendeePW=111222&moderatorPW=333444">http://yourserver.com/bigbluebutton/api/create?name=Test+Meeting&meetingID=abcdef&attendeePW=111222&moderatorPW=333444</a>
+{{{
+<response>
+    <returncode>SUCCESS</returncode>
+    <meetingID>abcdef</meetingID>
+    <attendeePW>111222</attendeePW>
+    <moderatorPW>333444</moderatorPW>
+    <messageKey/>
+<message/>
+</response>
+}}}
+
+
+== _Join meeting example:_ ==
+<a href="http://yourserver.com/bigbluebutton/api/join?fullName=Joe+User&meetingID=abcdef&password=333444">http://yourserver.com/bigbluebutton/api/join?fullName=Joe+User&meetingID=abcdef&password=333444</a>
+<p>This call sends the caller directly into the application. There is no XML response. You should redirect your user to a URL like this when you are done creating the meeting and are ready to direct them into the meeting.</p>
+
+== _Is meeting running example:_ ==
+<a href="http://yourserver.com/bigbluebutton/api/isMeetingRunning?meetingID=abcdef">http://yourserver.com/bigbluebutton/api/isMeetingRunning?meetingID=abcdef</a>
+{{{
+<response>
+    <returncode>SUCCESS</returncode>
+    <running>true</running>
+</response>
+}}}
+
+More details on these calls can be found in the *API Calls* section below.
 
 <br><br>
+
 = Desired Future Features =
 
 == _Support for JSON/JSONP_ ==
