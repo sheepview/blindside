@@ -90,7 +90,7 @@ Look for the parameter
  * All API calls make a best-effort attempt to return a properly formatted document that contains enough information for the user to be able to determine what the error is.
  * Errors are returned with a "returncode" value of "FAILED" and a "message" and "messageKey" value.  We will try very hard to keep the messageKey stable (unchanging) throughout the life of the API.  However, the "message" value is a plain text (english) value that may change with time.  You can use the messageKey to determine the type of error and look up internationalized text within your own system if needed.
  ** i.e. - An invalid request may return an error message of "No conference with that meeting ID exists", but the messageKey is simple "invalidMeetingIdentifier".
-  ** For a complete list of Errors check the following section. 
+ ** For a complete list of Errors check the following section. 
 
 <br />
 
@@ -115,65 +115,11 @@ In the following section is described the monitoring calls
 || publishRecordings || Enables to publish or unpublish a recording. ||
 || deleteRecordings || Deletes a existing Recording ||
 
-= Overall API Usage =
-The API is implemented with the end-user in mind. To call the API, you simply make an HTTP request to a URL with the query parameters supplying the information needed for the call. The API returns an XML response. Here are some example API calls and their responses:
 
-== Chrome extension ==
-There is a Chrome extension that allows for quickly testing the API functionality.  You can also use it to help you understand usage of the API.  
-
-The extension can be found at: https://chrome.google.com/extensions/detail/ncbonhmhjnamefpmmjdpbohnkbeliehb
-
-The code for the extension can be found at: http://github.com/jthomerson/BigBlueButton-api-chrome-extension
-
-== _Create meeting example:_ ==
-<a href="http://yourserver.com/bigbluebutton/api/create?name=Test+Meeting&meetingID=abcdef&attendeePW=111222&moderatorPW=333444">http://yourserver.com/bigbluebutton/api/create?name=Test+Meeting&meetingID=abcdef&attendeePW=111222&moderatorPW=333444</a>
-{{{
-<response>
-    <returncode>SUCCESS</returncode>
-    <meetingID>abcdef</meetingID>
-    <attendeePW>111222</attendeePW>
-    <moderatorPW>333444</moderatorPW>
-    <messageKey/>
-<message/>
-</response>
-}}}
-
-
-== _Join meeting example:_ ==
-<a href="http://yourserver.com/bigbluebutton/api/join?fullName=Joe+User&meetingID=abcdef&password=333444">http://yourserver.com/bigbluebutton/api/join?fullName=Joe+User&meetingID=abcdef&password=333444</a>
-<p>This call sends the caller directly into the application. There is no XML response. You should redirect your user to a URL like this when you are done creating the meeting and are ready to direct them into the meeting.</p>
-
-== _Is meeting running example:_ ==
-<a href="http://yourserver.com/bigbluebutton/api/isMeetingRunning?meetingID=abcdef">http://yourserver.com/bigbluebutton/api/isMeetingRunning?meetingID=abcdef</a>
-{{{
-<response>
-    <returncode>SUCCESS</returncode>
-    <running>true</running>
-</response>
-}}}
-
-More details on these calls can be found in the *API Calls* section below.
-
-<br><br>
-
-= Desired Future Features =
-
-== _Support for JSON/JSONP_ ==
-    * It would be very nice to optionally allow JSON responses, and to support JSONP. This might allow for simpler integrations, even within static or almost-static webpages using !JavaScript as the primary integration language. It should not be assumed that all users will be running custom software on a server and be able to process XML responses, etc.
-        ** This being said, even within !JavaScript there are simple ways to make the API call and process the returned XML (using jQuery and $.xml2json, for example)
-== _Meeting event callbacks_ ==
-<p>This may actually even be called a “reverse API” - where we define an interface that the third- party application can implement to be notified of events. This would not be necessary for the first version of the API, but would be a nice feature for future enhancements. More details:</p>
-    * When major events happen within meetings, it would be very helpful to provide a way for third-party applications to be notified of these events. For instance, when a user joins a conference, they will presumably be joining through the third-party app. However, when they leave the conference, the app may have certain auditing that it needs to do to record their disconnect time, etc. If BBB could make some callback to the application, this would assist in such scenarios.
-    * For example, the application may be able to register a URL that BBB would call with status updates. BBB would define an API that such an app would be required to implement at that URL.
-        ** i.e. -BBB could call:
-        ** http://third-party-app/bbb-integ.php?event=meetingEnded&meetingID=abcd
-            *** [http://third-party-app/bbb-integ.php?event=userLeft&userID=1234 http://third-party-app/bbb-integ.php?event=userLeft&userID=1234]
-            *** [http://third-party-app/bbb-integ.php?event=meetingEnded&meetingID=abcd http://third-party-app/bbb-integ.php?event=meetingEnded&meetingID=abcd]
-    * We are already announcing events such as this within BBB through ActiveMQ to communicate between the Red5 apps where these events originate and the API. It would probably not be very difficult to register additional listeners through the Spring Integration configuration that will make these HTTP calls for us for each event.
-
-<br><br>
 = API Calls =
-==_ Standard parameters and responses _==            
+<p><font color="#FF0000">*NOTE:*</font> Parameters marked with <font color="#FF0000">(NFS)</font> are not yet fully supported. You can pass them in to the controller, but they may not have any actual effect on the conference. This is more a limitation based on support by the actual BBB application more than the API itself.</p>
+
+== Standard parameters and responses ==            
 <p> The following response parameters are standard to every call and may be returned from any call. </p>
 <p>*Parameters:*</p>    
 || *Param Name* || *Required / Optional* || *Type* || *Description* ||
@@ -185,13 +131,9 @@ More details on these calls can be found in the *API Calls* section below.
 || message || Sometimes || String || <p>A message that gives additional information about the status of the call. A message parameter will always be returned if the returncode was FAILED. A message may also be returned in some cases where returncode was SUCCESS if additional information would be helpful.</p> ||
 || messageKey || Sometimes || String || <p>Provides similar functionality to the message and follows the same rules. However, a message key will be much shorter and will generally remain the same for the life of the API whereas a message may change over time. If your third party application would like to internationalize or otherwise change the standard messages returned, you can look up your own custom messages based on this messageKey.</p> ||
 
-<p></p>
-== _Meeting workflow calls_ ==
-<p>These calls are the primary calls of the API. They are used for creating and joining meetings.</p>
-<p><font color="#FF0000">*NOTE:*</font> Parameters marked with <font color="#FF0000">(NFS)</font> are not yet fully supported. You can pass them in to the controller, but they may not have any actual effect on the conference. This is more a limitation based on support by the actual BBB application more than the API itself.</p>
 
 <br><br>
-= Create Meeting (create) =
+== Create Meeting (create) ==
 <p>Example URL:<a href="http://yourserver.com/bigbluebutton/api/create?[parameters]&checksum=[checksum]">http://yourserver.com/bigbluebutton/api/create?[parameters]&checksum=[checksum]</a> </p>
 
 <p>*Parameters:*</p>    
@@ -213,7 +155,7 @@ More details on these calls can be found in the *API Calls* section below.
 || moderatorPW || Always || String || <p>The password that will be required for moderators to join the meeting or for certain administrative actions (i.e. ending a meeting). If you did not supply one, BBB will assign a random password.</p> ||
 
 <br><br>
-= Join Meeting (join) =
+== Join Meeting (join) ==
 
 <p>*Parameters:*</p> 
 || *Param Name* || *Required/Optional* || *Type* || *Description* ||
@@ -228,9 +170,6 @@ More details on these calls can be found in the *API Calls* section below.
 There is no XML response for this call if it is properly formatted.  You should simply redirect the user to the call URL, and they will be entered into the meeting.
 
 <p style="color: red; font-weight: bold;">NOTE: there is the possibility that a user is sent to a join URL that is invalid right now.  For instance, if the client application forms the URL incorrectly, or sends the user to join a meeting that hasn't been created, then the user will end up seeing the XML that would be returned as an error.  We need to figure out a better way of handling this.</p>
-
-= _Back-office administration calls_ =
-<p>These calls may be used by the back-office applications to handle meeting management, etc.</p>
 
 == Is meeting running (isMeetingRunning) ==
 <p>This call enables you to simply check on whether or not a meeting is running by looking it up with your meeting ID.</p>
@@ -350,11 +289,32 @@ meetingID (or set of meeting IDs).</p>
 || *Param Name* || *Required / Optional* || *Type* || *Description* ||
 || meetingID || Optional || String || <p>A meeting ID for get the recordings. It can be a set of meetingIDs separate by commas. If the meeting ID is not specified, it will get ALL the recordings.</p> ||
 
-<p>*Response:*</p> 
-|| *Param Name* || *When Returned* || *Type* || *Description* ||
-|| meetingID || Always || String || <p>The meeting ID supplied by the third party app.  It must be used in conjunction with a password in subsequent calls for joining or otherwise modifying a meeting's status.</p> ||
-|| attendeePW || Always || String || <p>The password that will be required for attendees to join the meeting. If you did not supply one, BBB will assign a random password.</p> ||
-|| moderatorPW || Always || String || <p>The password that will be required for moderators to join the meeting or for certain administrative actions (i.e. ending a meeting). If you did not supply one, BBB will assign a random password.</p> ||
+<p>*Example Response:*</p> 
+<p>
+If the returncode is "SUCCESS", all of the following elements are returned.  If the returncode is "FAILED", only the message and messageKey elements will be returned along with the returncode.
+</p>
+
+{{{
+<response>
+    <returncode>SUCCESS</returncode>
+    <meetings>
+        <meeting>
+            <meetingID>test123</meetingID>
+            <attendeePW>234567</attendeePW>
+            <moderatorPW>123456</moderatorPW>
+            <running>true</running>
+        </meeting>
+        <meeting>
+            <meetingID>testAgain</meetingID>
+            <attendeePW>def456</attendeePW>
+            <moderatorPW>abc123</moderatorPW>
+            <running>false</running>
+        </meeting>
+    </meetings>
+</response>
+}}}
+
+
 
 <br><br>
 
@@ -382,3 +342,61 @@ Feel free to contribute and post your implementation of the API in other languag
 You need to enable the "allow_url_fopen" to "On" in your php.ini file so this example can work. Simply add/replace to your php.ini file :
 
 `allow_url_fopen = On`
+
+= Overall API Usage =
+The API is implemented with the end-user in mind. To call the API, you simply make an HTTP request to a URL with the query parameters supplying the information needed for the call. The API returns an XML response. Here are some example API calls and their responses:
+
+== Chrome extension ==
+There is a Chrome extension that allows for quickly testing the API functionality.  You can also use it to help you understand usage of the API.  
+
+The extension can be found at: https://chrome.google.com/extensions/detail/ncbonhmhjnamefpmmjdpbohnkbeliehb
+
+The code for the extension can be found at: http://github.com/jthomerson/BigBlueButton-api-chrome-extension
+
+== _Create meeting example:_ ==
+<a href="http://yourserver.com/bigbluebutton/api/create?name=Test+Meeting&meetingID=abcdef&attendeePW=111222&moderatorPW=333444">http://yourserver.com/bigbluebutton/api/create?name=Test+Meeting&meetingID=abcdef&attendeePW=111222&moderatorPW=333444</a>
+{{{
+<response>
+    <returncode>SUCCESS</returncode>
+    <meetingID>abcdef</meetingID>
+    <attendeePW>111222</attendeePW>
+    <moderatorPW>333444</moderatorPW>
+    <messageKey/>
+<message/>
+</response>
+}}}
+
+
+== _Join meeting example:_ ==
+<a href="http://yourserver.com/bigbluebutton/api/join?fullName=Joe+User&meetingID=abcdef&password=333444">http://yourserver.com/bigbluebutton/api/join?fullName=Joe+User&meetingID=abcdef&password=333444</a>
+<p>This call sends the caller directly into the application. There is no XML response. You should redirect your user to a URL like this when you are done creating the meeting and are ready to direct them into the meeting.</p>
+
+== _Is meeting running example:_ ==
+<a href="http://yourserver.com/bigbluebutton/api/isMeetingRunning?meetingID=abcdef">http://yourserver.com/bigbluebutton/api/isMeetingRunning?meetingID=abcdef</a>
+{{{
+<response>
+    <returncode>SUCCESS</returncode>
+    <running>true</running>
+</response>
+}}}
+
+More details on these calls can be found in the *API Calls* section below.
+
+<br><br>
+
+= Desired Future Features =
+
+== _Support for JSON/JSONP_ ==
+    * It would be very nice to optionally allow JSON responses, and to support JSONP. This might allow for simpler integrations, even within static or almost-static webpages using !JavaScript as the primary integration language. It should not be assumed that all users will be running custom software on a server and be able to process XML responses, etc.
+        ** This being said, even within !JavaScript there are simple ways to make the API call and process the returned XML (using jQuery and $.xml2json, for example)
+== _Meeting event callbacks_ ==
+<p>This may actually even be called a “reverse API” - where we define an interface that the third- party application can implement to be notified of events. This would not be necessary for the first version of the API, but would be a nice feature for future enhancements. More details:</p>
+    * When major events happen within meetings, it would be very helpful to provide a way for third-party applications to be notified of these events. For instance, when a user joins a conference, they will presumably be joining through the third-party app. However, when they leave the conference, the app may have certain auditing that it needs to do to record their disconnect time, etc. If BBB could make some callback to the application, this would assist in such scenarios.
+    * For example, the application may be able to register a URL that BBB would call with status updates. BBB would define an API that such an app would be required to implement at that URL.
+        ** i.e. -BBB could call:
+        ** http://third-party-app/bbb-integ.php?event=meetingEnded&meetingID=abcd
+            *** [http://third-party-app/bbb-integ.php?event=userLeft&userID=1234 http://third-party-app/bbb-integ.php?event=userLeft&userID=1234]
+            *** [http://third-party-app/bbb-integ.php?event=meetingEnded&meetingID=abcd http://third-party-app/bbb-integ.php?event=meetingEnded&meetingID=abcd]
+    * We are already announcing events such as this within BBB through ActiveMQ to communicate between the Red5 apps where these events originate and the API. It would probably not be very difficult to register additional listeners through the Spring Integration configuration that will make these HTTP calls for us for each event.
+
+<br><br>
