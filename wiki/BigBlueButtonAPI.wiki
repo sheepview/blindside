@@ -148,13 +148,28 @@ In the following section is described the monitoring calls
 || logoutURL || Optional || String || <p>The URL that the !BigBlueButton client will go to after users click the OK button on the 'You have been logged out message'.  This overrides, the value for `bigbluebutton.web.loggedOutURL` if defined in [http://code.google.com/p/bigbluebutton/source/browse/trunk/bigbluebutton-web/grails-app/conf/bigbluebutton.properties bigbluebutton.properties]</p> <p><font color="#FF0000">.</font></p> ||
 || maxParticipants || Optional <font color="#FF0000">(NFS)</font> || Number || <p>The maximum number of participants to allow into the meeting (including moderators). After this number of participants have joined, BBB will return an appropriate error for other users trying to join the meeting. A negative number indicates that an unlimited number of participants should be allowed (this is the default setting).</p> <p><font color="#FF0000">TODO: This can be supplied to the API currently, but BBB does not actually restrict access yet once the room is full.</font></p> ||
 || record || Optional || String || <p>Setting ‘record=true’ instructs the BigBlueButton server to record the media and events in the session for later playback. Available values are true or false. Default value is false. </p> ||
-|| duration || Optional || Integer || <p>The duration parameter allows to specify the number of minutes for the meeting's length. When the length of the meeting reaches the duration, BigBlueButton automatically ends the meeting. The default is 0, which means the meeting continues until the last person leaves or an end API calls is made with the associated meetingID.</p> ||
+|| duration || Optional || Number|| <p>The duration parameter allows to specify the number of minutes for the meeting's length. When the length of the meeting reaches the duration, BigBlueButton automatically ends the meeting. The default is 0, which means the meeting continues until the last person leaves or an end API calls is made with the associated meetingID.</p> ||
 
 <p>*Response:*</p> 
 || *Param Name* || *When Returned* || *Type* || *Description* ||
 || meetingID || Always || String || <p>The meeting ID supplied by the third party app.  It must be used in conjunction with a password in subsequent calls for joining or otherwise modifying a meeting's status.</p> ||
 || attendeePW || Always || String || <p>The password that will be required for attendees to join the meeting. If you did not supply one, BBB will assign a random password.</p> ||
 || moderatorPW || Always || String || <p>The password that will be required for moderators to join the meeting or for certain administrative actions (i.e. ending a meeting). If you did not supply one, BBB will assign a random password.</p> ||
+
+<p>*Example:*</p>
+<a href="#">http://yourserver/bigbluebutton/api/create?name=Test&meetingID=1234&moderatorPW=mp&attendeePW=ap&checksum=[checksum]</p>
+{{{
+<response>
+   <returncode>SUCCESS</returncode>
+   <meetingID>1234</meetingID>
+   <attendeePW>ap</attendeePW>
+   <moderatorPW>mp</moderatorPW>
+   <createTime>1314910328730</createTime>
+   <hasBeenForciblyEnded>false</hasBeenForciblyEnded>
+   <messageKey/>
+   <message/>
+</response>
+}}}
 
 <br><br>
 == Join Meeting (join) ==
