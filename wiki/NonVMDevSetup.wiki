@@ -23,6 +23,7 @@ Copy to following in a file named {{{install.sh}}}
 {{{
 #!/bin/bash
 set -x
+set -e
 
 wget http://ubuntu.bigbluebutton.org/bigbluebutton.asc -O- | sudo apt-key add -
 
