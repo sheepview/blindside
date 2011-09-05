@@ -323,29 +323,49 @@ meetingID (or set of meeting IDs).</p>
 
 <p>*Parameters:*</p>    
 || *Param Name* || *Required / Optional* || *Type* || *Description* ||
-|| meetingID || Optional || String || <p>A meeting ID for get the recordings. It can be a set of meetingIDs separate by commas. If the meeting ID is not specified, it will get ALL the recordings. *Example:* TestMeeting</p> ||
+|| meetingID || Optional || String || <p>A meeting ID for get the recordings. It can be a set of meetingIDs separate by commas. If the meeting ID is not specified, it will get ALL the recordings.</p> ||
 
-<p>*Example Request:*</p>
+<p>*Example Requests:*</p>
 <a href="#">http://yourserver.com/bigbluebutton/api/getRecordings?checksum=1234</a>
+<a href="#">http://yourserver.com/bigbluebutton/api/getRecordings?meetingID=CS101&checksum=abcd</a>
+<a href="#">http://yourserver.com/bigbluebutton/api/getRecordings?meetingID=CS101,CS102&checksum=wxyz</a>
 
+<p>*Example Response:*</p>
 {{{
 <response>
-    <returncode>SUCCESS</returncode>
-    <meetings>
-        <meeting>
-            <meetingID>test123</meetingID>
-            <attendeePW>234567</attendeePW>
-            <moderatorPW>123456</moderatorPW>
-            <running>true</running>
-        </meeting>
-        <meeting>
-            <meetingID>testAgain</meetingID>
-            <attendeePW>def456</attendeePW>
-            <moderatorPW>abc123</moderatorPW>
-            <running>false</running>
-        </meeting>
-		...
-    </meetings>
+   <returncode>SUCCESS</returncode> 
+   <recordings>
+      <recording> 
+         <recordID>183f0bf3a0982a127bdb8161-1308597520</recordID> 
+         <meetingID>CS101</meetingID> 
+         <name><![CDATA[On-line session for CS 101]]></name> 
+         <published>false</published> 
+         <startTime>Thu Mar 04 14:05:56 UTC 2010</startTime> 
+         <endTime>Thu Mar 04 15:01:01 UTC 2010</endTime> 
+         <metadata> 
+            <title><![CDATA[Test Recording]]></title> 
+            <subject><![CDATA[English 232 session]]></subject> 
+            <description><![CDATA[First Class]]></description> 
+            <creator><![CDATA[Fred Dixon]]></creator> 
+            <contributor><![CDATA[Richard Alam]]></contributor> 
+            <language><![CDATA[en_US]]></language> 
+         </metadata> 
+         <playback> 
+            <format> 
+               <type>simple</type> 
+               <url>http://server.com/simple/playback?recordID=183f0bf3a0982a127bdb8161-1...</url> 
+               <length>62</length> 
+            </format> 
+         </playback>
+      </recording> 
+      <recording> 
+         <recordID>183f0bf3a0982a127bdb8161-13085974450</recordID> 
+         <meetingID>CS102</meetingID> 
+         ... 
+      </recording> 
+   </recordings> 
+   <messageKey/> 
+   <message/> 
 </response>
 }}}
 
@@ -354,26 +374,30 @@ meetingID (or set of meeting IDs).</p>
 <br><br>
 
 == Publish Recordings (publishRecordings) ==
-<p>Publish and unpublish recordings for a given recordID (or set of meeting IDs).</p>
+<p>Publish and unpublish recordings for a given recordID (or set of record IDs).</p>
+<p>*Resource URL:*</p>
+<a href="#">http://yourserver.com/bigbluebutton/api/publishRecordings?[parameters]&checksum=[checksum]</a>
 
 <p>*Parameters:*</p>    
 || *Param Name* || *Required / Optional* || *Type* || *Description* ||
-|| recordID || Required || String || <p>A recording ID for specify the recordings. It can be a set of meetingIDs separate by commas. </p> ||
+|| recordID || Required || String || <p>A record ID for specify the recordings to apply the publish action. It can be a set of meetingIDs separate by commas. </p> ||
 || publish || Required || String || <p>The value for publish or unpublish the recording(s). Available values: true or false. </p> ||
 
-<p>*Example Response:*</p> 
-<p>Example URL:<a href="#">http://yourserver.com/bigbluebutton/api/publishRecordings?[parameters]&checksum=[checksum]</a> </p>
+<p>*Example Requests:*</p>
+<a href="#">http://yourserver.com/bigbluebutton/api/publishRecordings?recordID=record123&publish=true&checksum=1234</a>
+<a href="#">http://yourserver.com/bigbluebutton/api/publishRecordings?recordID=record123,recordABC&publish=truechecksum=wxyz</a>
+
+<p>*Example Response:*</p>
 {{{
 <response>
     <returncode>SUCCESS</returncode>
     <publish>true</publish>
 </response>
-}}}
+}}}<
 
 
 
 <br><br>
-
 
 = Sample API Examples (JSP, PHP, Python ...) = 
 == Overview ==
