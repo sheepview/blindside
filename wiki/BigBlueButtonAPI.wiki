@@ -424,28 +424,34 @@ meetingID (or set of meeting IDs).</p>
 
 <br><br>
 
-= Sample API Examples (JSP, PHP, Python ...) = 
+= API Sample Code (JSP, PHP, Ruby, ...) = 
 == Overview ==
-BBB provides API Examples so you can integrate BBB easily with your application. For now, only PHP and JSP examples are available. Please check out : http://code.google.com/p/bigbluebutton/source/browse/#svn/trunk/bbb-api-examples
-and
-http://code.google.com/p/bigbluebutton/source/browse/trunk/#trunk/bigbluebutton-web/web-app/demo
-
-Feel free to contribute and post your implementation of the API in other language code.
+BigBlueButton provides API Sample Codes so you can integrated easily with your application. Feel free to contribute and post your implementation of the API in other language code in the bigbluebutton-dev mailing list.
 
 == Language code ==
-  * JSP : Done - http://code.google.com/p/bigbluebutton/source/browse/trunk/#trunk/bigbluebutton-web/web-app/demo
-  * PHP : Done - http://code.google.com/p/bigbluebutton/source/browse/#svn/trunk/bbb-api-examples/PHP/
-  * Python : Planned
-  * JavaScript: see the Chrome extension that allows for API testing: http://github.com/jthomerson/BigBlueButton-api-chrome-extension
-  ** Obviously implementing your entire integration in JavaScript is risky because you must expose your security salt.  This is not recommended.
-  ** Also note that if you integrate using JavaScript and you are calling the API on a different domain than the one that your JavaScript is being served from, you will have cross-site scripting issues.
-  * ASP : To do / Feel free to contribute
-  * ...
+=== JSP ===
+It is updated with the latest API version: <a href="https://github.com/bigbluebutton/bigbluebutton/tree/master/bbb-api-demo">https://github.com/bigbluebutton/bigbluebutton/tree/master/bbb-api-demo</a>
 
-== PHP Requirement ==
+=== PHP ===
+Needs to be updated, however you can find it useful: https://github.com/bigbluebutton/bigbluebutton/tree/master/labs/bbb-api-php
+
 You need to enable the "allow_url_fopen" to "On" in your php.ini file so this example can work. Simply add/replace to your php.ini file :
 
 `allow_url_fopen = On`
+
+=== Ruby === 
+Needs to be updated, however you can find it useful:
+https://github.com/mconf/bigbluebutton-api-ruby
+
+=== JavaScript === 
+See the Chrome extension that allows for API testing. Obviously implementing your entire integration in JavaScript is risky because you must expose your security salt.  *This is not recommended*. Also note that if you integrate using JavaScript and you are calling the API on a different domain than the one that your JavaScript is being served from, you will have cross-site scripting issues. Also, needs to be updated: http://github.com/jthomerson/BigBlueButton-api-chrome-extension
+
+=== Python === 
+To do / Feel free to contribute
+
+=== ASP ===
+To do / Feel free to contribute
+
 
 = Overall API Usage =
 The API is implemented with the end-user in mind. To call the API, you simply make an HTTP request to a URL with the query parameters supplying the information needed for the call. The API returns an XML response. Here are some example API calls and their responses:
