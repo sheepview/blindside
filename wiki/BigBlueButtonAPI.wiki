@@ -393,7 +393,7 @@ meetingID (or set of meeting IDs).</p>
     <returncode>SUCCESS</returncode>
     <publish>true</publish>
 </response>
-}}}<
+}}}
 
 
 
