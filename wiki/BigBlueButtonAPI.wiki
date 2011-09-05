@@ -180,34 +180,48 @@ In the following section is described the monitoring calls
 
 
 <br><br>
-== Join Meeting (join) ==
+
+== Join Meeting ==
+<p>Joins automatically a user to the meeting specified in the meetingID parameter.</p>
+
+<p>*Resource URL:*</p>
+<a href="#">http://yourserver.com/bigbluebutton/api/join?[parameters]&checksum=[checksum]</a>
 
 <p>*Parameters:*</p> 
 || *Param Name* || *Required/Optional* || *Type* || *Description* ||
 || fullName || Required || String || <p>The full name that is to be used to identify this user to other conference attendees.</p> ||
 || meetingID || Required || String || <p>The meeting ID that identifies the meeting you are attempting to join.</p> ||
 || password || Required || String || <p>The password that this attendee is using. If the moderator password is supplied, he will be given moderator status (and the same for attendee password, etc)</p> ||
+|| createTime || Optional || String || <p>Third-party apps using the API can now pass createTime parameter (which was created in the create call), BigBlueButton will ensure it matches the ‘createTime’ for the session.  If they differ, BigBlueButton will not proceed with the join request. This prevents a user from reusing their join URL for a subsequent session with the same meetingID.</p> ||
 || userID || Optional || String || <p style="font-weight: bold; color: red">NEW in 0.7</p><p>An identifier for this user that will help your application to identify which person this is.  This user ID will be returned for this user in the getMeetingInfo API call so that you can check </p> ||
-|| webVoiceConf|| Optional || String || <p style="font-weight: bold; color: red">NEW in 0.7</p><p>If you want to pass in a custom voice-extension when a user joins the voice conference using voip. This is useful if you want to collect more info in you Call Detail Records about the user joining the conference. You need to modify your /etc/asterisk/bbb-extensions.conf to handle this new extensions. </p> ||
+|| webVoiceConf|| Optional || String || <p>If you want to pass in a custom voice-extension when a user joins the voice conference using voip. This is useful if you want to collect more info in you Call Detail Records about the user joining the conference. You need to modify your /etc/asterisk/bbb-extensions.conf to handle this new extensions. </p> ||
 
-<p>*Response:*</p> 
+<p>*Example Requests:*</p>
+<a href="#">http://yourserver.com/bigbluebutton/api/join?meetingID=test01&password=mp&fullName=John&checksum=1234</a>
+<a href="#">http://yourserver.com/bigbluebutton/api/join?meetingID=test01&password=ap&fullName=Mark&checksum=wxyz</a>
+<a href="#">http://yourserver.com/bigbluebutton/api/join?meetingID=test01&password=ap&fullName=Chris&createTime=273648&checksum=abcd</a>
 
+<p>*Example Response:*</p>
 There is no XML response for this call if it is properly formatted.  You should simply redirect the user to the call URL, and they will be entered into the meeting.
 
 <p><font color="#FF0000">NOTE: there is the possibility that a user is sent to a join URL that is invalid right now.  For instance, if the client application forms the URL incorrectly, or sends the user to join a meeting that hasn't been created, then the user will end up seeing the XML that would be returned as an error.  We need to figure out a better way of handling this.</font></p>
 
-== Is meeting running (isMeetingRunning) ==
+<br /><br />
+
+== Is Meeting Running ==
 <p>This call enables you to simply check on whether or not a meeting is running by looking it up with your meeting ID.</p>
+
+<p>*Resource URL:*</p>
+<a href="#">http://yourserver.com/bigbluebutton/api/isMeetingRunning?[parameters]&checksum=[checksum]</a>
 
 <p>*Parameters:*</p> 
 || *Param Name* || *Required/Optional* || *Type* || *Description* ||
 || meetingID || Required || String || <p>The meeting ID that identifies the meeting you are attempting to check on.</p> ||
 
-<p>*Response:*</p> 
-|| *Param Name* || *When Returned* || *Type* || *Description* ||
-|| running || Always || String || <p>A string of either “true” or “false” that signals whether a meeting with this ID is currently running.</p>||
+<p>*Example Requests:*</p>
+<a href="#">http://yourserver.com/bigbluebutton/api/isMeetingRunning?meetingID=test01&checksum=1234</a>
 
-<p>*Example:*</p>
+<p>*Example Response:*</p> 
 {{{
 <response>
    <returncode>SUCCESS</returncode>
@@ -215,20 +229,25 @@ There is no XML response for this call if it is properly formatted.  You should 
 </response>
 }}}
 
-== End Meeting (end) ==
+<p>running can be “true” or “false” that signals whether a meeting with this ID is currently running.</p>
+
+<br /><br />
+
+== End Meeting ==
 <p>Use this to forcibly end a meeting and kick all participants out of the meeting.</p>
+
+<p>*Resource URL:*</p>
+<a href="#">http://yourserver.com/bigbluebutton/api/end?[parameters]&checksum=[checksum]</a>
 
 <p>*Parameters:*</p> 
 || *Param Name* || *Required/Optional* || *Type* || *Description* ||
 || meetingID || Required || String || <p>The meeting ID that identifies the meeting you are attempting to end.</p> ||
 || password || Required || String || <p>The moderator password for this meeting. You can not end a meeting using the attendee password.</p>||
 
+<p>*Example Requests:*</p>
+<a href="#">http://yourserver.com/bigbluebutton/api/end?meetingID=1234567890&password=mp&checksum=1234</a>
 
-<p>*Response:*</p> 
-
-This call returns no additional information other than the standard returncode parameter of "SUCCESS" or "FAILED".  It will return a messageKey and message for additional information.
-
-<p>*Example:*</p>
+<p>*Example Response:*</p> 
 {{{
 <response>
    <returncode>SUCCESS</returncode>
@@ -241,88 +260,91 @@ This call returns no additional information other than the standard returncode p
 
 <font color="#FF0000">IMPORTANT NOTE:</font>  You should note that when you call end meeting, it is simply sending a request to the backend (Red5) server that is handling all the conference traffic.  That backend server will immediately attempt to send every connected client a logout event, kicking them from the meeting.  It will then disconnect them, and the meeting will be ended.  However, this may take several seconds, depending on network conditions.  Therefore, the end meeting call will return a success as soon as the request is sent.  But to be sure that it completed, you should then check back a few seconds later by using the getMeetingInfo or isMeetingRunning calls to verify that all participants have left the meeting and that it successfully ended.
 
-<font color="#FF0000">TODO: in future iterations, this call will also mark a meeting that has ended so that it can not be immediately restarted with the same join meeting URLs that initially dropped users into the meeting.  This will protect against devious users restarting a meeting that you just kicked them from.</font>
+<font color="#FF0000">TODO: In future iterations, this call will also mark a meeting that has ended so that it can not be immediately restarted with the same join meeting URLs that initially dropped users into the meeting.  This will protect against devious users restarting a meeting that you just kicked them from.</font>
 
+<br /><br />
 
-== Get Meeting Info (getMeetingInfo) ==
+== Get Meeting Info ==
 <p>This call will return all of a meeting's information, including the list of attendees as well as start and end times.</p>
 
-<font style="color: #FF0000; font-weight: bold">NOTE: This call was initially added in the 0.64 release, but in that release, you had no control over the userID.  Starting with the 0.7 release, you can specify a userID in the join call that will now be used as a return parameter for the userID field returned in this call.</font>
+<p>*Resource URL:*</p>
+<a href="#">http://yourserver.com/bigbluebutton/api/getMeetingInfo?[parameters]&checksum=[checksum]</a>
 
 <p>*Parameters:*</p> 
 || *Param Name* || *Required/Optional* || *Type* || *Description* ||
 || meetingID || Required || String || <p>The meeting ID that identifies the meeting you are attempting to check on.</p> ||
 || password || Required || String || <p>The moderator password for this meeting. You can not get the meeting information using the attendee password.</p>||
 
+<p>*Example Requests:*</p>
+<a href="#">http://yourserver.com/bigbluebutton/api/getMeetingInfo?meetingID=test01&password=mp&checksum=1234</a>
 
 <p>*Example Response:*</p> 
-<p>
-If the returncode is "SUCCESS", all of the following elements are returned.  If the returncode is "FAILED", only the message and messageKey elements will be returned along with the returncode.
-</p>
+{{{
+<response>
+   <returncode>SUCCESS</returncode>
+   <meetingName>Test</meetingName>
+   <meetingID>test01</meetingID>
+   <createTime>1315254777880</createTime>
+   <attendeePW>ap</attendeePW>
+   <moderatorPW>mp</moderatorPW>
+   <running>true</running>
+   <recording>false</recording>
+   <hasBeenForciblyEnded>false</hasBeenForciblyEnded>
+   <startTime>1315254785069</startTime>
+   <endTime>0</endTime>
+   <participantCount>1</participantCount>
+   <maxUsers>20</maxUsers>
+   <moderatorCount>1</moderatorCount>
+   <attendees>
+      <attendee>
+         <userID>1</userID>
+         <fullName>John Doe</fullName>
+         <role>MODERATOR</role>
+      </attendee>
+   </attendees>
+   <metadata/>
+   <messageKey/>
+   <message/>
+</response>
+}}}
+
 <p>
 <font color="#FF0000">TODO: add participant join / disconnect times to each attendee node.</font>
 </p>
-{{{
-<response>
-    <returncode>SUCCESS</returncode>
-    <meetingID>123456</meetingID>
-    <attendeePW>abc</attendeePW>
-    <moderatorPW>qwe</moderatorPW>
-    <running>true</running>
-    <startTime>Thu Mar 04 14:05:56 UTC 2010</startTime>
-    <endTime>null</endTime>
-    <participantCount>2</participantCount>
-    <moderatorCount>1</moderatorCount>
-    <attendees>
-        <attendee>
-            <userID>40</userID>
-            <fullName>JT Attendee</fullName>
-            <role>VIEWER</role>
-        </attendee>
-        <attendee>
-            <userID>37</userID>
-            <fullName>JT Moderator</fullName>
-            <role>MODERATOR</role>
-        </attendee>
-    </attendees>
-    <messageKey/>
-    <message/>
-</response>
-}}}
 
-== Get Meetings (getMeetings) ==
+<br /><br />
+
+== Get Meetings ==
 <p>This call will return a list of all the meetings found on this server.</p>
 
-<p style="color: #FF0000; font-weight: bold">NOTE: At this time, meetings live on the server as long as it is running, so over time, this call will start returning more and more meetings.  In an upcoming release, we will prune out old meetings that have not been running for over thirty minutes, an hour, or similar timeframe.</p>
+<p>*Resource URL:*</p>
+<a href="#">http://yourserver.com/bigbluebutton/api/getMeetings?checksum=[checksum]</a>
 
 <p>*Parameters:*</p> 
-|| *Param Name* || *Required/Optional* || *Type* || *Description* ||
-|| random || Required || String || This can be <b>any</b> value.  It must be supplied so that we can use your security salt and do a checksum verification that you are the server's owner.  This is for security purposes.  If you do not supply the random parameter, the call will fail immediately. ||
+Now, In BigBlueButton 0.8 is not required to pass any parameter for this call.
+
+<p>*Example Requests:*</p>
+<a href="#">http://yourserver.com/bigbluebutton/api/getMeetings?checksum=1234</a>
 
 <p>*Example Response:*</p> 
-<p>
-If the returncode is "SUCCESS", all of the following elements are returned.  If the returncode is "FAILED", only the message and messageKey elements will be returned along with the returncode.
-</p>
-
 {{{
 <response>
-    <returncode>SUCCESS</returncode>
-    <meetings>
-        <meeting>
-            <meetingID>test123</meetingID>
-            <attendeePW>234567</attendeePW>
-            <moderatorPW>123456</moderatorPW>
-            <running>true</running>
-        </meeting>
-        <meeting>
-            <meetingID>testAgain</meetingID>
-            <attendeePW>def456</attendeePW>
-            <moderatorPW>abc123</moderatorPW>
-            <running>false</running>
-        </meeting>
-    </meetings>
+   <returncode>SUCCESS</returncode>
+   <meetings>
+      <meeting>
+         <meetingID>test01</meetingID>
+         <meetingName>Test</meetingName>
+         <createTime>1315254777880</createTime>
+         <attendeePW>ap</attendeePW>
+         <moderatorPW>mp</moderatorPW>
+         <hasBeenForciblyEnded>false</hasBeenForciblyEnded>
+         <running>true</running>
+      </meeting>
+   </meetings>
 </response>
 }}}
+
+<br /><br />
 
 == Get Recordings ==
 <p>Retrieves the recordings that are available for playback for a given 
