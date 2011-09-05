@@ -82,6 +82,7 @@ Copy the following into a file called {{{install-ffmpeg.sh}}}
 {{{
 #!/bin/bash
 set -x
+set -e
 
 sudo apt-get remove ffmpeg x264 libx264-dev
 sudo apt-get update
@@ -134,7 +135,7 @@ sudo checkinstall --pkgname=ffmpeg --pkgversion="5:$(./version.sh)" --backup=no 
 
 hash x264 ffmpeg ffplay ffprobe
 sudo make tools/qt-faststart
-sudo checkinstall --pkgname=qt-faststart --pkgversion="$(./version.sh)" --backup=no --deldoc=yes --default install -D -m755 /usr/local/src/ffmpeg/tools/qt-faststart /usr/local/bin/qt-faststart
+sudo checkinstall --pkgname=qt-faststart --pkgversion="$(./version.sh)" --backup=no --deldoc=yes --default install -D -m 755 /usr/local/src/ffmpeg/tools/qt-faststart /usr/local/bin/qt-faststart
 
 }}}
 
