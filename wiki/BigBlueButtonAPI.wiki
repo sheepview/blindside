@@ -315,7 +315,7 @@ If the returncode is "SUCCESS", all of the following elements are returned.  If 
 </response>
 }}}
 
-== Get Recordings (getRecordings) ==
+== Get Recordings ==
 <p>Retrieves the recordings that are available for playback for a given 
 meetingID (or set of meeting IDs).</p>
 <p>*Resource URL:*</p>
@@ -373,7 +373,7 @@ meetingID (or set of meeting IDs).</p>
 
 <br><br>
 
-== Publish Recordings (publishRecordings) ==
+== Publish Recordings ==
 <p>Publish and unpublish recordings for a given recordID (or set of record IDs).</p>
 <p>*Resource URL:*</p>
 <a href="#">http://yourserver.com/bigbluebutton/api/publishRecordings?[parameters]&checksum=[checksum]</a>
