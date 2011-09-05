@@ -4,6 +4,8 @@
 = Overview = 
 This document outlines the API that is available for integrating BigBlueButton with other applications. The changes between releases will be described in the document. Features which are not currently implemented will be clearly marked as such.
 
+The API is implemented with the end-user in mind. To call the API, you simply make an HTTP request to a URL with the query parameters supplying the information needed for the call. The API returns an XML response.
+
 The current API implementation lies on the bigbluebutton-web component, which has been written using the Grails framework.
 
 = API Changes in Releases =
@@ -89,10 +91,9 @@ Look for the parameter
 == _Error handling_ ==
  * All API calls make a best-effort attempt to return a properly formatted document that contains enough information for the user to be able to determine what the error is.
  * Errors are returned with a "returncode" value of "FAILED" and a "message" and "messageKey" value.  We will try very hard to keep the messageKey stable (unchanging) throughout the life of the API.  However, the "message" value is a plain text (english) value that may change with time.  You can use the messageKey to determine the type of error and look up internationalized text within your own system if needed.
- ** i.e. - An invalid request may return an error message of "No conference with that meeting ID exists", but the messageKey is simple "invalidMeetingIdentifier".
- ** For a complete list of Errors check the following section. 
+ ** i.e. - An invalid request may return an error message of "No conference with that meeting ID exists", but the messageKey is simple "invalidMeetingIdentifier". 
 
-<br />
+<br /><br />
 
 = API Resources =
 == Administration ==
@@ -115,7 +116,7 @@ In the following section is described the monitoring calls
 || publishRecordings || Enables to publish or unpublish a recording. ||
 || deleteRecordings || Deletes a existing Recording ||
 
-
+<br /><br />
 = API Calls =
 <p><font color="#FF0000">*NOTE:*</font> Parameters marked with <font color="#FF0000">(NFS)</font> are not yet fully supported. You can pass them in to the controller, but they may not have any actual effect on the conference. This is more a limitation based on support by the actual BBB application more than the API itself.</p>
 
@@ -443,63 +444,35 @@ You need to enable the "allow_url_fopen" to "On" in your php.ini file so this ex
 Needs to be updated, however you can find it useful:
 https://github.com/mconf/bigbluebutton-api-ruby
 
-=== JavaScript === 
-See the Chrome extension that allows for API testing. Obviously implementing your entire integration in JavaScript is risky because you must expose your security salt.  *This is not recommended*. Also note that if you integrate using JavaScript and you are calling the API on a different domain than the one that your JavaScript is being served from, you will have cross-site scripting issues. Also, needs to be updated: http://github.com/jthomerson/BigBlueButton-api-chrome-extension
-
-=== Python === 
-To do / Feel free to contribute
-
-=== ASP ===
-To do / Feel free to contribute
+=== Javascript === 
+See the Chrome extension that allows for API testing. Obviously implementing your entire integration in JavaScript is risky because you must expose your security salt.  *This is not recommended*. Also note that if you integrate using Javascript and you are calling the API on a different domain than the one that your JavaScript is being served from, you will have cross-site scripting issues. Also, needs to be updated: http://github.com/jthomerson/BigBlueButton-api-chrome-extension
 
 
-= Overall API Usage =
-The API is implemented with the end-user in mind. To call the API, you simply make an HTTP request to a URL with the query parameters supplying the information needed for the call. The API returns an XML response. Here are some example API calls and their responses:
+= API Testing Tools =
+If you are developing in bigbluebutton, most of the time you will need to make many API calls. You can use the following tools that will help you for your tests.
+
+== BBB API Buddy ==
+This application will help you to automatically generate the most commons URL's of the bigbluebutton API. You just need to fill the fields and test!
+http://www.omarshammas.com/bbbapibuddy
+
+you can check the code in:
+https://github.com/omarshammas/bigbluebutton-API-Buddy
 
 == Chrome extension ==
-There is a Chrome extension that allows for quickly testing the API functionality.  You can also use it to help you understand usage of the API.  
+There is a Chrome extension that allows for quickly testing the API functionality. It's currently working with the 0.7 API.  You can also use it to help you understand usage of the API.  
 
 The extension can be found at: https://chrome.google.com/extensions/detail/ncbonhmhjnamefpmmjdpbohnkbeliehb
 
 The code for the extension can be found at: http://github.com/jthomerson/BigBlueButton-api-chrome-extension
 
-== _Create meeting example:_ ==
-<a href="http://yourserver.com/bigbluebutton/api/create?name=Test+Meeting&meetingID=abcdef&attendeePW=111222&moderatorPW=333444">http://yourserver.com/bigbluebutton/api/create?name=Test+Meeting&meetingID=abcdef&attendeePW=111222&moderatorPW=333444</a>
-{{{
-<response>
-    <returncode>SUCCESS</returncode>
-    <meetingID>abcdef</meetingID>
-    <attendeePW>111222</attendeePW>
-    <moderatorPW>333444</moderatorPW>
-    <messageKey/>
-<message/>
-</response>
-}}}
-
-
-== _Join meeting example:_ ==
-<a href="http://yourserver.com/bigbluebutton/api/join?fullName=Joe+User&meetingID=abcdef&password=333444">http://yourserver.com/bigbluebutton/api/join?fullName=Joe+User&meetingID=abcdef&password=333444</a>
-<p>This call sends the caller directly into the application. There is no XML response. You should redirect your user to a URL like this when you are done creating the meeting and are ready to direct them into the meeting.</p>
-
-== _Is meeting running example:_ ==
-<a href="http://yourserver.com/bigbluebutton/api/isMeetingRunning?meetingID=abcdef">http://yourserver.com/bigbluebutton/api/isMeetingRunning?meetingID=abcdef</a>
-{{{
-<response>
-    <returncode>SUCCESS</returncode>
-    <running>true</running>
-</response>
-}}}
-
-More details on these calls can be found in the *API Calls* section below.
-
 <br><br>
 
 = Desired Future Features =
 
-== _Support for JSON/JSONP_ ==
+== Support for JSON/JSONP ==
     * It would be very nice to optionally allow JSON responses, and to support JSONP. This might allow for simpler integrations, even within static or almost-static webpages using !JavaScript as the primary integration language. It should not be assumed that all users will be running custom software on a server and be able to process XML responses, etc.
         ** This being said, even within !JavaScript there are simple ways to make the API call and process the returned XML (using jQuery and $.xml2json, for example)
-== _Meeting event callbacks_ ==
+== Meeting event callbacks ==
 <p>This may actually even be called a “reverse API” - where we define an interface that the third- party application can implement to be notified of events. This would not be necessary for the first version of the API, but would be a nice feature for future enhancements. More details:</p>
     * When major events happen within meetings, it would be very helpful to provide a way for third-party applications to be notified of these events. For instance, when a user joins a conference, they will presumably be joining through the third-party app. However, when they leave the conference, the app may have certain auditing that it needs to do to record their disconnect time, etc. If BBB could make some callback to the application, this would assist in such scenarios.
     * For example, the application may be able to register a URL that BBB would call with status updates. BBB would define an API that such an app would be required to implement at that URL.
