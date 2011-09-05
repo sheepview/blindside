@@ -385,13 +385,38 @@ meetingID (or set of meeting IDs).</p>
 
 <p>*Example Requests:*</p>
 <a href="#">http://yourserver.com/bigbluebutton/api/publishRecordings?recordID=record123&publish=true&checksum=1234</a>
-<a href="#">http://yourserver.com/bigbluebutton/api/publishRecordings?recordID=record123,recordABC&publish=truechecksum=wxyz</a>
+<a href="#">http://yourserver.com/bigbluebutton/api/publishRecordings?recordID=record123,recordABC&publish=true&checksum=wxyz</a>
 
 <p>*Example Response:*</p>
 {{{
 <response>
     <returncode>SUCCESS</returncode>
-    <publish>true</publish>
+    <published>true</published>
+</response>
+}}}
+
+
+
+<br><br>
+
+== Delete Recordings ==
+<p>Delete one or more recordings for a given recordID (or set of record IDs).</p>
+<p>*Resource URL:*</p>
+<a href="#">http://yourserver.com/bigbluebutton/api/deleteRecordings?[parameters]&checksum=[checksum]</a>
+
+<p>*Parameters:*</p>    
+|| *Param Name* || *Required / Optional* || *Type* || *Description* ||
+|| recordID || Required || String || <p>A record ID for specify the recordings to delete. It can be a set of meetingIDs separate by commas. </p> ||
+
+<p>*Example Requests:*</p>
+<a href="#">http://yourserver.com/bigbluebutton/api/deleteRecordings?recordID=record123&checksum=1234</a>
+<a href="#">http://yourserver.com/bigbluebutton/api/deleteRecordings?recordID=record123,recordABC&checksum=wxyz</a>
+
+<p>*Example Response:*</p>
+{{{
+<response>
+    <returncode>SUCCESS</returncode>
+    <deleted>true</deleted>
 </response>
 }}}
 
