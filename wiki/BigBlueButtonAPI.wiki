@@ -184,7 +184,7 @@ In the following section is described the monitoring calls
 </response> 
 }}}
 
-=== PreUpload Slides ===
+=== Preupload Slides ===
 Now, it's possible to preupload slides within the create call. You can specify an URL for BigBlueButton to download and process the slides or you can upload the slides in base64 form. For use the preupload slides part, you have to do it in the following way:
 
  * You have to send a HTTP POST request. 
