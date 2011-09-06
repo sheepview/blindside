@@ -36,6 +36,12 @@ Added new API calls:
   * * publishRecordings *
   * * deleteRecordings *
 
+Updates:
+  * * create * - Now supports pre-uploading slides
+  * * create * - Added new parameters duration and record
+  * * join * - Added createTime parameter
+  * * getMeetingInfo * - Added recording indicator to the response  
+
 For a detail of the updates in the api 0.8 check the following <a href="http://groups.google.com/group/bigbluebutton-dev/browse_thread/thread/c214cbe9bdb2268a">link</a>
 
 == Version Master Branch ==
@@ -158,9 +164,9 @@ In the following section is described the monitoring calls
 
 
 <p>*Example Requests:*</p>
-<a href="#">http://yourserver.com/bigbluebutton/api/create?name=Test&meetingID=test01&checksum=1234</a>
-<a href="#">http://yourserver.com/bigbluebutton/api/create?name=Test&meetingID=test01&moderatorPW=mp&attendeePW=ap&checksum=wxyz</a>
-<a href="#">http://yourserver.com/bigbluebutton/api/create?name=Test&meetingID=test01&moderatorPW=mp&attendeePW=ap&meta_presenter=joe&meta_category=education&checksum=abcd</a>
+ * <a href="#">http://yourserver.com/bigbluebutton/api/create?name=Test&meetingID=test01&checksum=1234</a>
+ * <a href="#">http://yourserver.com/bigbluebutton/api/create?name=Test&meetingID=test01&moderatorPW=mp&attendeePW=ap&checksum=wxyz</a>
+ * <a href="#">http://yourserver.com/bigbluebutton/api/create?name=Test&meetingID=test01&moderatorPW=mp&attendeePW=ap&meta_presenter=joe&meta_category=education&checksum=abcd</a>
 
 <p>*Example Response:*</p>
 {{{
@@ -178,6 +184,28 @@ In the following section is described the monitoring calls
 </response> 
 }}}
 
+=== PreUpload Slides ===
+Now, it's possible to preupload slides within the create call. You can specify an URL for BigBlueButton to download and process the slides or you can upload the slides in base64 form. For use the preupload slides part, you have to do it in the following way:
+
+ * You have to send a HTTP POST request. 
+ * The URL Resource has to be the same as the previously described. 
+ * In the body part, you would append a simple XML like the following with the presentation to upload:
+{{{
+<?xml version="1.0" encoding="UTF-8"?> 
+<modules> 
+    <module name="presentation"> 
+        <document url="http://www.samplepdf.com/sample.pdf" /> 
+        <document name="sample-presentation.pdf">JVBERi0xLjQKJ....
+          [clipped here]
+          ....0CiUlRU9GCg==
+        </document> 
+    </module> 
+</modules> 
+}}} 
+
+And that's all!
+
+For more information about the preupload slides check the following <a href="http://groups.google.com/group/bigbluebutton-dev/browse_thread/thread/d36ba6ff53e4aa79">link</a>. For a complete example of the preupload slides check the following demos: <a href="https://github.com/bigbluebutton/bigbluebutton/blob/master/bbb-api-demo/src/main/webapp/demo7.jsp">demo7</a> and <a href="https://github.com/bigbluebutton/bigbluebutton/blob/master/bbb-api-demo/src/main/webapp/demo8.jsp">demo8</a>.
 
 <br><br>
 
@@ -197,9 +225,9 @@ In the following section is described the monitoring calls
 || webVoiceConf|| Optional || String || <p>If you want to pass in a custom voice-extension when a user joins the voice conference using voip. This is useful if you want to collect more info in you Call Detail Records about the user joining the conference. You need to modify your /etc/asterisk/bbb-extensions.conf to handle this new extensions. </p> ||
 
 <p>*Example Requests:*</p>
-<a href="#">http://yourserver.com/bigbluebutton/api/join?meetingID=test01&password=mp&fullName=John&checksum=1234</a>
-<a href="#">http://yourserver.com/bigbluebutton/api/join?meetingID=test01&password=ap&fullName=Mark&checksum=wxyz</a>
-<a href="#">http://yourserver.com/bigbluebutton/api/join?meetingID=test01&password=ap&fullName=Chris&createTime=273648&checksum=abcd</a>
+ * <a href="#">http://yourserver.com/bigbluebutton/api/join?meetingID=test01&password=mp&fullName=John&checksum=1234</a>
+ * <a href="#">http://yourserver.com/bigbluebutton/api/join?meetingID=test01&password=ap&fullName=Mark&checksum=wxyz</a>
+ * <a href="#">http://yourserver.com/bigbluebutton/api/join?meetingID=test01&password=ap&fullName=Chris&createTime=273648&checksum=abcd</a>
 
 <p>*Example Response:*</p>
 There is no XML response for this call if it is properly formatted.  You should simply redirect the user to the call URL, and they will be entered into the meeting.
@@ -219,7 +247,7 @@ There is no XML response for this call if it is properly formatted.  You should 
 || meetingID || Required || String || <p>The meeting ID that identifies the meeting you are attempting to check on.</p> ||
 
 <p>*Example Requests:*</p>
-<a href="#">http://yourserver.com/bigbluebutton/api/isMeetingRunning?meetingID=test01&checksum=1234</a>
+ * <a href="#">http://yourserver.com/bigbluebutton/api/isMeetingRunning?meetingID=test01&checksum=1234</a>
 
 <p>*Example Response:*</p> 
 {{{
@@ -245,7 +273,7 @@ There is no XML response for this call if it is properly formatted.  You should 
 || password || Required || String || <p>The moderator password for this meeting. You can not end a meeting using the attendee password.</p>||
 
 <p>*Example Requests:*</p>
-<a href="#">http://yourserver.com/bigbluebutton/api/end?meetingID=1234567890&password=mp&checksum=1234</a>
+ * <a href="#">http://yourserver.com/bigbluebutton/api/end?meetingID=1234567890&password=mp&checksum=1234</a>
 
 <p>*Example Response:*</p> 
 {{{
@@ -276,7 +304,7 @@ There is no XML response for this call if it is properly formatted.  You should 
 || password || Required || String || <p>The moderator password for this meeting. You can not get the meeting information using the attendee password.</p>||
 
 <p>*Example Requests:*</p>
-<a href="#">http://yourserver.com/bigbluebutton/api/getMeetingInfo?meetingID=test01&password=mp&checksum=1234</a>
+ * <a href="#">http://yourserver.com/bigbluebutton/api/getMeetingInfo?meetingID=test01&password=mp&checksum=1234</a>
 
 <p>*Example Response:*</p> 
 {{{
@@ -324,7 +352,7 @@ There is no XML response for this call if it is properly formatted.  You should 
 Now, In BigBlueButton 0.8 is not required to pass any parameter for this call.
 
 <p>*Example Requests:*</p>
-<a href="#">http://yourserver.com/bigbluebutton/api/getMeetings?checksum=1234</a>
+ * <a href="#">http://yourserver.com/bigbluebutton/api/getMeetings?checksum=1234</a>
 
 <p>*Example Response:*</p> 
 {{{
@@ -357,9 +385,9 @@ meetingID (or set of meeting IDs).</p>
 || meetingID || Optional || String || <p>A meeting ID for get the recordings. It can be a set of meetingIDs separate by commas. If the meeting ID is not specified, it will get ALL the recordings.</p> ||
 
 <p>*Example Requests:*</p>
-<a href="#">http://yourserver.com/bigbluebutton/api/getRecordings?checksum=1234</a>
-<a href="#">http://yourserver.com/bigbluebutton/api/getRecordings?meetingID=CS101&checksum=abcd</a>
-<a href="#">http://yourserver.com/bigbluebutton/api/getRecordings?meetingID=CS101,CS102&checksum=wxyz</a>
+ * <a href="#">http://yourserver.com/bigbluebutton/api/getRecordings?checksum=1234</a>
+ * <a href="#">http://yourserver.com/bigbluebutton/api/getRecordings?meetingID=CS101&checksum=abcd</a>
+ * <a href="#">http://yourserver.com/bigbluebutton/api/getRecordings?meetingID=CS101,CS102&checksum=wxyz</a>
 
 <p>*Example Response:*</p>
 {{{
@@ -415,8 +443,8 @@ meetingID (or set of meeting IDs).</p>
 || publish || Required || String || <p>The value for publish or unpublish the recording(s). Available values: true or false. </p> ||
 
 <p>*Example Requests:*</p>
-<a href="#">http://yourserver.com/bigbluebutton/api/publishRecordings?recordID=record123&publish=true&checksum=1234</a>
-<a href="#">http://yourserver.com/bigbluebutton/api/publishRecordings?recordID=record123,recordABC&publish=true&checksum=wxyz</a>
+ * <a href="#">http://yourserver.com/bigbluebutton/api/publishRecordings?recordID=record123&publish=true&checksum=1234</a>
+ * <a href="#">http://yourserver.com/bigbluebutton/api/publishRecordings?recordID=record123,recordABC&publish=true&checksum=wxyz</a>
 
 <p>*Example Response:*</p>
 {{{
@@ -440,8 +468,8 @@ meetingID (or set of meeting IDs).</p>
 || recordID || Required || String || <p>A record ID for specify the recordings to delete. It can be a set of meetingIDs separate by commas. </p> ||
 
 <p>*Example Requests:*</p>
-<a href="#">http://yourserver.com/bigbluebutton/api/deleteRecordings?recordID=record123&checksum=1234</a>
-<a href="#">http://yourserver.com/bigbluebutton/api/deleteRecordings?recordID=record123,recordABC&checksum=wxyz</a>
+ * <a href="#">http://yourserver.com/bigbluebutton/api/deleteRecordings?recordID=record123&checksum=1234</a>
+ * <a href="#">http://yourserver.com/bigbluebutton/api/deleteRecordings?recordID=record123,recordABC&checksum=wxyz</a>
 
 <p>*Example Response:*</p>
 {{{
