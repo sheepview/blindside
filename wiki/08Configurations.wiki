@@ -143,4 +143,4 @@ Check the [ClientConfiguration client configuration] page.
 == Configuration File ==
 === /var/www/bigbluebutton/client/conf/config.xml ===
 
-http://github.com/bigbluebutton/bigbluebutton/blob/master/bigbluebutton-client/src/conf/config.xml.template
+https://github.com/bigbluebutton/bigbluebutton/blob/master/bigbluebutton-client/resources/config.xml.template
