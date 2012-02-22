@@ -1,15 +1,21 @@
 #summary Setting up a BigBlueButton 0.8 Development Environment
 
 = Overview =
-This page guides you through setting up a BigBlueButton 0.8-beta-4 (or later) development environment.
+This document guides you through setting up a !BigBlueButton 0.8-beta-4 (or later) development environment.
 
 If you are using the BigBlueButton 0.8-beta-4 (or later) Virtual Machine, you can skip to XXX
 
 = Developing with BigBlueButton =
 
-== Prerequisites ==
-If you intend to develop !BigBlueButton, you need to have a working BigBlueButton setup.  Either 08InstallationUbuntu or install the 08BigBlueButtonVM.
+== Prerequisites: BigBlueButton ==
+If you intend to develop !BigBlueButton, you need to have a working !BigBlueButton setup.  Either 08InstallationUbuntu or install the 08BigBlueButtonVM.
 
+== Prerequisites: Source ==
+The !BigBlueButton source is on GitHub.  The best way to develop is to create an account on GitHub and fork the code for !BigBlueButton.
+
+This way, you can checkout your own copy of the !BigBlueButton source and push changes to GitHub.
+
+If you'd rather keep your changes locally, you can clone the !BigBlueButton repository.
 
 == Setup Development Environment ==
 Install Java and Ant
