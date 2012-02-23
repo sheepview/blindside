@@ -3,13 +3,9 @@
 = Overview =
 This document guides you through making changes to !BigBlueButton's source and compiling your own version of the major components.
 
-The guide below outlines how to core developers are building !BigBlueButton.
-
 Setting up a !BigBlueButton development environment involves taking a working !BigBlueButton server, checking out the source, and adding the necessary development tools to compile the source.
 
-The tool `bbb-conf` will handle most of the job for setting up the development environment.  Also, if you start with a BigBlueButton VM, it has most of the development tools already installed.
-
-
+The tool `bbb-conf` will handle most of the job for setting up the development environment.  We recommend using a BigBlueButton VM as your development environment as it has most of the development tools already installed.
 
 If you are using the BigBlueButton 0.8-beta-4 (or later) Virtual Machine, you can skip to XXX
 
