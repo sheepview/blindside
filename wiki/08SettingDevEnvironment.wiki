@@ -1,18 +1,23 @@
 #summary Setting up a BigBlueButton 0.8 Development Environment
 
 = Overview =
-This document guides you through making changes to !BigBlueButton's source and compiling your own version of the major components.
+This document described how to setup a development environment on a BigBlueButton server to make changes to
 
-Setting up a !BigBlueButton development environment involves taking a working !BigBlueButton server, checking out the source, and adding the necessary development tools to compile the source.
+  * !BigBlueButton Client
+  * !BigBlueButton Web application (which implements the API)
+  * !BigBlueButton red5 application
+  * !BigBlueButton desktop sharing
 
-The tool `bbb-conf` will handle most of the job for setting up the development environment.  We recommend using a BigBlueButton VM as your development environment as it has most of the development tools already installed.
+The !BigBlueButton configuration script `bbb-conf` can do most of the work to install the Unix development tools and setup your environment to build the source.
 
 If you are using the BigBlueButton 0.8-beta-4 (or later) Virtual Machine, you can skip to XXX
 
 = Developing with BigBlueButton =
 
-== Prerequisites: BigBlueButton ==
-If you intend to develop !BigBlueButton, you need to have a working !BigBlueButton setup.  Either 08InstallationUbuntu or install the 08BigBlueButtonVM.
+== Prerequisites ==
+First, you need to have a working !BigBlueButton 0.8 server installed from packages (see 08InstallationUbuntu) or a BigBlueButton 0.8 VM see 08BigBlueButtonVM)
+
+Next, you need to understand how git works.  If you're not familiar with how git works, the is a really good [http://progit.org/book/ free book]. The !GitHub website has very detailed [http://help.github.com/ help pages] as well.  You need to know (at a minimum) how to clone a repository, make changes, and commit the changes.
 
 == Prerequisites: Source ==
 The !BigBlueButton source is on GitHub.  The best way to develop is to create an account on GitHub and fork the code for !BigBlueButton.
