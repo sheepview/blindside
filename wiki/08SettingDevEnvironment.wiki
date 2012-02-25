@@ -1,12 +1,7 @@
 #summary Setting up a BigBlueButton 0.8 Development Environment
 
 = Overview =
-This document described how to setup a development environment on a BigBlueButton server to make changes to
-
-  * !BigBlueButton Client
-  * !BigBlueButton Web application (which implements the API)
-  * !BigBlueButton red5 application
-  * !BigBlueButton desktop sharing
+This document described how to setup a development environment for !BigBlueButton to make changes to the client, web apps, red5 apps, and desktop sharing application.
 
 The !BigBlueButton configuration script `bbb-conf` can do most of the work to install the Unix development tools and setup your environment to build the source.
 
@@ -15,12 +10,28 @@ If you are using the BigBlueButton 0.8-beta-4 (or later) Virtual Machine, you ca
 = Developing with BigBlueButton =
 
 == Prerequisites ==
-First, you need to have a working !BigBlueButton 0.8 server installed from packages (see 08InstallationUbuntu) or a BigBlueButton 0.8 VM see 08BigBlueButtonVM)
+This guide is written for !BigBlueButton 0.8-beta-4 or later.  If you are using an earlier version of !BigBlueButton, you'll need to update.
 
-Next, you need to understand how git works.  If you're not familiar with how git works, the is a really good [http://progit.org/book/ free book]. The !GitHub website has very detailed [http://help.github.com/ help pages] as well.  You need to know (at a minimum) how to clone a repository, make changes, and commit the changes.
+You need to have a working !BigBlueButton 0.8 server installed from packages (see 08InstallationUbuntu) or a BigBlueButton 0.8 VM see 08BigBlueButtonVM) on which to setup a development environment.
 
-== Prerequisites: Source ==
-The !BigBlueButton source is on GitHub.  The best way to develop is to create an account on GitHub and fork the code for !BigBlueButton.
+!BigBlueButton is not a small system.  You need to understand how it's architecture works ArchitectureOverview.
+
+!BigBlueButton source is on GitHub; you need to understand how git works.  If you're not familiar with git, the is a really good [http://progit.org/book/ free book]. The !GitHub website has very detailed [http://help.github.com/ help pages] as well.  You need to know (at a minimum) how to clone a repository, make changes, and commit the changes.
+
+== Installing the initial tools ==
+The first step is to run
+
+{{{
+   sudo bbb-conf --setup-dev
+}}}
+
+This will
+
+* Download and setup groovy, grails, and gradle for development
+* Download FlexBuilder
+* Setup environment variables
+
+The  The best way to develop is to create an account on GitHub and fork the code for !BigBlueButton.
 
 This way, you can checkout your own copy of the !BigBlueButton source and push changes to GitHub.
 
