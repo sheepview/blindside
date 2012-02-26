@@ -1,23 +1,23 @@
 #summary Setting up a BigBlueButton 0.8 Development Environment
 
 = Overview =
-This page describes how to setup the development environment for !BigBlueButton.
+This document describes how to setup the development environment for !BigBlueButton on your !BigBlueButtn server.  Before reading further, you should have already
 
-Before reading further, you should have already
+  * A !BigBlueButton server setup via packaging (or a downloaded BigBlueButton VM)
+  * An understanding of the !BigBlueButton ArchitectureOverview
+  * An understand of how git works
 
-  * Setup !BigBlueButton on a server
-  * Read through the ArchitectureOverview
-  * Understand how git works
+!BigBlueButton has a lot of components: bbb-web, bbb-client, and bbb-apps.  Don't worry, you don't need to understand how everything works to change one portion (but you need to understand how they all interconnect).  For example, if you are interested in improving the client, you need only setup the development for bigbluebutton-web.
 
-!BigBlueButton has a lot of components, and you won't need to do all steps in this document.  For example, if you are interested in improving the client, in most cases you need only work with the source for bigbluebutton-web.
-
-The !BigBlueButton configuration script `bbb-conf` can do most of the work to install the Unix development tools and setup your environment to build the source.  You'll find the source for the script in
+!BigBlueButton is not a small system (as you can see in the ArchitectureOverview).  To help you setup a working dev environment, the !BigBlueButton configuration script `bbb-conf` tries to do most of the basic work of installing developer tools and setting up the environment variables to build the source.  You'll find the source for the script in
 
 {{{
 /usr/local/bin/bbb-conf
 }}}
 
-While it's good to let the script do all the work, as you become more familiar with !BigBlueButton, take a look at the code in `bbb-conf` for setting up the development environment to understand what it is doing.
+While it's good to let the script do most the work, as you become more familiar with !BigBlueButton, take a look at the code in `bbb-conf` for setting up the development environment to understand what it is doing.
+
+Unlike previous version of setting up a development environment, you don't need to use a specific account.  We've generalized these instructions so you can use any unix account on a !BigBlueButton server.
 
 The source for !BigBlueButton is on [https://github.com/bigbluebutton/bigbluebutton GitHub].  If you're not familiar with git, a good place to start is [http://progit.org/book/ free book] and http://help.github.com/ GitHub Help pages].  If you don't know what the terms _clone_, _branch_, and _commit_ mean in git, make sure you do before working with the !BigBlueButton source.
 
@@ -27,103 +27,67 @@ This guide is written for !BigBlueButton 0.8-beta-4 or later.  If you are using 
 
 If you are on Windows, you can download the 08BigBlueButtonVM and use it for compiling and testing your changes. 
 
+Setting up a development environment will change your !BigBlueButton configuration.  While it seems obvious state, you should have a working !BigBlueButton server *before* you go through the instructions below. 
+
+Unlike previous version of setting up the development environment, as of 0.8-beta-4, these instructions can be use with any that has sudo privileges.  To verify, you should be able to
+
+{{{
+  sudo ls
+}}}
+
+and get back a list of files in the current directory.
 
 
 == Setup a development environment ==
 The first step is to run
 
 {{{
-   sudo bbb-conf --setup-dev client
+   bbb-conf --setup-dev client
 }}}
 
 This will
 
 * Download and setup groovy, grails, and gradle for development
 * Download FlexBuilder
+* Install OpenJDK 
+* Install git
 * Setup environment variables
 
-Even if you are developing other components, go through the setup for the client first.
+During the script's operation you'll be asked to enter your password to sudo into root.
 
-On a new server, after the tools are installed, the script will look to see if you've cloned the !BigBlueButton repository in your directory.
+After the initial setup is complete, you'll need to reload your `.profile` to use the new environment variables for groovy, grails, and gradle.  To do this, run
 
-If not, do the following:
-
-1.  Setup an account on GitHub
-2.  Fork the BigBlueButton repository into your GitHub account
-
-
-The  The best way to develop is to create an account on GitHub and fork the code for !BigBlueButton.
-
-This way, you can checkout your own copy of the !BigBlueButton source and push changes to GitHub.
-
-If you'd rather keep your changes locally, you can clone the !BigBlueButton repository.
-
-== Setup Development Environment ==
-Install Java and Ant
 {{{
-sudo apt-get install openjdk-6-jdk
-sudo apt-get install ant
+source ~/.profile
+}}}
+
+You need only do this once.  When you next login to your account, you'll have the environment variables in place.
+
+Next, you'll need to clone the !BigBlueButton's source.  In the instructions below, we'll use the account `firstuser`, but you can use any account.  You need to checkout the source to
+
+{{{
+/home/firstuser/dev
+}}}
+
+After checkout you'll have the directory
+
+{{{
+/home/firstuser/dev/bigbluebutton
 }}}
 
 
+To checkout the source, we recommend the following steps:
+
+ # Setup an account on [https://github.com/plans GitHub] if you don't already have one (it's free!)
+ # Fork the BigBlueButton repository into your GitHub account
+ # Checkout a clone of the your repository into the above directory
+
+By setting up your own GitHub account, you'll be able to work with your own copy of the !BigBlueButton source and store updates to them on GitHub.  As well, if you want to [Contributing_to_BigBlueButton contribute] your changes back to !BigBlueButton, you can send a pull request.  
+
+If you just want to pull down a read-only copy of the source (you won't be able to push changes back to GitHub), do the following
+
 {{{
-cd /tmp
-wget http://bigbluebutton.googlecode.com/files/grails-1.1.1.tar.gz
-sudo tar xvfz grails-1.1.1.tar.gz -C /usr/share
-
-wget http://bigbluebutton.googlecode.com/files/gradle-0.8.tar.gz
-sudo tar xvfz gradle-0.8.tar.gz -C /usr/share
-
-wget http://bigbluebutton.googlecode.com/files/groovy-1.6.5.tar.gz
-sudo tar xvfz groovy-1.6.5.tar.gz -C /usr/share
-
-cd /usr/share
-}}}
-
-In you dev env. Extract the files you just transferred.
-{{{
-
-tar zxvf gradle-0.8.tar.gz 
-tar zxvf grails-1.1.1.tar.gz 
-tar zxvf groovy-1.6.5.tar.gz 
-}}}
-
-Update your environment by editing {{{~/.profile}}}
-{{{
- vi ~/.profile
-}}}
-
-Append the following to the {{{~/.profile}}}
-{{{
-#
-# BigBlueButton: Setup development environment
-
-export GROOVY_HOME=/home/firstuser/dev/tools/groovy-1.6.5
-export JAVA_HOME=/usr/lib/jvm/java-6-openjdk
-
-export GRAILS_HOME=/home/firstuser/dev/tools/grails-1.1.1
-export PATH=$PATH:$GRAILS_HOME/bin
-
-export FLEX_HOME=/home/firstuser/dev/tools/flex
-export PATH=$PATH:$FLEX_HOME/bin
-
-export GRADLE_HOME=/home/firstuser/dev/tools/gradle-0.8
-export PATH=$PATH:$GRADLE_HOME/bin
-
-export ANT_OPTS="-Xmx512m -XX:MaxPermSize=512m"
-}}}
-
-Refresh your environment.
-{{{
-    source ~/.profile
-    env
-}}}
-
-Clone !BigBlueButton
-{{{
-mkdir -p /home/firstuser/dev/source
-cd /home/firstuser/dev/source
-sudo apt-get install git-core
+cd ~/dev
 git clone git://github.com/bigbluebutton/bigbluebutton.git
 }}}
 
@@ -139,99 +103,74 @@ You should see
 # On branch master
 }}}
 
-===Client Development===
-{{{
-mkdir -p /home/firstuser/dev/tools/flex-4.5.0.20967
-cd /home/firstuser/dev/tools
-ln -s flex-4.5.0.20967 flex
-cd flex
-}}}
+==Client Development==
 
-Install Flex SDK.
+To setup the client for development, do the following
 
-Download the Open Source Flex SDK 4.5.0.20967 from
-[http://opensource.adobe.com/wiki/display/flexsdk/Download+Flex+4.5]
-
-{{{
-wget http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.5/flex_sdk_4.5.0.20967_mpl.zip
-unzip flex_sdk_4.5.0.20967_mpl.zip
-}}}
-
-Install {{{playerglobal.swc}}}
-
-{{{
-cd
-mkdir -p /home/firstuser/dev/tools/flex-4.5.0.20967/frameworks/libs/player/10.3
-cd /home/firstuser/dev/tools/flex-4.5.0.20967/frameworks/libs/player/10.3
-wget http://fpdownload.macromedia.com/pub/flashplayer/updaters/10/playerglobal10_3.swc
-mv playerglobal10_3.swc playerglobal.swc
-}}}
-
-Setup the client for development.
 {{{
 bbb-conf --setup-dev client
 }}}
 
-----
-*NOTE:* If you don't want to run [{{{bbb-conf --setup-dev client}}}] but want to instead setup manually, do the following: (the steps below essentially is what [{{{bbb-conf --setup-dev client}}}] executes.
+What does this command do?  It modifies the nginx settings for !BigBlueButton so that HTTP request for loading the !BigBlueButton client are now serviced by 
+
 {{{
-cd /home/firstuser/dev/source/bigbluebutton/bigbluebutton-client
-mkdir -p bin/conf
-ln -s bin client
+~/dev/bigbluebutton/bigbluebutton-client
+}}}
+
+instead of
+
+{{{
+/var/www/bigbluebutton
 }}}
 
 
-Edit {{{/etc/nginx/sites-enabled/bigbluebutton}}} and change root entry in /client to point to your dev client.
-{{{
-
-        # BigBlueButton.html is here so we can expire it every 1 minute to
-        # prevent caching.
-        location /client/BigBlueButton.html {
-                root    /home/firstuser/dev/source/bigbluebutton/bigbluebutton-client;
-                index  index.html index.htm;
-                expires 1m;
-        }
-
-        # BigBlueButton Flash client.
-        location /client {
-                root    /home/firstuser/dev/source/bigbluebutton/bigbluebutton-client;
-                index  index.html index.htm;
-        }
-}}}
-
-Restart Nginx
-{{{
-/etc/init.d/nginx restart
-}}}
-
-Copy the installed {{{config.xml}}} into the client dev directory.
-{{{
-cp /var/www/bigbluebutton/client/resources/config.xml.template bigbluebutton-client/src/conf/config.xml
-}}}
-
-Edit {{{src/conf/config.xml}}} and change all {{{HOST}}} to your IP address.
-
-Copy the `join-mock.xml` into the client src directory.
+With a local git repository setup for !BigBlueButton, you can now modify the client.  The first step is to build all the locales (language files).    Usually, unless you are making changes to the locale files, you need only do this step once.
 
 {{{
-cp bigbluebutton-client/resources/dev/join-mock.xml  bigbluebutton-client/src/conf 
-}}}
-
-----
-
-Now compile the client.
-{{{
-cd /home/firstuser/dev/source/bigbluebutton/bigbluebutton-client
-ant
+cd ~/dev/bigbluebutton/bigbluebutton-client
 ant locales
 }}}
 
-Restart the servers.
+This will take about 10 minutes (depending on the speed of your system).  Before we build the !BigBlueButton client, let's make a small visible change to the interface.
+
 {{{
-sudo bbb-conf --clean
+  vi ~/dev/bigbluebutton/bigbluebutton-client/src/org/bigbluebutton/main/views/MainApplicationShell.mxml
 }}}
 
-Test by joining the demo meeting. The dev client should be the one that get's loaded. You can check {{{/var/log/nginx/access.log}}} to confirm. Or make some simple changes in the UI to see that it is the one being loaded.
+And at line 311 change
+
+{{{
+                <mx:Label text="{ResourceUtil.getInstance().getString('bbb.mainshell.copyrightLabel2',[appVersion])}" id="copyrightLabel2"/>^M
+}}}
+
+insert the text ' -- !BigBlueButton Rocks!!' as shown below.
+
+{{{
+                <mx:Label text="{ResourceUtil.getInstance().getString('bbb.mainshell.copyrightLabel2',[appVersion]) + ' -- BigBlueButton Rocks!'}" id="copyrightLabel2"/>^M
+}}}
+
+Now, to build the !BigBlueButton client, do
+
+{{{
+cd ~/dev/bigbluebutton/bigbluebutton-client
+ant locales
+}}}
+
+
+To switch to using the built-in version of !BigBlueButton, do
+
+{{{
+  sudo ln -s -f /etc/bigbluebutton/nginx/client /etc/bigbluebutton/nginx/client.nginx
+  sudo /etc/init.d/nginx restart
+}}}
+
+To switch back to your development setup, do
+
+{{{
+  sudo ln -s -f /etc/bigbluebutton/nginx/client_dev /etc/bigbluebutton/nginx/client.nginx
+  sudo /etc/init.d/nginx restart
+}}}
+
 
 === Developing BBB-Web===
 {{{
