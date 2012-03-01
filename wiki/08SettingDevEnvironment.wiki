@@ -3,13 +3,13 @@
 = Overview =
 This document describes how to setup the development environment for !BigBlueButton on your !BigBlueButtn server.  Before reading further, you should have already
 
-  * A !BigBlueButton server setup via packaging (or a downloaded BigBlueButton VM)
-  * An understanding of the !BigBlueButton ArchitectureOverview
+  * A !BigBlueButton server setup via packaging (or a downloaded !BigBlueButton VM)
+  * An understanding of the !BigBlueButton [ArchitectureOverview]
   * An understand of how git works
 
-!BigBlueButton has a lot of components: bbb-web, bbb-client, and bbb-apps.  Don't worry, you don't need to understand how everything works to change one portion (but you need to understand how they all interconnect).  For example, if you are interested in improving the client, you need only setup the development for bigbluebutton-web.
+!BigBlueButton has a lot of components: bbb-web, bbb-client, and bbb-apps.  Don't worry, you don't need to understand how everything works to change one portion (but you need to understand how they all interconnect).  For example, if you are interested in improving the client, you need only setup the development for bigbluebutton-client.
 
-!BigBlueButton is not a small system (as you can see in the ArchitectureOverview).  To help you setup a working dev environment, the !BigBlueButton configuration script `bbb-conf` tries to do most of the basic work of installing developer tools and setting up the environment variables to build the source.  You'll find the source for the script in
+!BigBlueButton is not a small system (as you can see in the [ArchitectureOverview]).  To help you setup a working dev environment, the !BigBlueButton configuration script `bbb-conf` tries to do most of the basic work of installing developer tools and setting up the environment variables to build the source.  You'll find the source for the script in
 
 {{{
 /usr/local/bin/bbb-conf
@@ -19,7 +19,7 @@ While it's good to let the script do most the work, as you become more familiar 
 
 Unlike previous version of setting up a development environment, you don't need to use a specific account.  We've generalized these instructions so you can use any unix account on a !BigBlueButton server.
 
-The source for !BigBlueButton is on [https://github.com/bigbluebutton/bigbluebutton GitHub].  If you're not familiar with git, a good place to start is [http://progit.org/book/ free book] and http://help.github.com/ GitHub Help pages].  If you don't know what the terms _clone_, _branch_, and _commit_ mean in git, make sure you do before working with the !BigBlueButton source.
+The source for !BigBlueButton is on [https://github.com/bigbluebutton/bigbluebutton GitHub].  If you're not familiar with git, a good place to start is [http://progit.org/book/ free book] and http://help.github.com/ GitHub Help pages].  If you don't know what the terms *_clone_*, *_branch_*, and *_commit_* mean in git, make sure you do before working with the !BigBlueButton source.
 
 
 == Prerequisites ==
@@ -27,7 +27,7 @@ This guide is written for !BigBlueButton 0.8-beta-4 or later.  If you are using 
 
 If you are on Windows, you can download the 08BigBlueButtonVM and use it for compiling and testing your changes. 
 
-Setting up a development environment will change your !BigBlueButton configuration.  While it seems obvious state, you should have a working !BigBlueButton server *before* you go through the instructions below. 
+Setting up a development environment will change your !BigBlueButton configuration.  While it seems obvious, you should have a working !BigBlueButton server *before* you go through the instructions below. 
 
 Unlike previous version of setting up the development environment, as of 0.8-beta-4, these instructions can be use with any that has sudo privileges.  To verify, you should be able to
 
