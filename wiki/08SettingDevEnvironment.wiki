@@ -146,7 +146,16 @@ Before we change anything, let's make sure that the client works when we build i
 
 {{{
 cd ~/dev/bigbluebutton/bigbluebutton-client
-ant
+}}}
+
+Copy the {{{config.xml}}} that was in the client package into the dev dir.
+{{{
+cp /var/www/bigbluebutton/client/conf/config.xml src/conf/config.xml
+}}}
+
+Now, build the client
+{{{
+ ant
 }}}
 
 Build the locales
