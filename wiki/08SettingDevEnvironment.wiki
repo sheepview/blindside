@@ -64,6 +64,15 @@ source ~/.profile
 You need only do this once.  When you next login to your account, you'll have the environment variables in place.
 
 == Forking !BigBlueButton ==
+By setting up your own GitHub account, you'll be able to work with your own copy of the !BigBlueButton source and store updates to them on GitHub.  As well, if you want to [Contributing_to_BigBlueButton contribute] your changes back to !BigBlueButton, you can send a pull request.
+
+To checkout the source, we recommend the following steps:
+
+ # Setup an account on [https://github.com/plans GitHub] if you don't already have one (it's free!)
+ # Setup your [http://help.github.com/linux-set-up-git/ ssh keys]. Skip to the "Set Up SSH Keys" section.
+ # [http://help.github.com/fork-a-repo/ Fork] the BigBlueButton repository into your GitHub account
+ # Clone your repository into you home directory
+
 Next, you'll need to clone the !BigBlueButton's source.  In the instructions below, we'll use the account `firstuser`, but you can use any account.  You need to checkout the source to
 
 {{{
@@ -77,13 +86,7 @@ After checkout you'll have the directory
 }}}
 
 
-To checkout the source, we recommend the following steps:
-
- # Setup an account on [https://github.com/plans GitHub] if you don't already have one (it's free!)
- # Fork the BigBlueButton repository into your GitHub account
- # Clone your repository into the above directory
-
-By setting up your own GitHub account, you'll be able to work with your own copy of the !BigBlueButton source and store updates to them on GitHub.  As well, if you want to [Contributing_to_BigBlueButton contribute] your changes back to !BigBlueButton, you can send a pull request.  
+ 
 
 *If you just want to pull down a read-only copy of the source (you won't be able to push changes back to GitHub)*, do the following
 
