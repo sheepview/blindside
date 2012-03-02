@@ -70,30 +70,15 @@ To checkout the source, we recommend the following steps:
 
  # Setup an account on [https://github.com/plans GitHub] if you don't already have one (it's free!)
  # Setup your [http://help.github.com/linux-set-up-git/ ssh keys]. Skip to the "Set Up SSH Keys" section.
- # [http://help.github.com/fork-a-repo/ Fork] the BigBlueButton repository into your GitHub account
- # Clone your repository into you home directory
+ # [http://help.github.com/fork-a-repo/ Fork] the !BigBlueButton repository into your GitHub account
+ # Clone your repository into {{{/home/firstuser/dev}}}
 
-Next, you'll need to clone the !BigBlueButton's source.  In the instructions below, we'll use the account `firstuser`, but you can use any account.  You need to checkout the source to
 
-{{{
-/home/firstuser/dev
-}}}
-
-After checkout you'll have the directory
-
+When you've clone the repo, you'll have the following directory
 {{{
 /home/firstuser/dev/bigbluebutton
 }}}
 
-
- 
-
-*If you just want to pull down a read-only copy of the source (you won't be able to push changes back to GitHub)*, do the following
-
-{{{
-cd ~/dev
-git clone git://github.com/bigbluebutton/bigbluebutton.git
-}}}
 
 Confirm that you are working on the master branch.
 {{{
