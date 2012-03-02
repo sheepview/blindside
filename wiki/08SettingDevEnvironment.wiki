@@ -79,7 +79,6 @@ When you've clone the repo, you'll have the following directory
 /home/firstuser/dev/bigbluebutton
 }}}
 
-
 Confirm that you are working on the master branch.
 {{{
 cd bigbluebutton
@@ -89,8 +88,26 @@ git status
 You should see
 
 {{{
+ 
 # On branch master
+nothing to commit (working directory clean)
+
 }}}
+
+
+However, it is good practice to develop on a branch and merge the changes to master when you are done.
+Let's say you are trying to fix Issue 100.
+
+{{{
+firstuser@ubuntu:~/dev/bigbluebutton$ git checkout -b fixing-issue-100
+Switched to a new branch 'fixing-issue-100'
+firstuser@ubuntu:~/dev/bigbluebutton$ git status
+# On branch fixing-issue-100
+nothing to commit (working directory clean)
+firstuser@ubuntu:~/dev/bigbluebutton$
+
+}}}
+
 
 ==Client Development==
 
