@@ -193,13 +193,14 @@ insert the text ' -- !BigBlueButton Rocks!!' as shown below.
 }}}
 
 
-
 Now, to build the !BigBlueButton client, do
 
 {{{
 cd ~/dev/bigbluebutton/bigbluebutton-client
-ant locales
+ant
 }}}
+
+When done, join the demo meeting using the client. You should be able to see your changes.
 
 
 To switch to using the built-in version of !BigBlueButton, do
@@ -217,42 +218,14 @@ To switch back to your development setup, do
 }}}
 
 
----
-UNEDITED
-
 === Developing BBB-Web===
 {{{
-
-# Copy bigbluebutton.properites in /var/lib/tomcat6/webapps/bigbluebutton/WEB-INF/classes/bigbluebutton.properties 
-cp /var/lib/tomcat6/webapps/bigbluebutton/WEB-INF/classes/bigbluebutton.properties /home/firstuser/dev/source/bigbluebutton/bigbluebutton-web/grails-app/conf/
-
-# Enabling firstuser to write to /var/bigbluebutton to upload slides
-sudo chmod -R ugo+rwx /var/bigbluebutton
-
-# Enable firstuser to write to /var/log/bigbluebutton to write log files
-sudo chmod -R ugo+rwx /var/log/bigbluebutton
-}}}
-
-We need to have grails serve the web-app instead of Tomcat. However, we can't stop tomcat because it is serving up the demo app. So we just instead tell nginx to forward the calls to grails by changing the port from 8080 (Tomcat's listening port) to 8888 (we tell grails to listen on this port).
-{{{
-sudo vi /etc/nginx/sites-enabled/bigbluebutton
-
-# Change the proxy_pass to point to 8888
-
-       location /bigbluebutton {
-           proxy_pass         http://127.0.0.1:8888;
-           proxy_redirect     default;
-
-# Restart nginx
-sudo /etc/init.d/nginx restart
+bbb-conf --setup-dev web
 }}}
 
 Now let's start grails webapp.
 {{{
 cd /home/firstuser/dev/source/bigbluebutton/bigbluebutton-web/
-
-# Resolve all dependencies
-gradle resolveDeps
 
 # Tell grails to listen on port 8888
 grails -Dserver.port=8888 run-app
@@ -262,12 +235,18 @@ If you get an error {{{ "Could not resolve placeholder 'apiVersion'"}}}., just r
 
 Now test again if you can join the demo meeting.
 
+
+---
+UNEDITED
+
 ===Make red5/webapps writeable by firstuser===
  Otherwise, you will get permission error when you try to deploy into Red5.
 
 {{{
   sudo chmod -R o+w /usr/share/red5/webapps
 }}}
+
+
 
 ===Developing BBB-Apps===
 {{{
