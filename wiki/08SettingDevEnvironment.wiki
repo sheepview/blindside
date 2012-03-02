@@ -192,6 +192,8 @@ insert the text ' -- !BigBlueButton Rocks!!' as shown below.
                 <mx:Label text="{ResourceUtil.getInstance().getString('bbb.mainshell.copyrightLabel2',[appVersion]) + ' -- BigBlueButton Rocks!'}" id="copyrightLabel2"/>^M
 }}}
 
+
+
 Now, to build the !BigBlueButton client, do
 
 {{{
