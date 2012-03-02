@@ -99,15 +99,24 @@ However, it is good practice to develop on a branch and merge the changes to mas
 Let's say you are trying to fix Issue 100.
 
 {{{
-firstuser@ubuntu:~/dev/bigbluebutton$ git checkout -b fixing-issue-100
-Switched to a new branch 'fixing-issue-100'
-firstuser@ubuntu:~/dev/bigbluebutton$ git status
-# On branch fixing-issue-100
-nothing to commit (working directory clean)
-firstuser@ubuntu:~/dev/bigbluebutton$
-
+git checkout -b fixing-issue-100
 }}}
 
+You should see
+{{{
+Switched to a new branch 'fixing-issue-100'
+}}}
+
+Do
+{{{
+git status
+}}}
+
+The output should be
+{{{
+# On branch fixing-issue-100
+nothing to commit (working directory clean)
+}}}
 
 ==Client Development==
 
