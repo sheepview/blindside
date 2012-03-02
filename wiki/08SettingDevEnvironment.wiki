@@ -42,7 +42,7 @@ and get back a list of files in the current directory.
 The first step is to run
 
 {{{
-   bbb-conf --setup-dev client
+   bbb-conf --setup-dev tools
 }}}
 
 This will
