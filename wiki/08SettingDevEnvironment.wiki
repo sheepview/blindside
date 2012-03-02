@@ -80,6 +80,7 @@ When you've clone the repo, you'll have the following directory
 }}}
 
 Confirm that you are working on the master branch.
+
 {{{
 cd bigbluebutton
 git status
@@ -87,11 +88,9 @@ git status
 
 You should see
 
-{{{
- 
+{{{ 
 # On branch master
 nothing to commit (working directory clean)
-
 }}}
 
 
@@ -103,22 +102,26 @@ git checkout -b fixing-issue-100
 }}}
 
 You should see
+
 {{{
 Switched to a new branch 'fixing-issue-100'
 }}}
 
 Do
+
 {{{
 git status
 }}}
 
 The output should be
+
 {{{
 # On branch fixing-issue-100
 nothing to commit (working directory clean)
 }}}
 
 ==Client Development==
+This section will walk you through developing the client.
 
 To setup the client for development, do the following
 
@@ -137,6 +140,22 @@ instead of
 {{{
 /var/www/bigbluebutton
 }}}
+
+
+Before we change anything, let's make sure that the client works when we build it.
+
+{{{
+cd ~/dev/bigbluebutton/bigbluebutton-client
+ant
+}}}
+
+Build the locales
+{{{
+ant locales
+}}}
+
+After that, point your browser to {{{http://<your vm ip>}}} and make sure that the client start properly.
+
 
 
 With a local git repository setup for !BigBlueButton, you can now modify the client.  The first step is to build all the locales (language files).    Usually, unless you are making changes to the locale files, you need only do this step once.
