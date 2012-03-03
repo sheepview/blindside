@@ -235,12 +235,9 @@ If you get an error {{{ "Could not resolve placeholder 'apiVersion'"}}}., just r
 
 Now test again if you can join the demo meeting.
 
+== Developing the Red5 Applications ==
 
----
-UNEDITED
-
-===Make red5/webapps writeable by firstuser===
- Otherwise, you will get permission error when you try to deploy into Red5.
+Make red5/webapps writeable. Otherwise, you will get permission error when you try to deploy into Red5.
 
 {{{
   sudo chmod -R o+w /usr/share/red5/webapps
@@ -264,7 +261,7 @@ sudo apt-get purge --yes bbb-apps
 
 cd /home/firstuser/dev/source/bigbluebutton/bigbluebutton-apps
 # Compile and deploy bbb-apps
-gradle war deploy
+gradle clean war deploy
 
 # On another terminal window, start Red5
 cd /usr/share/red5/
