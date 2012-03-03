@@ -231,7 +231,7 @@ cd /home/firstuser/dev/source/bigbluebutton/bigbluebutton-web/
 grails -Dserver.port=8888 run-app
 }}}
 
-If you get an error {{{ "Could not resolve placeholder 'apiVersion'"}}}., just run "ant" again. It's grails not picking up the "bigbluebutton.properties" the first time.
+If you get an error {{{ "Could not resolve placeholder 'apiVersion'"}}}., just run {{{grails -Dserver.port=8888 run-app}}} again. The error is grails not picking up the "bigbluebutton.properties" the first time.
 
 Now test again if you can join the demo meeting.
 
