@@ -255,7 +255,7 @@ bbb-cong --setup-dev apps
 Stop red5
 {{{
     sudo /etc/init.d/red5 stop
-}}
+}}}
 
 Compile and deploy bbb-apps
 {{{
