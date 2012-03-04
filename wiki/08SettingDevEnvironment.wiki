@@ -179,10 +179,6 @@ Let's now build the client  Note we're not making any changes yet -- we're going
 cd ~/dev/bigbluebutton/bigbluebutton-client
 }}}
 
-Copy the `config.xml` that was in the client package into the dev dir.
-{{{
-cp /var/www/bigbluebutton/client/conf/config.xml src/conf/config.xml
-}}}
 
 First, we'll build the locales (language translation files).  If your not modifying the locales, you need only do this once.
 
