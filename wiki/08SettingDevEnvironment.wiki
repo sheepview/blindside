@@ -56,21 +56,20 @@ and get back a list of files in the current directory.
 
 == Setting up the development tools ==
 
-The first step is to run
+On a !BigBlueButton server, you can install all the necessary development tools with the following command:
 
 {{{
    bbb-conf --setup-dev tools
 }}}
 
-This will
+When you run this script asked to enter your password to sudo into root.  This script will:
 
-  # Download and setup groovy, grails, and gradle for development
-  # Download FlexBuilder
+  # Download and setup groovy, grails, and gradle
+  # Download and install FlexBuilder
   # Install OpenJDK 
   # Install git
-  # Setup environment variables
+  # Add the necessary environment variables in your ~/.profile
 
-During the script's operation you'll be asked to enter your password to sudo into root.
 
 After the initial setup is complete, you'll need to reload your `.profile` to use the new environment variables for groovy, grails, and gradle.  To do this, run
 
@@ -80,18 +79,29 @@ source ~/.profile
 
 You need only do this once.  When you next login to your account, you'll have the environment variables in place.
 
-== Forking !BigBlueButton ==
-By setting up your own GitHub account, you'll be able to work with your own copy of the !BigBlueButton source and store updates to them on GitHub.  As well, if you want to [Contributing_to_BigBlueButton contribute] your changes back to !BigBlueButton, you can send a pull request.
+Again, you can use any account on a !BigBlueButton server that has sudo rights.  For the rest of this document we'll use the account `firstuser` for the examples.
 
-To checkout the source, we recommend the following steps:
+The `bbb-conf` script create for you a `dev` directory in your account.
+
+{{{
+/home/firstuser/dev
+}}}
+
+It's in this directory that you'll place the source for !BigBlueButton.
+
+== Hard Core Forking ==
+
+We recommend you use !GitHub to fork !BigBlueButton.  This will make it easy for to work on your own copy of !BigBlueButton's source, store updates to GitHub, and [Contributing_to_BigBlueButton contribute] back to the project by sending us pull requests.
+
+To checkout the source:
 
  # Setup an account on [https://github.com/plans GitHub] if you don't already have one (it's free!)
  # Setup your [http://help.github.com/linux-set-up-git/ ssh keys]. Skip to the "Set Up SSH Keys" section.
  # [http://help.github.com/fork-a-repo/ Fork] the !BigBlueButton repository into your GitHub account
- # Clone your repository into {{{/home/firstuser/dev}}}
+ # Clone your repository into your `~/dev` folder
 
 
-When you've clone the repo, you'll have the following directory
+After cloning, you'll have the following directory
 {{{
 /home/firstuser/dev/bigbluebutton
 }}}
@@ -99,7 +109,7 @@ When you've clone the repo, you'll have the following directory
 Confirm that you are working on the master branch.
 
 {{{
-cd bigbluebutton
+cd ~/dev/bigbluebutton
 git status
 }}}
 
@@ -111,7 +121,7 @@ nothing to commit (working directory clean)
 }}}
 
 
-However, it is good practice to develop on a branch and merge the changes to master when you are done.
+A few suggestions when using git.  It is good practice to develop on a branch and merge the changes to master when you are done.
 Let's say you are trying to fix Issue 100.
 
 {{{
@@ -137,16 +147,19 @@ The output should be
 nothing to commit (working directory clean)
 }}}
 
-==Client Development==
-This section will walk you through developing the client.
+== Client Development ==
+With the development environment checked out and the code cloned, we're ready to start developing!
 
-To setup the client for development, do the following
+This section will walk you through making a change to the !BigBlueButton client.  
+
+=== Setting up the environment ===
+To setup the client for development for the client, do the following
 
 {{{
 bbb-conf --setup-dev client
 }}}
 
-What does this command do?  It modifies the nginx settings for !BigBlueButton so that HTTP request for loading the !BigBlueButton client are now serviced by 
+This command modifies the nginx settings for !BigBlueButton so that HTTP request for loading the !BigBlueButton client are now serviced by 
 
 {{{
 ~/dev/bigbluebutton/bigbluebutton-client
@@ -158,59 +171,58 @@ instead of
 /var/www/bigbluebutton
 }}}
 
+=== Build the client ===
+Let's now build the client  Note we're not making any changes yet -- we're going to build the client to ensure it works.
 
-Before we change anything, let's make sure that the client works when we build it.
 
 {{{
 cd ~/dev/bigbluebutton/bigbluebutton-client
 }}}
 
-Copy the {{{config.xml}}} that was in the client package into the dev dir.
+Copy the `config.xml` that was in the client package into the dev dir.
 {{{
 cp /var/www/bigbluebutton/client/conf/config.xml src/conf/config.xml
 }}}
 
-Now, build the client
-{{{
- ant
-}}}
+First, we'll build the locales (language translation files).  If your not modifying the locales, you need only do this once.
 
-Build the locales
-{{{
-ant locales
-}}}
-
-After that, point your browser to {{{http://<your vm ip>}}} and make sure that the client start properly.
-
-
-
-With a local git repository setup for !BigBlueButton, you can now modify the client.  The first step is to build all the locales (language files).    Usually, unless you are making changes to the locale files, you need only do this step once.
 
 {{{
 cd ~/dev/bigbluebutton/bigbluebutton-client
 ant locales
 }}}
 
-This will take about 10 minutes (depending on the speed of your system).  Before we build the !BigBlueButton client, let's make a small visible change to the interface.
+This will take about 10 minutes (depending on the speed of your system). 
+
+Next, let's build the client
+{{{
+ant
+}}}
+
+After that, point your browser to your !BigBlueButton server and login ot the demo page.  The client should start properly.
+
+=== Making a change ===
+
+ Before we build the !BigBlueButton client, let's make a small visible change to the interface.
 
 {{{
   vi ~/dev/bigbluebutton/bigbluebutton-client/src/org/bigbluebutton/main/views/MainApplicationShell.mxml
 }}}
 
-And at line 311 change
+You can use any editor you want, but real Unix developers all use `vi`.  At line 311, you'll see the line
 
 {{{
-                <mx:Label text="{ResourceUtil.getInstance().getString('bbb.mainshell.copyrightLabel2',[appVersion])}" id="copyrightLabel2"/>^M
+<mx:Label text="{ResourceUtil.getInstance().getString('bbb.mainshell.copyrightLabel2',[appVersion])}" id="copyrightLabel2"/>
 }}}
 
-insert the text ' -- !BigBlueButton Rocks!!' as shown below.
+Insert the text ' -- !BigBlueButton Rocks!!' as shown below.
 
 {{{
-                <mx:Label text="{ResourceUtil.getInstance().getString('bbb.mainshell.copyrightLabel2',[appVersion]) + ' -- BigBlueButton Rocks!'}" id="copyrightLabel2"/>^M
+ <mx:Label text="{ResourceUtil.getInstance().getString('bbb.mainshell.copyrightLabel2',[appVersion]) + ' -- BigBlueButton Rocks!'}" id="copyrightLabel2"/>
 }}}
 
 
-Now, to build the !BigBlueButton client, do
+Now, rebuild the !BigBlueButton client again.
 
 {{{
 cd ~/dev/bigbluebutton/bigbluebutton-client
