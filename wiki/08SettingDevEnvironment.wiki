@@ -1,9 +1,9 @@
 #summary Setting up a BigBlueButton 0.8 Development Environment
 
 = Overview =
-!BigBlueButton has a dedicated team or core developers and community that work closely together on all aspects of development: design, development, testing, documentation, localization, editing wikis, and, most importantly, supporting users and other developers.
+!BigBlueButton is developed by a dedicated core team of developers and a broad community that work together on all aspects of development: design, development, testing, documentation, localization, editing wikis, and, most importantly, supporting others in the use of !BigBlueButton.
 
-This document describes how the core developers setup their development environment.  
+This document describes how you can setup a development environment on a !BigblueButton server to make changes to your own setup and contribute improvements back to the community. 
 
 !BigBlueButton has a lot of components: bbb-web, bbb-client, bbb-apps, desktop sharing, and so on.  You don't need to understand everything to contribute to the project.  For example, if you are interested in improving the client, you need only setup the development for bigbluebutton-client.  At a minimum, you need to understand the overall architecture (see ArchitectureOverview).
 
