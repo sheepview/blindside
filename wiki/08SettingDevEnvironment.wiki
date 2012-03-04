@@ -306,9 +306,6 @@ sudo -u red5 ./red5.sh
 cd /home/firstuser/dev/bigbluebutton/bbb-voice
 gradle resolveDeps
 
-# Open /usr/share/red5/webapps/sip/WEB-INF/bigbluebutton-sip.properties and copy values to /home/firstuser/dev/bigbluebutton/bbb-voice/src/main/webapp/WEB-INF/bigbluebutton-sip.properties
-
-cd /home/firstuser/dev/source/bigbluebutton/bbb-voice
 # Compile and deploy bbb-voice
 gradle war deploy
 
