@@ -303,10 +303,10 @@ sudo -u red5 ./red5.sh
 # Stop red5
     sudo /etc/init.d/red5 stop
 
-cd /home/firstuser/dev/source/bigbluebutton/bbb-voice
+cd /home/firstuser/dev/bigbluebutton/bbb-voice
 gradle resolveDeps
 
-# Open /usr/share/red5/webapps/sip/WEB-INF/bigbluebutton-sip.properties and copy values to /home/firstuser/dev/source/bigbluebutton/bbb-voice/src/main/webapp/WEB-INF/bigbluebutton-sip.properties
+# Open /usr/share/red5/webapps/sip/WEB-INF/bigbluebutton-sip.properties and copy values to /home/firstuser/dev/bigbluebutton/bbb-voice/src/main/webapp/WEB-INF/bigbluebutton-sip.properties
 
 cd /home/firstuser/dev/source/bigbluebutton/bbb-voice
 # Compile and deploy bbb-voice
@@ -320,7 +320,7 @@ sudo -u red5 ./red5.sh
 
 ===Developing Deskshare===
 {{{
-cd /home/firstuser/dev/source/bigbluebutton/deskshare
+cd /home/firstuser/dev/bigbluebutton/deskshare
 gradle resolveDeps
 }}}
 
@@ -335,24 +335,24 @@ ant create-signing-key
 # Sign the jar file. Enter the password you created from the previous step when prompted.
 ant sign-jar
 
-# The signed jar file is located in  /home/firstuser/dev/source/bigbluebutton/deskshare/applet/build/libs/bbb-deskshare-applet-0.71.jar
+# The signed jar file is located in  /home/firstuser/dev/bigbluebutton/deskshare/applet/build/libs/bbb-deskshare-applet-0.71.jar
 
 # We need to copy it to where nginx is loading the client.
 
 # If you are developing also the bbb-client, then
 
-cp /home/firstuser/dev/source/bigbluebutton/deskshare/applet/build/libs/bbb-deskshare-applet-0.71.jar /home/firstuser/dev/source/bigbluebutton/bigbluebutton-client/client
+cp /home/firstuser/dev/bigbluebutton/deskshare/applet/build/libs/bbb-deskshare-applet-0.71.jar /home/firstuser/dev/bigbluebutton/bigbluebutton-client/client
 
 # If you are not developing the client, therefore, nginx will serve the client from the default location. Therefore, 
 
-cp /home/firstuser/dev/source/bigbluebutton/deskshare/applet/build/libs/bbb-deskshare-applet-0.71.jar /var/www/bigbluebutton/client/
+cp /home/firstuser/dev/bigbluebutton/deskshare/applet/build/libs/bbb-deskshare-applet-0.71.jar /var/www/bigbluebutton/client/
 
 }}}
 
 *Building the server side component.*
 {{{
 
-cd /home/firstuser/dev/source/bigbluebutton/deskshare/app
+cd /home/firstuser/dev/bigbluebutton/deskshare/app
 # Compile
 gradle war
 # Copy over to Red5
@@ -361,7 +361,7 @@ gradle deploy
 # Stop red5
     sudo /etc/init.d/red5 stop
 
-cd /home/firstuser/dev/source/bigbluebutton/bigbluebutton-apps
+cd /home/firstuser/dev/bigbluebutton/bigbluebutton-apps
 # Compile and deploy bbb-apps
 gradle war deploy
 
