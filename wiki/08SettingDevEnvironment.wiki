@@ -251,8 +251,10 @@ bbb-conf --setup-dev web
 Now let's start grails webapp.
 {{{
 cd /home/firstuser/dev/source/bigbluebutton/bigbluebutton-web/
+}}}
 
-# Tell grails to listen on port 8888
+Tell grails to listen on port 8888
+{{{
 grails -Dserver.port=8888 run-app
 }}}
 
